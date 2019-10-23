@@ -5,18 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace gym_mgmt_01.Controllers
-{   
-    [Authorize]
-    public class MemberController : Controller
+{
+    public class StaffController : Controller
     {
-        // GET: Member
+        // GET: Staff
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult FindMember() {
-            return View();
-        }
-
     }
 }

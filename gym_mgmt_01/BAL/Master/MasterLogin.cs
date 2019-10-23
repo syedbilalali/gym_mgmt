@@ -29,7 +29,7 @@ namespace gym_mgmt_01.BAL.Master
 
             DataTable dt;
             bool allow = false;
-            string command = "";
+            string command = "SELECT * FROM Master_Login WHERE Email=@Email and Password=@Password";
             SqlParameter[] param = new SqlParameter[2];
             param[0] = new SqlParameter("@Email" , Email);
             param[1] = new SqlParameter("@Password" , Password);

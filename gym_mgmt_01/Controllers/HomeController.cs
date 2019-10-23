@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace gym_mgmt_01.Controllers
-{
+{   
+    [Authorize]
     public class HomeController : Controller
-    {
+    {    
+        [Authorize]
         public ActionResult Index()
         {
             return View();
