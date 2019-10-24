@@ -120,8 +120,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BAL\Master\AddtionalDetailsOpt.cs" />
+    <Compile Include="BAL\Master\ContactOpration.cs" />
+    <Compile Include="BAL\Master\EmergencyContactOpt.cs" />
     <Compile Include="BAL\Master\MasterLogin.cs" />
     <Compile Include="BAL\Master\MemberOperation.cs" />
+    <Compile Include="BAL\Master\PropectusOperation.cs" />
+    <Compile Include="BAL\Master\StaffOperation.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
@@ -137,6 +142,7 @@
     <Compile Include="Models\MasterLogin.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Prospectus.cs" />
+    <Compile Include="Models\Staff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2560,6 +2566,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\style.css" />
     <Content Include="dist\css\custom.css" />
     <Content Include="dist\css\pages\bootstrap-switch.css" />
     <Content Include="dist\css\pages\breadcrumb-page.css" />

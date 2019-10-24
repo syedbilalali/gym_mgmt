@@ -1,0 +1,59 @@
+.savemember{
+	float: right;
+	margin: 10px;
+}
+.btnprofile{
+	border: 1px solid #cfcfcf;
+	border-radius: 2px;
+	padding: 4px 8px;
+	font-size: 12px;
+	margin: 10px 0px 20px;
+}
+.profileupload{
+	width: 50%;
+	float: left;
+}
+.profilecard{
+	padding: 10px 15px!important;
+}
+.checkaddmember{
+	margin-top: 20px;
+	margin-bottom: 10px!important;
+}
+.profilecard .text-center{
+	margin-top: 20px;
+}
+.addsavemember{
+	float: right;
+	margin: 10px;
+}
+.uppercontainer{
+	margin: 10px 0px 10px;
+}
+.uppercontainer h4{
+	line-height: 35px;
+}
+.notify .heartbit {
+    position: absolute;
+    top: -20px;
+    right: -4px;
+    height: 25px;
+    width: 25px;
+    z-index: 10;
+    border: 0px solid #e46a76!important;
+    border-radius: 70px;
+    -moz-animation:  0s ease-out!important;;
+    -moz-animation-iteration-count: 0!important;;
+    -o-animation:  0s ease-out!important;;
+    -o-animation-iteration-count: 0!important;;
+    -webkit-animation: 0s ease-out!important;;
+    -webkit-animation-iteration-count: 0!important;;
+    animation-iteration-count: 0!important;;
+}	
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255,.9)!important;
+}
+.memberid{
+	color: #fff;
+	padding: 20px 40px;
+}

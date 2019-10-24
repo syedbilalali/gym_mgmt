@@ -8,9 +8,10 @@ namespace gym_mgmt_01.Models
     public class AdditionalDetails
     {   
         public int Id { get; set;  }
+        public int MemberID { get; set;  }
         public int Club { get; set; } 
         public int TrainerID { get; set; }
-        public int JoiningDate { get; set;  }
+        public string JoiningDate { get; set;  }
         public int SalesRepID { get; set;  }
 
         public int SourcePromotionID { get; set;  }

@@ -8,6 +8,7 @@ namespace gym_mgmt_01.Models
     public class Prospectus
     {
         public int id { get; set;  }
+        public int MemberID { get; set; }
         public string ContactMethod { get; set; }
         public string FitnessGoal { get; set; }
         public string PreviousGym { get; set; }

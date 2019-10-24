@@ -9,6 +9,7 @@ namespace gym_mgmt_01.Models
     {  
 
        public int Id { get; set;  }
+       public int MemberID { get; set; }
        public string FirstName { get; set;  }
        public string LastName { get; set;  }
        public string Relationship { get; set;  }
