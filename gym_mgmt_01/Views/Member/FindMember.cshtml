@@ -2,7 +2,252 @@
 @{
     ViewBag.Title = "Physiofit | Find Member ";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string @getbootstrap = "";
 }
 
-<h2>FindMember</h2>
+<form>
+    <div class="searchinput">
+        <input type="text" name="search" class="search1" placeholder="Search Member..">
+        <button type="submit" class="search2"><i class="ti-search"></i></button>
+    </div>
+    <div class="btnscontrol">
+        <a class="buttoncol" data-rel="#rowvalue" href="#"><i class="ti-menu gridpart"></i></a>
+        <a class="buttoncol active" data-rel="#colvalue" href="#"><i class="ti-layout-grid2-alt gridpart"></i></a>
+    </div>
+</form>
 
+
+<div class="radiobtns">
+    <input type="radio" name="memberFilter" value="everyone" checked> Everyone
+    <input type="radio" name="memberFilter" value="currentmembers"> Current Members
+    <input type="radio" name="memberFilter" value="recentvisitors"> Recent Visitors
+    <input type="radio" name="memberFilter" value="expiredmembers"> Expired Members
+    <input type="radio" name="memberFilter" value="prospects"> Prospects
+</div>
+<div class="container1" id="colvalue">
+    <div class="row">
+        <div class="col33 memberwrapper">
+            <div class="col50">
+                <img class="userimg" src="@Url.Content("~/assets/images/users/user1.png")" />
+            </div>
+            <div class="col50">
+                <h4>User Name 1</h4>
+                <hr>
+                <h5>User ID</h5>
+                <p>Created on <b>21 Oct 2019 </b></p>
+                <div class="specify1">
+                    <img class="imgspecify" src=@Url.Content("~/assets/images/specification/check.png") />
+                </div>
+                <div class="specify2">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col33 memberwrapper">
+            <div class="col50">
+                <img class="userimg" src="@Url.Content("~/assets/images/users/user2.png")" />
+            </div>
+            <div class="col50">
+                <h4>User Name 2</h4>
+                <hr>
+                <h5>User ID</h5>
+                <p>Created on <b>21 Oct 2019</b></p>
+                <div class="specify1">
+                    <img class="imgspecify" src="assets/images/specification/check.png" />
+                </div>
+                <div class="specify2">
+                    <button type="button" class="btn" data-toggle="modal" data-target="exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col33 memberwrapper">
+            <div class="col50">
+                <img class="userimg" src="assets/images/users/user3.png" />
+            </div>
+            <div class="col50">
+                <h4>User Name 3</h4>
+                <hr>
+                <h5>User ID</h5>
+                <p>Created on <b>21 Oct 2019</b></p>
+                <div class="specify1">
+                    <img class="imgspecify" src="assets/images/specification/check.png" />
+                </div>
+                <div class="specify2">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col33 memberwrapper">
+            <div class="col50">
+                <img class="userimg" src="assets/images/users/user4.png" />
+            </div>
+            <div class="col50">
+                <h4>User Name 1</h4>
+                <hr>
+                <h5>User ID</h5>
+                <p>Created on <b>21 Oct 2019</b></p>
+                <div class="specify1">
+                    <img class="imgspecify" src="assets/images/specification/attention.png" />
+                </div>
+                <div class="specify2">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col33 memberwrapper">
+            <div class="col50">
+                <img class="userimg" src="assets/images/users/user6.png" />
+            </div>
+            <div class="col50">
+                <h4>User Name 2</h4>
+                <hr>
+                <h5>User ID</h5>
+                <p>Created on <b>21 Oct 2019</b></p>
+                <div class="specify1">
+                    <img class="imgspecify" src="assets/images/specification/check.png" />
+                </div>
+                <div class="specify2">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap"><i class="ti-import importicon"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col33 memberwrapper">
+            <div class="col50">
+                <img class="userimg" src="assets/images/users/user7.png" />
+            </div>
+            <div class="col50">
+                <h4>User Name 3</h4>
+                <hr>
+                <h5>User ID</h5>
+                <p>Created on <b>21 Oct 2019</b></p>
+                <div class="specify1">
+                    <img class="imgspecify" src="assets/images/specification/check.png" />
+                </div>
+                <div class="specify2">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap"><i class="ti-import importicon"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container1" id="rowvalue">
+
+    <table>
+        <tr>
+            <th>Member ID</th>
+            <th>Name</th>
+            <th>Membership Type</th>
+            <th>Owe</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td>#1031</td>
+            <td>Arina Smith</td>
+            <td>12 Month Membership</td>
+            <td>Owes us: $1000</td>
+            <td>Check in</td>
+        </tr>
+    </table>
+</div>
+<!-- .right-sidebar -->
+<div class="right-sidebar">
+    <div class="slimscrollright">
+        <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
+        <div class="r-panel-body">
+
+
+            <ul class="m-t-20">
+
+                <li><a href="#">Advanced Configuration</a></li>
+                <li><a href="#">Booking and Classes</a></li>
+                <li><a href="#">Club Details</a></li>
+                <li><a href="#">CSV Upload</a></li>
+                <li><a href="#">Custom Fields</a></li>
+                <li><a href="#">Door Readers</a></li>
+                <li><a href="#">Forms and Waivers</a></li>
+                <li><a href="#">Integrations</a></li>
+                <li><a href="#">Measurement Configuration</a></li>
+                <li><a href="#">Member Portal</a></li>
+                <li><a href="#">Membership Types</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Roster and Open Hours</a></li>
+                <li><a href="#">Task Setup</a></li>
+                <li><a href="#">User Administration</a></li>
+                <li><a href="#">Workout Configuration</a></li>
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Manual Check-in</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label label1">Member Name:</label>
+                        <input type="text" class="form-control label2" id="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label label1">Member ID:</label>
+                        <input type="text" class="form-control label2" id="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label label1">Door:</label>
+                        <select class="form-control label2">
+                            <option value="reception">Reception</option>
+                            <option value="yg">YG Club</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label label1">Membership:</label>
+                        <select class="form-control label2">
+                            <option value="">Select Membership</option>
+                            <option value="12">12 Months membership</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label label3">Staff Override:</label>
+                        <input type="checkbox" class="label4" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Open Door</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Check-in</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+@section scripts{
+    <script type="text/javascript">
+        $('.buttoncol').click(function (e) {
+            e.preventDefault();
+            setContent($(this));
+        });
+
+        // set content on load
+        $('.buttoncol.active').length && setContent($('.buttoncol.active'));
+
+        function setContent($el) {
+            $('.buttoncol').removeClass('active');
+            $('.container1').hide();
+
+            $el.addClass('active');
+            $($el.data('rel')).show();
+        }
+    </script>
+}

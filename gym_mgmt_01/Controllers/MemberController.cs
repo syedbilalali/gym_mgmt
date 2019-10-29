@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Configuration;
+using System.IO;
 using System.Web.Mvc;
 using gym_mgmt_01.BAL.Master;
 using gym_mgmt_01.Models;
@@ -24,81 +26,89 @@ namespace gym_mgmt_01.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(FormCollection fc) {
+        public ActionResult Index(FormCollection fc , HttpPostedFileBase ImageFile) {
             if (ModelState.IsValid) {
 
-                string memberTypeCheck = fc["memberType"];
-                Member m1 = new Member();
-
+                    Member m1 = new Member();
                     m1.FirstName = fc["FirstName"];
                     m1.LastName = fc["LastName"];   
                     m1.DOB = fc["dob"];
                     m1.Gender = fc["gender"];
                     m1.note = fc["note"];
-                    m1.MemberType = "";
-                    m1.ImgURL = "";
-                string formID = mo.getMemberID();
+                    m1.MemberType = fc["memberType"];
+                    string path=uploadFile(ImageFile);
+                    m1.ImagePath = path;
                     mo.AddMemeber(m1);
-                Contact ct = new Contact();
-                ct.Email = fc["Email"];
-                ct.MemberID = int.Parse(formID);
-                ct.Cell = fc["Cell"];
-                ct.Home = fc["Home"];
-                ct.Work = fc["Work"];
-                ct.Address = fc["Address"];
-                ct.Suburb = fc["Suburb"];
-                ct.City = fc["City"];
-                ct.Zipcode = fc["Zipcode"];
-                ct.Subscribed = "";
-                co.AddContact(ct);
-                AdditionalDetails ad = new AdditionalDetails();
-                ad.Club = int.Parse(fc["Club"]);
-                ad.MemberID = int.Parse(formID);
-                ad.TrainerID = int.Parse(fc["TrainerID"]);
-                ad.Occupation = fc["Occupation"];
-                ad.Organisation = fc["Organisation"];
-                ad.JoiningDate = fc["JoiningDate"];
-                ad.SalesRepID = int.Parse(fc["SalesRepresentID"]);
-                ad.SourcePromotionID =int.Parse( fc["SourcePromotionID"]);
-                ad.ReferredMemberBy = int.Parse(fc["ReferredMemberBy"]);
-                ad.InvolvementType = fc["InvolvementType"];
-                ado.AddAddtionalDetails(ad);
-                if (memberTypeCheck == "true")
-                {
-                    //Add Emergency Contact
-                    Response.Write("MemberType Checked");
-                    EmergencyContact ec = new EmergencyContact();
-                    ec.FirstName = fc["ecFirstName"];
-                    ec.MemberID = int.Parse(formID);
-                    ec.LastName = fc["ecLastName"];
-                    ec.Relationship = fc["ecRelationship"];
-                    ec.Email = fc["ecEmail"];
-                    ec.Cell = fc["ecCell"];
-                    ec.Home = fc["ecHome"];
-                    ec.Work = fc["ecWorks"];
-                    ec.MedicalInfo = fc["ecMedicalInfo"];
-                    ec.Age = fc["ecAge"];
-                    eco.AddEmergencyContact(ec);
+            }
+            return View();
+        }
+        public ActionResult Hello(FormCollection fc) {
+            if (ModelState.IsValid)
+            {
 
-                   
-                }
-                else {
-                    //Add 
-                    Response.Write("MemberType Not Checked");
-                    Prospectus prop = new Prospectus();
-                    prop.MemberID = int.Parse(formID);
-                    prop.ContactMethod = fc["pdContactMethods"];
-                    prop.FitnessGoal = fc["pdFitnessGoal"];
-                    prop.LeadStrength = fc["pdLeadStrength"];
-                    prop.PreviousGym = fc["pdPreviousGym"];
-                    prop.Created = fc["pdCreated"];
-                    po.AddProspectus(prop);
-                }
+              //  Response.Write(" Image Address " + mb.ImageFile);
+                //Add Member Details....
+                // Response.Write(" First Name" + mb.FirstName );
+                //  Response.Write(" Last Name " +mb.LastName );
+                // Response.Write(" Member Type : " +mb.MemberType );
+                // Response.Write(" Date of Brith" + mb.DOB );
+
+                // string memberTypeCheck = fc["memberType"];
+                //  Member m1 = new Member();
+                ///  m1.FirstName = fc["FirstName"];
+                //    m1.LastName = fc["LastName"];   
+                //    m1.DOB = fc["dob"];
+                //    m1.Gender = fc["gender"];
+                //    m1.note = fc["note"];
+                //    m1.MemberType = "";
+                //    m1.ImagePath   = "";
+              //  string path = uploadFile(file);
+                //    string formID = mo.getMemberID();
+                //    mo.AddMemeber(m1);
+              //  Response.Write(" File Path : " + path);
+
             }
             return View();
         }
         public ActionResult FindMember() {
             return View();
+        }
+        string fullPath;
+        string relativePath;
+        private string uploadFile(HttpPostedFileBase file) {
+            string trailingPath;
+            if (file != null)
+            {
+                if (file.ContentType == "image/jpeg")
+                {
+                    if (file.ContentLength < 102400) {
+
+                        string FileName = Path.GetFileNameWithoutExtension(file.FileName);
+
+                        //To Get File Extension  
+                        string FileExtension = Path.GetExtension(file.FileName);
+
+                        //Add Current Date To Attached File Name  
+                        FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName.Trim() + FileExtension;
+
+                        //Get Upload path from Web.Config file AppSettings.  
+                        string UploadPath = ConfigurationManager.AppSettings["UserImagePath"].ToString();
+
+                        //Its Create complete path to store in server.  
+                        //  string ImagePath = UploadPath + FileName;
+                        trailingPath = Path.GetFileName(file.FileName);
+                        fullPath = Path.Combine(Server.MapPath("~/assets/images/users/"), trailingPath);
+                        relativePath = "/assets/images/users/" + trailingPath;
+                        //To copy and save file into server.  
+                        file.SaveAs(fullPath);
+                    }
+                }
+               
+            }
+            else {
+               
+            }
+            return relativePath;
         }
 
     }

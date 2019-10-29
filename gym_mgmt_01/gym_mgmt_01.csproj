@@ -531,6 +531,12 @@
     <Content Include="assets\images\property\prop7.jpg" />
     <Content Include="assets\images\property\prop8.jpg" />
     <Content Include="assets\images\sidebar.jpg" />
+    <Content Include="assets\images\specification\asterisk.png" />
+    <Content Include="assets\images\specification\attention.png" />
+    <Content Include="assets\images\specification\check.png" />
+    <Content Include="assets\images\specification\grid.png" />
+    <Content Include="assets\images\specification\import.png" />
+    <Content Include="assets\images\specification\list.png" />
     <Content Include="assets\images\template-structure.jpg" />
     <Content Include="assets\images\tooltip\Euclid.png" />
     <Content Include="assets\images\tooltip\shape1.svg" />
@@ -555,6 +561,12 @@
     <Content Include="assets\images\users\d4.jpg" />
     <Content Include="assets\images\users\d5.jpg" />
     <Content Include="assets\images\users\profile.png" />
+    <Content Include="assets\images\users\user1.png" />
+    <Content Include="assets\images\users\user2.png" />
+    <Content Include="assets\images\users\user3.png" />
+    <Content Include="assets\images\users\user4.png" />
+    <Content Include="assets\images\users\user6.png" />
+    <Content Include="assets\images\users\user7.png" />
     <Content Include="assets\node_modules\blockUI\jquery.blockUI.js" />
     <Content Include="assets\node_modules\bootstrap-datepicker\bootstrap-datepicker.min.css" />
     <Content Include="assets\node_modules\bootstrap-datepicker\bootstrap-datepicker.min.js" />
@@ -3502,10 +3514,12 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Member\FindMember.cshtml" />
     <Content Include="Views\Member\Member.cshtml" />
+    <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\Staff\FindStaff.cshtml" />
+    <Content Include="Views\Staff\Authorize.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Staff\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

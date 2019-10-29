@@ -16,15 +16,15 @@ namespace gym_mgmt_01.BAL.Master
         }
         public void AddMemeber(Member mb ) {
             //Insert Command 
-            string command = "INSERT INTO Member(FirstName, LastName , DOB,Gender  , MemberType, Note , ImgURL) VALUES(@FirstName, @LastName ,@DOB,  @Gender  , @MemberType, @Note , @ImgURL)";
+            string command = "INSERT INTO Member(FirstName, LastName , DOB,Gender  , Note , MemberType, ImgURL) VALUES(@FirstName, @LastName ,@DOB,  @Gender ,@Note , @MemberType , @ImgURL)";
             SqlParameter[] param = new SqlParameter[7];
             param[0] = new SqlParameter("@FirstName" , mb.FirstName);
             param[1] = new SqlParameter("@LastName" , mb.LastName);
             param[2] = new SqlParameter("@DOB", mb.DOB);
             param[3] = new SqlParameter("@Gender", mb.Gender);
-            param[4] = new SqlParameter("@MemberType", mb.MemberType);
-            param[5] = new SqlParameter("@Note" , mb.note);
-            param[6] = new SqlParameter("@ImgURL" , mb.ImgURL);
+            param[4] = new SqlParameter("@Note" , mb.note);
+            param[5] = new SqlParameter("@MemberType", mb.MemberType);
+            param[6] = new SqlParameter("@ImgURL" , mb.ImagePath);
             da.Insert(param , command);
         }
         public void UpdateMember(int id , Member mb) {
@@ -35,7 +35,7 @@ namespace gym_mgmt_01.BAL.Master
             param[2] = new SqlParameter("@Gender", mb.Gender);
             param[3] = new SqlParameter("@DOB", mb.DOB);
             param[4] = new SqlParameter("@Note", mb.note);
-            param[5] = new SqlParameter("@ImgURL", mb.ImgURL);
+            param[5] = new SqlParameter("@ImgURL", mb.ImagePath);
             da.Insert(param, command);
         }
         public void DeleteMember(int id) {

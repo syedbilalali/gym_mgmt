@@ -42,6 +42,13 @@ namespace gym_mgmt_01.BAL.Master
             return allow;
 
         }
+        public DataTable getData(String Email , String Password) {
+            string command  = "SELECT * FROM Master_Login WHERE Email=@Email and Password=@Password";
+            SqlParameter[] param = new SqlParameter[2];
+            param[0] = new SqlParameter("@Email", Email);
+            param[1] = new SqlParameter("@Password", Password);
+            return  da.FetchByParameter(param, command);
+        }
         public void chnagePassword(String Email , String OldPassword , String NewPassword) {
             string command = "";
             SqlParameter[] param = new SqlParameter[3];
