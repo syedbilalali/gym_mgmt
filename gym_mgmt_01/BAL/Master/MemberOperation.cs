@@ -45,6 +45,11 @@ namespace gym_mgmt_01.BAL.Master
             param[0] = new SqlParameter("@Id",id);
             da.Insert(param , command);
         }
+        public DataTable getMember() {
+            DataTable dt = new DataTable();
+            string command = "SELECT * FROM Member";
+            return da.FetchAll(command);
+        }
         public string getMemberID() {
             DataAdapter da = new DataAdapter();
             int lastID = da.getLastID("Id", "Member");

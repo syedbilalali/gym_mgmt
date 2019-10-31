@@ -36,7 +36,7 @@
                                     <input type="file" name="ImageFile" id="upldImage" />
                                 </div>
                             </div>
-                                <div class="m-b-30 checkaddmember">
+                                <div class="m-b-30 checkaddmember" style="display:none;">
                                     <span class="text-muted">Member&nbsp;&nbsp;</span>
                                     <input id="memberType" name="memberType" type="checkbox" checked class="js-switch" data-color="#f62d51" data-size="small" />
                                     <span class="text-truncate">&nbsp;&nbsp;Prospectus</span>
@@ -198,7 +198,6 @@
                                                     <label for="exampleInputEmail1">Gender</label>
                                                     <div class="input-group mb-3">
                                                         <select class="form-control" name="gender" required="">
-                                                            <option>--SELECT Gende--</option>
                                                             <option>Male</option>
                                                             <option>Female</option>
                                                         </select>
@@ -230,7 +229,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Cell</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="Cell" placeholder="" aria-label="">
+                                                        <input type="text" class="form-control" maxlength="12" name="Cell"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="" required>
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="mdi mdi-cellphone-android"></i></span>
                                                         </div>
@@ -239,7 +238,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Home</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="Home" placeholder="" aria-label="">
+                                                        <input type="text" class="form-control" maxlength="12" name="Home"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="icons-Old-Telephone"></i></span>
                                                         </div>
@@ -248,7 +247,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Work</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="Work" placeholder="" aria-label="">
+                                                        <input type="text" class="form-control" maxlength="12" name="Work"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class=" icons-Old-Telephone"></i></span>
                                                         </div>
@@ -291,7 +290,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" style="display:none">
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="card-title"><i class="ti-list"></i>&nbsp;&nbsp;Additional Details</h4>
@@ -381,7 +380,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="emergencyContact"class="col-lg-6">
+                                <div id="emergencyContact"class="col-lg-6" style="display:none">
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="card-title"><i class="ti-support"></i>&nbsp;&nbsp;Emergency Contact</h4>
@@ -453,7 +452,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="prospectusDetails" class="col-lg-6">
+                                <div id="prospectusDetails" class="col-lg-6" style="display:none">
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="card-title"><i class="ti-support"></i>&nbsp;&nbsp;Prospectus Details</h4>
@@ -604,8 +603,8 @@
             if (memberType.checked) {
 
                    MemberType = "Prospectus";
-                   prospectusDetails.style.display = "block";
-                   emergencyContact.style.display = "none";
+                 //  prospectusDetails.style.display = "block";
+                  // emergencyContact.style.display = "none";
                    addMemberShipA.innerHTML = "Save";
                    addMemberShipB.innerHTML = "Save";
             } else {
@@ -613,8 +612,8 @@
                 MemberType = "Member";
                 addMemberShipA.innerHTML = "Add and Save Membership ";
                 addMemberShipB.innerHTML = "Add and Save Membership ";
-                prospectusDetails.style.display = "none";
-                emergencyContact.style.display = "block";
+             //   prospectusDetails.style.display = "none";
+               // emergencyContact.style.display = "block";
             }
             memberType.addEventListener('change', (event) => {
                 if (event.target.checked) {

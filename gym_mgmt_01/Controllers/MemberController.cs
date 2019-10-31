@@ -7,6 +7,7 @@ using System.IO;
 using System.Web.Mvc;
 using gym_mgmt_01.BAL.Master;
 using gym_mgmt_01.Models;
+using System.Data;
 
 namespace gym_mgmt_01.Controllers
 {   
@@ -16,12 +17,14 @@ namespace gym_mgmt_01.Controllers
         // GET: Member
         MemberOperation mo = new MemberOperation();
         ContactOpration co = new ContactOpration();
-        EmergencyContactOpt eco = new EmergencyContactOpt();
-        AddtionalDetailsOpt ado = new AddtionalDetailsOpt();
-        PropectusOperation po = new PropectusOperation();
+
+        //   EmergencyContactOpt eco = new EmergencyContactOpt();
+        //  AddtionalDetailsOpt ado = new AddtionalDetailsOpt();
+        //  PropectusOperation po = new PropectusOperation();
         public ActionResult Index()
         {
             ViewBag.ID = mo.getMemberID();
+         //   MemberID = int.Parse(mo.getMemberID());
             return View();
         }
         [HttpPost]
@@ -29,49 +32,126 @@ namespace gym_mgmt_01.Controllers
         public ActionResult Index(FormCollection fc , HttpPostedFileBase ImageFile) {
             if (ModelState.IsValid) {
 
-                    Member m1 = new Member();
-                    m1.FirstName = fc["FirstName"];
-                    m1.LastName = fc["LastName"];   
-                    m1.DOB = fc["dob"];
-                    m1.Gender = fc["gender"];
-                    m1.note = fc["note"];
+                Member m1 = new Member();
+                Contact con = new Contact();
+                m1.FirstName = fc["FirstName"];
+                m1.LastName = fc["LastName"];   
+                m1.DOB = fc["dob"];
+               m1.Gender = fc["gender"];
+                m1.note = fc["note"];
                     m1.MemberType = fc["memberType"];
                     string path=uploadFile(ImageFile);
                     m1.ImagePath = path;
+                     con.MemberID = int.Parse(mo.getMemberID()); ;
+                     con.Cell = fc["Cell"];
+                    con.Email = fc["Email"];
+                    con.Home = fc["Home"];
+                    con.Work = fc["Work"];
+                    con.Address = fc["Address"];
+                    con.Suburb = fc["Suburb"];
+                    con.City = fc["City"];
+                    con.Zipcode = fc["Zipcode"];
+                    con.Subscribed = "";
+                    
                     mo.AddMemeber(m1);
+                    co.AddContact(con);
+
             }
             return View();
         }
-        public ActionResult Hello(FormCollection fc) {
-            if (ModelState.IsValid)
+        [HttpGet]
+        public JsonResult getJSONData() {
+            Employee employee = new Employee
             {
+                Name = "Gnanavel Sekar",
+                Designation = "Software Engineer",
+                Location = "Chennai"
+            };
+            return Json(employee, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult putJSON(string searchValue) {
 
-              //  Response.Write(" Image Address " + mb.ImageFile);
-                //Add Member Details....
-                // Response.Write(" First Name" + mb.FirstName );
-                //  Response.Write(" Last Name " +mb.LastName );
-                // Response.Write(" Member Type : " +mb.MemberType );
-                // Response.Write(" Date of Brith" + mb.DOB );
-
-                // string memberTypeCheck = fc["memberType"];
-                //  Member m1 = new Member();
-                ///  m1.FirstName = fc["FirstName"];
-                //    m1.LastName = fc["LastName"];   
-                //    m1.DOB = fc["dob"];
-                //    m1.Gender = fc["gender"];
-                //    m1.note = fc["note"];
-                //    m1.MemberType = "";
-                //    m1.ImagePath   = "";
-              //  string path = uploadFile(file);
-                //    string formID = mo.getMemberID();
-                //    mo.AddMemeber(m1);
-              //  Response.Write(" File Path : " + path);
-
-            }
-            return View();
+            string data = searchValue + " WORLD ";
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult getMember() {
+            DataTable dt = new DataTable();
+            dt = mo.getMember();
+            List<Member>  data = new List<Member>();
+            data = (from DataRow dr in dt.Rows
+                           select new Member()
+                           {
+                               FirstName  = dr["FirstName"].ToString(),
+                               LastName = dr["LastName"].ToString(),
+                               Gender = dr["Gender"].ToString(),
+                               ImagePath = dr["ImgURL"].ToString()
+                           }).ToList();
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
         public ActionResult FindMember() {
             return View();
+        }
+        [HttpPost]
+        public JsonResult AjaxPostCall(Employee employeeData)
+        {
+            Employee employee = new Employee
+            {
+                Name = employeeData.Name,
+                Designation = employeeData.Designation,
+                Location = employeeData.Location
+            };
+            return Json(employee, JsonRequestBehavior.AllowGet);
+        }
+        public string DataTableToJSONWithJavaScriptSerializer(DataTable table)
+        {
+            System.Web.Script.Serialization.JavaScriptSerializer jsSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in table.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in table.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+            return jsSerializer.Serialize(parentRow);
+        }
+        public string DataTableToJSONWithStringBuilder(DataTable table)
+        {
+            var JSONString = new System.Text.StringBuilder();
+            if (table.Rows.Count > 0)
+            {
+                JSONString.Append("[");
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    JSONString.Append("{");
+                    for (int j = 0; j < table.Columns.Count; j++)
+                    {
+                        if (j < table.Columns.Count - 1)
+                        {
+                            JSONString.Append("\"" + table.Columns[j].ColumnName.ToString() + "\":" + "\"" + table.Rows[i][j].ToString() + "\",");
+                        }
+                        else if (j == table.Columns.Count - 1)
+                        {
+                            JSONString.Append("\"" + table.Columns[j].ColumnName.ToString() + "\":" + "\"" + table.Rows[i][j].ToString() + "\"");
+                        }
+                    }
+                    if (i == table.Rows.Count - 1)
+                    {
+                        JSONString.Append("}");
+                    }
+                    else
+                    {
+                        JSONString.Append("},");
+                    }
+                }
+                JSONString.Append("]");
+            }
+            return JSONString.ToString();
         }
         string fullPath;
         string relativePath;
@@ -106,9 +186,28 @@ namespace gym_mgmt_01.Controllers
                
             }
             else {
+                relativePath = "/assets/images/users/user4.png";
                
             }
             return relativePath;
+        }
+        public class Employee
+        {
+            public string Name
+            {
+                get;
+                set;
+            }
+            public string Designation
+            {
+                get;
+                set;
+            }
+            public string Location
+            {
+                get;
+                set;
+            }
         }
 
     }

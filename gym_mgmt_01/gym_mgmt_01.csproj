@@ -125,6 +125,7 @@
     <Compile Include="BAL\Master\EmergencyContactOpt.cs" />
     <Compile Include="BAL\Master\MasterLogin.cs" />
     <Compile Include="BAL\Master\MemberOperation.cs" />
+    <Compile Include="BAL\Master\MembershipOpt.cs" />
     <Compile Include="BAL\Master\PropectusOperation.cs" />
     <Compile Include="BAL\Master\StaffOperation.cs" />
     <Compile Include="Controllers\HomeController.cs" />

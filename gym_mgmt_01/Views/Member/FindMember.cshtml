@@ -4,19 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     string @getbootstrap = "";
 }
-
 <form>
     <div class="searchinput">
         <input type="text" name="search" class="search1" placeholder="Search Member..">
-        <button type="submit" class="search2"><i class="ti-search"></i></button>
+        <button type="button" id="btnPost" class="search2"><i class="ti-search"></i></button>
     </div>
     <div class="btnscontrol">
         <a class="buttoncol" data-rel="#rowvalue" href="#"><i class="ti-menu gridpart"></i></a>
         <a class="buttoncol active" data-rel="#colvalue" href="#"><i class="ti-layout-grid2-alt gridpart"></i></a>
     </div>
 </form>
-
-
 <div class="radiobtns">
     <input type="radio" name="memberFilter" value="everyone" checked> Everyone
     <input type="radio" name="memberFilter" value="currentmembers"> Current Members
@@ -24,133 +21,17 @@
     <input type="radio" name="memberFilter" value="expiredmembers"> Expired Members
     <input type="radio" name="memberFilter" value="prospects"> Prospects
 </div>
-<div class="container1" id="colvalue">
-    <div class="row">
-        <div class="col33 memberwrapper">
-            <div class="col50">
-                <img class="userimg" src="@Url.Content("~/assets/images/users/user1.png")" />
-            </div>
-            <div class="col50">
-                <h4>User Name 1</h4>
-                <hr>
-                <h5>User ID</h5>
-                <p>Created on <b>21 Oct 2019 </b></p>
-                <div class="specify1">
-                    <img class="imgspecify" src=@Url.Content("~/assets/images/specification/check.png") />
-                </div>
-                <div class="specify2">
-                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>
-                </div>
-            </div>
-        </div>
-        <div class="col33 memberwrapper">
-            <div class="col50">
-                <img class="userimg" src="@Url.Content("~/assets/images/users/user2.png")" />
-            </div>
-            <div class="col50">
-                <h4>User Name 2</h4>
-                <hr>
-                <h5>User ID</h5>
-                <p>Created on <b>21 Oct 2019</b></p>
-                <div class="specify1">
-                    <img class="imgspecify" src="assets/images/specification/check.png" />
-                </div>
-                <div class="specify2">
-                    <button type="button" class="btn" data-toggle="modal" data-target="exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>
-                </div>
-            </div>
-        </div>
-        <div class="col33 memberwrapper">
-            <div class="col50">
-                <img class="userimg" src="assets/images/users/user3.png" />
-            </div>
-            <div class="col50">
-                <h4>User Name 3</h4>
-                <hr>
-                <h5>User ID</h5>
-                <p>Created on <b>21 Oct 2019</b></p>
-                <div class="specify1">
-                    <img class="imgspecify" src="assets/images/specification/check.png" />
-                </div>
-                <div class="specify2">
-                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="row">
-
-        <div class="col33 memberwrapper">
-            <div class="col50">
-                <img class="userimg" src="assets/images/users/user4.png" />
-            </div>
-            <div class="col50">
-                <h4>User Name 1</h4>
-                <hr>
-                <h5>User ID</h5>
-                <p>Created on <b>21 Oct 2019</b></p>
-                <div class="specify1">
-                    <img class="imgspecify" src="assets/images/specification/attention.png" />
-                </div>
-                <div class="specify2">
-                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col33 memberwrapper">
-            <div class="col50">
-                <img class="userimg" src="assets/images/users/user6.png" />
-            </div>
-            <div class="col50">
-                <h4>User Name 2</h4>
-                <hr>
-                <h5>User ID</h5>
-                <p>Created on <b>21 Oct 2019</b></p>
-                <div class="specify1">
-                    <img class="imgspecify" src="assets/images/specification/check.png" />
-                </div>
-                <div class="specify2">
-                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap"><i class="ti-import importicon"></i></button>
-                </div>
-            </div>
-        </div>
-        <div class="col33 memberwrapper">
-            <div class="col50">
-                <img class="userimg" src="assets/images/users/user7.png" />
-            </div>
-            <div class="col50">
-                <h4>User Name 3</h4>
-                <hr>
-                <h5>User ID</h5>
-                <p>Created on <b>21 Oct 2019</b></p>
-                <div class="specify1">
-                    <img class="imgspecify" src="assets/images/specification/check.png" />
-                </div>
-                <div class="specify2">
-                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap"><i class="ti-import importicon"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container1" id="colvalue" style="display:none;">
+    
 </div>
 <div class="container1" id="rowvalue">
-
-    <table>
+    <table id="memberData">
         <tr>
             <th>Member ID</th>
             <th>Name</th>
             <th>Membership Type</th>
             <th>Owe</th>
             <th>Action</th>
-        </tr>
-        <tr>
-            <td>#1031</td>
-            <td>Arina Smith</td>
-            <td>12 Month Membership</td>
-            <td>Owes us: $1000</td>
-            <td>Check in</td>
         </tr>
     </table>
 </div>
@@ -238,7 +119,6 @@
             e.preventDefault();
             setContent($(this));
         });
-
         // set content on load
         $('.buttoncol.active').length && setContent($('.buttoncol.active'));
 
@@ -249,5 +129,138 @@
             $el.addClass('active');
             $($el.data('rel')).show();
         }
+        $(function () {
+          $.ajax({
+            type: "GET",
+            url: "/Member/getMember",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response != null) {
+                    var data = response;
+                    var memberdata = '';
+                    var rows = data.length / 3;
+                    var left = data.length % 3;
+                    var json = JSON.parse(JSON.stringify(data));
+                    var table = document.querySelector('#memberData');
+                    var count_rows = table.rows.count;
+                    console.log(json);
+                    let count = 0;
+                    for (var i = 0; i < rows; i++) {
+                        data = '<div class="row">'
+                        for (var j = 1; j < 4; j++) {
+                            var mrow = table.insertRow(count_rows);
+                            var cell1 = mrow.insertCell(0);
+                            var cell2 = mrow.insertCell(1);
+                            var cell3 = mrow.insertCell(2);
+                            var cell4 = mrow.insertCell(3);
+                            var cell5 = mrow.insertCell(4);
+                            cell1.innerHTML = "#" + count;
+                            alert(count);
+                            cell2.innerHTML = json[count].FirstName ;
+                            cell3.innerHTML = json[count].LastName ;;
+                            cell4.innerHTML = "Count " + count;
+                            cell5.innerHTML = "Action Link";
+                            data += ' <div class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i*j].ImagePath +'" /></div>';
+                            data += ' <div class="col60"> <h4>' + json[i*j].FirstName + ' ' +json[i*j].LastName + '</h4>' + '<hr>' + ' <h5>User ID '+ count+' </h5>';
+                            data += ' <p>Created on <b>' + (i*j) + '</b></p>';
+                            data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
+                            data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>';
+                            data += '</div></div></div>';
+                            count++;
+                        }
+                        data += '</div>';
+                        memberdata += data;
+                    }
+                    $('#colvalue').html(memberdata);
+                } else {  
+                    alert("Something went wrong");  
+                }  
+            },  
+            failure: function(response) {  
+                alert(response.responseText);  
+            },  
+            error: function(response) {  
+                alert(response.responseText);  
+            }  
+        });  
+        });
+        $(function() {  
+        $("#btnGet").click(function() {  
+        $.ajax({
+            type: "GET",
+            url: "/Member/getMember",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response != null) {
+                    var data = response;
+                    var memberdata = '';
+                    alert(" Data Length " + data.length);
+                    alert(" Data " +JSON.stringify( data));
+                    var rows = data.length / 3;
+                    var left = data.length % 3;
+                    var json = JSON.parse(JSON.stringify(data));
+                    console.log(json);
+                    var count = 1;
+                    for (var i = 0; i < rows; i++) {
+                        data = '<div class="row">'
+                        for (var j = 0; j < 3; j++) {
+                            data += ' <div class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i*j].ImagePath +'" /></div>';
+                            data += ' <div class="col60"> <h4>' + json[i*j].FirstName + ' ' +json[i*j].LastName + '</h4>' + '<hr>' + ' <h5>User ID </h5>';
+                            data += ' <p>Created on <b>' + count + '</b></p>';
+                            data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
+                            data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>';
+                            data += '</div></div></div>'; 
+                            count++;
+                        }
+                        data += '</div>';
+                        memberdata += data;
+                    }
+                    $('#colvalue').html(memberdata);
+                } else {  
+                    alert("Something went wrong");  
+                }  
+            },  
+            failure: function(response) {  
+                alert(response.responseText);  
+            },  
+            error: function(response) {  
+                alert(response.responseText);  
+            }  
+        });  
+            });  
+        }); 
+        $(function () { 
+        $("#btnPost").click(function() {  
+        var employee = new Object();  
+            employee.Name = "Bilal";
+            employee.Designation = "Software Developer";  
+            employee.Location = "Noida"; 
+           
+        if (employee != null) {  
+            $.ajax({  
+                type: "POST",  
+                url: "/Member/AjaxPostCall",  
+                data: JSON.stringify(employee),  
+                contentType: "application/json; charset=utf-8",  
+                dataType: "json",  
+                success: function(response) {  
+                    if (response != null) {  
+                        alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);  
+                    } else {  
+                        alert("Something went wrong");   
+                    }  
+                },  
+                failure: function(response) {  
+                    alert(response.responseText);  
+                },  
+                error: function(response) {  
+                    alert(response.responseText);  
+                }  
+            });  
+        }  
+        });  
+    });
     </script>
 }
