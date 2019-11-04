@@ -3,6 +3,7 @@
     ViewBag.Title = "Physiofit | Find Member ";
     Layout = "~/Views/Shared/_Layout.cshtml";
     string @getbootstrap = "";
+    int count = 0;
 }
 <form>
     <div class="searchinput">
@@ -21,8 +22,7 @@
     <input type="radio" name="memberFilter" value="expiredmembers"> Expired Members
     <input type="radio" name="memberFilter" value="prospects"> Prospects
 </div>
-<div class="container1" id="colvalue" style="display:none;">
-    
+<div class="container1" id="colvalue" style="display:none;"> 
 </div>
 <div class="container1" id="rowvalue">
     <table id="memberData">
@@ -35,36 +35,8 @@
         </tr>
     </table>
 </div>
-<!-- .right-sidebar -->
-<div class="right-sidebar">
-    <div class="slimscrollright">
-        <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
-        <div class="r-panel-body">
-
-
-            <ul class="m-t-20">
-
-                <li><a href="#">Advanced Configuration</a></li>
-                <li><a href="#">Booking and Classes</a></li>
-                <li><a href="#">Club Details</a></li>
-                <li><a href="#">CSV Upload</a></li>
-                <li><a href="#">Custom Fields</a></li>
-                <li><a href="#">Door Readers</a></li>
-                <li><a href="#">Forms and Waivers</a></li>
-                <li><a href="#">Integrations</a></li>
-                <li><a href="#">Measurement Configuration</a></li>
-                <li><a href="#">Member Portal</a></li>
-                <li><a href="#">Membership Types</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Roster and Open Hours</a></li>
-                <li><a href="#">Task Setup</a></li>
-                <li><a href="#">User Administration</a></li>
-                <li><a href="#">Workout Configuration</a></li>
-
-            </ul>
-
-        </div>
-    </div>
+<div class="row">
+    &nbsp;
 </div>
 <!-- /.modal -->
 <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
@@ -144,6 +116,7 @@
                     var json = JSON.parse(JSON.stringify(data));
                     var table = document.querySelector('#memberData');
                     var count_rows = table.rows.count;
+                    console.log(" JSON Data : ");
                     console.log(json);
                     let count = 0;
                     for (var i = 0; i < rows; i++) {
@@ -155,38 +128,40 @@
                             var cell3 = mrow.insertCell(2);
                             var cell4 = mrow.insertCell(3);
                             var cell5 = mrow.insertCell(4);
-                            cell1.innerHTML = "#" + count;
-                            alert(count);
+                            cell1.innerHTML = '<a href="@Url.Action("", "Member", new { id = count })"> #'+ count + '</a>';
+                           // alert(count + " i -: " + i +" j -: " + j);
                             cell2.innerHTML = json[count].FirstName ;
                             cell3.innerHTML = json[count].LastName ;;
                             cell4.innerHTML = "Count " + count;
-                            cell5.innerHTML = "Action Link";
-                            data += ' <div class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i*j].ImagePath +'" /></div>';
+                            cell5.innerHTML = "Check In";
+                            data += '<a href="@Url.Action("", "Member", new { id = count })"> <div class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i*j].ImagePath +'" /></div>';
                             data += ' <div class="col60"> <h4>' + json[i*j].FirstName + ' ' +json[i*j].LastName + '</h4>' + '<hr>' + ' <h5>User ID '+ count+' </h5>';
                             data += ' <p>Created on <b>' + (i*j) + '</b></p>';
                             data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
                             data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>';
-                            data += '</div></div></div>';
-                            count++;
+                            data += '</div></div></a></div>';
+                            if (count < 34) {
+                                count++;
+                            }
                         }
                         data += '</div>';
                         memberdata += data;
                     }
                     $('#colvalue').html(memberdata);
-                } else {  
-                    alert("Something went wrong");  
-                }  
-            },  
-            failure: function(response) {  
-                alert(response.responseText);  
-            },  
-            error: function(response) {  
-                alert(response.responseText);  
-            }  
-        });  
+                } else {
+                    alert("Something went wrong");
+                }
+            },
+            failure: function(response) {
+                alert(response.responseText);
+            },
+            error: function(response) {
+                alert(response.responseText);
+            }
         });
-        $(function() {  
-        $("#btnGet").click(function() {  
+        });
+        $(function() {
+        $("#btnGet").click(function() {
         $.ajax({
             type: "GET",
             url: "/Member/getMember",
@@ -211,56 +186,56 @@
                             data += ' <p>Created on <b>' + count + '</b></p>';
                             data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
                             data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>';
-                            data += '</div></div></div>'; 
+                            data += '</div></div></div>';
                             count++;
                         }
                         data += '</div>';
                         memberdata += data;
                     }
                     $('#colvalue').html(memberdata);
-                } else {  
-                    alert("Something went wrong");  
-                }  
-            },  
-            failure: function(response) {  
-                alert(response.responseText);  
-            },  
-            error: function(response) {  
-                alert(response.responseText);  
-            }  
-        });  
-            });  
-        }); 
-        $(function () { 
-        $("#btnPost").click(function() {  
-        var employee = new Object();  
+                } else {
+                    alert("Something went wrong");
+                }
+            },
+            failure: function(response) {
+                alert(response.responseText);
+            },
+            error: function(response) {
+                alert(response.responseText);
+            }
+        });
+            });
+        });
+        $(function () {
+        $("#btnPost").click(function() {
+        var employee = new Object();
             employee.Name = "Bilal";
-            employee.Designation = "Software Developer";  
-            employee.Location = "Noida"; 
-           
-        if (employee != null) {  
-            $.ajax({  
-                type: "POST",  
-                url: "/Member/AjaxPostCall",  
-                data: JSON.stringify(employee),  
-                contentType: "application/json; charset=utf-8",  
-                dataType: "json",  
-                success: function(response) {  
-                    if (response != null) {  
-                        alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);  
-                    } else {  
-                        alert("Something went wrong");   
-                    }  
-                },  
-                failure: function(response) {  
-                    alert(response.responseText);  
-                },  
-                error: function(response) {  
-                    alert(response.responseText);  
-                }  
-            });  
-        }  
-        });  
+            employee.Designation = "Software Developer";
+            employee.Location = "Noida";
+
+        if (employee != null) {
+            $.ajax({
+                type: "POST",
+                url: "/Member/AjaxPostCall",
+                data: JSON.stringify(employee),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    if (response != null) {
+                        alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
+                    } else {
+                        alert("Something went wrong");
+                    }
+                },
+                failure: function(response) {
+                    alert(response.responseText);
+                },
+                error: function(response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+        });
     });
     </script>
 }

@@ -35,7 +35,8 @@ namespace gym_mgmt_01.Controllers
             st.ImgURL =  path;
          //   Response.Write("Staff Data : " + st.FirstName + " Designation " + st.Designation);
            so.AddStaff(st);
-            return View();
+           ViewBag.result = "yes";
+           return View();
         }
         public ActionResult Authorize() {
             return View();

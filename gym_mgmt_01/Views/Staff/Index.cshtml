@@ -1,19 +1,22 @@
 ﻿
+@model gym_mgmt_01.Models.Staff
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Staff | Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @using (Html.BeginForm("Index", "Staff", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="row upp2">
         <!-- Column -->
+
         <div class="col-lg-3 col-xlg-3 col-md-3">
             <div class="card">
                 <div class="card-body profilecard">
                     <center class="m-t-30">
                         <img src="assets/images/users/5.jpg" class="img-circle" id="profImg" width="150" />
-                        <h4 class="card-title m-t-10">Member</h4>
+                        <h4 class="card-title m-t-10">Staff</h4>
                         <!--    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6> -->
                         <div class="row text-center justify-content-md-center">
                             <div class="upload-btn-wrapper">
@@ -26,6 +29,7 @@
                 </div>
 
             </div>
+
         </div>
         <!-- Column -->
         <!-- Column -->
@@ -50,13 +54,24 @@
                                         <h4 class="card-title">Staff</h4>
                                         <form id="staffReg" method="post">
                                             <div class="form-row">
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-row">
                                                 <div class="col-md-4 mb-3">
-                                                    <label for="validationDefault01">First name</label>
-                                                    <input type="text" name="firstName" class="form-control" id="validationDefault01" placeholder="First name" value="" required>
+                                                    @*<label for="validationDefault01">First name</label>*@
+                                                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @for = "validationDefault01" })
+
+                                                    @*<input type="text" name="firstName" class="form-control" id="validationDefault01" placeholder="First name" value="" required>*@
+                                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "First Name", @required = "" } })
+                                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label for="validationDefault02">Last name</label>
-                                                    <input type="text" name="lastName" class="form-control" id="validationDefault02" placeholder="Last name" value="" required>
+                                                    @*<label for="validationDefault02">Last name</label>*@
+                                                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @for = "validationDefault01" })
+                                                    @*<input type="text" name="lastName" class="form-control" id="validationDefault02" placeholder="Last name" value="" required>*@
+                                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name", @required = "" } })
+                                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                     <label for="validationDefaultUsername">Email</label>
@@ -70,9 +85,9 @@
                                                 <div class="col-md-4 mb-3">
                                                     <label for="validationDefault03">Gender</label>
                                                     <select class="custom-select" name="gender" required>
-                                                        <option value="0">--Select Gender--</option>
-                                                        <option value="1">Male</option>
-                                                        <option value="2">Female</option>
+                                                        <option value="--">--Select Gender--</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4 mb-3">
@@ -185,22 +200,38 @@
         </div>
     </div>
 }
-    <!------------------>
-    @section scripts {
+<!------------------>
+@if (ViewBag.result == "yes") {
         <script type="text/javascript">
             $(function () {
-                $('#upldImage').change(function () {
-                    readURL(this);
+                "use strict"
+                $.toast({
+                    heading: 'Staff Added Successfully '
+                    , text: 'Use the predefined ones, or specify a custom position object.'
+                    , position: 'top-right'
+                    , loaderBg: '#ff6849'
+                    , icon: 'info'
+                    , hideAfter: 3500
+                    , stack: 6
                 });
-                function readURL(input) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            $('#profImg').attr('src', e.target.result);
-                        }
-                        reader.readAsDataURL(input.files[0]);
-                    }
-                }
-            })
+            });
         </script>
-    }
+}
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#upldImage').change(function () {
+                readURL(this);
+            });
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#profImg').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        });
+    </script>
+}

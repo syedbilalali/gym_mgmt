@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>gym_mgmt_01</RootNamespace>
     <AssemblyName>gym_mgmt_01</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,16 +49,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -102,6 +101,7 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -126,12 +126,18 @@
     <Compile Include="BAL\Master\MasterLogin.cs" />
     <Compile Include="BAL\Master\MemberOperation.cs" />
     <Compile Include="BAL\Master\MembershipOpt.cs" />
+    <Compile Include="BAL\Master\ProductOperation.cs" />
     <Compile Include="BAL\Master\PropectusOperation.cs" />
+    <Compile Include="BAL\Master\RoleOperation.cs" />
     <Compile Include="BAL\Master\StaffOperation.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\MembershipController.cs" />
+    <Compile Include="Controllers\POSController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Controllers\TrainingController.cs" />
     <Compile Include="DAL\ConnectionString.cs" />
     <Compile Include="DAL\DataAdapter.cs" />
     <Compile Include="Global.asax.cs">
@@ -142,8 +148,12 @@
     <Compile Include="Models\EmergencyContact.cs" />
     <Compile Include="Models\MasterLogin.cs" />
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductType.cs" />
     <Compile Include="Models\Prospectus.cs" />
+    <Compile Include="Models\RoleGroup.cs" />
     <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -561,6 +571,8 @@
     <Content Include="assets\images\users\d3.jpg" />
     <Content Include="assets\images\users\d4.jpg" />
     <Content Include="assets\images\users\d5.jpg" />
+    <Content Include="assets\images\users\deafult.png" />
+    <Content Include="assets\images\products\prod_default.png" />
     <Content Include="assets\images\users\profile.png" />
     <Content Include="assets\images\users\user1.png" />
     <Content Include="assets\images\users\user2.png" />
@@ -3488,6 +3500,7 @@
     <Content Include="assets\node_modules\typeahead.js-master\typeahead.js.jquery.json" />
     <Content Include="assets\package.json" />
     <Content Include="assets\README.md" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -3518,6 +3531,16 @@
     <Content Include="Views\Staff\Index.cshtml" />
     <Content Include="Views\Staff\FindStaff.cshtml" />
     <Content Include="Views\Staff\Authorize.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Training\Index.cshtml" />
+    <Content Include="Views\POS\Index.cshtml" />
+    <Content Include="Views\Membership\Index.cshtml" />
+    <Content Include="Views\POS\ProductType.cshtml" />
+    <Content Include="Views\POS\SalesLedger.cshtml" />
+    <Content Include="Views\Training\AddReminder.cshtml" />
+    <Content Include="Views\Training\AssignClass.cshtml" />
+    <Content Include="Views\Membership\AddMembership.cshtml" />
+    <Content Include="Views\POS\Products.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

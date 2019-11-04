@@ -11,8 +11,9 @@ namespace gym_mgmt_01.DAL
         public ConnectionString() { 
         }
         public string connect()
-        {
-            return ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
+        {   
+            // local , Default
+            return ConfigurationManager.ConnectionStrings["local"].ConnectionString;
         }
     }
   

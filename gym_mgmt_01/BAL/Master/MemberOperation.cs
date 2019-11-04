@@ -16,7 +16,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public void AddMemeber(Member mb ) {
             //Insert Command 
-            string command = "INSERT INTO Member(FirstName, LastName , DOB,Gender  , Note , MemberType, ImgURL) VALUES(@FirstName, @LastName ,@DOB,  @Gender ,@Note , @MemberType , @ImgURL)";
+            string command = "INSERT INTO physiofit_admin.Member(FirstName, LastName , DOB,Gender  , Note , MemberType, ImgURL) VALUES(@FirstName, @LastName ,@DOB,  @Gender ,@Note , @MemberType , @ImgURL)";
             SqlParameter[] param = new SqlParameter[7];
             param[0] = new SqlParameter("@FirstName" , mb.FirstName);
             param[1] = new SqlParameter("@LastName" , mb.LastName);
@@ -47,12 +47,12 @@ namespace gym_mgmt_01.BAL.Master
         }
         public DataTable getMember() {
             DataTable dt = new DataTable();
-            string command = "SELECT * FROM Member";
+            string command = "SELECT * FROM physiofit_admin.Member";
             return da.FetchAll(command);
         }
         public string getMemberID() {
             DataAdapter da = new DataAdapter();
-            int lastID = da.getLastID("Id", "Member");
+            int lastID = da.getLastID("Id", " physiofit_admin.Member ");
             if (lastID != 0)
             {
                 lastID++;

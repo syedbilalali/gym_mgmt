@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var index = 0;
+}
+@*@model List<gym_mgmt_01.Models.ProductType>*@
+@model dynamic
+<div class="row upp2">
+    <!-- Column -->
+    <div class="row rolebtns2">
+        <div class="col-lg-6 col-xlg-6 col-md-6">
+            <form action="#">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Type the product type.." aria-label="">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="mdi  mdi-magnify"></i></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6 col-xlg-6 col-md-6">
+            <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" data-whatever="">Add Products </button>
+        </div>
+    </div>
+    <div class="addrolestab">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Product Image </th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Barcode</th>
+                    <th>Description</th>
+                    <th>Stock</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.product.Count > 0)
+                {
+
+                    foreach (var product in Model.product)
+                    {
+
+                        <tr>
+                            <td> @(index++)</td>
+                            <td><img src="@product.ImageURL" width="50px" height="50px"></td>
+                            <td>
+                                    @product.Name
+                            </td>
+                            <td>@product.Type_Id</td>
+                            <td>@product.Barcode</td>
+                            <td>@product.Description</td>
+                            <td>--</td>
+                            <td>
+                                <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@product.Id)">Edit</button>
+                                <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProducts", "POS", new { id = product.Id })'">Delete</button>
+                            </td>
+                        </tr>
+
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" align="center">
+                            <div class="alert alert-info">
+                                <i class="ti-info" style="margin-right: 5px;border-radius: 50%;border: 1px solid #249ddc; padding: 3px; font-size: 10px;"></i> No Products Found!
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">  </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- Column -->
+</div>
+<!-------Modal For Add  Product Type ---------->
+<div class="modal" id="addcat" tabindex="-1" role="dialog" aria-labelledby="addcatlabel">
+    @using (Html.BeginForm("SaveProduct", "POS", FormMethod.Post , new { enctype="multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addcatlabel">Add Product</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="" class="control-label label1"> Name :</label>
+                            <input type="text" maxlength="20" name="productname" class="form-control label2" id="" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Type :</label>
+                            <select name="productType" class="form-control label2">
+                                <option value="0">None</option>
+                                <option value="1">Drink</option>
+                                <option value="2">Tools</option>
+                                <option value="3">Equipment</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1"> Supplier:</label>
+                            <select name="supplier" class="form-control label2">
+                                <option value="0">None</option>
+                                <option value="1">ABC</option>
+                                <option value="2">ZYZ</option>
+                                <option value="3">XYZ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">POS Group :</label>
+                            <select name="posGroup" class="form-control label2">
+                                <option value="0">None</option>
+                                <option value="1">XYZ Group</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Barcode :</label>
+                            <input type="text" maxlength="20" name="barcode" class="form-control label2" id="" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Description :</label>
+                            <input type="text" maxlength="20" name="description" class="form-control label2" id="" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Choose Image :</label>
+                            <input type="file" id="prodImage" name="prodImage" />
+                            <img src="~/assets/images/products/prod_default.png" id="prodprof" width="100px" height="100px" style="margin: 15px auto; border: 0px solid #fff; border-radius: 10px;"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default btn-info">Submit</button>
+                    <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Cancel</button>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<!-- /.modal -->
+<!----------------->
+<!-------Modal For Updat Product Type ---------------->
+<div class="modal" id="updateProd" tabindex="-1" role="dialog" aria-labelledby="addcatlabel">
+    @using (Html.BeginForm("EditProduct", "POS", FormMethod.Post))
+    {
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addcatlabel">Edit Product</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" name="id" id="prodNum" />
+                        <div class="form-group">
+                            <label for="" class="control-label label1"> Name :</label>
+                            <input type="text" maxlength="20" name="productname" class="form-control label2" id="productname1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Type :</label>
+                            <select name="productType" id="productType1" class="form-control label2">
+                                <option value="0">None</option>
+                                <option value="1">Drink</option>
+                                <option value="2">Tools</option>
+                                <option value="3">Equipment</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1"> Supplier:</label>
+                            <select name="supplier" id="supplier1" class="form-control label2">
+                                <option value="0">None</option>
+                                <option value="1">ABC</option>
+                                <option value="2">ZYZ</option>
+                                <option value="3">XYZ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">POS Group :</label>
+                            <select name="posGroup" id="posGroup1" class="form-control label2">
+                                <option value="0">None</option>
+                                <option value="1">XYZ Group</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Barcode :</label>
+                            <input type="text" maxlength="20" name="barcode1" class="form-control label2" id="barcode" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Description :</label>
+                            <input type="text" maxlength="20" name="description1"  class="form-control label2" id="description" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Choose Image :</label>
+                            <input type="file" id="prodImage" name="prodImage" />
+                            <img src="~/assets/images/products/prod_default.png" id="prodprof1" width="100px" height="100px" style="margin: 15px auto; border: 0px solid #fff; border-radius: 10px;" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default btn-info">Submit</button>
+                    <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<!---------------------------------------------------->
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('#prodImage').change(function() {
+                readURL(this);  
+            });
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#prodprof').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        })
+        function GetDetails(id) {
+            $.ajax({
+                url: "/POS/ProductEdit/" + id,
+                typr: "GET",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                success: function (response) {
+                    //alert(" SucessFull Get the Value " + JSON.stringify(response));
+                    $('#productname1').val(response.Name);
+                    $('#barcode').val(response.Barcode);
+                    $('#description').val(response.Description);
+                 //   $('#associatedclub').val(response.SoldInClubs);
+                     $('#prodprof1').attr("src", response.ImageURL);
+                    $('#updateProd').modal('show');
+            },
+            error: function (response) {
+                alert(response.responseText);
+                }
+            });
+            return false;
+        }
+    </script>
+}
+
+

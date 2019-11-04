@@ -90,7 +90,13 @@ namespace gym_mgmt_01.Controllers
                            }).ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult FindMember() {
+        public ActionResult FindMember(int? id) {
+            //    Response.Write(" ID -: " + id);
+            if (id != null) {
+                Response.Write(" ID -: " + id);
+            } else {
+             //   Response.Write(" ID No");
+            }
             return View();
         }
         [HttpPost]

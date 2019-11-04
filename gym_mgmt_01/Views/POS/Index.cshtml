@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="row upp2">
+
+        <!-- Column -->
+        <!-- Column -->
+        <div class="col-lg-8 col-xlg-8 col-md-8">
+            <div class="alert alert-info">
+                <i class="ti-user"></i> The Sale is empty.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-xlg-3 col-md-3">
+                    <div class="btn-group mm1">
+                        <button class="btn btn-primary mm2"><i class="ti-layout-grid2 gridicon"></i></button>
+                        <button class="btn btn-primary mm3">Main Menu</button>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-xlg-3 col-md-3">
+                    <button class="btn btn-primary posstg"> <i class="mdi mdi-settings "></i>POS Setting</button>
+                </div>
+                <div class="col-lg-6 col-xlg-6 col-md-6">
+                    <form action="#">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Type the product name" aria-label="">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="mdi  mdi-magnify"></i></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="mainpos">
+                <div class="partpos">
+                    <button type="button" class="btn ptp" data-toggle="modal" data-target="#generalsale" data-whatever=""><h4>General Sale</h4></button>
+                </div>
+                <div class="partpos bluebg">
+                    <button type="button" class="btn ptp" data-toggle="modal" data-target="#giftvoucher" data-whatever=""><h4>Gift Voucher</h4></button>
+                </div>
+                <div class="partpos bluebg">
+                    <button type="button" class="btn ptp" data-toggle="modal" data-target="#opendrawer" data-whatever=""><h4>Open Drawer</h4></button>
+                </div>
+                <div class="partpos bluebg">
+                    <button type="button" class="btn ptp" data-toggle="modal" data-target="#cashout" data-whatever=""><h4>Cash Out</h4></button>
+                </div>
+            </div>
+            <div id="childpos" class="row">
+                <div class="childpospart">
+                    <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">Drink</div></button>
+                </div>
+                <div class="childpospart">
+                    <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">Equipment</div></button>
+                </div>
+                <div class="childpospart">
+                    <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">Food</div></button>
+                </div>
+                <div class="childpospart">
+                    <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">General</div></button>
+                </div>
+                <div class="childpospart">
+                    <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">Other</div></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-xlg-4 col-md-4">
+            <div class="tablepos">
+                <table class="table">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">Product</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Total</th>
+                            <th scope=""></th>
+                            <th scope=""></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Item 1</td>
+                            <td>2</td>
+                            <td>$4.00</td>
+                            <td><i class="ti-pencil pencilicon"></i></td>
+                            <td><i class="ti-close closeicon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Item 2</td>
+                            <td>4</td>
+                            <td>$2.00</td>
+                            <td><i class="ti-pencil pencilicon"></i></td>
+                            <td><i class="ti-close closeicon"></i></td>
+                        </tr>
+
+                        <tr>
+                            <td>Sub-Total</td>
+                            <td></td>
+                            <td>$0.00</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td></td>
+                            <td>$0.00</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Due</td>
+                            <td></td>
+                            <td>$0.00</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button class="btnpos makepay ptp" type="button" data-toggle="modal" data-target="#payment" data-whatever="">Make Payment</button>
+                <button class="btnpos chargetomember ptp" type="button" data-toggle="modal" data-target="#" data-whatever="">Charge to Member</button>
+                <button class="btnpos cancelpos ptp" type="button" data-toggle="modal" data-target="#cancel" data-whatever="">Cancel</button>
+                <button class="btnpos completesale ptp" type="button" data-toggle="modal" data-target="#" data-whatever="">Complete Sale</button>
+            </div>
+
+        </div>
+        <!-- Column -->
+    </div>

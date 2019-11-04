@@ -263,14 +263,14 @@
 	width: 70%;
 }
 .upp2{
-	margin-top: 50px;
+	margin-top: 20px;
 }
 .partpos{
-	width: 150px;
+	width: 20%;
 	height: 55px;
 	float: left;
 	background-color: #fff;
-	margin: 10px;
+	margin: 10px 2%;
 	box-shadow: 2px 2px 5px .5px #cfcfcf;
 }
 .partpos h4{
@@ -312,6 +312,7 @@
 	text-transform: uppercase;
 	border: 0px solid #fff;
 	padding: 15px 0px;
+	font-size: 13px;
 }
 .makepay{
 	background-color: #00c292;
@@ -336,11 +337,11 @@
 	float: left;
 	background-color: #fb9678;
 	margin: 20px 1% 10px;
-	padding: 20px 0px;
 	text-align: center;
 }
 .childpospart:hover{
 	box-shadow: 1px 2px 6px .6px #dfdfdf;
+	background-color: #ec7b59;
 }
 .childpospart button{
 	color: #fff;
@@ -361,4 +362,137 @@
 }
 .btnroles{
 	margin-left: 10px;
+}
+.poschild5{
+	padding: 33px 0px;
+	font-weight: 600;
+}
+.iconpt{
+	float: right;
+}
+.childpospart .ptp5{
+	width: 100%;
+}
+.childpospart .ptp5:hover{
+	color: #fff;
+	box-shadow: 2px 2px 10px .6px #dfdfdf;
+}
+.paybtn11{
+	margin: 10px .5%;
+	width: 32%;
+	float: left;
+	height: 65px;
+	font-size: 11px;
+	font-weight: 600;
+}
+.pencilicon{
+	background-color: #ec7b59;
+	color: #fff;
+	padding: 5px;
+    border: 0px solid #cfcfcf;
+    border-radius: 5px;
+}
+.closeicon{
+	background-color:#337ab7;
+	color: #fff;
+	padding: 5px;
+    border: 0px solid #cfcfcf;
+    border-radius: 5px;
+}
+.tablepos tr{
+	border-bottom: 1px solid #e9ecef;
+}
+
+.posstg{
+	width: 100%;
+}
+.posstg i{
+	padding: 5px;
+}
+.gridicon{
+
+	float: left;
+}
+.mm1{
+	width: 100%;
+}
+.mm2{
+	width: 10%;
+	border-right: 1.5px solid #fff!important;
+	
+}
+.mm2 i{
+	padding: 0px 2px;
+}
+.labelcheck{
+	width: 100%;
+}
+.labelcheck span{
+	padding-left: 10px;
+}
+.rborder{
+	border-right: 1px solid #afafaf;
+}
+.partsgrp{
+	padding-left: 20px!important;
+	padding-right: 30px!important;
+}
+.partsgrp h4{
+	font-weight: 600;
+	margin-top: 15px;
+}
+.halflength{
+	width: 50%;
+	float: left;
+}
+.fontsmall input{
+	font-size: 12px!important;
+}
+.span1{
+    padding: 5px 15px;
+    background-color: #fff;
+	border: 0px solid #fff;
+	margin-top: 1px;
+	height: 36px;
+}
+.addrolestab{
+	background-color: #fff;
+	width: 99%;
+	margin: 10px 1%;
+}
+.rolebtns2{
+	width: 100%;
+	margin: 10px 0%;
+	margin-left: 0%!important;
+	margin-right: 0%!important;
+}
+.btnaddrole{
+	float: right;
+}
+.editbtn1{
+	background-color:rgba(51, 122, 183,.1)!important;
+	color: rgb(51, 122, 183)!important;
+	font-weight: 600!important;
+	border: 0px solid #fff!important;
+}
+.deletebtn1{
+	background-color: rgba(250, 111, 70, .1)!important;
+	color: rgb(250, 111, 70)!important;
+	font-weight: 600!important;
+	border: 0px solid #fff!important;
+}
+.editbtn1:hover{
+	background-color:rgb(51, 122, 183)!important;
+	color: #fff!important;
+}
+.deletebtn1:hover{
+	background-color: #fa6f46!important;
+	color: #fff!important;
+}
+.logoname{
+	padding: 10px;
+	text-transform: uppercase;
+}
+.phy2{
+	font-weight: 600;
 }
