@@ -7,6 +7,7 @@ using gym_mgmt_01.Models;
 using System.Web.Mvc;
 using System.Configuration;
 using System.IO;
+using System.Data; 
 
 namespace gym_mgmt_01.Controllers
 {
@@ -16,8 +17,10 @@ namespace gym_mgmt_01.Controllers
         ProductOperation po = new ProductOperation();
         dynamic model = new System.Dynamic.ExpandoObject();
         public ActionResult Index()
-        {   
-            return View();
+        {
+            List<ProductType> catType = po.getAllProductType();
+            model.catType = catType;
+            return View(model);
         }
         public ActionResult ProductType() {
 
@@ -68,7 +71,15 @@ namespace gym_mgmt_01.Controllers
         {
             if (ModelState.IsValid) {
                 string imagePath = uploadFile(fileBase);
-                po.UpdateProduct(int.Parse(fc["Id"].ToString()), fc["productname"].ToString(), int.Parse(fc["productType"].ToString()), int.Parse(fc["supplier"].ToString()), int.Parse(fc["posGroup"].ToString()), fc["barcode"].ToString(), fc["description"].ToString(), imagePath);
+            //    string ID = fc["id"].ToString();
+            //     int Id = int.Parse(fc["id"].ToString());
+            //    string productName = fc["productname"].ToString();
+             //   int productTYpe = int.Parse(fc["productType"].ToString());
+             //   int supplier = int.Parse(fc["supplier"].ToString());
+               // int posGroup = int.Parse(fc["posGroup"].ToString());
+              //  string barcode = fc["barcode"].ToString();
+             //   string description = fc["description"].ToString();
+                po.UpdateProduct(int.Parse(fc["id"].ToString()), fc["productname"].ToString(), int.Parse(fc["productType"].ToString()), int.Parse(fc["supplier"].ToString()), int.Parse(fc["posGroup"].ToString()), fc["barcode"].ToString(), fc["description"].ToString(), imagePath);
             }
             return RedirectToAction("Products");
         }
@@ -87,7 +98,9 @@ namespace gym_mgmt_01.Controllers
         public ActionResult Products() {
 
             List<Product> product = po.getAllProducts();
+            List<ProductType> productType = po.getAllProductType();
             model.product = product;
+            model.productType = productType;
             return View(model);
         }
         string fullPath;
@@ -121,6 +134,12 @@ namespace gym_mgmt_01.Controllers
                         //To copy and save file into server.  
                         file.SaveAs(fullPath);
                     }
+                    else {
+                        relativePath = "/assets/images/products/prod_default.png";
+                    }
+                }
+                else {
+                    relativePath = "/assets/images/products/prod_default.png";
                 }
 
             }
@@ -176,6 +195,44 @@ namespace gym_mgmt_01.Controllers
             {
                 throw;
             }
+        }
+        public ActionResult Stock() {
+
+            List<Stocks> stocks = po.getAllStocks();
+            List<Product> product = po.getAllProducts();
+            model.stocks = stocks;
+            model.products = product;
+            return View(model);
+        }
+        [NonAction]
+        public SelectList ToSelectList(DataTable table, string valueField, string textField)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            foreach (DataRow row in table.Rows)
+            {
+                list.Add(new SelectListItem()
+                {
+                    Text = row[textField].ToString(),
+                    Value = row[valueField].ToString()
+                });
+            }
+
+            return new SelectList(list, "Value", "Text");
+        }
+        [HttpPost]
+        public ActionResult SaveStock(FormCollection fc) {
+    
+            int productID = int.Parse(fc["productName"].ToString());
+            int quantity = int.Parse(fc["quantity"].ToString());
+            Response.Write("Hello World ");
+            po.AddStocks(productID, quantity, 0, quantity);
+            return RedirectToAction("Stock");
+        }
+        [HttpPost]
+        public ActionResult EditStock()
+        {
+            return RedirectToAction("Stock");
         }
     }
 

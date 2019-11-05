@@ -3,12 +3,12 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model dynamic
     <div class="row upp2">
-
         <!-- Column -->
         <!-- Column -->
         <div class="col-lg-8 col-xlg-8 col-md-8">
-            <div class="alert alert-info">
+            <div class="alert alert-info" style="">
                 <i class="ti-user"></i> The Sale is empty.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
@@ -19,8 +19,7 @@
                         <button class="btn btn-primary mm3">Main Menu</button>
                     </div>
                 </div>
-
-                <div class="col-lg-3 col-xlg-3 col-md-3">
+                <div class="col-lg-3 col-xlg-3 col-md-3" style="display:none">
                     <button class="btn btn-primary posstg"> <i class="mdi mdi-settings "></i>POS Setting</button>
                 </div>
                 <div class="col-lg-6 col-xlg-6 col-md-6">
@@ -34,7 +33,7 @@
                     </form>
                 </div>
             </div>
-            <div id="mainpos">
+            <div id="mainpos" style="display:none;">
                 <div class="partpos">
                     <button type="button" class="btn ptp" data-toggle="modal" data-target="#generalsale" data-whatever=""><h4>General Sale</h4></button>
                 </div>
@@ -48,7 +47,20 @@
                     <button type="button" class="btn ptp" data-toggle="modal" data-target="#cashout" data-whatever=""><h4>Cash Out</h4></button>
                 </div>
             </div>
-            <div id="childpos" class="row">
+            <div id="childpos" class="row" style="display:block;">
+                @if (Model.catType.Count > 0)
+                {
+                    foreach (var catType in Model.catType)
+                    {
+                        <div class="childpospart">
+                            <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">@catType.TypeName</div></button>
+                        </div>
+                    }
+
+                }
+                
+            </div>
+            <div id="childpos" class="row" style="display:none;">
                 <div class="childpospart">
                     <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">Drink</div></button>
                 </div>
@@ -62,7 +74,7 @@
                     <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">General</div></button>
                 </div>
                 <div class="childpospart">
-                    <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">Other</div></button>
+                    <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">Back</div></button>
                 </div>
             </div>
         </div>
@@ -71,30 +83,12 @@
                 <table class="table">
                     <thead>
                         <tr>
-
                             <th scope="col">Product</th>
                             <th scope="col">Qty</th>
                             <th scope="col">Total</th>
-                            <th scope=""></th>
-                            <th scope=""></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Item 1</td>
-                            <td>2</td>
-                            <td>$4.00</td>
-                            <td><i class="ti-pencil pencilicon"></i></td>
-                            <td><i class="ti-close closeicon"></i></td>
-                        </tr>
-                        <tr>
-                            <td>Item 2</td>
-                            <td>4</td>
-                            <td>$2.00</td>
-                            <td><i class="ti-pencil pencilicon"></i></td>
-                            <td><i class="ti-close closeicon"></i></td>
-                        </tr>
-
                         <tr>
                             <td>Sub-Total</td>
                             <td></td>
@@ -118,7 +112,6 @@
                         </tr>
                     </tbody>
                 </table>
-
                 <button class="btnpos makepay ptp" type="button" data-toggle="modal" data-target="#payment" data-whatever="">Make Payment</button>
                 <button class="btnpos chargetomember ptp" type="button" data-toggle="modal" data-target="#" data-whatever="">Charge to Member</button>
                 <button class="btnpos cancelpos ptp" type="button" data-toggle="modal" data-target="#cancel" data-whatever="">Cancel</button>
@@ -128,3 +121,8 @@
         </div>
         <!-- Column -->
     </div>
+@section scripts{
+    <script type="text/javascript">
+
+    </script>
+}

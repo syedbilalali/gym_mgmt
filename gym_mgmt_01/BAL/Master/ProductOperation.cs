@@ -66,6 +66,7 @@ namespace gym_mgmt_01.BAL.Master
             return productType;
 
         }
+        //Products 
         public List<Product> getAllProducts()
         {
             string command = "SELECT * FROM Products";
@@ -110,9 +111,9 @@ namespace gym_mgmt_01.BAL.Master
             param[2] = new SqlParameter("@Type_Id", Type_Id);
             param[3]= new SqlParameter("@Supplier_Id", Supplier_Id);
             param[4] = new SqlParameter("@POS_Group_Id", POS_group_Id);
-            param[6] = new SqlParameter("@Barcode", Barcode);
-            param[7] = new SqlParameter("@Description", Description);
-            param[8] = new SqlParameter("@ImageURL", ImageURL);
+            param[5] = new SqlParameter("@Barcode", Barcode);
+            param[6] = new SqlParameter("@Description", Description);
+            param[7] = new SqlParameter("@ImageURL", ImageURL);
             da.InsertSP(param, command);
         }
         public bool DeleteProduct(int Id) {
@@ -121,5 +122,57 @@ namespace gym_mgmt_01.BAL.Master
             param[0] = new SqlParameter("@Id", Id);
             return da.InsertSP(param, command);
         }
+        //Stock
+        public List<Stocks> getAllStocks()
+        {
+            string command = "SELECT * FROM Stocks";
+            List<Stocks> stocks = new List<Stocks>();
+            dt = da.FetchAll(command);
+            if (dt.Rows.Count > 0)
+            {
+                stocks = (from DataRow dr in dt.Rows
+                               select new Stocks()
+                               {
+                                   Id = int.Parse(dr["Id"].ToString()),
+                                   product_Id = int.Parse(dr["product_Id"].ToString()),
+                                   stockin = int.Parse(dr["stock_in"].ToString()),
+                                   stockout = int.Parse(dr["stock_out"].ToString()),
+                                   current_stock = int.Parse(dr["current_stock"].ToString())
+           
+                               }).ToList();
+            }
+            return stocks;
+
+        }
+        public void AddStocks(int Product_Id , int stock_in , int stock_out  , int current_stock) {
+
+            string command = "physiofit_admin.spInsertStocks";
+            SqlParameter[] param = new SqlParameter[4];
+            param[0] = new SqlParameter("@ProductID", Product_Id);
+            param[1] = new SqlParameter("@stock_in",  stock_in);
+            param[2] = new SqlParameter("@stock_out", stock_out);
+            param[3] = new SqlParameter("@current_stock", current_stock);
+            da.InsertSP(param, command);
+        }
+        public void UpdateStocks(int stock_ID , int Product_Id, int stock_in, int stock_out, int current_stock, DateTime CreatedAt) {
+            
+            string command = "physiofit_admin.spUpdateStocks";
+            SqlParameter[] param = new SqlParameter[6];
+            param[0] = new SqlParameter("@Id", stock_ID);
+            param[1] = new SqlParameter("@ProductID", Product_Id);
+            param[2] = new SqlParameter("@stock_in", stock_in);
+            param[3] = new SqlParameter("@stock_out", stock_out);
+            param[4] = new SqlParameter("@current_stock", current_stock);
+            param[5] = new SqlParameter("@CreatedAt", CreatedAt);
+            da.InsertSP(param, command);
+        }
+        public bool DeleteStock(int Id) {
+
+            string command = "physiofit_admin.spDeleteStocks";
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter("@Id", Id);
+            return da.InsertSP(param, command);
+        }
+
     }
 }

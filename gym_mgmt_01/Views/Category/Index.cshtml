@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "ProductType";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var none = "--";
@@ -37,8 +36,8 @@
             </thead>
             <tbody>
                 @if (Model.prodTypeList.Count > 0)
-                {   
-                    
+                {
+
                     foreach (var productType in Model.prodTypeList)
                     {
 
@@ -61,7 +60,7 @@
                                 <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProductType", "POS", new { id = productType.Id })'">Delete</button>
                             </td>
                         </tr>
-                       
+
                     }
                 }
                 else
@@ -77,7 +76,7 @@
 </div>
 <!-------Modal For Add  Product Type ---------->
 <div class="modal" id="addcat" tabindex="-1" role="dialog" aria-labelledby="addcatlabel">
-    @using (Html.BeginForm("SaveProductType", "POS", FormMethod.Post))
+    @using (Html.BeginForm("SaveProductType", "Category", FormMethod.Post))
     {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -114,7 +113,7 @@
 <!----------------->
 <!-------Modal For Updat Product Type ---------------->
 <div class="modal" id="updateCat" tabindex="-1" role="dialog" aria-labelledby="addcatlabel">
-    @using (Html.BeginForm("EditProductType", "POS", FormMethod.Post))
+    @using (Html.BeginForm("EditProductType", "Category", FormMethod.Post))
     {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
