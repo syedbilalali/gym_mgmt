@@ -129,6 +129,7 @@
     <Compile Include="BAL\Master\ProductOperation.cs" />
     <Compile Include="BAL\Master\PropectusOperation.cs" />
     <Compile Include="BAL\Master\RoleOperation.cs" />
+    <Compile Include="BAL\Master\SellsOrderItemsOpt.cs" />
     <Compile Include="BAL\Master\StaffOperation.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -155,6 +156,8 @@
     <Compile Include="Models\ProductType.cs" />
     <Compile Include="Models\Prospectus.cs" />
     <Compile Include="Models\RoleGroup.cs" />
+    <Compile Include="Models\SellsOrder.cs" />
+    <Compile Include="Models\SellsOrderItems.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\Stocks.cs" />
     <Compile Include="Models\UserRoles.cs" />
