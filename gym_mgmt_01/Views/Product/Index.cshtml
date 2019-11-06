@@ -56,7 +56,7 @@
                             <td>--</td>
                             <td>
                                 <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@product.Id)">Edit</button>
-                                <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProducts", "POS", new { id = product.Id })'">Delete</button>
+                                <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProducts", "Product", new { id = product.Id })'">Delete</button>
                             </td>
                         </tr>
 
@@ -246,7 +246,7 @@
         })
         function GetDetails(id) {
             $.ajax({
-                url: "/POS/ProductEdit/" + id,
+                url: "/Product/ProductEdit/" + id,
                 typr: "GET",
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",

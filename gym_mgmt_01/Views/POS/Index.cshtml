@@ -8,7 +8,7 @@
         <!-- Column -->
         <!-- Column -->
         <div class="col-lg-8 col-xlg-8 col-md-8">
-            <div class="alert alert-info" style="">
+            <div class="alert alert-info" style="display:none">
                 <i class="ti-user"></i> The Sale is empty.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
@@ -19,7 +19,7 @@
                         <button class="btn btn-primary mm3">Main Menu</button>
                     </div>
                 </div>
-                <div class="col-lg-3 col-xlg-3 col-md-3" style="display:none">
+                <div class="col-lg-3 col-xlg-3 col-md-3" style="display:block">
                     <button class="btn btn-primary posstg"> <i class="mdi mdi-settings "></i>POS Setting</button>
                 </div>
                 <div class="col-lg-6 col-xlg-6 col-md-6">
@@ -49,38 +49,44 @@
             </div>
             <div id="childpos" class="row" style="display:block;">
                 @if (Model.catType.Count > 0)
-                {
+                {   
                     foreach (var catType in Model.catType)
                     {
                         <div class="childpospart">
-                            <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">@catType.TypeName</div></button>
+                            <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="location.href='@Url.Action("FindSub", "POS", new { id = catType.Id })'"><i class="ti-folder iconpt"></i><div class="poschild5">@catType.TypeName</div></button>
                         </div>
                     }
-
                 }
-                
+                else
+                {
+                    
+                }
+                @if (Model.prod.Count > 0)
+                {    
+
+                    foreach (var prod in Model.prod)
+                    {
+                        <div class="childpospart">
+                            <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" name="@prod.Name" id="@prod.Id" onclick="location.href='@Url.Action("getData", "POS", new { id= prod.Id})'" ><i class=" iconpt"></i><div class="poschild5">@prod.Name</div></button>
+                        </div>
+                    }
+                    <div class="childpospart">
+                        <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="location.href='@Url.Action("Index", "POS")'"><i class="ti-back-left iconpt"></i><div class="poschild5">Back</div></button>
+                    </div>
+                }
+                else
+                {
+                    <div class="childpospart">
+                        <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="location.href='@Url.Action("Index", "POS")'"><i class="ti-back-left iconpt"></i><div class="poschild5">Back</div></button>
+                    </div>
+                }
+
             </div>
-            <div id="childpos" class="row" style="display:none;">
-                <div class="childpospart">
-                    <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">Drink</div></button>
-                </div>
-                <div class="childpospart">
-                    <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">Equipment</div></button>
-                </div>
-                <div class="childpospart">
-                    <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">Food</div></button>
-                </div>
-                <div class="childpospart">
-                    <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">General</div></button>
-                </div>
-                <div class="childpospart">
-                    <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever=""><i class="ti-folder iconpt"></i><div class="poschild5">Back</div></button>
-                </div>
-            </div>
+            
         </div>
         <div class="col-lg-4 col-xlg-4 col-md-4">
             <div class="tablepos">
-                <table class="table">
+                <table class="table" id="invoicePanel">
                     <thead>
                         <tr>
                             <th scope="col">Product</th>
@@ -89,6 +95,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @{
+                            if (ViewBag.Data != null)
+                            {
+                                <tr>
+                                    <td>ViewBag.Data</td>
+                                    <td>3</td>
+                                    <td>4.33</td>
+                                    <td><i class='ti-pencil pencilicon'></i></td>
+                                    <td><i class='ti-close closeicon'></i></td>
+                                </tr>
+                            }
+
+                        }
                         <tr>
                             <td>Sub-Total</td>
                             <td></td>
@@ -123,6 +142,22 @@
     </div>
 @section scripts{
     <script type="text/javascript">
-
+        function addProduct(data) {
+            alert("Adding in the Product... " + data.id);
+            var invoicePanel = document.querySelector('#invoicePanel');
+            console.log(" Invoice Panel : " + invoicePanel);
+            var rowcount = invoicePanel.rows.length;
+            var row = invoicePanel.insertRow(1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            var cell5 = row.insertCell(4);
+            cell1.innerHTML = data.name;
+            cell2.innerHTML = "ddaad";
+            cell3.innerHTML = "dsdds";
+            cell4.innerHTML = "<i class='ti-pencil pencilicon'></i>";
+            cell5.innerHTML = "<i class='ti-close closeicon'></i>";
+        } 
     </script>
 }

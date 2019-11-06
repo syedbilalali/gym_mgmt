@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using gym_mgmt_01.BAL.Master;
 using gym_mgmt_01.Models;
-using System.Web.Mvc;
 using System.Configuration;
 using System.IO;
 using System.Data;
@@ -110,6 +109,29 @@ namespace gym_mgmt_01.Controllers
 
             }
             return relativePath;
+        }
+        public ActionResult DeleteProducts(int id)
+        {
+            try
+            {
+                bool result = po.DeleteProducts(id);
+                if (result == true)
+                {
+                    ViewBag.Message = "Customer Deleted Successfully";
+                    ModelState.Clear();
+                }
+                else
+                {
+                    ViewBag.Message = "Unsucessfull";
+                    ModelState.Clear();
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

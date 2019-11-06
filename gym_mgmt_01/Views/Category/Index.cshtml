@@ -57,7 +57,7 @@
                             <td>@productType.SoldInClubs</td>
                             <td>
                                 <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@productType.Id)">Edit</button>
-                                <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProductType", "POS", new { id = productType.Id })'">Delete</button>
+                                <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProductType", "Category", new { id = productType.Id })'">Delete</button>
                             </td>
                         </tr>
 
@@ -151,7 +151,7 @@
     <script type="text/javascript">
         function GetDetails(id) {
             $.ajax({
-                url: "/POS/ProductTypeEdit/" + id,
+                url: "/Category/ProductTypeEdit/" + id,
                 typr: "GET",
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",

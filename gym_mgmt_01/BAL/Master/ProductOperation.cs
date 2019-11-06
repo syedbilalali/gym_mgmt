@@ -66,6 +66,23 @@ namespace gym_mgmt_01.BAL.Master
             return productType;
 
         }
+        public List<Product> getAllProductByType(int id)
+        {
+            string command = "SELECT * FROM Products WHERE Type_Id=" + id;
+            List<Product> product = new List<Product>();
+            dt = da.FetchAll(command);
+            if (dt.Rows.Count > 0)
+            {
+                product = (from DataRow dr in dt.Rows
+                               select new Product()
+                               {
+                                   Id = int.Parse(dr["Id"].ToString()),
+                                   Name = dr["Name"].ToString()
+                               }).ToList();
+            }
+            return product;
+
+        }
         //Products 
         public List<Product> getAllProducts()
         {
