@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var subtotal = 0.00;
+    var Total = 0.00;
+    var due = 0.00;
 }
 @model dynamic
     <div class="row upp2">
@@ -16,7 +19,7 @@
                 <div class="col-lg-3 col-xlg-3 col-md-3">
                     <div class="btn-group mm1">
                         <button class="btn btn-primary mm2"><i class="ti-layout-grid2 gridicon"></i></button>
-                        <button class="btn btn-primary mm3">Main Menu</button>
+                        <button id="menubtn" class="btn btn-primary mm3">Main Menu</button>
                     </div>
                 </div>
                 <div class="col-lg-3 col-xlg-3 col-md-3" style="display:block">
@@ -47,40 +50,13 @@
                     <button type="button" class="btn ptp" data-toggle="modal" data-target="#cashout" data-whatever=""><h4>Cash Out</h4></button>
                 </div>
             </div>
-            <div id="childpos" class="row" style="display:block;">
-                @if (Model.catType.Count > 0)
-                {   
-                    foreach (var catType in Model.catType)
-                    {
-                        <div class="childpospart">
-                            <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="location.href='@Url.Action("FindSub", "POS", new { id = catType.Id })'"><i class="ti-folder iconpt"></i><div class="poschild5">@catType.TypeName</div></button>
-                        </div>
-                    }
-                }
-                else
-                {
+            <div id="childpos" class="row">
+                <div id="category" style="width:100%; display:none;">
                     
-                }
-                @if (Model.prod.Count > 0)
-                {    
-
-                    foreach (var prod in Model.prod)
-                    {
-                        <div class="childpospart">
-                            <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" name="@prod.Name" id="@prod.Id" onclick="location.href='@Url.Action("getData", "POS", new { id= prod.Id})'" ><i class=" iconpt"></i><div class="poschild5">@prod.Name</div></button>
-                        </div>
-                    }
-                    <div class="childpospart">
-                        <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="location.href='@Url.Action("Index", "POS")'"><i class="ti-back-left iconpt"></i><div class="poschild5">Back</div></button>
-                    </div>
-                }
-                else
-                {
-                    <div class="childpospart">
-                        <button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="location.href='@Url.Action("Index", "POS")'"><i class="ti-back-left iconpt"></i><div class="poschild5">Back</div></button>
-                    </div>
-                }
-
+                </div>
+                <div id="product" style=" width:100%; display:none;">
+                    <div class="childpospart"><button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="back()"><i class="ti-back-left iconpt"></i><div class="poschild5">Back</div></button></div>
+                </div>
             </div>
             
         </div>
@@ -95,11 +71,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @{
+                        @{  
+                  
                             if (ViewBag.Data != null)
                             {
                                 <tr>
-                                    <td>ViewBag.Data</td>
+                                    <td></td>
                                     <td>3</td>
                                     <td>4.33</td>
                                     <td><i class='ti-pencil pencilicon'></i></td>
@@ -142,22 +119,151 @@
     </div>
 @section scripts{
     <script type="text/javascript">
+
+        $(function () {
+            var catName = "Main Menu";
+            alert(" On Page Load ");
+            var menubtn = document.querySelector('#menubtn');
+            menubtn.innerHTML = " Main Menu ";
+            getCategory();
+        });
+        //Getting Catgeory From the Controller
+        //$(function () {
+        //  $.ajax({
+        //    type: "GET",
+        //    url: "/POS/getCategory",
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //      success: function (response) {
+        //          alert("Getting the Data : " + JSON.stringify(response));
+        //    },
+        //    failure: function(response) {
+        //        alert(response.responseText);
+        //    },
+        //    error: function(response) {
+        //        alert(response.responseText);
+        //    }
+        //});
+        //});
+       
+        function getCategory() {
+            alert("Getting the Category");
+            $.ajax({
+            type: "GET",
+            url: "/POS/getCategory",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+              success: function (response) {
+                //  alert("Getting the Data : " + JSON.stringify(response));
+                  var catlist = JSON.parse(JSON.stringify(response));
+                  var cat_contain = document.querySelector("#category");
+                //  alert(catlist);
+                  var cat_len = catlist.length;
+                  var final_list = "";
+                  for (var i = 0; i < catlist.length; i++) {
+                      var list  = '<div class="childpospart"><button type="button" class="btn ptp5" id=' + catlist[i].Id + ' data-toggle="modal" name=' + catlist[i].TypeName+ ' data-target="#" data-whatever="" onclick="getProduct(this)">'
+                      list += '<i class="ti-folder iconpt"></i><div class="poschild5">' + catlist[i].TypeName + '</div></button></div>';
+                      final_list  += list;
+                  }
+                 
+                  cat_contain.innerHTML = final_list;
+              },
+              failure: function(response) {
+                 alert(response.responseText);
+              },
+              error: function(response) {
+                 alert(response.responseText);
+              }
+           });
+            var cat = document.querySelector('#category');
+            var prod = document.querySelector("#product");
+            showHidePanel(prod,cat);
+        }
         function addProduct(data) {
-            alert("Adding in the Product... " + data.id);
+
+            var cat = document.querySelector('#category');
+            var prod = document.querySelector("#product");
+           // alert("Adding in the Product... " + data.id);
             var invoicePanel = document.querySelector('#invoicePanel');
             console.log(" Invoice Panel : " + invoicePanel);
             var rowcount = invoicePanel.rows.length;
+            if (data.id != null) {
+                alert(invoicePanel.rows.length);
+
+            }
             var row = invoicePanel.insertRow(1);
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
             var cell3 = row.insertCell(2);
             var cell4 = row.insertCell(3);
             var cell5 = row.insertCell(4);
+            //name
             cell1.innerHTML = data.name;
-            cell2.innerHTML = "ddaad";
-            cell3.innerHTML = "dsdds";
+            //Qty
+            cell2.innerHTML = data.id;
+            //Price
+            cell3.innerHTML = "$20.00";
             cell4.innerHTML = "<i class='ti-pencil pencilicon'></i>";
             cell5.innerHTML = "<i class='ti-close closeicon'></i>";
-        } 
+        }
+        function showHidePanel(hide, show) {
+            if (hide.style.display != 'none') {
+                hide.style.display = 'none';
+            }
+            if (show.style.display != 'block') {
+                show.style.display = 'block';
+            } 
+        }
+        function getProduct(resp) {
+            var cat = document.querySelector('#category');
+            var prod = document.querySelector('#product');
+            var menubtn = document.querySelector('#menubtn');
+            menubtn.innerHTML = resp.name;
+           // alert(" Show Product !!!" + resp.id);
+            $.ajax({
+                type: "POST",
+                url: "/POS/getProducts",
+                data: JSON.stringify({ 'id': resp.id }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    if (response != null) {
+                       // alert("Name : " + JSON.stringify(response));
+                        var prodlist = JSON.parse(JSON.stringify(response));
+                        var prod_contain = document.querySelector("#product");
+                        var final_list = "";
+                        for (var i = 0; i < prodlist.length; i++) {
+
+                                var list  = '<div class="childpospart"><button type="button" class="btn ptp5" id=' + prodlist[i].Id + ' name='+ prodlist[i].Name+' data-toggle="modal" data-target="#" data-whatever="" onclick="addProduct(this)">'
+                                list += '<i class=" iconpt"></i><div class="poschild5">' + prodlist[i].Name + '</div></button></div>';
+                                final_list  += list;
+                        }
+                        var back = '<div class="childpospart"><button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="back()"><i class="ti-back-left iconpt"></i><div class="poschild5">Back</div></button></div>';
+                        prod_contain.innerHTML = final_list + back;
+                    } else {
+
+                        alert("Something went wrong");
+                    }
+                },
+                failure: function(response) {
+                    alert(response.responseText);
+                },
+                error: function(response) {
+                    alert(response.responseText);
+                }
+            });
+            showHidePanel(cat,prod);
+        }
+        function back() {
+
+            var cat = document.querySelector('#category');
+            var prod = document.querySelector('#product');
+            showHidePanel(prod, cat);
+              var menubtn = document.querySelector('#menubtn');
+            menubtn.innerHTML = "Main Menu";
+        }
+        function addCart() {
+
+        }
     </script>
 }

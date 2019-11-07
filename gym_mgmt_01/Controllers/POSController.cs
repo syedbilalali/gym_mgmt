@@ -18,14 +18,13 @@ namespace gym_mgmt_01.Controllers
         dynamic model = new System.Dynamic.ExpandoObject();
         public ActionResult Index()
         {
+            //ViewBag.Data = "Data";
             List<ProductType> catType = po.getAllProductType();
             model.catType = catType;
             model.prod = new List<Product>(); 
             return View(model);
         }
-        public ActionResult SalesLedger() {
-            return View();
-        }
+      
         public ActionResult FindSub(int id) {
             //  Response.Write(" Data : " + id);
             List<Product> prod = po.getAllProductByType(id);
@@ -33,53 +32,6 @@ namespace gym_mgmt_01.Controllers
             model.catType = cat;
             model.prod = prod;
             return View("Index" , model);
-        }
-        string fullPath;
-        string relativePath;
-        private string uploadFile(HttpPostedFileBase file)
-        {
-            string trailingPath;
-            if (file != null)
-            {
-                if (file.ContentType == "image/jpeg")
-                {
-                    if (file.ContentLength < 102400)
-                    {
-
-                        string FileName = Path.GetFileNameWithoutExtension(file.FileName);
-
-                        //To Get File Extension  
-                        string FileExtension = Path.GetExtension(file.FileName);
-
-                        //Add Current Date To Attached File Name  
-                        FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName.Trim() + FileExtension;
-
-                        //Get Upload path from Web.Config file AppSettings.  
-                        string UploadPath = ConfigurationManager.AppSettings["UserImagePath"].ToString();
-
-                        //Its Create complete path to store in server.  
-                        //  string ImagePath = UploadPath + FileName;
-                        trailingPath = Path.GetFileName(file.FileName);
-                        fullPath = Path.Combine(Server.MapPath("~/assets/images/products/"), trailingPath);
-                        relativePath = "/assets/images/products/" + trailingPath;
-                        //To copy and save file into server.  
-                        file.SaveAs(fullPath);
-                    }
-                    else {
-                        relativePath = "/assets/images/products/prod_default.png";
-                    }
-                }
-                else {
-                    relativePath = "/assets/images/products/prod_default.png";
-                }
-
-            }
-            else
-            {
-                relativePath = "/assets/images/products/prod_default.png";
-
-            }
-            return relativePath;
         }
         [NonAction]
         public SelectList ToSelectList(DataTable table, string valueField, string textField)
@@ -103,9 +55,24 @@ namespace gym_mgmt_01.Controllers
             return View("Index");
         }
         public ActionResult getData(int id)
-        {
+        {   
+            Response.Write("Data IS : " + id);
             ViewBag.Data = "Data";
             return RedirectToAction("Index");
+        }
+        public ActionResult SalesLedger()
+        {
+            return View();
+        }
+        [HttpGet]
+        public JsonResult getCategory() {
+            List<ProductType> catType = po.getAllProductType();
+            return Json(catType, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult getProducts(int id) {
+            List<Product> prod = po.getAllProductByType(id);
+            return Json(prod, JsonRequestBehavior.AllowGet);
         }
     }
 
