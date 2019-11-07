@@ -22,7 +22,7 @@ namespace gym_mgmt_01.DAL
                 {
                     cmd.Connection = con;
                     con.Open();
-                    for (int i = 0; i < param.Length; i++)
+                    for (int i = 0; i < param.Length;  i++)
                     {
                         cmd.Parameters.Add(param[i]);
                     }

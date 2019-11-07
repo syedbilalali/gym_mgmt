@@ -17,7 +17,7 @@ namespace gym_mgmt_01.BAL.Master
         public void AddContact(Contact c)
         {
             //Insert Command 
-            string command = "INSERT INTO Contact(MemberID , Email, Cell ,Home,Work  , Address, Suburb , City, ZipCode, Subscribed) VALUES(@MemberID , @Email, @Cell ,@Home,@Work  , @Address, @Suburb , @City, @ZipCode, @Subscribed)";
+            string command = "INSERT INTO physiofit_admin.Contact(MemberID , Email, Cell ,Home,Work  , Address, Suburb , City, ZipCode, Subscribed) VALUES(@MemberID , @Email, @Cell ,@Home,@Work  , @Address, @Suburb , @City, @ZipCode, @Subscribed)";
             SqlParameter[] param = new SqlParameter[10];
             param[0] = new SqlParameter("@MemberID", c.MemberID);
             param[1] = new SqlParameter("@Email", c.Email);

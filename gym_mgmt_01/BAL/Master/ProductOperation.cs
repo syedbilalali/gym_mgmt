@@ -148,27 +148,31 @@ namespace gym_mgmt_01.BAL.Master
             if (dt.Rows.Count > 0)
             {
                 stocks = (from DataRow dr in dt.Rows
-                               select new Stocks()
-                               {
-                                   Id = int.Parse(dr["Id"].ToString()),
-                                   product_Id = int.Parse(dr["product_Id"].ToString()),
+                          select new Stocks()
+                          {
+                              Id = int.Parse(dr["Id"].ToString()),
+                              product_Id = int.Parse(dr["product_Id"].ToString()),
+                              get_price = decimal.Parse(dr["get_price"].ToString()),
+                              sell_price = decimal.Parse(dr["sell_price"].ToString()), 
                                    stockin = int.Parse(dr["stock_in"].ToString()),
-                                   stockout = int.Parse(dr["stock_out"].ToString()),
-                                   current_stock = int.Parse(dr["current_stock"].ToString())
-           
-                               }).ToList();
+                              stockout = int.Parse(dr["stock_out"].ToString()),
+                              current_stock = int.Parse(dr["current_stock"].ToString())
+
+                          }).ToList();
             }
             return stocks;
 
         }
-        public void AddStocks(int Product_Id , int stock_in , int stock_out  , int current_stock) {
+        public void AddStocks(int Product_Id ,decimal buyPrice , decimal sellPrice ,  int stock_in , int stock_out  , int current_stock) {
 
             string command = "physiofit_admin.spInsertStocks";
-            SqlParameter[] param = new SqlParameter[4];
+            SqlParameter[] param = new SqlParameter[6];
             param[0] = new SqlParameter("@ProductID", Product_Id);
-            param[1] = new SqlParameter("@stock_in",  stock_in);
-            param[2] = new SqlParameter("@stock_out", stock_out);
-            param[3] = new SqlParameter("@current_stock", current_stock);
+            param[1] = new SqlParameter("@get_price", buyPrice);
+            param[2] = new SqlParameter("@sell_price", sellPrice);
+            param[3] = new SqlParameter("@stock_in",  stock_in);
+            param[4] = new SqlParameter("@stock_out", stock_out);
+            param[5] = new SqlParameter("@current_stock", current_stock);
             da.InsertSP(param, command);
         }
         public void UpdateStocks(int stock_ID , int Product_Id, int stock_in, int stock_out, int current_stock, DateTime CreatedAt) {

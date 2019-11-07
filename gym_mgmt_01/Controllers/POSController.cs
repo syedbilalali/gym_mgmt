@@ -7,7 +7,8 @@ using gym_mgmt_01.Models;
 using System.Web.Mvc;
 using System.Configuration;
 using System.IO;
-using System.Data; 
+using System.Data;
+using Rotativa.MVC;
 
 namespace gym_mgmt_01.Controllers
 {
@@ -73,6 +74,23 @@ namespace gym_mgmt_01.Controllers
         public JsonResult getProducts(int id) {
             List<Product> prod = po.getAllProductByType(id);
             return Json(prod, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult getStock() {
+            List<Stocks> stock = po.getAllStocks();
+            return Json(stock, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult addSellsOrderItems(SellsOrderItems soi) {
+            return Json(null , JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult addSellsOrder(SellsOrder so) {
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult printInvoice() {
+            var data = new ActionAsPdf("Index");
+            return data;
         }
     }
 

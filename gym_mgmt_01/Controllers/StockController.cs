@@ -30,7 +30,9 @@ namespace gym_mgmt_01.Controllers
         {
             int productID = int.Parse(fc["productName"].ToString());
             int quantity = int.Parse(fc["quantity"].ToString());
-            po.AddStocks(productID, quantity, 0, quantity);
+            decimal get_price =  decimal.Parse(fc["getprice"].ToString());
+            decimal sell_price = decimal.Parse(fc["sellprice"].ToString());
+            po.AddStocks(productID,get_price,sell_price, quantity, 0, quantity);
             return RedirectToAction("Index");
         }
         [HttpPost]

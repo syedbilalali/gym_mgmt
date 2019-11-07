@@ -57,7 +57,7 @@ namespace gym_mgmt_01.Controllers
                     co.AddContact(con);
 
             }
-            return View();
+            return RedirectToAction ("Index");
         }
         [HttpGet]
         public JsonResult getJSONData() {
@@ -165,9 +165,10 @@ namespace gym_mgmt_01.Controllers
             string trailingPath;
             if (file != null)
             {
-                if (file.ContentType == "image/jpeg")
+                if (file.ContentType == "image/jpeg" || file.ContentType == "image/gif" || file.ContentType == "image/png")
                 {
-                    if (file.ContentLength < 102400) {
+                    if (file.ContentLength < 102400)
+                    {
 
                         string FileName = Path.GetFileNameWithoutExtension(file.FileName);
 
@@ -188,6 +189,9 @@ namespace gym_mgmt_01.Controllers
                         //To copy and save file into server.  
                         file.SaveAs(fullPath);
                     }
+                }
+                else {
+                    Response.Write(" File Formate Not supported");
                 }
                
             }

@@ -119,10 +119,12 @@
     </div>
 @section scripts{
     <script type="text/javascript">
-
+        var SellsOrderItems = {
+            Id: 0, invoice_Id: 0, product_Id: 0, quantity: 0, unit_price: 0, discount_price: 0, total_amount: 0, createdAt: ""
+          };
         $(function () {
             var catName = "Main Menu";
-            alert(" On Page Load ");
+           // alert(" On Page Load ");
             var menubtn = document.querySelector('#menubtn');
             menubtn.innerHTML = " Main Menu ";
             getCategory();
@@ -147,7 +149,7 @@
         //});
        
         function getCategory() {
-            alert("Getting the Category");
+           // alert("Getting the Category");
             $.ajax({
             type: "GET",
             url: "/POS/getCategory",
@@ -165,7 +167,6 @@
                       list += '<i class="ti-folder iconpt"></i><div class="poschild5">' + catlist[i].TypeName + '</div></button></div>';
                       final_list  += list;
                   }
-                 
                   cat_contain.innerHTML = final_list;
               },
               failure: function(response) {
@@ -180,16 +181,17 @@
             showHidePanel(prod,cat);
         }
         function addProduct(data) {
-
             var cat = document.querySelector('#category');
             var prod = document.querySelector("#product");
+
            // alert("Adding in the Product... " + data.id);
             var invoicePanel = document.querySelector('#invoicePanel');
+
             console.log(" Invoice Panel : " + invoicePanel);
             var rowcount = invoicePanel.rows.length;
             if (data.id != null) {
                 alert(invoicePanel.rows.length);
-
+                
             }
             var row = invoicePanel.insertRow(1);
             var cell1 = row.insertCell(0);
@@ -200,7 +202,7 @@
             //name
             cell1.innerHTML = data.name;
             //Qty
-            cell2.innerHTML = data.id;
+            cell2.innerHTML = "0";
             //Price
             cell3.innerHTML = "$20.00";
             cell4.innerHTML = "<i class='ti-pencil pencilicon'></i>";
@@ -233,7 +235,6 @@
                         var prod_contain = document.querySelector("#product");
                         var final_list = "";
                         for (var i = 0; i < prodlist.length; i++) {
-
                                 var list  = '<div class="childpospart"><button type="button" class="btn ptp5" id=' + prodlist[i].Id + ' name='+ prodlist[i].Name+' data-toggle="modal" data-target="#" data-whatever="" onclick="addProduct(this)">'
                                 list += '<i class=" iconpt"></i><div class="poschild5">' + prodlist[i].Name + '</div></button></div>';
                                 final_list  += list;
@@ -255,15 +256,25 @@
             showHidePanel(cat,prod);
         }
         function back() {
-
             var cat = document.querySelector('#category');
             var prod = document.querySelector('#product');
             showHidePanel(prod, cat);
-              var menubtn = document.querySelector('#menubtn');
+            var menubtn = document.querySelector('#menubtn');
             menubtn.innerHTML = "Main Menu";
         }
-        function addCart() {
+        function addSellsOrderItems() {
+            //Add Sells Orde Items 
+        }
+        function addSellsOrder() {
+            //Add Sells Order Here To the Server
 
+        }
+        function makePay() {
+            //Do Pay : 
+
+        }
+        function addCart() {
+          
         }
     </script>
 }

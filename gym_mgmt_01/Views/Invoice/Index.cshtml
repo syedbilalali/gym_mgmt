@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <title> </title>
+    <!-- This page CSS -->
+    <!-- chartist CSS -->
+    <link href="@Url.Content("~/assets/node_modules/morrisjs/morris.css")" rel="stylesheet">
+
+    <link href="@Url.Content("~/Content/style.css")" rel="stylesheet">
+
+    <link href="@Url.Content("~/dist/css/style.min.css")" rel="stylesheet">
+    <!-- Dashboard 1 Page CSS -->
+    <link href="@Url.Content("~/dist/css/pages/dashboard1.css")" rel="stylesheet">
+
+</head>
+
+<body class="invoicebody">
+   
+    <div class="invoice">
+        <h2>Club Name</h2>
+        <h3>Tax Invoice</h3>
+
+        <div class="row">
+            <div class="col-md-6">
+                <p class="bold">123 somewhere lane</p>
+                <p class="bold">Somewhereville</p>
+                <p class="bold">Somewhere</p>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="bold">Invoice Date :</p>
+                        <p class="bold">Invoice Number :</p>
+                        <p class="bold">Member :</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>19 Dec 2018</p>
+                        <p>20002</p>
+                        <p>Sonja Almer(#9)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="invoicetable">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Occured</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Paid</th>
+                        <th scope="col">Unit Price</th>
+                        <th scope="col">Totals</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>19 Dec 2018</td>
+                        <td>Freshup</td>
+                        <td>1</td>
+                        <td>Yes</td>
+                        <td>$5.50</td>
+                        <td>$5.50</td>
+                    </tr>
+                    <tr>
+                        <td>19 Dec 2018</td>
+                        <td>Apple</td>
+                        <td>1</td>
+                        <td>Yes</td>
+                        <td>$3.50</td>
+                        <td>$3.50</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="subclass1">Subtotal</td>
+                        <td class="bold">$9.00</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="subclass1">Sales Tax</td>
+                        <td class="bold">$1.11</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="subclass1">Total</td>
+                        <td class="bold">$10.11</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="bold">To Pay</td>
+                        <td colspan="2" class="bold">$0.00</td>
+                        <td colspan="2" class="bold">Paid</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+
+    <!-- ============================================================== -->
+    <script src="@Url.Content("~/assets/node_modules/jquery/jquery-3.2.1.min.js")"></script>
+    <!-- Bootstrap popper Core JavaScript -->
+    <script src="@Url.Content("~/assets/node_modules/popper/popper.min.js")"></script>
+    <script src="@Url.Content("~/assets/node_modules/bootstrap/dist/js/bootstrap.min.js")"></script>
+
+    <!--Wave Effects -->
+    <script src="@Url.Content("~/dist/js/waves.js")"></script>
+    <!--Menu sidebar -->
+    <script src="@Url.Content("~/dist/js/sidebarmenu.js")"></script>
+    <!--Custom JavaScript -->
+    <script src="@Url.Content("~/dist/js/custom.min.js")"></script>
+    <!-- ============================================================== -->
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+    <!--morris JavaScript -->
+    <script src="@Url.Content("~/assets/node_modules/raphael/raphael-min.js")"></script>
+    <script src="@Url.Content("~/assets/node_modules/morrisjs/morris.min.js")"></script>
+    <script src="@Url.Content("~/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js")"></script>
+    <script>
+	function myFunction() {
+	  window.print();
+	}
+    </script>
+
+
+</body>
+</html>
+
+
+

@@ -52,7 +52,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public string getMemberID() {
             DataAdapter da = new DataAdapter();
-            int lastID = da.getLastID("Id", " physiofit_admin.Member ");
+            int lastID = da.getLastID("Id", "physiofit_admin.Member");
             if (lastID != 0)
             {
                 lastID++;

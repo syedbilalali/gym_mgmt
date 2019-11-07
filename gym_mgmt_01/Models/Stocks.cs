@@ -9,6 +9,8 @@ namespace gym_mgmt_01.Models
     {
         public int Id { get; set; }
         public int product_Id { get; set;  }
+        public decimal get_price { get; set;  }
+        public decimal sell_price { get; set;  }
         public int stockin { get; set;  }
         public int stockout { get; set; }
         public int current_stock { get; set;  }

@@ -436,10 +436,16 @@
 .partsgrp{
 	padding-left: 20px!important;
 	padding-right: 30px!important;
+	background-color: #fff;
+	width: 30%;
+	margin: 10px 1.5% 20px;
+	float: left;
+	box-shadow: 2px 2px 5px .5px #dfdfdf;
 }
 .partsgrp h4{
 	font-weight: 600;
-	margin-top: 15px;
+	margin-top: 25px;
+	text-align: center;
 }
 .halflength{
 	width: 50%;
@@ -457,13 +463,19 @@
 }
 .addrolestab{
 	background-color: #fff;
-	width: 99%;
-	margin: 10px 1%;
+	width: 84%;
+	margin: 10px 8%;
 }
 .rolebtns2{
+	width: 86%;
+	margin: 10px 7%;
+	margin-left: 7%!important;
+	margin-right: 7%!important;
+}
+.rolebtns3{
 	width: 100%;
 	margin: 10px 0%;
-	margin-left: 0%!important;
+	margin-left: -1%!important;
 	margin-right: 0%!important;
 }
 .btnaddrole{
@@ -495,4 +507,89 @@
 }
 .phy2{
 	font-weight: 600;
+}
+.statusbar{
+	margin-top: 20px;
+	width: 100%;
+	text-align: right;
+    padding: 0;
+}
+.memberrow{
+	width: 100%;
+}
+.taxfloat{
+	float: right;
+}
+.checklabel9{
+	margin-right: 10px;
+}
+.btmmargin{
+	margin-bottom: 10px!important;
+}
+.addclasshead{
+	margin: 100px auto;
+	text-align: center;
+}
+.addclasstab{
+	width: 100%;
+}
+.addclasstable{
+	background-color: #fff;
+}
+.invoice{
+	padding: 50px 100px;
+	margin: 20px 0px;
+}
+.invoice h2{
+	text-align: center;
+	margin-bottom: 10px;
+	font-weight: 600;
+}
+.invoice h3{
+	text-align: center;
+	margin-bottom: 60px;
+	font-weight: 600;
+}
+.invoice p{
+	font-size: 17px;
+}
+.bold{
+	font-weight: 600;
+}
+.subclass1{
+	text-align: right;
+	padding-right: 40px!important;
+	font-weight: 600;
+}
+.invoicebody{
+	font-family: sans-serif!important;
+	background-color: #fff;
+}
+.invoicetable{
+	margin-top: 20px;
+}
+.invoicetable .table th, .invoicetable .table td{
+	border: 1px solid #afafaf;
+	font-size: 17px;
+}
+.invoicetable .table th{
+	background-color: #dfdfdf;
+	font-weight: 600;
+}
+.btninvoice{
+	float: right;
+	margin: 10px;
+	border: 1px solid #afafaf!important;
+}
+.btnassignclass{
+	width: 45%;
+	float: left;
+	font-size: 12px!important;
+	margin: 0px 2.5%;
+}
+.delassignclass{
+	width: 45%;
+	float: left;
+	font-size: 12px!important;
+	margin: 0px 2.5%;
 }

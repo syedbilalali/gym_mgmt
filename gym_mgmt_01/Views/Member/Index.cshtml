@@ -5,7 +5,7 @@
     ViewBag.MemberType = "";
 }
 @model gym_mgmt_01.Models.Member
-@using (Html.BeginForm("Index","Member",FormMethod.Post,new { enctype="multipart/form-data" }))
+@using (Html.BeginForm("Index","Member",FormMethod.Post,new { enctype="multipart/form-data" , id="memreg" }))
 {
     @Html.AntiForgeryToken()
     <form id="memberReg" method="post">
@@ -23,7 +23,7 @@
                 <div class="card">
                     <div class="card-body profilecard">
                         <center class="m-t-30">
-                            <img src="~/assets/images/users/deafult.png" id="profImg" class="img-circle" width="150" />
+                            <img src="~/assets/images/users/deafult.png" width="150px" height="150px" id="profImg" class="img-circle" width="150" />
                             <h4 class="card-title m-t-10"></h4>
                             <!--    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6> -->
                             <div class="row text-center justify-content-md-center">
@@ -639,10 +639,44 @@
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        $('#profImg').attr('src', e.target.result);
+                        var form = document.querySelector('#memreg');
+                        var bool = Validate(form);
+                        if (!bool) {
+                             $('#profImg').attr('src' , '/assets/images/users/deafult.png');
+                        } else {
+                              $('#profImg').attr('src', e.target.result);
+                        }
+                      
                     }
                     reader.readAsDataURL(input.files[0]);
                 }
+            }
+            var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];    
+            function Validate(oForm) {
+                var arrInputs = oForm.getElementsByTagName("input");
+                for (var i = 0; i < arrInputs.length; i++) {
+                    var oInput = arrInputs[i];
+                    if (oInput.type == "file") {
+                        var sFileName = oInput.value;
+                        if (sFileName.length > 0) {
+                            var blnValid = false;
+                            for (var j = 0; j < _validFileExtensions.length; j++) {
+                                var sCurExtension = _validFileExtensions[j];
+                                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                                    blnValid = true;
+                                    break;
+                                }
+                            }
+                
+                            if (!blnValid) {
+                                alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                                return false;
+                            }
+                        }
+                    }
+                }
+  
+                return true;
             }
         })
        
