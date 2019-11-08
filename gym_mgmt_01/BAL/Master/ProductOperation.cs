@@ -194,6 +194,27 @@ namespace gym_mgmt_01.BAL.Master
             param[0] = new SqlParameter("@Id", Id);
             return da.InsertSP(param, command);
         }
+        public List<Item> getItems(int ItemID) {
 
+            string command = "SELECT prod.Id as ProductID , st.Id as StockID , prod.Name , st.sell_price as SoldPrice , st.current_stock  as Stock   FROM Stocks st INNER JOIN Products prod ON st.product_Id = prod.Id where prod.Id=@Id";
+            dt = new DataTable();
+            List<Item> stocks = new List<Item>();
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter("@Id", ItemID);
+            dt = da.FetchByParameter(param , command);
+            if (dt.Rows.Count > 0)
+            {
+                stocks = (from DataRow dr in dt.Rows
+                          select new Item()
+                          {
+                            ItemID = int.Parse(dr["ProductID"].ToString()),
+                            ItemName = dr["Name"].ToString(),
+                            StockID = int.Parse(dr["StockID"].ToString()),
+                            Qty = decimal.Parse(dr["Stock"].ToString()),
+                            SellPrice = int.Parse(dr["SoldPrice"].ToString())
+                          }).ToList();
+            }
+            return stocks;
+        }
     }
 }

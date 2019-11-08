@@ -3,6 +3,165 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="statusbar col-xs-12 col-sm-12 col-md-12">
+    <button type="button" class="btn btn-primary">Back</button>
+    <button type="button" class="btn btn-info">Save</button>
+</div>
+<div class="row upp2">
 
-<h2>Index</h2>
+    <!-- Column -->
+    <div class="partsgrp ">
+        <h4>Membership Details</h4>
+        <form class="form p-t-20">
+            <div class="form-group">
+                <label for="">Name</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="12 months PIF membership" aria-label=" " aria-describedby="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Club</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="">
+                </div>
+            </div>
 
+            <div class="form-group">
+                <label for="">Division</label>
+                <div class="input-group mb-3">
+                    <select class="form-control">
+                        <option value="">Gym Membership</option>
+                        <option value="">Group Activity</option>
+                        <option value="">Clubs</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="">Division</label>
+                <div class="input-group mb-3">
+                    <label class="labelcheck"><input type="checkbox" name="" value=""><span>Sell Online</span></label>
+                    <label class="labelcheck"><input type="checkbox" name="" value=""><span>Non Renewable</span></label>
+                    <label class="labelcheck"><input type="checkbox" name="" value=""><span>This is a Shared Membership</span></label>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="partsgrp ">
+        <h4>How Member Pays</h4>
+        <form class="form p-t-20">
+            <label class="labelcheck"><input type="radio" name="payment" value=""><span>In Person Payments</span></label>
+            <label class="labelcheck"><input type="radio" name="payment" value=""><span>Integrated Billing</span></label>
+            <hr>
+            <div class="form-group">
+                <label for="paymentfrequency">Payment Frequency</label>
+                <div class="input-group mb-3">
+                    <select class="form-control">
+                        <option value="">One payment- paid in full</option>
+                        <option value="">Weekly</option>
+                        <option value="">Fortnightly /Bi-weekly</option>
+                        <option value="">Monthly</option>
+                        <option value="">Quarterly</option>
+                        <option value="">Half Yearly</option>
+                        <option value="">Yearly</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="paymentfrequency">Membership Fee</label>
+                <div class="input-group mb-3">
+                    <div class="row memberrow"><div class="col-md-5">Excluding tax</div><div class="col-md-2"></div><div class="col-md-5 taxfloat">Including tax</div></div>
+                    <input type="text" class="form-control" placeholder="" value="0" aria-label="" aria-describedby="" disabled>
+                    <button type="button" class="btn btn-primary"><i class="ti-arrows-horizontal"></i></button>
+                    <input type="text" class="form-control" placeholder="" value="0" aria-label="" aria-describedby="">
+                </div>
+            </div>
+            <div class="form-group btmmargin">
+                <div class="input-group mb-3">
+                    <label><input type="checkbox" class="checklabel9" placeholder="" aria-label="" aria-describedby="">Add Sign Up Fee</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="paymentfrequency">Signup Fee</label>
+                <div class="input-group mb-3">
+                    <div class="row memberrow"><div class="col-md-5">Excluding tax</div><div class="col-md-2"></div><div class="col-md-5 taxfloat">Including tax</div></div>
+                    <input type="text" class="form-control" placeholder="" value="0" aria-label="" aria-describedby="" disabled>
+                    <button type="button" class="btn btn-primary"><i class="ti-arrows-horizontal"></i></button>
+                    <input type="text" class="form-control" placeholder="" value="0" aria-label="" aria-describedby="">
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+    <div class="partsgrp ">
+        <h4>Membership Length</h4>
+        <form class="form p-t-20">
+
+            <div class="form-group">
+                <label for="">Programme Basis</label>
+                <div class="input-group mb-3">
+                    <select class="form-control">
+                        <option value="">Select...</option>
+                        <option value="0">Open Ended Contract</option>
+                        <option value="1">Renewal Based Contract</option>
+                        <option value="2">Preset Date Programme</option>
+                        <option value="3">Club Visit Pack</option>
+                        <option value="4">Addon Programme</option>
+                        <option value="5">Charge Per Visit</option>
+                        <option value="6">Class &amp; Booking Pack</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Min Term(Months)</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="">
+                </div>
+            </div>
+            <div class="form-group halflength">
+                <label for="">Length</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="">
+                </div>
+            </div>
+            <div class="form-group halflength">
+                <label for="">Time</label>
+                <div class="input-group mb-3">
+                    <select class="form-control">
+                        <option value="">Months</option>
+                        <option value="">Weeks</option>
+                        <option value="">Days</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="">Fixed Period</label>
+                <div class="input-group mb-3 fontsmall">
+                    <input type="date" class="form-control" placeholder="" aria-label="" aria-describedby="">
+                    <span class="span1">to</span>
+                    <input type="date" class="form-control" placeholder="" aria-label="" aria-describedby="">
+                </div>
+            </div>
+
+            <div class="form-group btmmargin">
+                <label for="exampleInputEmail1">Usage Limit</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for=""></label>
+                <div class="input-group mb-3">
+                    <label class="labelcheck"><input type="checkbox" name="" value=""><span>Membership Discontinued </span></label>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    </div>

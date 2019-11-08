@@ -81,12 +81,20 @@ namespace gym_mgmt_01.Controllers
             return Json(stock, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
+        public JsonResult getItemsList(int id) {
+            List<Item> items = po.getItems(id);
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
         public JsonResult addSellsOrderItems(SellsOrderItems soi) {
-            return Json(null , JsonRequestBehavior.AllowGet);
+
+            var response = " Sucessfully Save SellsOrderItems No : " + soi.Invoice_Id;
+            return Json( response, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult addSellsOrder(SellsOrder so) {
-            return Json(null, JsonRequestBehavior.AllowGet);
+            var response = "Sucessfully Save SellsOrder No : " + so.Invoice_number;
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
         public ActionResult printInvoice() {
             var data = new ActionAsPdf("Index");

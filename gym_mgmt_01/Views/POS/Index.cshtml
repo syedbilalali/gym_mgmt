@@ -71,20 +71,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @{  
-                  
-                            if (ViewBag.Data != null)
-                            {
-                                <tr>
-                                    <td></td>
-                                    <td>3</td>
-                                    <td>4.33</td>
-                                    <td><i class='ti-pencil pencilicon'></i></td>
-                                    <td><i class='ti-close closeicon'></i></td>
-                                </tr>
-                            }
-
-                        }
                         <tr>
                             <td>Sub-Total</td>
                             <td></td>
@@ -94,6 +80,13 @@
                         </tr>
                         <tr>
                             <td>Total</td>
+                            <td></td>
+                            <td>$0.00</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Sales Tax</td>
                             <td></td>
                             <td>$0.00</td>
                             <td></td>
@@ -119,35 +112,19 @@
     </div>
 @section scripts{
     <script type="text/javascript">
-        var SellsOrderItems = {
-            Id: 0, invoice_Id: 0, product_Id: 0, quantity: 0, unit_price: 0, discount_price: 0, total_amount: 0, createdAt: ""
-          };
+     
         $(function () {
             var catName = "Main Menu";
            // alert(" On Page Load ");
             var menubtn = document.querySelector('#menubtn');
             menubtn.innerHTML = " Main Menu ";
+            init();
             getCategory();
-        });
-        //Getting Catgeory From the Controller
-        //$(function () {
-        //  $.ajax({
-        //    type: "GET",
-        //    url: "/POS/getCategory",
-        //    contentType: "application/json; charset=utf-8",
-        //    dataType: "json",
-        //      success: function (response) {
-        //          alert("Getting the Data : " + JSON.stringify(response));
-        //    },
-        //    failure: function(response) {
-        //        alert(response.responseText);
-        //    },
-        //    error: function(response) {
-        //        alert(response.responseText);
-        //    }
-        //});
-        //});
-       
+            
+            alert("Sending Data to the Sells Order Items ");
+         //   addSellsOrderItems(12345, 2343, 2, 2, 2, 2);
+         //   addSellsOrder(12345 , "Bilal  Ali " , 2 , 2.3, 12, 20, 12,11,12);
+        }); 
         function getCategory() {
            // alert("Getting the Category");
             $.ajax({
@@ -185,28 +162,51 @@
             var prod = document.querySelector("#product");
 
            // alert("Adding in the Product... " + data.id);
-            var invoicePanel = document.querySelector('#invoicePanel');
+            var priceTable = document.querySelector('#invoicePanel');
+            if (priceTable.rows.length > 5) {
+                alert("Table " + priceTable.rows.length);
+                for (var i = 1; i < priceTable.rows.length - 4; i++) {
+                    var col = priceTable.rows[i].cells[1].innerHTML;
+                    alert("Column Value : [" + col + "]" + " ID Value : " + data.id);
+                    if (data.id == col) {
+                        alert(" Updating Items ");
+                    } else {
 
-            console.log(" Invoice Panel : " + invoicePanel);
-            var rowcount = invoicePanel.rows.length;
-            if (data.id != null) {
-                alert(invoicePanel.rows.length);
-                
-            }
-            var row = invoicePanel.insertRow(1);
+                        alert(" Adding New Items ");
+                         addTableRow(data);
+                    }
+                }
+            } else {
+                addTableRow(data);        
+            }     
+        }
+        function addTableRow(values) {
+
+            var priceTable = document.querySelector('#invoicePanel');
+            var rowcount = priceTable.rows.length;
+            var row = priceTable.insertRow(1);
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
             var cell3 = row.insertCell(2);
             var cell4 = row.insertCell(3);
             var cell5 = row.insertCell(4);
-            //name
-            cell1.innerHTML = data.name;
-            //Qty
-            cell2.innerHTML = "0";
-            //Price
+            cell1.innerHTML = values.name;
+            cell2.innerHTML = values.id;
             cell3.innerHTML = "$20.00";
             cell4.innerHTML = "<i class='ti-pencil pencilicon'></i>";
             cell5.innerHTML = "<i class='ti-close closeicon'></i>";
+        }
+        function removeProduct(productID) {
+            var priceTable = document.querySelector('#invoicePanel');
+            var rowcount = priceTable.rows.length;
+            if (priceTable.rows.count > 5) {
+                for (var i = 1; i < priceTable.rows.length; i++) {
+                    alert();
+                    if (data.id == col) {
+                        alert(" Updating Items ");
+                    }
+                }
+            }
         }
         function showHidePanel(hide, show) {
             if (hide.style.display != 'none') {
@@ -221,7 +221,6 @@
             var prod = document.querySelector('#product');
             var menubtn = document.querySelector('#menubtn');
             menubtn.innerHTML = resp.name;
-           // alert(" Show Product !!!" + resp.id);
             $.ajax({
                 type: "POST",
                 url: "/POS/getProducts",
@@ -262,19 +261,117 @@
             var menubtn = document.querySelector('#menubtn');
             menubtn.innerHTML = "Main Menu";
         }
-        function addSellsOrderItems() {
-            //Add Sells Orde Items 
+        function addSellsOrderItems(invoice_Id, product_Id, quantity, unit_price, discount_price, total_price) {
+            //Add Sells Orde Items
+            var soi = new Object();
+            soi.invoice_Id = invoice_Id;
+            soi.product_Id = product_Id;
+            soi.quantity = quantity;
+            soi.unit_price = unit_price;
+            soi.discount_price = discount_price;
+            soi.total_price = total_price;
+            $.ajax({
+                type: "POST",
+                url: "/POS/addSellsOrderItems",
+                data: JSON.stringify(soi),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    if (response != null) {
+                        alert(" Data : " + response);
+                    } else {
+                        alert("");
+                    }
+                },
+                failure: function(response) {
+                    alert(response.responseText);
+                },
+                error: function(response) {
+                    alert(response.responseText);
+                }
+            });
         }
-        function addSellsOrder() {
+        function addSellsOrder(Invoice_number, member_name, subtotal, SalesTax, Total_Amount, Paid_Status, Total_Pay, Discount_price, Remain_price) {
             //Add Sells Order Here To the Server
-
+            var so = new Object();
+            so.Invoice_number = Invoice_number;
+            so.member_name = member_name;
+            so.subtotal = subtotal;
+            so.SalesTax = SalesTax;
+            so.Total_Amount = Total_Amount;
+            so.Paid_Status = Paid_Status;
+            so.Total_Pay = Total_Pay;
+            so.Discount_price = Discount_price;
+            so.Remain_price = Remain_price;
+            $.ajax({
+                type: "POST",
+                url: "/POS/addSellsOrder",
+                data: JSON.stringify(so),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    if (response != null) {
+                        alert(" Data : " + response);
+                    } else {
+                        alert("");
+                    }
+                },
+                failure: function(response) {
+                    alert(response.responseText);
+                },
+                error: function(response) {
+                    alert(response.responseText);
+                }
+            });
         }
         function makePay() {
             //Do Pay : 
-
         }
         function addCart() {
           
+        }
+        function init() {
+            //Initial of Variable 
+            alert(" Initial of Vairable ");
+            var Item = {
+            ProductID: "",
+            StockID: "",
+            Name: "",
+            SoldPrice: "",
+            Stock : ""
+        };
+        }
+        var Item = [];
+        function  getItems(id) {
+            $.ajax({
+                type: "POST",
+                url: "/POS/getItemsList",
+                data: JSON.stringify({ 'id': id }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    if (response != null) {
+                        alert("Name : " + JSON.stringify(response) + " Item ID " + JSON.parse(JSON.stringify(response)).ItemID);
+                        var data = JSON.parse(JSON.stringify(response));
+                        Item.push({
+                            ProductID: data.ItemID,
+                            StockID: data.ItemName,
+                            Name: data.StockID,
+                            SoldPrice: data.Qty,
+                            Stock: data.SellPrice
+                        });
+                    } else {
+                        alert(" Something went wrong ");
+                    }
+                },
+                failure: function(response) {
+                    alert(response.responseText);
+                },
+                error: function(response) {
+                    alert(response.responseText);
+                }
+            });
+            return Item;
         }
     </script>
 }
