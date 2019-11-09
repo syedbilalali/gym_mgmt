@@ -68,7 +68,8 @@ namespace gym_mgmt_01.BAL.Master
         }
         public List<Product> getAllProductByType(int id)
         {
-            string command = "SELECT * FROM Products WHERE Type_Id=" + id;
+            string command = "SELECT * FROM Products prod INNER JOIN Stocks stc ON prod.Id =stc.product_Id where Type_Id=" + id;
+           // string command = "SELECT * FROM Products WHERE Type_Id=" + id;
             List<Product> product = new List<Product>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)
@@ -196,6 +197,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public List<Item> getItems(int ItemID) {
 
+            
             string command = "SELECT prod.Id as ProductID , st.Id as StockID , prod.Name , st.sell_price as SoldPrice , st.current_stock  as Stock   FROM Stocks st INNER JOIN Products prod ON st.product_Id = prod.Id where prod.Id=@Id";
             dt = new DataTable();
             List<Item> stocks = new List<Item>();

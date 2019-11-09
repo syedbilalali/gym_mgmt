@@ -20,7 +20,7 @@
     <input type="radio" name="memberFilter" value="currentmembers"> Current Members
     <input type="radio" name="memberFilter" value="recentvisitors"> Recent Visitors
     <input type="radio" name="memberFilter" value="expiredmembers"> Expired Members
-    <input type="radio" name="memberFilter" value="prospects"> Prospects
+    @*<input type="radio" name="memberFilter" value="prospects"> Prospects*@
 </div>
 <div class="container1" id="colvalue" style="display:none;"> 
 </div>
@@ -194,7 +194,7 @@
                     }
                     $('#colvalue').html(memberdata);
                 } else {
-                    alert("Something went wrong");
+                    alert(" Something went wrong !!! ");
                 }
             },
             failure: function(response) {

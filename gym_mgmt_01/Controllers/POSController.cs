@@ -83,6 +83,9 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         public JsonResult getItemsList(int id) {
             List<Item> items = po.getItems(id);
+            if (items.Count < 1) {
+                return Json("No Stock Found !!! ", JsonRequestBehavior.AllowGet);
+            }
             return Json(items, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]

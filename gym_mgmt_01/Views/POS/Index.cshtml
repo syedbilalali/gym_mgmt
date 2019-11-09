@@ -7,201 +7,412 @@
     var due = 0.00;
 }
 @model dynamic
-    <div class="row upp2">
-        <!-- Column -->
-        <!-- Column -->
-        <div class="col-lg-8 col-xlg-8 col-md-8">
-            <div class="alert alert-info" style="display:none">
-                <i class="ti-user"></i> The Sale is empty.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+<div class="row upp2">
+    <!-- Column -->
+    <!-- Column -->
+    <div class="col-lg-8 col-xlg-8 col-md-8">
+        <div class="alert alert-info" style="display:none">
+            <i class="ti-user"></i> The Sale is empty.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-xlg-3 col-md-3">
+                <div class="btn-group mm1">
+                    <button class="btn btn-primary mm2"><i class="ti-layout-grid2 gridicon"></i></button>
+                    <button id="menubtn" class="btn btn-primary mm3">Main Menu</button>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-lg-3 col-xlg-3 col-md-3">
-                    <div class="btn-group mm1">
-                        <button class="btn btn-primary mm2"><i class="ti-layout-grid2 gridicon"></i></button>
-                        <button id="menubtn" class="btn btn-primary mm3">Main Menu</button>
+            <div class="col-lg-3 col-xlg-3 col-md-3" style="display:block">
+                <button class="btn btn-primary posstg"> <i class="mdi mdi-settings "></i>POS Setting</button>
+            </div>
+            <div class="col-lg-6 col-xlg-6 col-md-6">
+                <form action="#">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Type the product name" aria-label="">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="mdi  mdi-magnify"></i></span>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-xlg-3 col-md-3" style="display:block">
-                    <button class="btn btn-primary posstg"> <i class="mdi mdi-settings "></i>POS Setting</button>
-                </div>
-                <div class="col-lg-6 col-xlg-6 col-md-6">
-                    <form action="#">
+                </form>
+            </div>
+        </div>
+        <div id="mainpos" style="display:none;">
+            <div class="partpos">
+                <button type="button" class="btn ptp" data-toggle="modal" data-target="#generalsale" data-whatever=""><h4>General Sale</h4></button>
+            </div>
+            <div class="partpos bluebg">
+                <button type="button" class="btn ptp" data-toggle="modal" data-target="#giftvoucher" data-whatever=""><h4>Gift Voucher</h4></button>
+            </div>
+            <div class="partpos bluebg">
+                <button type="button" class="btn ptp" data-toggle="modal" data-target="#opendrawer" data-whatever=""><h4>Open Drawer</h4></button>
+            </div>
+            <div class="partpos bluebg">
+                <button type="button" class="btn ptp" data-toggle="modal" data-target="#cashout" data-whatever=""><h4>Cash Out</h4></button>
+            </div>
+        </div>
+        <div id="childpos" class="row">
+            <div id="category" style="width:100%; display:none;">
+
+            </div>
+            <div id="product" style=" width:100%; display:none;">
+                <div class="childpospart"><button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="back()"><i class="ti-back-left iconpt"></i><div class="poschild5">Back</div></button></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-4 col-xlg-4 col-md-4">
+        <div class="tablepos">
+            <table class="table" id="invoicePanel">
+                <thead>
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sub-Total</td>
+                        <td></td>
+                        <td>$0.00</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td>$0.00</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr style="display:none;">
+                        <td>Sales Tax</td>
+                        <td></td>
+                        <td>$0.00</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Due</td>
+                        <td></td>
+                        <td>$0.00</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btnpos makepay ptp" type="button" data-toggle="modal" data-target="#payment" data-whatever="">Make Payment</button>
+            <button class="btnpos chargetomember ptp" type="button" data-toggle="modal" data-target="#" data-whatever="">Charge to Member</button>
+            <button class="btnpos cancelpos ptp" type="button" data-toggle="modal" data-target="#cancel" data-whatever="">Cancel</button>
+            <button class="btnpos completesale ptp" type="button" data-toggle="modal" data-target="#" data-whatever="">Complete Sale</button>
+        </div>
+
+    </div>
+    <!-- Column -->
+</div>
+<!-- /.modal1 -->
+<div class="modal" id="generalsale" tabindex="-1" role="dialog" aria-labelledby="generalsalelabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="generalsalelabel">General Sale</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label label1">Amount:</label>
+                        <input type="text" class="form-control label2" id="" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message-text" class="control-label label1">Tax Rate:</label>
+                        <select class="form-control label2">
+                            <option value="-1">Select Tax Rate</option>
+                            <option value="0">Sales Tax - Zero Rated Tax</option>
+                            <option value="1">Sales Tax - booking, 15%</option>
+                            <option value="2">Sales Tax - product tax for D..., 15%</option>
+                            <option value="3">Sales Tax - programme tax for..., 15%</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label label1">Description:</label>
+                        <textarea type="text" class="form-control label2" id="" rows="4"></textarea>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal1 -->
+<!-- /.modal2 -->
+<div class="modal" id="giftvoucher" tabindex="-1" role="dialog" aria-labelledby="giftvoucherlabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="giftvoucherlabel">Voucher Sale</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="" class="control-label label1">Amount (Tax Incl):</label>
+                        <input type="text" class="form-control label2" id="" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="control-label label1">Voucher Code:</label>
+                        <input type="text" class="form-control label2" id="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label label1">Expiry Date:</label>
+                        <input type="date" class="form-control label2" id="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label label1">Comment:</label>
+                        <input type="text" class="form-control label2" id="" placeholder="Optional" />
+                    </div>
+
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal2 -->
+<!-- /.modal3-->
+<div class="modal" id="cashout" tabindex="-1" role="dialog" aria-labelledby=" ">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="giftvoucherlabel">Cash Out</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <button class="btn btn-primary proceedbtn">Proceed</button>
+                    <div class="form-group">
+                        <label for="exampleInputuname">Amount to pay now: $0.00 remaining of total</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Type the product name" aria-label="">
+                            <input type="text" class="form-control" value="$0.00" placeholder="" aria-label="" />
                             <div class="input-group-append">
-                                <span class="input-group-text"><i class="mdi  mdi-magnify"></i></span>
+                                <span class=""><button class="btn btnexact">Exact</button></span>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
-            <div id="mainpos" style="display:none;">
-                <div class="partpos">
-                    <button type="button" class="btn ptp" data-toggle="modal" data-target="#generalsale" data-whatever=""><h4>General Sale</h4></button>
-                </div>
-                <div class="partpos bluebg">
-                    <button type="button" class="btn ptp" data-toggle="modal" data-target="#giftvoucher" data-whatever=""><h4>Gift Voucher</h4></button>
-                </div>
-                <div class="partpos bluebg">
-                    <button type="button" class="btn ptp" data-toggle="modal" data-target="#opendrawer" data-whatever=""><h4>Open Drawer</h4></button>
-                </div>
-                <div class="partpos bluebg">
-                    <button type="button" class="btn ptp" data-toggle="modal" data-target="#cashout" data-whatever=""><h4>Cash Out</h4></button>
-                </div>
-            </div>
-            <div id="childpos" class="row">
-                <div id="category" style="width:100%; display:none;">
-                    
-                </div>
-                <div id="product" style=" width:100%; display:none;">
-                    <div class="childpospart"><button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="back()"><i class="ti-back-left iconpt"></i><div class="poschild5">Back</div></button></div>
-                </div>
-            </div>
-            
-        </div>
-        <div class="col-lg-4 col-xlg-4 col-md-4">
-            <div class="tablepos">
-                <table class="table" id="invoicePanel">
-                    <thead>
-                        <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Qty</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Sub-Total</td>
-                            <td></td>
-                            <td>$0.00</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Total</td>
-                            <td></td>
-                            <td>$0.00</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Sales Tax</td>
-                            <td></td>
-                            <td>$0.00</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Due</td>
-                            <td></td>
-                            <td>$0.00</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button class="btnpos makepay ptp" type="button" data-toggle="modal" data-target="#payment" data-whatever="">Make Payment</button>
-                <button class="btnpos chargetomember ptp" type="button" data-toggle="modal" data-target="#" data-whatever="">Charge to Member</button>
-                <button class="btnpos cancelpos ptp" type="button" data-toggle="modal" data-target="#cancel" data-whatever="">Cancel</button>
-                <button class="btnpos completesale ptp" type="button" data-toggle="modal" data-target="#" data-whatever="">Complete Sale</button>
-            </div>
+            <div class="modal-footer">
 
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Confirm</button>
+            </div>
         </div>
-        <!-- Column -->
     </div>
+</div>
+<!-- /.modal3 -->
+<!-- /.modal4-->
+<div class="modal" id="payment" tabindex="-1" role="dialog" aria-labelledby=" ">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="giftvoucherlabel">Payment</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <button type="button" class="btn btn-primary paybtn11">Cash</button>
+                            <button type="button" class="btn btn-primary paybtn11">Eftpos</button>
+                            <button type="button" class="btn btn-primary paybtn11">Credit Card</button>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-primary paybtn11">Charge to Member</button>
+                            <button type="button" class="btn btn-primary paybtn11">Cheque</button>
+                            <button type="button" class="btn btn-primary paybtn11">Visa</button>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-primary paybtn11">Master Card</button>
+                            <button type="button" class="btn btn-primary paybtn11">Amex</button>
+                            <button type="button" class="btn btn-primary paybtn11">Diners</button>
+
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-primary paybtn11">No payment /Adjustment</button>
+                            <button type="button" class="btn btn-primary paybtn11">Internet Banking</button>
+                            <button type="button" class="btn btn-primary paybtn11">Gift Voucher</button>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-primary paybtn11">PaySafe HandPoint</button>
+                        </div>
+                        </br>
+                        <label for="exampleInputuname">Amount to pay now: $0.00 remaining of total $0.00</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" value="$0.00" placeholder="" aria-label="" />
+                            <div class="input-group-append">
+                                <span class=""><button class="btn btnexact">Exact</button></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-info">Return to Sale</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel Sale</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal4 -->
+<!-- /.modal5-->
+<div class="modal" id="cancel" tabindex="-1" role="dialog" aria-labelledby=" ">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="giftvoucherlabel"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Cancel Sale</label>
+                        <div class="input-group mb-3">
+                            <p>
+                                Are you sure you want to cancel the sale? 
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info">Return to Sale</button>
+                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("", "Home")'" data-dismiss="modal">Cancel Sale</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal5 -->   
 @section scripts{
     <script type="text/javascript">
-     
         $(function () {
             var catName = "Main Menu";
-           // alert(" On Page Load ");
+
             var menubtn = document.querySelector('#menubtn');
             menubtn.innerHTML = " Main Menu ";
             init();
             getCategory();
-            
-            alert("Sending Data to the Sells Order Items ");
-         //   addSellsOrderItems(12345, 2343, 2, 2, 2, 2);
-         //   addSellsOrder(12345 , "Bilal  Ali " , 2 , 2.3, 12, 20, 12,11,12);
-        }); 
+
+            // alert("Sending Data to the Sells Order Items ");
+            // addSellsOrderItems(12345, 2343, 2, 2, 2, 2);
+            // addSellsOrder(12345 , "Bilal  Ali " , 2 , 2.3, 12, 20, 12,11,12);
+        });
         function getCategory() {
-           // alert("Getting the Category");
+            // alert("Getting the Category");
             $.ajax({
-            type: "GET",
-            url: "/POS/getCategory",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-              success: function (response) {
-                //  alert("Getting the Data : " + JSON.stringify(response));
-                  var catlist = JSON.parse(JSON.stringify(response));
-                  var cat_contain = document.querySelector("#category");
-                //  alert(catlist);
-                  var cat_len = catlist.length;
-                  var final_list = "";
-                  for (var i = 0; i < catlist.length; i++) {
-                      var list  = '<div class="childpospart"><button type="button" class="btn ptp5" id=' + catlist[i].Id + ' data-toggle="modal" name=' + catlist[i].TypeName+ ' data-target="#" data-whatever="" onclick="getProduct(this)">'
-                      list += '<i class="ti-folder iconpt"></i><div class="poschild5">' + catlist[i].TypeName + '</div></button></div>';
-                      final_list  += list;
-                  }
-                  cat_contain.innerHTML = final_list;
-              },
-              failure: function(response) {
-                 alert(response.responseText);
-              },
-              error: function(response) {
-                 alert(response.responseText);
-              }
-           });
+                type: "GET",
+                url: "/POS/getCategory",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    //  alert("Getting the Data : " + JSON.stringify(response));
+                    var catlist = JSON.parse(JSON.stringify(response));
+                    var cat_contain = document.querySelector("#category");
+                    //  alert(catlist);
+                    var cat_len = catlist.length;
+                    var final_list = "";
+                    for (var i = 0; i < catlist.length; i++) {
+                        var list = '<div class="childpospart"><button type="button" class="btn ptp5" id=' + catlist[i].Id + ' data-toggle="modal" name=' + catlist[i].TypeName + ' data-target="#" data-whatever="" onclick="getProduct(this)">'
+                        list += '<i class="ti-folder iconpt"></i><div class="poschild5">' + catlist[i].TypeName + '</div></button></div>';
+                        final_list += list;
+                    }
+                    cat_contain.innerHTML = final_list;
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
             var cat = document.querySelector('#category');
             var prod = document.querySelector("#product");
-            showHidePanel(prod,cat);
+            showHidePanel(prod, cat);
+        }
+        function getProduct(data) {
+            alert(" Adding the Product !!!");
         }
         function addProduct(data) {
             var cat = document.querySelector('#category');
             var prod = document.querySelector("#product");
-
-           // alert("Adding in the Product... " + data.id);
+            var prodadd = false;
+            //getItems(data.id);
             var priceTable = document.querySelector('#invoicePanel');
             if (priceTable.rows.length > 5) {
-                alert("Table " + priceTable.rows.length);
+                //alert("Table " + priceTable.rows.length);
                 for (var i = 1; i < priceTable.rows.length - 4; i++) {
-                    var col = priceTable.rows[i].cells[1].innerHTML;
-                    alert("Column Value : [" + col + "]" + " ID Value : " + data.id);
+                    var col = priceTable.rows[i].cells[5].innerHTML;
+                    // alert("Column Value : [" + col + "]" + " ID Value : " + data.id);
                     if (data.id == col) {
-                        alert(" Updating Items ");
+                        alert(" Updating the Value : ");
+                        var qty = priceTable.rows[i].cells[1].innerHTML;
+                        alert(" Current Qty : " + qty);
+                        priceTable.rows[i].cells[1].innerHTML = qty++;
+                        prodadd = false;
+                        break;
                     } else {
-
-                        alert(" Adding New Items ");
-                         addTableRow(data);
+                        prodadd = true;
                     }
                 }
             } else {
-                addTableRow(data);        
-            }     
+                prodadd = true;
+            }
+            if (prodadd) {
+                alert(" Data : " + Item);
+                // var rowcount = priceTable.rows.length;
+                var row = priceTable.insertRow(1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                var cell5 = row.insertCell(4);
+                var cell6 = row.insertCell(5);
+                cell1.innerHTML = data.name;
+                cell2.innerHTML = 0;
+                cell3.innerHTML = "";
+                cell4.innerHTML = "<i class='ti-pencil pencilicon' style='display:none;'></i>";
+                cell5.innerHTML = "<i class='ti-close closeicon'></i>";
+                cell6.style.display = "none";
+                cell6.innerHTML = data.id;
+            }
+            alert("After Adding : " + Item);
         }
         function addTableRow(values) {
-
             var priceTable = document.querySelector('#invoicePanel');
-            var rowcount = priceTable.rows.length;
-            var row = priceTable.insertRow(1);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            var cell4 = row.insertCell(3);
-            var cell5 = row.insertCell(4);
-            cell1.innerHTML = values.name;
-            cell2.innerHTML = values.id;
-            cell3.innerHTML = "$20.00";
-            cell4.innerHTML = "<i class='ti-pencil pencilicon'></i>";
-            cell5.innerHTML = "<i class='ti-close closeicon'></i>";
         }
         function removeProduct(productID) {
             var priceTable = document.querySelector('#invoicePanel');
             var rowcount = priceTable.rows.length;
             if (priceTable.rows.count > 5) {
                 for (var i = 1; i < priceTable.rows.length; i++) {
-                    alert();
+                    // alert();
                     if (data.id == col) {
                         alert(" Updating Items ");
                     }
@@ -214,7 +425,7 @@
             }
             if (show.style.display != 'block') {
                 show.style.display = 'block';
-            } 
+            }
         }
         function getProduct(resp) {
             var cat = document.querySelector('#category');
@@ -227,16 +438,16 @@
                 data: JSON.stringify({ 'id': resp.id }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function(response) {
+                success: function (response) {
                     if (response != null) {
-                       // alert("Name : " + JSON.stringify(response));
+                        // alert("Name : " + JSON.stringify(response));
                         var prodlist = JSON.parse(JSON.stringify(response));
                         var prod_contain = document.querySelector("#product");
                         var final_list = "";
                         for (var i = 0; i < prodlist.length; i++) {
-                                var list  = '<div class="childpospart"><button type="button" class="btn ptp5" id=' + prodlist[i].Id + ' name='+ prodlist[i].Name+' data-toggle="modal" data-target="#" data-whatever="" onclick="addProduct(this)">'
-                                list += '<i class=" iconpt"></i><div class="poschild5">' + prodlist[i].Name + '</div></button></div>';
-                                final_list  += list;
+                            var list = '<div class="childpospart"><button type="button" class="btn ptp5" id=' + prodlist[i].Id + ' name=' + prodlist[i].Name + ' data-toggle="modal" data-target="#" data-whatever="" onclick="addProduct(this)">'
+                            list += '<i class=" iconpt"></i><div class="poschild5">' + prodlist[i].Name + '</div></button></div>';
+                            final_list += list;
                         }
                         var back = '<div class="childpospart"><button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="back()"><i class="ti-back-left iconpt"></i><div class="poschild5">Back</div></button></div>';
                         prod_contain.innerHTML = final_list + back;
@@ -245,14 +456,14 @@
                         alert("Something went wrong");
                     }
                 },
-                failure: function(response) {
+                failure: function (response) {
                     alert(response.responseText);
                 },
-                error: function(response) {
+                error: function (response) {
                     alert(response.responseText);
                 }
             });
-            showHidePanel(cat,prod);
+            showHidePanel(cat, prod);
         }
         function back() {
             var cat = document.querySelector('#category');
@@ -261,35 +472,53 @@
             var menubtn = document.querySelector('#menubtn');
             menubtn.innerHTML = "Main Menu";
         }
-        function addSellsOrderItems(invoice_Id, product_Id, quantity, unit_price, discount_price, total_price) {
-            //Add Sells Orde Items
-            var soi = new Object();
-            soi.invoice_Id = invoice_Id;
-            soi.product_Id = product_Id;
-            soi.quantity = quantity;
-            soi.unit_price = unit_price;
-            soi.discount_price = discount_price;
-            soi.total_price = total_price;
+        function makePay() {
+            //Do Pay :
+        }
+        function addCart() {
+
+        }
+        function init() {
+            //Initial of Variable
+            alert(" Initial of Vairable ");
+        }
+        function addItems(ProductID, StockID, Name, SoldPrice, Stock) {
+            window.Item.push({ ProductID: ProductID, StockID: StockID, Name: Name, SoldPrice: SoldPrice, Stock: Stock });
+            // alert("Adding  the Items");
+        }
+        var Item = [];
+        function getItems(id) {
             $.ajax({
                 type: "POST",
-                url: "/POS/addSellsOrderItems",
-                data: JSON.stringify(soi),
+                url: "/POS/getItemsList",
+                data: JSON.stringify({ 'id': id }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function(response) {
+                success: function (response) {
                     if (response != null) {
-                        alert(" Data : " + response);
+                        alert("Name : " + JSON.stringify(response));
+                        var data = JSON.parse(JSON.stringify(response));
+                        Item.push({
+                            ProductID: data.ItemID,
+                            StockID: data.ItemName,
+                            Name: data.StockID,
+                            SoldPrice: data.Qty,
+                            Stock: data.SellPrice
+                        });
+                        addItems(data.ItemID, data.ItemName, data.StockID, data.Qty, data.SellPrice);
+                        alert(" Item Name : " + Item);
                     } else {
-                        alert("");
+                        alert(" Something went wrong ");
                     }
                 },
-                failure: function(response) {
+                failure: function (response) {
                     alert(response.responseText);
                 },
-                error: function(response) {
+                error: function (response) {
                     alert(response.responseText);
                 }
             });
+            return Item;
         }
         function addSellsOrder(Invoice_number, member_name, subtotal, SalesTax, Total_Amount, Paid_Status, Total_Pay, Discount_price, Remain_price) {
             //Add Sells Order Here To the Server
@@ -309,69 +538,56 @@
                 data: JSON.stringify(so),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function(response) {
+                success: function (response) {
                     if (response != null) {
                         alert(" Data : " + response);
                     } else {
                         alert("");
                     }
                 },
-                failure: function(response) {
+                failure: function (response) {
                     alert(response.responseText);
                 },
-                error: function(response) {
+                error: function (response) {
                     alert(response.responseText);
                 }
             });
         }
-        function makePay() {
-            //Do Pay : 
+        function fillPayments() {
+            var sub_total = "";
+            var total = "";
+            var due = "";
         }
-        function addCart() {
-          
-        }
-        function init() {
-            //Initial of Variable 
-            alert(" Initial of Vairable ");
-            var Item = {
-            ProductID: "",
-            StockID: "",
-            Name: "",
-            SoldPrice: "",
-            Stock : ""
-        };
-        }
-        var Item = [];
-        function  getItems(id) {
+        function addSellsOrderItems(invoice_Id, product_Id, quantity, unit_price, discount_price, total_price) {
+            //Add Sells Orde Items
+            var soi = new Object();
+            soi.invoice_Id = invoice_Id;
+            soi.product_Id = product_Id;
+            soi.quantity = quantity;
+            soi.unit_price = unit_price;
+            soi.discount_price = discount_price;
+            soi.total_price = total_price;
             $.ajax({
                 type: "POST",
-                url: "/POS/getItemsList",
-                data: JSON.stringify({ 'id': id }),
+                url: "/POS/addSellsOrderItems",
+                data: JSON.stringify(soi),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function(response) {
+                success: function (response) {
                     if (response != null) {
-                        alert("Name : " + JSON.stringify(response) + " Item ID " + JSON.parse(JSON.stringify(response)).ItemID);
-                        var data = JSON.parse(JSON.stringify(response));
-                        Item.push({
-                            ProductID: data.ItemID,
-                            StockID: data.ItemName,
-                            Name: data.StockID,
-                            SoldPrice: data.Qty,
-                            Stock: data.SellPrice
-                        });
+                        alert(" Data : " + response);
                     } else {
-                        alert(" Something went wrong ");
+                        alert("");
                     }
                 },
-                failure: function(response) {
+                failure: function (response) {
                     alert(response.responseText);
                 },
-                error: function(response) {
+                error: function (response) {
                     alert(response.responseText);
                 }
             });
-            return Item;
         }
+
     </script>
 }
