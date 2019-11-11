@@ -11,6 +11,7 @@
     <!-- Column -->
     <!-- Column -->
     <div class="col-lg-8 col-xlg-8 col-md-8">
+        <input type="hidden" id="InvoiceID" name="InvoiceID">
         <div class="alert alert-info" style="display:none">
             <i class="ti-user"></i> The Sale is empty.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
@@ -73,28 +74,32 @@
                 <tbody>
                 </tbody>
             </table>
-            <div class="subtotal">
+            <div class="subtotal" id="paymentPanel">
                 <div class="row stt">
-                    <div class="col-md-6">Sub-Total</div>
-                    <div class="col-md-6"><label id="lblSubtotal">$0.00</label></div>
-                </div>
-                <div class="row stt"style="display:none;">
-                    <div class="col-md-6">Sales Tax</div>
-                    <div class="col-md-6"><label id="lblSalesTax">$0.00</label></div>
+                    <div class="col-md-6 font-bold">Sub-Total</div>
+                    <div class="col-md-6 text-dark">$<label id="lblSubtotal">0.00</label></div>
                 </div>
                 <div class="row stt">
-                    <div class="col-md-6">Total</div>
-                    <div class="col-md-6"><label id="lbltotal">$0.00</label></div>
+                    <div class="col-md-6 font-bold">Sales Tax</div>
+                    <div class="col-md-6 text-dark">$<label id="lblSalesTax">0.00</label></div>
+                </div>
+                <div class="row stt" >
+                    <div class="col-md-6 font-bold">Total</div>
+                    <div class="col-md-6 text-dark">$<label id="lbltotal">0.00</label></div>
+                </div>
+                <div class="row stt" id="divCash" style="display:none;">
+                    <div class="col-md-6 font-bold">Cash</div>
+                    <div class="col-md-6 text-dark">$<label id="lblCash">0.00</label></div>
                 </div>
                 <div class="row stt">
-                    <div class="col-md-6">Due</div>
-                    <div class="col-md-6"><label id="lblDue">$0.00</label></div>
+                    <div class="col-md-6 font-bold">Due</div>
+                    <div class="col-md-6 text-dark">$<label id="lblDue">0.00</label></div>
                 </div>
             </div>
             <button class="btnpos makepay ptp" type="button" data-toggle="modal" data-target="#payment" data-whatever="">Make Payment</button>
-            <button class="btnpos chargetomember ptp" type="button" data-toggle="modal" data-target="#" data-whatever="">Charge to Member</button>
+            <button class="btnpos chargetomember ptp"  type="button" data-toggle="modal" data-target="#" data-whatever="">Charge to Member</button>
             <button class="btnpos cancelpos ptp" type="button" data-toggle="modal" data-target="#cancel" data-whatever="">Cancel</button>
-            <button class="btnpos completesale ptp" type="button" data-toggle="modal" data-target="#" data-whatever="">Complete Sale</button>
+            <button class="btnpos completesale ptp" id="btnCompeleteSale" type="button" data-toggle="modal" data-target="#" data-whatever="">Complete Sale</button>
         </div>
 
     </div>
@@ -130,11 +135,9 @@
                         <label for="recipient-name" class="control-label label1">Description:</label>
                         <textarea type="text" class="form-control label2" id="" rows="4"></textarea>
                     </div>
-
                 </form>
             </div>
             <div class="modal-footer">
-
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Confirm</button>
             </div>
@@ -169,13 +172,9 @@
                         <label for="" class="control-label label1">Comment:</label>
                         <input type="text" class="form-control label2" id="" placeholder="Optional" />
                     </div>
-
-
-
                 </form>
             </div>
             <div class="modal-footer">
-
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Confirm</button>
             </div>
@@ -222,15 +221,13 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form>
-
                     <div class="form-group">
                         <div class="row">
-                            <button type="button" class="btn btn-primary paybtn11">Cash</button>
-                            <button type="button" class="btn btn-primary paybtn11">Eftpos</button>
-                            <button type="button" class="btn btn-primary paybtn11">Credit Card</button>
+                            <button type="button" id="cashType" class="btn btn-primary paybtn11">Cash</button>
+                            @*<button type="button" class="btn btn-primary paybtn11">Eftpos</button>
+                            <button type="button" class="btn btn-primary paybtn11">Credit Card</button>*@
                         </div>
-                        <div class="row">
+                        @*<div class="row">
                             <button type="button" class="btn btn-primary paybtn11">Charge to Member</button>
                             <button type="button" class="btn btn-primary paybtn11">Cheque</button>
                             <button type="button" class="btn btn-primary paybtn11">Visa</button>
@@ -245,11 +242,11 @@
                             <button type="button" class="btn btn-primary paybtn11">No payment /Adjustment</button>
                             <button type="button" class="btn btn-primary paybtn11">Internet Banking</button>
                             <button type="button" class="btn btn-primary paybtn11">Gift Voucher</button>
-                        </div>
+                        </div>*@
                         <div class="row">
-                            <button type="button" class="btn btn-primary paybtn11">PaySafe HandPoint</button>
+                            @*<button type="button" class="btn btn-primary paybtn11">PaySafe HandPoint</button>*@
                         </div>
-                        </br>
+                        <br />
                         <label for="exampleInputuname">Amount to pay now: $0.00 remaining of total $0.00</label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" value="$0.00" placeholder="" aria-label="" />
@@ -258,14 +255,11 @@
                             </div>
                         </div>
                     </div>
-                </form>
-
             </div>
-            <div class="modal-footer">
-
+            @*<div class="modal-footer">
                 <button type="button" class="btn btn-info">Return to Sale</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel Sale</button>
-            </div>
+            </div>*@
         </div>
     </div>
 </div>
@@ -302,13 +296,18 @@
 @section scripts{
     <script type="text/javascript">
         $(function () {
+
             var catName = "Main Menu";
             var defaultSalesTax = 0.44;
             var menubtn = document.querySelector('#menubtn');
             menubtn.innerHTML = " Main Menu ";
             init();
             getCategory();
-
+            var invoice = document.querySelector('#InvoiceID').value;
+            alert(" Invoice ID : " + invoice);
+            if (invoice === "0000") {
+                alert("Tested Ok ");
+            }
             // alert("Sending Data to the Sells Order Items ");
             // addSellsOrderItems(12345, 2343, 2, 2, 2, 2);
             // addSellsOrder(12345 , "Bilal  Ali " , 2 , 2.3, 12, 20, 12,11,12);
@@ -391,16 +390,20 @@
                 var cell4 = row.insertCell(3);
                 var cell5 = row.insertCell(4);
                 var cell6 = row.insertCell(5);
+                var cell7 = row.insertCell(6);
                 cell1.innerHTML = data[0].ItemName;
                 cell2.innerHTML = 1;
                 cell3.innerHTML = data[0].SellPrice ;
                 cell4.innerHTML = "<i class='ti-pencil pencilicon' style='display:none;'></i>";
                 cell5.innerHTML = "<button type='button' id='" + data[0].ItemID + "' class='btn' onclick='removeProduct(this);'><i class='ti-close closeicon'></i></button>";
                 cell6.style.display = "none";
+                cell7.style.display = "none";
                 cell6.innerHTML = data[0].ItemID;
+                cell7.innerHTML = data[0].SellPrice;
             }
            // alert(" Length : " + priceTable.rows.length);
             //alert("After Adding : " + Item);
+            alert(" Updating Pay Details !!! ");
             updatePayDetails();
         }
         function addTableRow(values) {
@@ -483,6 +486,7 @@
             //alert(" Getting Prod : " + Item);
         }
         function back() {
+
             var cat = document.querySelector('#category');
             var prod = document.querySelector('#product');
             showHidePanel(prod, cat);
@@ -493,45 +497,88 @@
 
             console.log("-------------Fill Payments --------------------");
             var totalItems = 0;
-            var defaulttax = defaultSalesTax;
+            var lastQty = 0;
+            var defaulttax = 0.44;
             var lblSubTotal = document.querySelector('#lblSubtotal');
+            var lblTotal = document.querySelector('#lbltotal');
+            var lbltax = document.querySelector('#lblSalesTax');
             var lasttotal = 0.00 , totaltax = 0.00  , lastDiscount = 0.00 , lasttax=0.00;
             var table1 = document.querySelector('#invoicePanel');
             var length = table1.rows.length;
-            if (length > 1) {
-              // setBtnDisable(false);
-            }
              //Iterate Table Rows 
             console.log("----------- FOR LOOP START  --------------------");
             for (var i = 1; i < length; i++){
 
-                 var qty  =  table1.rows[i].cells[1].innerHTML;
-                 var price = table1.rows[i].cells[2].innerHTML;
-              //   var cur_price = parseFloat(price, 10) * parseInt(qty);
-                 lasttotal = parseFloat(price, 10) + lasttotal;
+                var qty  =  table1.rows[i].cells[1].innerHTML;
+                var price = table1.rows[i].cells[2].innerHTML;
+                
+                lasttotal = parseFloat(price, 10) + lasttotal;
+                lastQty += parseInt(qty);
 
-                 var addSum = lasttotal;
-                // var tax = lasttax;
+                var add_tax = parseFloat(defaulttax) * parseFloat(lastQty);
+                totaltax += add_tax;
 
-                 //Display to screen
-                 lblSubTotal.innerHTML = lasttotal.toFixed(2);
+                //Display to screen
+                lblSubTotal.innerHTML = lasttotal.toFixed(2);
+                lbltax.innerHTML = totaltax;
+                lblTotal.innerHTML = parseFloat(totaltax) + parseFloat(lasttotal); 
             }
             console.log(" __________ END OF FOR LOOP _______________")
-            console.log(" Items Is " + table1.rows.length - 1);
-            document.getElementById("lblItems").innerHTML = + table1.rows.length - 1;
             console.log("------------- End Fill Payments --------------------");
         }
         function addCart() {
 
         }
         function init() {
+
             //Initial of Variable
-            alert(" Initial of Vairable ");
+            var cashPay1 = document.querySelector('#cashType');
+            var completeSaleEvt = document.querySelector('#btnCompeleteSale');
+            cashPay1.addEventListener("click", cashPay);
+            completeSaleEvt.addEventListener("click" ,completeSale);
+            getInvoiceID().then(function (data) {
+               // alert(" Init : " + data);
+            });
+        }
+        function cashPay() {
+            alert(" On Cash Pay : ");
+            var paymentPanel = document.querySelector('#paymentPanel');
+            var str  = '<div class="row stt"><div class="col-md-6">Cash</div><div class="col-md-6"><label id="lblDue">$0.00</label></div></div>';
+            paymentPanel.appendChild(str);
+        }
+        function makePayment() { 
+            
+        }
+        function completeSale() {
+            var table1 = document.querySelector('#invoicePanel');
+            var invoiceID = document.querySelector('#InvoiceID');
+            var subtotal = document.querySelector('');
+            var salestax = document.querySelector('');
+            var totalammount = document.querySelector('');
+            var totalPay = document.querySelector('');
+            var remianPrice = document.querySelector('');
+            alert(" Table Length :" + table1.rows.length);
+            for (var i = 1; i< table1.rows.length; i++) {
+                var col = table1.rows[i].cells[0].innerHTML;
+                var col1 = table1.rows[i].cells[1].innerHTML;
+                var col2 = table1.rows[i].cells[2].innerHTML;
+                var col3 = table1.rows[i].cells[5].innerHTML;
+                  var col4 = table1.rows[i].cells[6].innerHTML;
+                alert(" Product Name  : " + col);
+                alert(" Product Qty  : " + col1);
+                alert(" Product Price  : " + col2);
+                alert(" Product ID  : " + col3);
+                alert(" Product Actual Price   : " + col4);
+                addSellsOrderItems(invoiceID.innerHTML, col3, col1, col4, 0,  col2);
+            }
+            addSellsOrder(invoiceID.innerHTML, "None", subtotal, salestax, totalammount, "PAID", totalPay, 0, remianPrice);
+            alert("Complete Sale and  Clear the Screen ");
         }
         function addItems(ProductID, StockID, Name, SoldPrice, Stock) {
             window.Item.push({ ProductID: ProductID, StockID: StockID, Name: Name, SoldPrice: SoldPrice, Stock: Stock });
             // alert("Adding  the Items");
         }
+        // API RELATED FUNCTIONALITY :
         var Item = [];
         function  getItems(id) {
             return new Promise((resolve, reject) => {
@@ -568,9 +615,8 @@
                     //alert(response.responseText);
                     reject(response.responseText);
                 }
-            });
-            });
-            
+             });
+            }); 
         }
         function addSellsOrder(Invoice_number, member_name, subtotal, SalesTax, Total_Amount, Paid_Status, Total_Pay, Discount_price, Remain_price) {
             //Add Sells Order Here To the Server
@@ -605,11 +651,6 @@
                 }
             });
         }
-        function fillPayments() {
-            var sub_total = "";
-            var total = "";
-            var due = "";
-        }
         function addSellsOrderItems(invoice_Id, product_Id, quantity, unit_price, discount_price, total_price) {
             //Add Sells Orde Items
             var soi = new Object();
@@ -639,6 +680,36 @@
                     alert(response.responseText);
                 }
             });
+        }
+        function getInvoiceID() {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                type: "GET",
+                url: "/POS/getInvoiceID",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response != null) {
+                        //alert("Name : " + JSON.stringify(response));
+                        var data = JSON.parse(JSON.stringify(response));
+                        alert("GET Invoice ID  : " + JSON.stringify(data));
+                        document.querySelector('#InvoiceID').value = response;
+                        alert(document.querySelector('#InvoiceID').value);
+                        resolve(response);
+                    } else {
+                        reject(response.responseText);
+                    }
+                },
+                failure: function (response) {
+                    //alert(response.responseText);
+                    reject(response.responseText);
+                },
+                error: function (response) {
+                    //alert(response.responseText);
+                    reject(response.responseText);  
+                }
+             });
+            }); 
         }
     </script>
 }

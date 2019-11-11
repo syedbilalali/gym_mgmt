@@ -136,10 +136,11 @@
                             cell5.innerHTML = "Check In";
                             data += '<a href="@Url.Action("", "Member", new { id = count })"> <div class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i*j].ImagePath +'" /></div>';
                             data += ' <div class="col60"> <h4>' + json[i*j].FirstName + ' ' +json[i*j].LastName + '</h4>' + '<hr>' + ' <h5>User ID '+ count+' </h5>';
-                            data += ' <p>Created on <b>' + (i*j) + '</b></p>';
+                            data += ' <p>Created on <b>' + (i * j) + '</b></p></a>';
+
                             data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
                             data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>';
-                            data += '</div></div></a></div>';
+                            data += '</div></div></div>';
                             if (count < 34) {
                                 count++;
                             }

@@ -16,6 +16,8 @@ namespace gym_mgmt_01.Controllers
     {
         // GET: POS
         ProductOperation po = new ProductOperation();
+        SellsOrderItemsOpt soi = new SellsOrderItemsOpt();
+        SellsOrderOpt so = new SellsOrderOpt();
         dynamic model = new System.Dynamic.ExpandoObject();
         public ActionResult Index()
         {
@@ -79,6 +81,12 @@ namespace gym_mgmt_01.Controllers
         public JsonResult getStock() {
             List<Stocks> stock = po.getAllStocks();
             return Json(stock, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult getInvoiceID() {
+
+            string last = so.getLastInvoiceID();
+            return Json(last , JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult getItemsList(int id) {
