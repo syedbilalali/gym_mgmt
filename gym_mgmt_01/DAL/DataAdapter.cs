@@ -86,7 +86,6 @@ namespace gym_mgmt_01.DAL
                 {
                     using (SqlDataAdapter da = new SqlDataAdapter())
                     {
-
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
                         da.SelectCommand = cmd;
