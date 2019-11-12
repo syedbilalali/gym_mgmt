@@ -5,24 +5,38 @@
     ViewBag.MemberType = "";
 }
 @model gym_mgmt_01.Models.Member
-@using (Html.BeginForm("Index","Member",FormMethod.Post,new { enctype="multipart/form-data" , id="memreg" }))
+@using (Html.BeginForm("Index","Member",FormMethod.Post,new { enctype="multipart/form-data" , id="memreg" , @class="needs-validation" ,@novalidate="" }))
 {
     @Html.AntiForgeryToken()
     <form id="memberReg" method="post">
+        <div class="row uppercontainer">
+            <div class="col-md-12">
+                @if (ViewBag.Message != "")
+                {
+                <div class="alert alert-success" style="display:@ViewBag.Alert;">
+                    <i class="ti-user"></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    @ViewBag.Message
+                </div>
+
+                }
+            </div>
+        </div>
         <div class="row uppercontainer">
             <div class="col-md-6">
                 <h4># @ViewBag.ID </h4>
             </div>
             <div class="col-md-6">
-                <button id="addMemberShipA" class="btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
             </div>
         </div>
+
         <div class="row">
             <!-- Column -->
             <div class="col-lg-3 col-xlg-3 col-md-3">
                 <div class="card">
                     <div class="card-body profilecard">
-                         <center class="m-t-30">
+                        <center class="m-t-30">
                             <img src="~/assets/images/users/deafult.png" width="150px" height="150px" id="profImg" class="img-circle" width="150" />
                             <h4 class="card-title m-t-10"></h4>
                             <!--    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6> -->
@@ -31,16 +45,17 @@
                                 @*<div class="profileupload"><a href="javascript:void(0)" id="uploadPhoto" class="link btnprofile"><i class="mdi mdi-cloud-upload"></i>&nbsp;Upload Photo</a></div>*@
                                 @*<div class="profileupload"><a href="javascript:void(0)" class="link btnprofile"><i class="mdi mdi-camera"></i> &nbsp;Take Photo</a></div>*@
                                 <div class="upload-btn-wrapper">
-                                    <button class="btn upld">  
-                                    @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "" })</button>
+                                    <button class="btn upld">
+                                        @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "" })
+                                    </button>
                                     <input type="file" name="ImageFile" id="upldImage" />
                                 </div>
                             </div>
-                                <div class="m-b-30 checkaddmember" style="display:none;">
-                                    <span class="text-muted">Member&nbsp;&nbsp;</span>
-                                    <input id="memberType" name="memberType" type="checkbox" checked class="js-switch" data-color="#f62d51" data-size="small" />
-                                    <span class="text-truncate">&nbsp;&nbsp;Prospectus</span>
-                                </div>
+                            <div class="m-b-30 checkaddmember" style="display:none;">
+                                <span class="text-muted">Member&nbsp;&nbsp;</span>
+                                <input id="memberType" name="memberType" type="checkbox" checked class="js-switch" data-color="#f62d51" data-size="small" />
+                                <span class="text-truncate">&nbsp;&nbsp;Prospectus</span>
+                            </div>
                         </center>
                     </div>
                 </div>
@@ -51,121 +66,11 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs profile-tab" role="tablist">
                         <!--   <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Timeline</a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Profile</a> </li> -->
+                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Profile</a> </li> -->
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab"> <i class="ti-user"></i>&nbsp;Details</a> </li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div class="tab-pane" id="home" role="tabpanel">
-                            <div class="card-body">
-                                <div class="profiletimeline">
-                                    <div class="sl-item">
-                                        <div class="sl-left"> <img src="../assets/images/users/1.jpg" alt="user" class="img-circle" /> </div>
-                                        <div class="sl-right">
-                                            <div>
-                                                <a href="javascript:void(0)" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
-                                                <p>assign a new task <a href="javascript:void(0)"> Design weblayout</a></p>
-                                                <div class="row">
-                                                    <div class="col-lg-3 col-md-6 m-b-20"><img src="../assets/images/big/img1.jpg" class="img-responsive radius" /></div>
-                                                    <div class="col-lg-3 col-md-6 m-b-20"><img src="../assets/images/big/img2.jpg" class="img-responsive radius" /></div>
-                                                    <div class="col-lg-3 col-md-6 m-b-20"><img src="../assets/images/big/img3.jpg" class="img-responsive radius" /></div>
-                                                    <div class="col-lg-3 col-md-6 m-b-20"><img src="../assets/images/big/img4.jpg" class="img-responsive radius" /></div>
-                                                </div>
-                                                <div class="like-comm"> <a href="javascript:void(0)" class="link m-r-10">2 comment</a> <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-heart text-danger"></i> 5 Love</a> </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="sl-item">
-                                        <div class="sl-left"> <img src="../assets/images/users/2.jpg" alt="user" class="img-circle" /> </div>
-                                        <div class="sl-right">
-                                            <div>
-                                                <a href="javascript:void(0)" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
-                                                <div class="m-t-20 row">
-                                                    <div class="col-md-3 col-xs-12"><img src="../assets/images/big/img1.jpg" alt="user" class="img-responsive radius" /></div>
-                                                    <div class="col-md-9 col-xs-12">
-                                                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. </p> <a href="javascript:void(0)" class="btn btn-success"> Design weblayout</a>
-                                                    </div>
-                                                </div>
-                                                <div class="like-comm m-t-20"> <a href="javascript:void(0)" class="link m-r-10">2 comment</a> <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-heart text-danger"></i> 5 Love</a> </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="sl-item">
-                                        <div class="sl-left"> <img src="../assets/images/users/3.jpg" alt="user" class="img-circle" /> </div>
-                                        <div class="sl-right">
-                                            <div>
-                                                <a href="javascript:void(0)" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
-                                                <p class="m-t-10"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper </p>
-                                            </div>
-                                            <div class="like-comm m-t-20"> <a href="javascript:void(0)" class="link m-r-10">2 comment</a> <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-heart text-danger"></i> 5 Love</a> </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="sl-item">
-                                        <div class="sl-left"> <img src="../assets/images/users/4.jpg" alt="user" class="img-circle" /> </div>
-                                        <div class="sl-right">
-                                            <div>
-                                                <a href="javascript:void(0)" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
-                                                <blockquote class="m-t-10">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                                </blockquote>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--second tab-->
-                        <div class="tab-pane" id="profile" role="tabpanel">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-3 col-xs-6 b-r">
-                                        <strong>Full Name</strong>
-                                        <br>
-                                        <p class="text-muted">Johnathan Deo</p>
-                                    </div>
-                                    <div class="col-md-3 col-xs-6 b-r">
-                                        <strong>Mobile</strong>
-                                        <br>
-                                        <p class="text-muted">(123) 456 7890</p>
-                                    </div>
-                                    <div class="col-md-3 col-xs-6 b-r">
-                                        <strong>Email</strong>
-                                        <br>
-                                        <p class="text-muted">johnathan@admin.com</p>
-                                    </div>
-                                    <div class="col-md-3 col-xs-6">
-                                        <strong>Location</strong>
-                                        <br>
-                                        <p class="text-muted">London</p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <p class="m-t-30">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries </p>
-                                <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                <h4 class="font-medium m-t-30">Skill Set</h4>
-                                <hr>
-                                <h5 class="m-t-30">Wordpress <span class="pull-right">80%</span></h5>
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
-                                </div>
-                                <h5 class="m-t-30">HTML 5 <span class="pull-right">90%</span></h5>
-                                <div class="progress">
-                                    <div class="progress-bar bg-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
-                                </div>
-                                <h5 class="m-t-30">jQuery <span class="pull-right">50%</span></h5>
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
-                                </div>
-                                <h5 class="m-t-30">Photoshop <span class="pull-right">70%</span></h5>
-                                <div class="progress">
-                                    <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="tab-pane active" id="settings" role="tabpanel">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -176,13 +81,18 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">First Name</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="firstName" placeholder="First Name" aria-label="First Name" required="" aria-describedby="basic-addon1">
+                                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "First Name", @required = "" } })
+
+                                                        @Html.ValidationMessageFor(modal => modal.FirstName, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        First Name Is Required
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Last Name</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="lastName" placeholder="Last Name" aria-label="Last Name" required="" aria-describedby="basic-addon1">
+                                                        <input type="text" class="form-control" maxlength="40" name="lastName" placeholder="Last Name" aria-label="Last Name" required="" aria-describedby="basic-addon1">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -206,7 +116,7 @@
 
                                                 <div class="form-group">
                                                     <label for="pwd2">Note</label>
-                                                    <textarea class="form-control" name="note" id="exampleTextarea" required="" rows="8" placeholder="Message"></textarea>
+                                                    <textarea class="form-control" maxlength="100" name="note" id="exampleTextarea" required="" rows="8" placeholder="Message"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -220,7 +130,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Email address</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="Email" placeholder="example@email.com" aria-label="Email">
+                                                        <input type="text" class="form-control" name="Email" placeholder="example@email.com" aria-label="Email" required>
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="ti-email"></i></span>
                                                         </div>
@@ -229,7 +139,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Cell</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" maxlength="12" name="Cell"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="" required>
+                                                        <input type="text" class="form-control" maxlength="12" name="Cell" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="" required>
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="mdi mdi-cellphone-android"></i></span>
                                                         </div>
@@ -238,7 +148,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Home</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" maxlength="12" name="Home"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="">
+                                                        <input type="text" class="form-control" maxlength="12" name="Home" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="icons-Old-Telephone"></i></span>
                                                         </div>
@@ -247,7 +157,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Work</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" maxlength="12" name="Work"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="">
+                                                        <input type="text" class="form-control" maxlength="12" name="Work" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class=" icons-Old-Telephone"></i></span>
                                                         </div>
@@ -265,7 +175,7 @@
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">Address</label>
                                                     <div class="col-8">
-                                                        <input class="form-control"  name="Address"  placeholder="123 main road" type="text" value="" id="example-text-input">
+                                                        <input class="form-control" name="Address" placeholder="123 main road" type="text" value="" id="example-text-input">
                                                     </div>
                                                 </div>
                                                 <div class="form-group mt-3 row">
@@ -380,7 +290,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="emergencyContact"class="col-lg-6" style="display:none">
+                                <div id="emergencyContact" class="col-lg-6" style="display:none">
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="card-title"><i class="ti-support"></i>&nbsp;&nbsp;Emergency Contact</h4>
@@ -394,7 +304,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Last Name</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control"  name="ecLastName" placeholder="Name" aria-label="">
+                                                        <input type="text" class="form-control" name="ecLastName" placeholder="Name" aria-label="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -491,7 +401,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                         
+
                                             </div>
                                         </div>
                                     </div>
@@ -597,22 +507,22 @@
             var addMemberShipA = document.querySelector('#addMemberShipA');
             var addMemberShipB = document.querySelector('#addMemberShipB');
             var prospectusDetails = document.querySelector('#prospectusDetails');
-            var emergencyContact =document.querySelector('#emergencyContact');
+            var emergencyContact = document.querySelector('#emergencyContact');
             var memberType = document.querySelector('#memberType');
             if (memberType.checked) {
 
-                   MemberType = "Prospectus";
-                 //  prospectusDetails.style.display = "block";
-                  // emergencyContact.style.display = "none";
-                   addMemberShipA.innerHTML = "Save";
-                   addMemberShipB.innerHTML = "Save";
+                MemberType = "Prospectus";
+                //  prospectusDetails.style.display = "block";
+                // emergencyContact.style.display = "none";
+                addMemberShipA.innerHTML = "Save";
+                addMemberShipB.innerHTML = "Save";
             } else {
 
                 MemberType = "Member";
                 addMemberShipA.innerHTML = "Add and Save Membership ";
                 addMemberShipB.innerHTML = "Add and Save Membership ";
-             //   prospectusDetails.style.display = "none";
-               // emergencyContact.style.display = "block";
+                //   prospectusDetails.style.display = "none";
+                // emergencyContact.style.display = "block";
             }
             memberType.addEventListener('change', (event) => {
                 if (event.target.checked) {
@@ -631,8 +541,21 @@
                     // alert('not checked');
                 }
             })
-            $('#upldImage').change(function() {
-                readURL(this);  
+            "use strict";
+             $(".tst1").click(function(){
+                    $.toast({
+                    heading: 'Welcome to Material Pro admin',
+                    text: 'Use the predefined ones, or specify a custom position object.',
+                    position: 'top-right',
+                    loaderBg:'#ff6849',
+                    icon: 'info',
+                    hideAfter: 3000, 
+                    stack: 6
+                });
+
+            });
+            $('#upldImage').change(function () {
+                readURL(this);
             });
             function readURL(input) {
                 if (input.files && input.files[0]) {
@@ -641,16 +564,16 @@
                         var form = document.querySelector('#memreg');
                         var bool = Validate(form);
                         if (!bool) {
-                             $('#profImg').attr('src' , '/assets/images/users/deafult.png');
+                            $('#profImg').attr('src', '/assets/images/users/deafult.png');
                         } else {
-                              $('#profImg').attr('src', e.target.result);
+                            $('#profImg').attr('src', e.target.result);
                         }
-                      
+
                     }
                     reader.readAsDataURL(input.files[0]);
                 }
             }
-            var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];    
+            var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
             function Validate(oForm) {
                 var arrInputs = oForm.getElementsByTagName("input");
                 for (var i = 0; i < arrInputs.length; i++) {
@@ -673,10 +596,27 @@
                         }
                     }
                 }
-  
+
                 return true;
             }
-        })
+        });
+        (function() {
+                          'use strict';
+            window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+             // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                     if (form.checkValidity() === false) {
+                                                    event.preventDefault();
+                                                    event.stopPropagation();
+                                                }
+                                                form.classList.add('was-validated');
+                                            }, false);
+                 });
+              }, false);
+            })();
        
     </script>
 }

@@ -7,7 +7,7 @@
 }
 <form>
     <div class="searchinput">
-        <input type="text" name="search" class="search1" placeholder="Search Member..">
+        <input type="text" id="srch" name="search" onkeyup="search()" class="search1" placeholder="Search Member..">
         <button type="button" id="btnPost" class="search2"><i class="ti-search"></i></button>
     </div>
     <div class="btnscontrol">
@@ -87,6 +87,11 @@
 <!-- /.modal -->
 @section scripts{
     <script type="text/javascript">
+        $(function () {
+            var searchtxt = document.querySelector("#srch");
+            searchtxt.addEventListener("keyup" , search);
+        }
+        );
         $('.buttoncol').click(function (e) {
             e.preventDefault();
             setContent($(this));
@@ -101,6 +106,30 @@
             $el.addClass('active');
             $($el.data('rel')).show();
         }
+        function search() {
+          var input, filter, ul, li, a, i, txtValue;
+
+            //Taking Input fromm Search
+            input = document.getElementById("#srch");
+   
+            // Make Upper Case 
+            filter = input.value.toUpperCase();
+            alert(" Filter Value : " + filter);
+            //Get External Div 
+            ul = document.getElementById("cont");
+            //Get List LI frm UL
+            li = ul.getElementsById("cd1");
+            alert(" Div Length :");
+            for (i = 0; i < li.length; i++) {	
+               // a = li[i].getElementsByTagName("a")[0];
+               // txtValue = a.textContent || a.innerText;
+              //  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              //      li[i].style.display = "";
+                //} else {
+              //      li[i].style.display = "none";
+              //  }
+            }
+        }
         $(function () {
           $.ajax({
             type: "GET",
@@ -111,17 +140,24 @@
                 if (response != null) {
                     var data = response;
                     var memberdata = '';
-                    var rows = data.length / 3;
+                    var rows = parseInt(data.length / 3);
+                    alert(" Data Length : " + data.length);
+                    alert(" Rows : " + rows);
                     var left = data.length % 3;
+                    alert(" Left Item : " + left);
                     var json = JSON.parse(JSON.stringify(data));
                     var table = document.querySelector('#memberData');
                     var count_rows = table.rows.count;
                     console.log(" JSON Data : ");
                     console.log(json);
+                    alert(json);
+                    var div = 0;
                     let count = 0;
                     for (var i = 0; i < rows; i++) {
-                        data = '<div class="row">'
-                        for (var j = 1; j < 4; j++) {
+                        alert(" I : " + i);
+                        data = '<div class="row" id="cont">'
+                        for (var j = 0; j < 3; ++j) {
+                            alert(" j : " + j);
                             var mrow = table.insertRow(count_rows);
                             var cell1 = mrow.insertCell(0);
                             var cell2 = mrow.insertCell(1);
@@ -131,19 +167,19 @@
                             cell1.innerHTML = '<a href="@Url.Action("", "Member", new { id = count })"> #'+ count + '</a>';
                            // alert(count + " i -: " + i +" j -: " + j);
                             cell2.innerHTML = json[count].FirstName ;
-                            cell3.innerHTML = json[count].LastName ;;
+                            cell3.innerHTML = json[count].LastName ;
                             cell4.innerHTML = "Count " + count;
                             cell5.innerHTML = "Check In";
-                            data += '<a href="@Url.Action("", "Member", new { id = count })"> <div class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i*j].ImagePath +'" /></div>';
-                            data += ' <div class="col60"> <h4>' + json[i*j].FirstName + ' ' +json[i*j].LastName + '</h4>' + '<hr>' + ' <h5>User ID '+ count+' </h5>';
-                            data += ' <p>Created on <b>' + (i * j) + '</b></p></a>';
+
+                            data += '<a href="@Url.Action("", "Member", new { id = count })"> <div id="cd1" class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i*j].ImagePath +'" /></div>';
+                            data += ' <div class="col60"> <h4>' + json[count].FirstName + ' ' +json[count].LastName + '</h4>' + '<hr>' + ' <h5>User ID '+ count+' </h5>';
+                            data += ' <p>Created on <b>' + (count) + '</b></p></a>';
 
                             data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
                             data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>';
                             data += '</div></div></div>';
-                            if (count < 34) {
-                                count++;
-                            }
+                       
+                            count++;
                         }
                         data += '</div>';
                         memberdata += data;
@@ -204,8 +240,8 @@
             error: function(response) {
                 alert(response.responseText);
             }
+           });
         });
-            });
         });
         $(function () {
         $("#btnPost").click(function() {

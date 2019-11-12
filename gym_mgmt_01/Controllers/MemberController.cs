@@ -24,7 +24,8 @@ namespace gym_mgmt_01.Controllers
         public ActionResult Index()
         {
             ViewBag.ID = mo.getMemberID();
-         //   MemberID = int.Parse(mo.getMemberID());
+            //   MemberID = int.Parse(mo.getMemberID());
+            ViewBag.Alert = "none";
             return View();
         }
         [HttpPost]
@@ -37,27 +38,29 @@ namespace gym_mgmt_01.Controllers
                 m1.FirstName = fc["FirstName"];
                 m1.LastName = fc["LastName"];   
                 m1.DOB = fc["dob"];
-               m1.Gender = fc["gender"];
+                m1.Gender = fc["gender"];
                 m1.note = fc["note"];
-                    m1.MemberType = fc["memberType"];
-                    string path=uploadFile(ImageFile);
-                    m1.ImagePath = path;
-                     con.MemberID = int.Parse(mo.getMemberID()); ;
-                     con.Cell = fc["Cell"];
-                    con.Email = fc["Email"];
-                    con.Home = fc["Home"];
-                    con.Work = fc["Work"];
-                    con.Address = fc["Address"];
-                    con.Suburb = fc["Suburb"];
-                    con.City = fc["City"];
-                    con.Zipcode = fc["Zipcode"];
-                    con.Subscribed = "";
-                    
-                    mo.AddMemeber(m1);
-                    co.AddContact(con);
-
+                m1.MemberType = fc["memberType"];
+                string path=uploadFile(ImageFile);
+                m1.ImagePath = path;
+                con.MemberID = int.Parse(mo.getMemberID()); ;
+                con.Cell = fc["Cell"];
+                con.Email = fc["Email"];
+                con.Home = fc["Home"];
+                con.Work = fc["Work"];
+                con.Address = fc["Address"];
+                con.Suburb = fc["Suburb"];
+                con.City = fc["City"];
+                con.Zipcode = fc["Zipcode"];
+                con.Subscribed = "";
+                mo.AddMemeber(m1);
+                co.AddContact(con);
+                ViewBag.ID = mo.getMemberID();
+                ViewBag.Alert = "block";
+                ViewBag.Message = "Successfully add Member !!! ";
             }
-            return RedirectToAction ("Index");
+            //return RedirectToAction ("Index");
+            return View();
         }
         [HttpGet]
         public JsonResult getJSONData() {

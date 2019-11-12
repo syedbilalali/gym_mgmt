@@ -303,7 +303,7 @@
             init();
             getCategory();
             var invoice = document.querySelector('#InvoiceID').value;
-            alert(" Invoice ID : " + invoice);
+           // alert(" Invoice ID : " + invoice);
             if (invoice === "0000") {
                 alert("Tested Ok ");
             }
@@ -556,19 +556,19 @@
            var totalammount = document.querySelector('#lbltotal');
             var totalPay = document.querySelector('#lblCash');
             var remianPrice = document.querySelector('#lblDue');
-            alert(" Table Length :" + table1.rows.length);
+         //   alert(" Table Length :" + table1.rows.length);
             for (var i = 1; i< table1.rows.length; i++) {
                 var col = table1.rows[i].cells[0].innerHTML;
                 var col1 = table1.rows[i].cells[1].innerHTML;
                 var col2 = table1.rows[i].cells[2].innerHTML;
                 var col3 = table1.rows[i].cells[5].innerHTML;
                   var col4 = table1.rows[i].cells[6].innerHTML;
-                alert(" Product Name  : " + col);
-                alert(" Product Qty  : " + col1);
-                alert(" Product Price  : " + col2);
-                alert(" Product ID  : " + col3);
-                alert(" Product Actual Price   : " + col4);
-                alert(" Invoice ID " + invoiceID.value);
+           //     alert(" Product Name  : " + col);
+             //   alert(" Product Qty  : " + col1);
+               // alert(" Product Price  : " + col2);
+               // alert(" Product ID  : " + col3);
+               // alert(" Product Actual Price   : " + col4);
+               // alert(" Invoice ID " + invoiceID.value);
                 var totalprice = parseFloat(col1) * parseFloat(col4);
                 addSellsOrderItems(invoiceID.value, col3, col1, col4,0, col2);
             }
@@ -640,7 +640,7 @@
                 dataType: "json",
                 success: function (response) {
                     if (response != null) {
-                        alert("Sells Order Reponse: " + response);
+                       // alert("Sells Order Reponse: " + response);
                     } else {
                         alert("");
                     }
@@ -672,7 +672,7 @@
                 dataType: "json",
                 success: function (response) {
                     if (response != null) {
-                        alert(" Data : " + response);
+                      //  alert(" Data : " + response);
                     } else {
                         alert("");
                     }

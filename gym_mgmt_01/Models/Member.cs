@@ -12,6 +12,7 @@ namespace gym_mgmt_01.Models
         public int Id { get; set;  }
 
         [DisplayName("First Name")]
+        [Required(ErrorMessage =" First Name Required. ")]
         public string FirstName { get; set; }
 
         [DisplayName("Last Name")]
