@@ -62,28 +62,30 @@ namespace gym_mgmt_01.BAL.Master
             }
             return sellsOrderItems;
         }
-        public SellsOrderItems getSellsOrderItemsByID( int id)
+        public List<SellsOrderItems> getAlSellsOrderItemsByID(int id)
         {
-            string command = "SELECT * FROM ";
+            string command = "SELECT * FROM dbo.SalesOrderItems WHERE invoice_Id=@Id";
+            List<SellsOrderItems> sellsOrderItems = new List<SellsOrderItems>();
             SqlParameter[] param = new SqlParameter[1];
-            param[0] = new SqlParameter("@Id",id);
-            SellsOrderItems soi = new SellsOrderItems();
-            dt = da.FetchByParameter(param, command);
-            if (dt.Rows.Count > 0) {
-                soi = new SellsOrderItems()
-                {
-                    Id = int.Parse(dt.Rows[0]["Id"].ToString()),
-                    Invoice_Id = int.Parse(dt.Rows[0]["invoice_Id"].ToString()),
-                    product_Id = int.Parse(dt.Rows[0]["product_Id"].ToString()),
-                    quantity = decimal.Parse(dt.Rows[0]["quantity"].ToString()),
-                    unit_price = decimal.Parse(dt.Rows[0]["unit_price"].ToString()),
-                    discount_price = decimal.Parse(dt.Rows[0]["discount_price"].ToString()),
-                    total_price = decimal.Parse(dt.Rows[0]["total_amount"].ToString()),
-                    CreatedAt = DateTime.Parse(dt.Rows[0]["CreatedAt"].ToString())
-                };
+            param[0] = new SqlParameter("@Id", id);
+            dt = da.FetchByParameter(param , command);
+            if (dt.Rows.Count > 0)
+            {
+                sellsOrderItems = (from DataRow dr in dt.Rows
+                                   select new SellsOrderItems()
+                                   {
+                                       Id = int.Parse(dr["Id"].ToString()),
+                                       Invoice_Id = int.Parse(dr["invoice_Id"].ToString()),
+                                       Invoice_number = dr["Invoice_number"].ToString(),
+                                       product_Id = int.Parse(dr["product_Id"].ToString()),
+                                       quantity = decimal.Parse(dr["quantity"].ToString()),
+                                       unit_price = decimal.Parse(dr["unit_price"].ToString()),
+                                       discount_price = decimal.Parse(dr["discount_price"].ToString()),
+                                       total_price = decimal.Parse(dr["total_amount"].ToString()),
+                                       CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString())
+                                   }).ToList();
             }
-            return soi;
+            return sellsOrderItems;
         }
-
     }
 }

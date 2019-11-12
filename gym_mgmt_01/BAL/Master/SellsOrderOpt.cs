@@ -55,11 +55,39 @@ namespace gym_mgmt_01.BAL.Master
             }
             return sellsOrder;
         }
+        public SellsOrder getAlSellsOrderByID(int id)
+        {
+
+            string command = "SELECT * FROM dbo.SellsOrder WHERE Invoice_number=@Id";
+            List<SellsOrder> sellsOrder = new List<SellsOrder>();
+            SellsOrder so = new SellsOrder();
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter("@Id", id);
+            dt = da.FetchByParameter(param, command);
+            if (dt.Rows.Count > 0)
+            {
+                so=  new SellsOrder()
+                              {
+                                  Id = int.Parse(dt.Rows[0]["Id"].ToString()),
+                                  Invoice_number = dt.Rows[0]["Invoice_number"].ToString(),
+                                  Member_Name = dt.Rows[0]["Member_name"].ToString(),
+                                  Subtotal = decimal.Parse(dt.Rows[0]["Subtotal"].ToString()),
+                                  Sales_Tax = decimal.Parse(dt.Rows[0]["Sales_Tax"].ToString()),
+                                  Total_Amount = decimal.Parse(dt.Rows[0]["Total_Amount"].ToString()),
+                                  Paid_Status = dt.Rows[0]["Paid_Status"].ToString(),
+                                  Total_Pay = decimal.Parse(dt.Rows[0]["Total_Pay"].ToString()),
+                                  Discount_Price = decimal.Parse(dt.Rows[0]["Discount_price"].ToString()),
+                                  Remain_price = decimal.Parse(dt.Rows[0]["Remain_price"].ToString()),
+                                  CreatedAt = DateTime.Parse(dt.Rows[0]["CreatedAt"].ToString())
+                              };
+            }
+            return so;
+        }
         public string getLastInvoiceID()
         {   
             char pad = '0';
             char pad1 = '#';
-            int a =  da.getLastID("Invoice_number", "dbo.SellsOrder");
+            int a =  da.getLastID("Id", "dbo.SellsOrder");
             string b = a.ToString();
             string c =  b.PadLeft(4 , pad);
             return c.PadLeft(1, pad1);

@@ -5,7 +5,6 @@
 }
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,34 +29,31 @@
 
 <body class="invoicebody">
     <div class="invoice">
-        <h2>Club Name</h2>
-        <h3>Tax Invoice</h3>
+        <h2>PHYSIOFIT CLUB</h2>
+        <h3>Invoice</h3>
         <div class="invoicetable">
             <table class="table">
-
                 <tbody>
                     <tr style="border: 0px solid #fff;">
                         <td>123 somewhere lane</td>
                         <td class="bold">Invoice Date :</td>
-                        <td>19 Dec 2018</td>
+                        <td>@Model.SellOrder.CreatedAt.Date.ToString("dd MMM yyyy")</td>
 
                     </tr>
                     <tr>
                         <td>Somewhereville</td>
                         <td class="bold">Invoice Number :</td>
-                        <td>20002</td>
+                        <td>@Model.SellOrder.Invoice_number</td>
                     </tr>
                     <tr>
                         <td>Somewhere</td>
                         <td class="bold">Member :</td>
-                        <td>Sonja Almer(#9)</td>
+                        <td>@Model.SellOrder.Member_Name</td>
                     </tr>
 
                 </tbody>
             </table>
         </div>
-
-
         <div class="invoicetable">
             <table class="table table-bordered">
                 <thead>
@@ -71,33 +67,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>19 Dec 2018</td>
-                        <td>Freshup</td>
-                        <td>1</td>
-                        <td>Yes</td>
-                        <td>$5.50</td>
-                        <td>$5.50</td>
-                    </tr>
-                    <tr>
-                        <td>19 Dec 2018</td>
-                        <td>Apple</td>
-                        <td>1</td>
-                        <td>Yes</td>
-                        <td>$3.50</td>
-                        <td>$3.50</td>
-                    </tr>
+                    @if (Model.SellOrderItems.Count > 0)
+                    {
+                        foreach (var sellOrderItems in Model.SellOrderItems)
+                        {
+                            <tr>
+                               
+                                <td>
+                                    @{
+
+                                        @sellOrderItems.CreatedAt.Date.ToString("dd MMM yyyy")
+                                                                }
+                                                            </td>
+                                <td>@sellOrderItems.product_Id</td>
+                                <td>@sellOrderItems.quantity</td>
+                                <td>@sellOrderItems.discount_price</td>
+                                <td>$@sellOrderItems.unit_price </td>
+                                <td>$@sellOrderItems.total_price</td>
+                            </tr>
+                        }
+                    }
                     <tr>
                         <td colspan="5" class="subclass1">Subtotal</td>
-                        <td class="bold">$9.00</td>
+                        <td class="bold">$@Model.SellOrder.Subtotal </td>
                     </tr>
                     <tr>
                         <td colspan="5" class="subclass1">Sales Tax</td>
-                        <td class="bold">$1.11</td>
+                        <td class="bold">$@Model.SellOrder.Sales_Tax</td>
                     </tr>
                     <tr>
                         <td colspan="5" class="subclass1">Total</td>
-                        <td class="bold">$10.11</td>
+                        <td class="bold">$@Model.SellOrder.Total_Amount</td>
                     </tr>
                     <tr>
                         <td colspan="2" class="bold">To Pay</td>
@@ -107,7 +107,6 @@
                 </tbody>
             </table>
         </div>
-
     </div>
     <!-- ============================================================== -->
     <script src="@Url.Content("~/assets/node_modules/jquery/jquery-3.2.1.min.js")"></script>
@@ -129,9 +128,6 @@
     <script src="@Url.Content("~/assets/node_modules/morrisjs/morris.min.js")"></script>
     <script src="@Url.Content("~/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js")"></script>
     <script>
-        function myFunction() {
-            window.print();
-        }
     </script>
 </body>
 </html>

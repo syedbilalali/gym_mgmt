@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "POS Terminal";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var subtotal = 0.00;
     var Total = 0.00;
@@ -23,7 +23,7 @@
                     <button id="menubtn" class="btn btn-primary mm3">Main Menu</button>
                 </div>
             </div>
-            <div class="col-lg-3 col-xlg-3 col-md-3" style="display:block">
+            <div class="col-lg-3 col-xlg-3 col-md-3" style="display:none;">
                 <button class="btn btn-primary posstg"> <i class="mdi mdi-settings "></i>POS Setting</button>
             </div>
             <div class="col-lg-6 col-xlg-6 col-md-6">
@@ -402,7 +402,7 @@
             }
            // alert(" Length : " + priceTable.rows.length);
             //alert("After Adding : " + Item);
-            alert(" Updating Pay Details !!! ");
+           // alert(" Updating Pay Details !!! ");
             updatePayDetails();
         }
         function addTableRow(values) {
@@ -540,7 +540,7 @@
             });
         }
         function cashPay() {
-            alert(" On Cash Pay : ");
+           // alert(" On Cash Pay : ");
             var paymentPanel = document.querySelector('#paymentPanel');
             var str  = '<div class="row stt"><div class="col-md-6">Cash</div><div class="col-md-6"><label id="lblDue">$0.00</label></div></div>';
             paymentPanel.appendChild(str);
@@ -573,7 +573,7 @@
                 addSellsOrderItems(invoiceID.value, col3, col1, col4,0, col2);
             }
             addSellsOrder(invoiceID.value, "None", subtotal.innerHTML, salestax.innerHTML, totalammount.innerHTML, "PAID", totalPay.innerHTML, 0, remianPrice.innerHTML);
-            alert("Complete Sale and  Clear the Screen ");
+          //  alert("Complete Sale and  Clear the Screen ");
         }
         function addItems(ProductID, StockID, Name, SoldPrice, Stock) {
             window.Item.push({ ProductID: ProductID, StockID: StockID, Name: Name, SoldPrice: SoldPrice, Stock: Stock });
@@ -657,6 +657,7 @@
             //Add Sells Orde Items
             var soi = new Object();
             soi.invoice_Id = invoice_Id;
+            soi.Invoice_number = invoice_Id;
             soi.product_Id = product_Id;
             soi.quantity = quantity;
             soi.unit_price = unit_price;
@@ -695,9 +696,9 @@
                     if (response != null) {
                         //alert("Name : " + JSON.stringify(response));
                         var data = JSON.parse(JSON.stringify(response));
-                        alert("GET Invoice ID  : " + JSON.stringify(data));
+                        //alert("GET Invoice ID  : " + JSON.stringify(data));
                         document.querySelector('#InvoiceID').value = response;
-                       alert(document.querySelector('#InvoiceID').value);
+                      // alert(document.querySelector('#InvoiceID').value);
                         resolve(response);
                     } else {
                         reject(response.responseText);

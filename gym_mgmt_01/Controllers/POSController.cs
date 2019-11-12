@@ -17,7 +17,7 @@ namespace gym_mgmt_01.Controllers
         // GET: POS
         ProductOperation po = new ProductOperation();
         SellsOrderItemsOpt soiAdd = new SellsOrderItemsOpt();
-        SellsOrderOpt so = new SellsOrderOpt();
+        SellsOrderOpt soAdd = new SellsOrderOpt();
         dynamic model = new System.Dynamic.ExpandoObject();
         public ActionResult Index()
         {
@@ -85,7 +85,7 @@ namespace gym_mgmt_01.Controllers
         [HttpGet]
         public JsonResult getInvoiceID() {
 
-            string last = so.getLastInvoiceID();
+            string last = soAdd.getLastInvoiceID();
             return Json(last , JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
@@ -98,12 +98,15 @@ namespace gym_mgmt_01.Controllers
         }
         [HttpPost]
         public JsonResult addSellsOrderItems(SellsOrderItems soi) {
+           //Adding the SellsOrderItems
            soiAdd.addSellsOrderItems(soi);
            var response = " Sucessfully Save SellsOrderItems No : " + soi.Invoice_Id;
             return Json( response, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult addSellsOrder(SellsOrder so) {
+
+            soAdd.addSellsOrder(so);
             var response = "Sucessfully Save SellsOrder No : " + so.Invoice_number;
             return Json(response, JsonRequestBehavior.AllowGet);
         }
