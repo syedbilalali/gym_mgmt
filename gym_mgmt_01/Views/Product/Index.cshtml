@@ -53,7 +53,7 @@
                             <td>@product.Type_Id</td>
                             <td>@product.Barcode</td>
                             <td>@product.Description</td>
-                            <td>--</td>
+                            <td><button type="button" class="btn btn-light" onclick="">Add Stock</button></td>
                             <td>
                                 <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@product.Id)">Edit</button>
                                 <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProducts", "Product", new { id = product.Id })'">Delete</button>

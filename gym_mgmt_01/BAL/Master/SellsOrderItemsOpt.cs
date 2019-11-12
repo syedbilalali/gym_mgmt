@@ -16,15 +16,15 @@ namespace gym_mgmt_01.BAL.Master
         public SellsOrderItemsOpt() { 
         }
         public void addSellsOrderItems(SellsOrderItems soi)  {
-            string command = "physiofit_admin.spInsertProductType";
+            string command = "physiofit_admin.spInsertSellOrderItems";
             SqlParameter[] param = new SqlParameter[7];
             param[0] = new SqlParameter("@Invoice_Id", soi.Invoice_Id);
-            param[1] = new SqlParameter("@product_Id", soi.product_Id);
-            param[2] = new SqlParameter("@quantity",  soi.quantity);
-            param[3] = new SqlParameter("@unit_price", soi.unit_price);
-            param[4] = new SqlParameter("@discount_price", soi.discount_price);
-            param[5] = new SqlParameter("@total_ammount", soi.total_ammount);
-            param[6] = new SqlParameter("@CreatedAt", soi.CreatedAt);
+            param[1] = new SqlParameter("@Invoice_number", soi.Invoice_number);
+            param[2] = new SqlParameter("@product_id",  soi.product_Id);
+            param[3] = new SqlParameter("@quantity", soi.quantity);
+            param[4] = new SqlParameter("@unit_price", soi.unit_price);
+            param[5] = new SqlParameter("@discount_price", soi.discount_price);
+            param[6] = new SqlParameter("@total_ammount", soi.total_price);
             da.InsertSP(param, command);
         }
         public void updateSellsOrderItems(SellsOrderItems soi) {
@@ -36,7 +36,7 @@ namespace gym_mgmt_01.BAL.Master
             param[2] = new SqlParameter("@quantity", soi.quantity);
             param[3] = new SqlParameter("@unit_price", soi.unit_price);
             param[4] = new SqlParameter("@discount_price", soi.discount_price);
-            param[5] = new SqlParameter("@total_ammount", soi.total_ammount);
+            param[5] = new SqlParameter("@total_ammount", soi.total_price);
             param[6] = new SqlParameter("@CreatedAt", soi.CreatedAt);
             da.InsertSP(param, command);
         }
@@ -56,7 +56,7 @@ namespace gym_mgmt_01.BAL.Master
                                    quantity = decimal.Parse(dr["quantity"].ToString()),
                                    unit_price = decimal.Parse(dr["unit_price"].ToString()),
                                    discount_price = decimal.Parse(dr["discount_price"].ToString()),
-                                   total_ammount = decimal.Parse(dr["total_amount"].ToString()),
+                                   total_price = decimal.Parse(dr["total_amount"].ToString()),
                                    CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString())
                                }).ToList();
             }
@@ -78,7 +78,7 @@ namespace gym_mgmt_01.BAL.Master
                     quantity = decimal.Parse(dt.Rows[0]["quantity"].ToString()),
                     unit_price = decimal.Parse(dt.Rows[0]["unit_price"].ToString()),
                     discount_price = decimal.Parse(dt.Rows[0]["discount_price"].ToString()),
-                    total_ammount = decimal.Parse(dt.Rows[0]["total_amount"].ToString()),
+                    total_price = decimal.Parse(dt.Rows[0]["total_amount"].ToString()),
                     CreatedAt = DateTime.Parse(dt.Rows[0]["CreatedAt"].ToString())
                 };
             }

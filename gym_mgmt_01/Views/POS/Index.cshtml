@@ -274,7 +274,6 @@
             </div>
             <div class="modal-body">
                 <form>
-
                     <div class="form-group">
                         <label for="exampleInputuname">Cancel Sale</label>
                         <div class="input-group mb-3">
@@ -552,11 +551,11 @@
         function completeSale() {
             var table1 = document.querySelector('#invoicePanel');
             var invoiceID = document.querySelector('#InvoiceID');
-            var subtotal = document.querySelector('');
-            var salestax = document.querySelector('');
-            var totalammount = document.querySelector('');
-            var totalPay = document.querySelector('');
-            var remianPrice = document.querySelector('');
+            var subtotal = document.querySelector('#lblSubtotal');
+           var salestax = document.querySelector('#lblSalesTax');
+           var totalammount = document.querySelector('#lbltotal');
+            var totalPay = document.querySelector('#lblCash');
+            var remianPrice = document.querySelector('#lblDue');
             alert(" Table Length :" + table1.rows.length);
             for (var i = 1; i< table1.rows.length; i++) {
                 var col = table1.rows[i].cells[0].innerHTML;
@@ -569,9 +568,11 @@
                 alert(" Product Price  : " + col2);
                 alert(" Product ID  : " + col3);
                 alert(" Product Actual Price   : " + col4);
-                addSellsOrderItems(invoiceID.innerHTML, col3, col1, col4, 0,  col2);
+                alert(" Invoice ID " + invoiceID.value);
+                var totalprice = parseFloat(col1) * parseFloat(col4);
+                addSellsOrderItems(invoiceID.value, col3, col1, col4,0, col2);
             }
-            addSellsOrder(invoiceID.innerHTML, "None", subtotal, salestax, totalammount, "PAID", totalPay, 0, remianPrice);
+            addSellsOrder(invoiceID.value, "None", subtotal.innerHTML, salestax.innerHTML, totalammount.innerHTML, "PAID", totalPay.innerHTML, 0, remianPrice.innerHTML);
             alert("Complete Sale and  Clear the Screen ");
         }
         function addItems(ProductID, StockID, Name, SoldPrice, Stock) {
@@ -622,14 +623,15 @@
             //Add Sells Order Here To the Server
             var so = new Object();
             so.Invoice_number = Invoice_number;
-            so.member_name = member_name;
-            so.subtotal = subtotal;
-            so.SalesTax = SalesTax;
+            so.Member_Name = member_name;
+            so.Subtotal = subtotal;
+            so.Sales_Tax = SalesTax;
             so.Total_Amount = Total_Amount;
             so.Paid_Status = Paid_Status;
             so.Total_Pay = Total_Pay;
             so.Discount_price = Discount_price;
             so.Remain_price = Remain_price;
+            alert(" SellsOrder : " + JSON.stringify(so));
             $.ajax({
                 type: "POST",
                 url: "/POS/addSellsOrder",
@@ -638,7 +640,7 @@
                 dataType: "json",
                 success: function (response) {
                     if (response != null) {
-                        alert(" Data : " + response);
+                        alert("Sells Order Reponse: " + response);
                     } else {
                         alert("");
                     }
@@ -660,6 +662,7 @@
             soi.unit_price = unit_price;
             soi.discount_price = discount_price;
             soi.total_price = total_price;
+            alert(" SellsOrderITems : " + JSON.stringify(soi));
             $.ajax({
                 type: "POST",
                 url: "/POS/addSellsOrderItems",
@@ -694,7 +697,7 @@
                         var data = JSON.parse(JSON.stringify(response));
                         alert("GET Invoice ID  : " + JSON.stringify(data));
                         document.querySelector('#InvoiceID').value = response;
-                        alert(document.querySelector('#InvoiceID').value);
+                       alert(document.querySelector('#InvoiceID').value);
                         resolve(response);
                     } else {
                         reject(response.responseText);

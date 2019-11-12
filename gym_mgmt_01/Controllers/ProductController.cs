@@ -31,7 +31,6 @@ namespace gym_mgmt_01.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 string imagePath = uploadFile(prodImage);
                 po.AddProduct(fc["productname"].ToString(), int.Parse(fc["productType"].ToString()), int.Parse(fc["supplier"].ToString()), int.Parse(fc["posGroup"].ToString()), fc["barcode"].ToString(), fc["description"].ToString(), imagePath);
             }

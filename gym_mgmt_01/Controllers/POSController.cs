@@ -16,7 +16,7 @@ namespace gym_mgmt_01.Controllers
     {
         // GET: POS
         ProductOperation po = new ProductOperation();
-        SellsOrderItemsOpt soi = new SellsOrderItemsOpt();
+        SellsOrderItemsOpt soiAdd = new SellsOrderItemsOpt();
         SellsOrderOpt so = new SellsOrderOpt();
         dynamic model = new System.Dynamic.ExpandoObject();
         public ActionResult Index()
@@ -98,8 +98,8 @@ namespace gym_mgmt_01.Controllers
         }
         [HttpPost]
         public JsonResult addSellsOrderItems(SellsOrderItems soi) {
-
-            var response = " Sucessfully Save SellsOrderItems No : " + soi.Invoice_Id;
+           soiAdd.addSellsOrderItems(soi);
+           var response = " Sucessfully Save SellsOrderItems No : " + soi.Invoice_Id;
             return Json( response, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]

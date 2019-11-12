@@ -132,7 +132,7 @@ namespace gym_mgmt_01.DAL
             switch (gValue)
             {
                 case (""):
-                    value = 0;
+                    value = 1;
                     break;
                 default:
                     value = Int32.Parse(gValue);
