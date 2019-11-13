@@ -5,12 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Index", "Staff", FormMethod.Post, new { enctype = "multipart/form-data" , id="staffreg" }))
+@using (Html.BeginForm("Index", "Staff", FormMethod.Post, new { enctype = "multipart/form-data" , id="staffreg" ,  @class="needs-validation" , @novalidate="" }))
 {
     @Html.AntiForgeryToken()
     <div class="row upp2">
         <!-- Column -->
-
         <div class="col-lg-3 col-xlg-3 col-md-3">
             <div class="card">
                 <div class="card-body profilecard">
@@ -24,12 +23,9 @@
                                 <input type="file" id="upldImage" name="ImageFile" />
                             </div>
                         </div>
-
                     </center>
                 </div>
-
             </div>
-
         </div>
         <!-- Column -->
         <!-- Column -->
@@ -76,7 +72,6 @@
                                                 <div class="col-md-4 mb-3">
                                                     <label for="validationDefaultUsername">Email</label>
                                                     <div class="input-group">
-
                                                         <input type="text" name="email" class="form-control" id="validationDefaultUsername" placeholder="Email Address" aria-describedby="inputGroupPrepend2" required>
                                                     </div>
                                                 </div>
@@ -105,10 +100,10 @@
                                                     <label for="validationDefault04">Designation</label>
                                                     <input type="text" name="designation" class="form-control" id="validationDefault04" placeholder="Designation" required>
                                                 </div>
-                                                <div class="col-md-4 mb-3">
+                                                @*<div class="col-md-4 mb-3">
                                                     <button type="button" class="btn btn-primary btnroles" data-toggle="modal" data-target="#addroles" data-whatever="">Add Roles</button>
 
-                                                </div>
+                                                </div>*@
                                             </div>
                                             <button class="btn btn-primary" type="submit">Add</button>
 
@@ -265,6 +260,23 @@
   
                 return true;
             }
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                     if (form.checkValidity() === false) {
+                              event.preventDefault();
+                              event.stopPropagation();
+                     }
+                        form.classList.add('was-validated');
+                }, false);
+                 });
+              }, false);
+            })();
         });
     </script>
 }

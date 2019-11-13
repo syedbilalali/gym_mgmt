@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var rolegroup =(List<gym_mgmt_01.Models.RoleGroup>)  ViewData["RoleGroup"];
 }
+@model dynamic 
 <div class="row upp2">
     <!-- Column -->
     <div class="row rolebtns2">
@@ -17,12 +18,10 @@
                 </div>
             </form>
         </div>
-
         <div class="col-lg-6 col-xlg-6 col-md-6">
             <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addroles" data-whatever="">Add Role</button>
         </div>
     </div>
-
     <div class="addrolestab">
         <table class="table table-hover">
             <thead>
@@ -34,8 +33,10 @@
                 </tr>
             </thead>
             <tbody>
+                @if (Model.roleGroup.Count > 0) {
+                    foreach (var rolegroup1 in Model.roleGroup ) { 
                 <tr>
-                    <td>Admin</td>
+                    <td> @rolegroup1.GroupName</td>
                     <td>
                         <select class="form-control">
                             <option value="">Select Role Group</option>
@@ -44,48 +45,17 @@
                             <option value="2">Trainer</option>
                         </select>
                     </td>
-                    <td>Lorem ipsum</td>
+                    <td>@rolegroup1.Description</td>
                     <td>
                         <button type="button" class="btn btn-info editbtn1">Edit</button>
                         <button type="button" class="btn btn-primary deletebtn1">Delete</button>
                     </td>
                 </tr>
-                <tr>
-                    <td>Trainer</td>
-                    <td>
-                        <select class="form-control">
-                            <option value="">Select Role Group</option>
-                            <option value="0">Admin</option>
-                            <option value="1">Staff</option>
-                            <option value="2">Trainer</option>
-                        </select>
-                    </td>
-                    <td>Lorem ipsum</td>
-                    <td>
-                        <button type="button" class="btn btn-info editbtn1">Edit</button>
-                        <button type="button" class="btn btn-primary deletebtn1">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Staff</td>
-                    <td>
-                        <select class="form-control">
-                            @foreach (var c in @rolegroup) // Print the list
-                            {   
-                                <option value="@c.Id">@c.GroupName</option>
-                            }   
-                        </select>
-                    </td>
-                    <td>Lorem ipsum</td>
-                    <td>
-                        <button type="button" class="btn btn-info editbtn1">Edit</button>
-                        <button type="button" class="btn btn-primary deletebtn1">Delete</button>
-                    </td>
-                </tr>
+                    }
+                }
             </tbody>
         </table>
     </div>
-
     <!-- Column -->
 </div>
 <!---Add Role Model-->

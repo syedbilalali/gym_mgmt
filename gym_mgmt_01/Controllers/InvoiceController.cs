@@ -22,12 +22,12 @@ namespace gym_mgmt_01.Controllers
         private int invID = 0;
         public ActionResult Index()
         {   
-
             model.SellOrderItems = soiOp.getAlSellsOrderItemsByID(invID);
             model.SellOrder = soOp.getAlSellsOrderByID(invID);
             return View(model);
         }
         public ActionResult get_last_Invoice() {
+        
             return new  ActionAsPdf("Index");
         }
     }

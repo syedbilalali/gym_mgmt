@@ -13,11 +13,13 @@ namespace gym_mgmt_01.Controllers
     {
         // GET: Role
         RoleOperation ro = new RoleOperation();
+        dynamic model = new System.Dynamic.ExpandoObject();
         public ActionResult Index()
         {
             List<RoleGroup> role = ro.getAllRoleGroup();
             ViewData["RoleGroup"] = role;
-            return View();
+            model.roleGroup = role;
+            return View(model);
         }
     }
 }

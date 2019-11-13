@@ -15,6 +15,7 @@ namespace gym_mgmt_01.Controllers
     public class StaffController : Controller
     {
         StaffOperation so = new StaffOperation();
+        dynamic model = new System.Dynamic.ExpandoObject();
         // GET: Staff
         public ActionResult Index()
         {
@@ -60,7 +61,45 @@ namespace gym_mgmt_01.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
          }
         public ActionResult FindStaff() {
-            return View();
+            DataTable dt = new DataTable();
+            dt = so.geAllStaff();
+            List<Staff> data = new List<Staff>();
+            data = (from DataRow dr in dt.Rows
+                    select new Staff()
+                    {
+                        StaffID = dr["StaffID"].ToString(),
+                        FirstName = dr["FirstName"].ToString(),
+                        LastName = dr["LastName"].ToString(),
+                        Gender = dr["Gender"].ToString(),
+                        Email = dr["Email"].ToString(),
+                        Designation = dr["Designation"].ToString(),
+                        ImgURL = dr["ImgURL"].ToString()
+                    }).ToList();
+            model.staff = data;
+            return View(model);
+        }
+        public ActionResult DeleteStaff(int id)
+        {
+            try
+            {
+                bool result = so.deleteStaffByID(id);
+                if (result == true)
+                {
+                    ViewBag.Message = "Staff Member Deleted Successfully";
+                    ModelState.Clear();
+                }
+                else
+                {
+                    ViewBag.Message = " Sorry Something went Wrong !!! ";
+                    ModelState.Clear();
+                }
+
+                return RedirectToAction("FindStaff");
+            }
+            catch
+            {
+                throw;
+            }
         }
         string fullPath;
         string relativePath;

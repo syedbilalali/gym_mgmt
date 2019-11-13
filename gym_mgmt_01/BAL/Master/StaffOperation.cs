@@ -37,6 +37,12 @@ namespace gym_mgmt_01.BAL.Master
             param[0] = new SqlParameter("@StaffID", id);
             return da.FetchByParameter(param, command);
         }
+        public bool deleteStaffByID(int StaffID) {
+            string command = "DELETE FROM physiofit_admin.Staff WHERE StaffID=@StaffID";
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter("@StaffID",StaffID);
+            return da.Insert(param, command);
+        }
     }
    
 }

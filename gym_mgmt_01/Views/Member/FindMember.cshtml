@@ -5,16 +5,15 @@
     string @getbootstrap = "";
     int count = 0;
 }
-<form>
+
     <div class="searchinput">
-        <input type="text" id="srch" name="search" onkeyup="search()" class="search1" placeholder="Search Member..">
+        <input type="text" id="srch" name="search" onkeyup="btnsearch()" class="search1" placeholder="Search Member..">
         <button type="button" id="btnPost" class="search2"><i class="ti-search"></i></button>
     </div>
     <div class="btnscontrol">
         <a class="buttoncol" data-rel="#rowvalue" href="#"><i class="ti-menu gridpart"></i></a>
         <a class="buttoncol active" data-rel="#colvalue" href="#"><i class="ti-layout-grid2-alt gridpart"></i></a>
     </div>
-</form>
 <div class="radiobtns">
     <input type="radio" name="memberFilter" value="everyone" checked> Everyone
     <input type="radio" name="memberFilter" value="currentmembers"> Current Members
@@ -26,13 +25,18 @@
 </div>
 <div class="container1" id="rowvalue">
     <table id="memberData">
-        <tr>
-            <th>Member ID</th>
-            <th>Name</th>
-            <th>Membership Type</th>
-            <th>Owe</th>
-            <th>Action</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>Member ID</th>
+                <th>Name</th>
+                <th>Membership Type</th>
+                <th>Owe</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="memberData1">
+
+        </tbody>
     </table>
 </div>
 <div class="row">
@@ -88,7 +92,7 @@
 @section scripts{
     <script type="text/javascript">
         $(function () {
-            var searchtxt = document.querySelector("#srch");
+             var searchtxt = document.querySelector("#srch");
             searchtxt.addEventListener("keyup" , search);
         }
         );
@@ -98,7 +102,6 @@
         });
         // set content on load
         $('.buttoncol.active').length && setContent($('.buttoncol.active'));
-
         function setContent($el) {
             $('.buttoncol').removeClass('active');
             $('.container1').hide();
@@ -106,29 +109,43 @@
             $el.addClass('active');
             $($el.data('rel')).show();
         }
-        function search() {
-          var input, filter, ul, li, a, i, txtValue;
-
+        function btnsearch() {
+           var input, filter, ul, li, a, i, txtValue;
             //Taking Input fromm Search
-            input = document.getElementById("#srch");
-   
+           input = document.getElementById("srch");
+            //alert(" Input : " + input);
             // Make Upper Case 
             filter = input.value.toUpperCase();
-            alert(" Filter Value : " + filter);
+           // alert(" Filter Value : " + filter);
             //Get External Div 
-            ul = document.getElementById("cont");
+            var divs = document.getElementById('colvalue'); 
             //Get List LI frm UL
-            li = ul.getElementsById("cd1");
-            alert(" Div Length :");
-            for (i = 0; i < li.length; i++) {	
-               // a = li[i].getElementsByTagName("a")[0];
-               // txtValue = a.textContent || a.innerText;
-              //  if (txtValue.toUpperCase().indexOf(filter) > -1) {
-              //      li[i].style.display = "";
-                //} else {
-              //      li[i].style.display = "none";
-              //  }
+           // alert(" DIv " + divs);
+            var divlist = document.querySelectorAll('#cont');
+          //  alert(" Data : " + divlist);
+          //  alert(" Div Length :" + divlist.length);
+            for (var i = 0; i < divlist.length; i++) {
+                var card = divlist[i].querySelectorAll('#cd1');
+                for (var j = 0; j < card.length; j++) {
+                   // alert(" On Card " + j);
+                    var h4 = card[j].getElementsByTagName("h4")[0];
+                    txtValue = h4.textContent || h4.innerText;
+                    ///alert(" Filter Values : " + txtValue + " Filter Text : " + filter + " On UpperCase" + txtValue.toUpperCase());
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                       // alert(" Gone Show ");
+                        card[j].style.display = "";
+                    } else {
+                    //    alert(" Gone HIde");
+                        card[j].style.display = "none";
+                    }
+                }
             }
+            $("#srch").on("keyup", function () {
+                var value = $(this).val().toUpperCase();
+                     $("#memberData1 tr").filter(function() {
+                    $(this).toggle($(this).text().toUpperCase().indexOf(value) > -1)
+                 });
+            });
         }
         $(function () {
           $.ajax({
@@ -141,23 +158,23 @@
                     var data = response;
                     var memberdata = '';
                     var rows = parseInt(data.length / 3);
-                    alert(" Data Length : " + data.length);
-                    alert(" Rows : " + rows);
+                  //  alert(" Data Length : " + data.length);
+                    //alert(" Rows : " + rows);
                     var left = data.length % 3;
-                    alert(" Left Item : " + left);
+                    //alert(" Left Item : " + left);
                     var json = JSON.parse(JSON.stringify(data));
-                    var table = document.querySelector('#memberData');
+                    var table = document.querySelector('#memberData1');
                     var count_rows = table.rows.count;
                     console.log(" JSON Data : ");
                     console.log(json);
-                    alert(json);
+                   // alert(json);
                     var div = 0;
                     let count = 0;
                     for (var i = 0; i < rows; i++) {
-                        alert(" I : " + i);
+                      //  alert(" I : " + i);
                         data = '<div class="row" id="cont">'
                         for (var j = 0; j < 3; ++j) {
-                            alert(" j : " + j);
+                         //   alert(" j : " + j);
                             var mrow = table.insertRow(count_rows);
                             var cell1 = mrow.insertCell(0);
                             var cell2 = mrow.insertCell(1);
