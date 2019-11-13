@@ -18,6 +18,7 @@ namespace gym_mgmt_01.Controllers
         ProductOperation po = new ProductOperation();
         SellsOrderItemsOpt soiAdd = new SellsOrderItemsOpt();
         SellsOrderOpt soAdd = new SellsOrderOpt();
+        MemberOperation memOpt = new MemberOperation();
         dynamic model = new System.Dynamic.ExpandoObject();
         public ActionResult Index()
         {
@@ -63,6 +64,7 @@ namespace gym_mgmt_01.Controllers
             ViewBag.Data = "Data";
             return RedirectToAction("Index");
         }
+
         public ActionResult SalesLedger()
         {
             return View();
@@ -109,6 +111,21 @@ namespace gym_mgmt_01.Controllers
             soAdd.addSellsOrder(so);
             var response = "Sucessfully Save SellsOrder No : " + so.Invoice_number;
             return Json(response, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult getMembers(string name) {
+          DataTable dt =   memOpt.getMember(name);
+          List<Member> memList = new List<Member>();
+          if (dt.Rows.Count > 0) {
+                memList = (from DataRow dr in dt.Rows
+                                   select new Member()
+                                   {
+                                       Id = int.Parse(dr["Id"].ToString()),
+                                       FirstName = dr["FirstName"].ToString(),
+                                       LastName = dr["LastName"].ToString(),
+                                   }).ToList();
+            }
+          return Json(memList, JsonRequestBehavior.AllowGet);
         }
         public ActionResult printInvoice() {
             var data = new ActionAsPdf("Index");
