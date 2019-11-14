@@ -16,14 +16,11 @@
                 </div>
             </form>
         </div>
-
         <div class="col-lg-6 col-xlg-6 col-md-6">
             <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addclass" data-whatever="">Add Class</button>
         </div>
     </div>
-
     <div class="addclasstab">
-
         <!-- <div id=""> <h2 class="addclasshead"> No data</h2></div> -->
         <div id="addclasstable" class="addclasstable">
             <table class="table table-hover">
@@ -74,7 +71,6 @@
                         <td>James Roy</td>
                         <td>None</td>
                     </tr>
-
                 </tbody>
             </table>
         </div>
@@ -82,78 +78,78 @@
     <!-- Column -->
 </div>
 <!-- /.modal -->
-<div class="modal" id="addclass" tabindex="-1" role="dialog" aria-labelledby="addclasslabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="addclasslabel">Add Class</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="" class="control-label label1">Class:</label>
-                        <select class="form-control label2" id="" name="" aria-invalid="false">
-                            <option value="" data-max_students="" data-length="">Kick Box</option>
-                            <option value="" data-max_students="" data-length="">Spin Class</option>
-                            <option value="" data-max_students="" data-length="">Spin Class</option>
-                            <option value="" data-max_students="" data-length="">Vinyasa Yoga</option>
-                            <option value="" data-max_students="" data-length="">Vinyasa Yoga</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="control-label label1">Date:</label>
-                        <input type="date" class="form-control label2" id="" />
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="control-label label1">From:</label>
-                        <input type="time" class="form-control label2" id="" />
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="control-label label1">To:</label>
-                        <input type="time" class="form-control label2" id="" />
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="control-label label1">Repeats:</label>
-                        <select class="form-control label2" name="" id="" aria-invalid="false">
-                            <option value="">N/A (Single Appointment)</option>
-                            <option value="7 days">Weekly</option>
-                            <option value="14 days">Fortnightly</option>
-                            <option value="21 days">3 Weeks</option>
-                            <option value="28 days">4 Weeks</option>
-                            <option value="42 days">6 Weeks</option>
-                            <option value="56 days">8 Weeks</option>
-                            <option value="1 mon">Monthly</option>
-                            <option value="1 day">Daily</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="control-label label1">Repeat Ends:</label>
-                        <input type="date" class="form-control label2" id="" />
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="control-label label1">Resource:</label>
-                        <select class="form-control label2" name="" id="" aria-invalid="false">
-                            <option value="">Studio</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="control-label label1">Teacher/ Instructor:</label>
-                        <select class="form-control label2" name="" id="" aria-invalid="false">
-                            <option value="">James Roy</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="control-label label1">Note:</label>
-                        <textarea type="date" class="form-control label2" id=""></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-default btn-info">Save Class</button>
-                <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Cancel</button>
+@using (Html.BeginForm("Index", "Training", FormMethod.Post, new { @id = "addClass" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal" id="addclass" tabindex="-1" role="dialog" aria-labelledby="addclasslabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addclasslabel">Add Class</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="addClass" method="post">
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Class:</label>
+                            <input type="text" name="className" class="form-control label2" id="" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Date:</label>
+                            <input type="date" name="Date" class="form-control label2" id="" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">From:</label>
+                            <input type="time" name="From" class="form-control label2" id="" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">To:</label>
+                            <input type="time" name="To" class="form-control label2" id="" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Repeats:</label>
+                            <select class="form-control label2" name="Repeats" id="" aria-invalid="false">
+                                <option value="">N/A (Single Appointment)</option>
+                                <option value="7 days">Weekly</option>
+                                <option value="14 days">Fortnightly</option>
+                                <option value="21 days">3 Weeks</option>
+                                <option value="28 days">4 Weeks</option>
+                                <option value="42 days">6 Weeks</option>
+                                <option value="56 days">8 Weeks</option>
+                                <option value="1 mon">Monthly</option>
+                                <option value="1 day">Daily</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Repeat Ends:</label>
+                            <input type="date" name="RepeatsEnd" class="form-control label2" id="" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Resource:</label>
+                            <select class="form-control label2" name="Resource" id="" aria-invalid="false">
+                                <option value="">Studio</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Teacher/ Instructor:</label>
+                            <select class="form-control label2" name="StaffID" id="" aria-invalid="false">
+                                <option value="">James Roy</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Note:</label>
+                            <textarea type="date" name="Note" class="form-control label2" id=""></textarea>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default btn-info">Save Class</button>
+                    <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- /.modal -->
+}
+    <!-- /.modal -->

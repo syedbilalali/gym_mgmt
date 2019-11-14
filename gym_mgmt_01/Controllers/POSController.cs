@@ -118,12 +118,14 @@ namespace gym_mgmt_01.Controllers
           List<Member> memList = new List<Member>();
           if (dt.Rows.Count > 0) {
                 memList = (from DataRow dr in dt.Rows
-                                   select new Member()
-                                   {
-                                       Id = int.Parse(dr["Id"].ToString()),
-                                       FirstName = dr["FirstName"].ToString(),
-                                       LastName = dr["LastName"].ToString(),
-                                   }).ToList();
+                           select new Member()
+                           {
+                               Id = int.Parse(dr["Id"].ToString()),
+                               FirstName = dr["FirstName"].ToString(),
+                               LastName = dr["LastName"].ToString(),
+                               DOB = dr["DOB"].ToString(),
+                               ImagePath = dr["ImgURL"].ToString()
+                           }).ToList();
             }
           return Json(memList, JsonRequestBehavior.AllowGet);
         }

@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BAL\Master\AddtionalDetailsOpt.cs" />
+    <Compile Include="BAL\Master\ClassesOpt.cs" />
     <Compile Include="BAL\Master\ContactOpration.cs" />
     <Compile Include="BAL\Master\EmergencyContactOpt.cs" />
     <Compile Include="BAL\Master\MasterLogin.cs" />
@@ -156,6 +157,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AdditionalDetails.cs" />
+    <Compile Include="Models\Classes.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\EmergencyContact.cs" />
     <Compile Include="Models\Item.cs" />
@@ -3556,12 +3558,10 @@
     <Content Include="Views\Training\Index.cshtml" />
     <Content Include="Views\POS\Index.cshtml" />
     <Content Include="Views\Membership\Index.cshtml" />
-    <Content Include="Views\POS\ProductType.cshtml" />
     <Content Include="Views\POS\SalesLedger.cshtml" />
     <Content Include="Views\Training\AddReminder.cshtml" />
     <Content Include="Views\Training\AssignClass.cshtml" />
     <Content Include="Views\Membership\AddMembership.cshtml" />
-    <Content Include="Views\POS\Stock.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Stock\Index.cshtml" />

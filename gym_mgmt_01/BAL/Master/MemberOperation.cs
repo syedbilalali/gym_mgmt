@@ -62,10 +62,11 @@ namespace gym_mgmt_01.BAL.Master
         public DataTable getMember(string name)
         {
             DataTable dt = new DataTable();
-            string command = "SELECT *  FROM physiofit_admin.Member WHERE physiofit_admin.Member.FirstName LIKE '@Name%'";
-            SqlParameter[] param = new SqlParameter[1];
-            param[0] = new SqlParameter("@Name" , name);
-            return da.FetchByParameter(param , command);
+            string command = "SELECT *  FROM physiofit_admin.Member WHERE physiofit_admin.Member.FirstName LIKE '%" + name +"%' ";
+            //SqlParameter[] param = new SqlParameter[1];
+          //  param[0] = new SqlParameter("@Name" , name);
+           /// return da.FetchByParameter(param , command);
+            return da.FetchAll(command);
         }
 
     }

@@ -301,9 +301,9 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form>
+                
                     <div class="form-group ">
-                        <div class=""  style="display:block;">
+                        <div class="" style="display:block;" id="findMemPnl">
                             <label for="exampleInputuname" class="st">Find Member</label>
                             <div class="input-group mb-3 st70">
                                 <input type="search" id="findMember" class="form-control" placeholder="" aria-label="" />
@@ -311,30 +311,28 @@
                                     <span class=""><button class="btn btnexact">Search</button></span>
                                 </div>
                             </div>
+                            <div class="input-group mb-3 membernamecl" style=" max-height:350px; overflow-y:auto; display:none;" id="membercontainer">
+                            </div>
                         </div>
-                        <div class="" style="display:none;">
+                        <div class="" style="display:none;" id="SelectMemPnl">
                             <label for="exampleInputuname" class="st">Sold to</label>
                             <div class="input-group mb-3 membernamecl st70">
                                 <div class="row">
-                                    <div class="st20"><img src="assets/images/users/1.jpg" alt="user" class="stimg"></div>
+                                    <div class="st20"><img src="assets/images/users/1.jpg" id="selImage" alt="user" class="stimg"></div>
                                     <div class="st70 sh">
-                                        <h4>Arina Smith</h4>
-                                        <h4>#5040</h4>
-                                        <h4>12 Month Membership</h4>
+                                        <h4><label id="selName"></label> </h4>
+                                        <h4><label id="selID"></label></h4>
+                                        <h4><label id="selDate"></label></h4>
                                     </div>
-                                    <button type="button" class="close st10" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                                    <button type="button" class="close st10" data-dismiss="alert" aria-label="Close" onclick="closeSelectMembers()" > <span aria-hidden="true">×</span> </button>
                                 </div>
                                 
                             </div>
                         </div>
-
                     </div>
-                </form>
-
             </div>
             <div class="modal-footer">
-
-                <button type="submit" class="btn btn-info">Save</button>
+                <button type="submit" data-dismiss="modal"  class="btn btn-info">Save</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -350,15 +348,7 @@
             var menubtn = document.querySelector('#menubtn');
             menubtn.innerHTML = " Main Menu ";
             init();
-            getCategory();
-            var invoice = document.querySelector('#InvoiceID').value;
-            // alert(" Invoice ID : " + invoice);
-            if (invoice === "0000") {
-                alert("Tested Ok ");
-            }
-            // alert("Sending Data to the Sells Order Items ");
-            // addSellsOrderItems(12345, 2343, 2, 2, 2, 2);
-            // addSellsOrder(12345 , "Bilal  Ali " , 2 , 2.3, 12, 20, 12,11,12);
+            getCategory();  
         });
         function getCategory() {
             // alert("Getting the Category");
@@ -581,7 +571,6 @@
 
             //Initial of Variable
             var cashPay1 = document.querySelector('#cashType');
-
             var completeSaleEvt = document.querySelector('#btnCompeleteSale');
             var makepymnt = document.querySelector('#makepaymnt');
             var findMember = document.querySelector('#findMember');
@@ -594,31 +583,46 @@
             });
         }
         function cashPay() {
-            // alert(" On Cash Pay : ");
+
+            alert(" On Cash Pay : ");
             var paymentPanel = document.querySelector('#paymentPanel');
             var str = '<div class="row stt"><div class="col-md-6">Cash</div><div class="col-md-6"><label id="lblDue">$0.00</label></div></div>';
-            paymentPanel.appendChild(str);
+            $(str).insertAfter("#paymentPanel");
         }
+        var objs;
         function showlist() {
+           var suggestion = document.querySelector('#findMember');
            $.ajax({
                 type: "POST",
-                url: "/POS/getProducts",
-                data: JSON.stringify({ 'id': resp.id }),
+               url: "/POS/getMembers",
+               data: JSON.stringify({ 'name': suggestion.value }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
                     if (response != null) {
-                        // alert("Name : " + JSON.stringify(response));
-                        var prodlist = JSON.parse(JSON.stringify(response));
-                        var prod_contain = document.querySelector("#product");
-                        var final_list = "";
-                        for (var i = 0; i < prodlist.length; i++) {
-                            var list = '<div class="childpospart"><button type="button" class="btn ptp5" id=' + prodlist[i].Id + ' name=' + prodlist[i].Name + ' data-toggle="modal" data-target="#" data-whatever="" onclick="addProduct1(this)">'
-                            list += '<i class=" iconpt"></i><div class="poschild5">' + prodlist[i].Name + '</div></button></div>';
-                            final_list += list;
+                       // alert("Value : " + JSON.stringify(response));
+                        var membercontain = document.querySelector('#membercontainer');
+                        var dataObj = JSON.parse(JSON.stringify(response));
+                        var masterdata = "";
+                        var data = "";
+                        //  alert(" Length : " + dataObj.length);
+                        if (dataObj.length > 0) {
+                             var membercontain = document.querySelector('#membercontainer');
+                             membercontain.style.display = "";
+                            for (var i = 0; i < dataObj.length; i++) {
+                                data += '<div class="row">';
+                                data += '<div class="st20"><img src="' + dataObj[i].ImagePath + '" alt="user" class="stimg"></div>';
+                                data += '<div class="st50 sh"> <h4>' + dataObj[i].FirstName + ' ' + dataObj[i].LastName + '</h4> <h4>' + dataObj[i].Id + '</h4><h4>' + dataObj[i].DOB + '</h4></div>';
+                                data += '<div class="st20"><button type="button" id=' + dataObj[i].Id + ' onclick="selectMembers(this)" class="btn btn-info selbtn" >Select</button></div>';
+                                data += '</div > ';
+                            }
+                            objs = dataObj;
+                        } else {
+                            var membercontain = document.querySelector('#membercontainer');
+                            membercontain.style.display = "none";
                         }
-                        var back = '<div class="childpospart"><button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="back()"><i class="ti-back-left iconpt"></i><div class="poschild5">Back</div></button></div>';
-                        prod_contain.innerHTML = final_list + back;
+                        masterdata += data;
+                        membercontain.innerHTML = masterdata;
                     } else {
                         alert("Something went wrong");
                     }
@@ -631,6 +635,35 @@
                 }
             });
         }
+        var selectedMember = "None";
+        function selectMembers(mem) {
+
+            var findMemPnl = document.querySelector('#findMemPnl');
+            findMemPnl.style.display = "none";
+            var selectPnl = document.querySelector('#SelectMemPnl');
+            selectPnl.style.display = "";
+            var selobj = objs.filter(function (obj) {
+                return obj.Id == mem.id;
+            });
+            var selImage = document.querySelector('#selImage');
+            var selName = document.querySelector('#selName');
+            var selID = document.querySelector('#selID');
+            var selDate = document.querySelector('#selDate');
+
+            selImage.src = selobj[0].ImagePath;
+            selID.innerText = selobj[0].Id;
+            selName.innerText = selobj[0].FirstName + " " + selobj[0].LastName;
+            selectedMember = selobj[0].FirstName + " " + selobj[0].LastName;
+            selDate.innerText = selobj[0].DOB;
+        }
+        function closeSelectMembers() {
+
+            var findMemPnl = document.querySelector('#findMemPnl');
+            findMemPnl.style.display = "";
+            var selectPnl = document.querySelector('#SelectMemPnl');
+            selectPnl.style.display = "none";
+            //alert(" Close the Current Memebers ");
+        }
         function makePayment() {
 
             var total_amount = document.querySelector('#lbltotal');
@@ -640,6 +673,7 @@
             extact_Data.value = total_amount.innerText;
         }
         function completeSale() {
+
             var table1 = document.querySelector('#invoicePanel');
             var invoiceID = document.querySelector('#InvoiceID');
             var subtotal = document.querySelector('#lblSubtotal');
@@ -663,7 +697,7 @@
                 var totalprice = parseFloat(col1) * parseFloat(col4);
                 addSellsOrderItems(invoiceID.value, col3, col1, col4, 0, col2);
             }
-            addSellsOrder(invoiceID.value, "None", subtotal.innerHTML, salestax.innerHTML, totalammount.innerHTML, "PAID", totalPay.innerHTML, 0, remianPrice.innerHTML);
+            addSellsOrder(invoiceID.value, selectedMember , subtotal.innerHTML, salestax.innerHTML, totalammount.innerHTML, "PAID", totalPay.innerHTML, 0, remianPrice.innerHTML);
             //  alert("Complete Sale and  Clear the Screen ");
         }
         function addItems(ProductID, StockID, Name, SoldPrice, Stock) {
