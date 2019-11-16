@@ -10,38 +10,50 @@ using gym_mgmt_01.Models;
 using System.Data;
 
 namespace gym_mgmt_01.Controllers
-{   
+{
     [Authorize]
     public class MemberController : Controller
     {
         // GET: Member
         MemberOperation mo = new MemberOperation();
         ContactOpration co = new ContactOpration();
-
+        dynamic model = new System.Dynamic.ExpandoObject();
         //   EmergencyContactOpt eco = new EmergencyContactOpt();
         //  AddtionalDetailsOpt ado = new AddtionalDetailsOpt();
         //  PropectusOperation po = new PropectusOperation();
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            ViewBag.ID = mo.getMemberID();
-            //   MemberID = int.Parse(mo.getMemberID());
-            ViewBag.Alert = "none";
-            return View();
+            if (id == null)
+            {
+                ViewBag.ID = mo.getMemberID();
+                //   MemberID = int.Parse(mo.getMemberID());
+                ViewBag.Alert = "none";
+                return View();
+            }
+            else {
+
+                Member mem = mo.getMember(id);
+                ViewBag.ID = mem.Id;
+                model.data = mem;
+                ViewBag.Alert = "none";
+                return View(mem);
+            }
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(FormCollection fc , HttpPostedFileBase ImageFile) {
+        public ActionResult Index(FormCollection fc, HttpPostedFileBase ImageFile) {
             if (ModelState.IsValid) {
 
                 Member m1 = new Member();
                 Contact con = new Contact();
                 m1.FirstName = fc["FirstName"];
-                m1.LastName = fc["LastName"];   
+                m1.LastName = fc["LastName"];
                 m1.DOB = fc["dob"];
                 m1.Gender = fc["gender"];
                 m1.note = fc["note"];
                 m1.MemberType = fc["memberType"];
-                string path=uploadFile(ImageFile);
+                string path = uploadFile(ImageFile);
                 m1.ImagePath = path;
                 con.MemberID = int.Parse(mo.getMemberID()); ;
                 con.Cell = fc["Cell"];
@@ -82,15 +94,16 @@ namespace gym_mgmt_01.Controllers
         public JsonResult getMember() {
             DataTable dt = new DataTable();
             dt = mo.getMember();
-            List<Member>  data = new List<Member>();
+            List<Member> data = new List<Member>();
             data = (from DataRow dr in dt.Rows
-                           select new Member()
-                           {
-                               FirstName  = dr["FirstName"].ToString(),
-                               LastName = dr["LastName"].ToString(),
-                               Gender = dr["Gender"].ToString(),
-                               ImagePath = dr["ImgURL"].ToString()
-                           }).ToList();
+                    select new Member()
+                    {
+                        Id = int.Parse(dr["Id"].ToString()),
+                        FirstName = dr["FirstName"].ToString(),
+                        LastName = dr["LastName"].ToString(),
+                        Gender = dr["Gender"].ToString(),
+                        ImagePath = dr["ImgURL"].ToString()
+                    }).ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public ActionResult FindMember(int? id) {
@@ -98,7 +111,7 @@ namespace gym_mgmt_01.Controllers
             if (id != null) {
                 Response.Write(" ID -: " + id);
             } else {
-             //   Response.Write(" ID No");
+                //   Response.Write(" ID No");
             }
             return View();
         }
@@ -196,13 +209,65 @@ namespace gym_mgmt_01.Controllers
                 else {
                     Response.Write(" File Formate Not supported");
                 }
-               
+
             }
             else {
                 relativePath = "/assets/images/users/user4.png";
-               
+
             }
             return relativePath;
+        }
+        public ActionResult Edit(int? id) {
+            if (id == null)
+            {
+                ViewBag.ID = mo.getMemberID();
+                //   MemberID = int.Parse(mo.getMemberID());
+                ViewBag.Alert = "none";
+                return View();
+            }
+            else
+            {
+
+                Member mem = mo.getMember(id);
+                ViewBag.ID = mem.Id;
+                model.data = mem;
+                ViewBag.Alert = "none";
+                return View(mem);
+            }
+        }
+        [HttpPost]
+        public ActionResult Edit(FormCollection fc , HttpPostedFileBase ImageFile) {
+            if (ModelState.IsValid)
+            {
+
+                Member m1 = new Member();
+                Contact con = new Contact();
+                m1.FirstName = fc["FirstName"];
+                m1.LastName = fc["LastName"];
+                m1.DOB = fc["dob"];
+                m1.Gender = fc["gender"];
+                m1.note = fc["note"];
+                m1.MemberType = fc["memberType"];
+                string path = uploadFile(ImageFile);
+                m1.ImagePath = path;
+               // con.MemberID = int.Parse(mo.getMemberID()); ;
+                con.Cell = fc["Cell"];
+                con.Email = fc["Email"];
+                con.Home = fc["Home"];
+                con.Work = fc["Work"];
+                con.Address = fc["Address"];
+                con.Suburb = fc["Suburb"];
+                con.City = fc["City"];
+                con.Zipcode = fc["Zipcode"];
+                con.Subscribed = "";
+                mo.UpdateMember(m1);
+                co.AddContact(con);
+                ViewBag.ID = mo.getMemberID();
+                ViewBag.Alert = "block";
+                ViewBag.Message = "Successfully add Member !!! ";
+            }
+            //return RedirectToAction ("Index");
+            return View();
         }
         public class Employee
         {

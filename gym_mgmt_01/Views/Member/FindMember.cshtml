@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     string @getbootstrap = "";
     int count = 0;
+    int id = 0;
 }
 
     <div class="searchinput">
@@ -114,11 +115,11 @@
             //Taking Input fromm Search
            input = document.getElementById("srch");
             //alert(" Input : " + input);
-            // Make Upper Case 
+            // Make Upper Case
             filter = input.value.toUpperCase();
            // alert(" Filter Value : " + filter);
-            //Get External Div 
-            var divs = document.getElementById('colvalue'); 
+            //Get External Div
+            var divs = document.getElementById('colvalue');
             //Get List LI frm UL
            // alert(" DIv " + divs);
             var divlist = document.querySelectorAll('#cont');
@@ -181,21 +182,20 @@
                             var cell3 = mrow.insertCell(2);
                             var cell4 = mrow.insertCell(3);
                             var cell5 = mrow.insertCell(4);
-                            cell1.innerHTML = '<a href="@Url.Action("", "Member", new { id = count })"> #'+ count + '</a>';
+                            cell1.innerHTML = '<a href="/Member/Edit/' + json[count].Id + '"> #'+ count + '</a>';
                            // alert(count + " i -: " + i +" j -: " + j);
                             cell2.innerHTML = json[count].FirstName ;
                             cell3.innerHTML = json[count].LastName ;
                             cell4.innerHTML = "Count " + count;
                             cell5.innerHTML = "Check In";
-
-                            data += '<a href="@Url.Action("", "Member", new { id = count })"> <div id="cd1" class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i*j].ImagePath +'" /></div>';
-                            data += ' <div class="col60"> <h4>' + json[count].FirstName + ' ' +json[count].LastName + '</h4>' + '<hr>' + ' <h5>User ID '+ count+' </h5>';
+                            data += '<a href="/Member/Edit/'+ json[count].Id +'"> <div id="cd1" class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i*j].ImagePath +'" /></div>';
+                            data += ' <div class="col60"> <h4>' + json[count].FirstName + ' ' +json[count].LastName + '</h4>' + '<hr>' + ' <h5>User ID '+  json[count].Id +' </h5>';
                             data += ' <p>Created on <b>' + (count) + '</b></p></a>';
 
                             data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
                             data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>';
                             data += '</div></div></div>';
-                       
+
                             count++;
                         }
                         data += '</div>';

@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model dynamic
 <div class="row upp2">
     <!-- Column -->
     <div class="row rolebtns3">
@@ -27,50 +28,44 @@
                 <thead>
                     <tr>
                         <th>Class</th>
-                        <th>Date</th>
                         <th>From</th>
                         <th>To</th>
                         <th>Repeats</th>
                         <th>Repeat Ends</th>
-                        <th>Resource</th>
                         <th>Teacher/ Instructor</th>
-                        <th>Note</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Jumba</td>
-                        <td>22/10/2019</td>
-                        <td>5:00 PM</td>
-                        <td>7:00 PM</td>
-                        <td>Fortnightly</td>
-                        <td>22/11/2019</td>
-                        <td>Studio</td>
-                        <td>James Roy</td>
-                        <td>None</td>
-                    </tr>
-                    <tr>
-                        <td>Karate</td>
-                        <td>15/10/2019</td>
-                        <td>6:00 PM</td>
-                        <td>8:00 PM</td>
-                        <td>Weekly</td>
-                        <td>15/2/2019</td>
-                        <td>Studio</td>
-                        <td>James Roy</td>
-                        <td>None</td>
-                    </tr>
-                    <tr>
-                        <td>Jumba</td>
-                        <td>11/10/2019</td>
-                        <td>7:00 PM</td>
-                        <td>9:00 PM</td>
-                        <td>Weekly</td>
-                        <td>11/1/2020</td>
-                        <td>Studio</td>
-                        <td>James Roy</td>
-                        <td>None</td>
-                    </tr>
+                    @if (Model.classes.Count > 0)
+                    {
+                        foreach (var data in Model.classes)
+                        {
+                            <tr>
+                                <td>@data.ClassName</td>
+                                <td>@data.From</td>
+                                <td>@data.To</td>
+                                <td>@data.Repeats</td>
+                                <td>@data.RepeatsEnd</td>
+                                <td>@data.StaffID</td>
+                                <td>
+                                    <button type="button" class="btn btn-info editbtn1" onclick="">Edit</button>
+                                    <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteClasses", "Training", new { id = data.Id })'">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" align="center">
+                                <div class="alert alert-info">
+                                    <i class="ti-info" style="margin-right: 5px;border-radius: 50%;border: 1px solid #249ddc; padding: 3px; font-size: 10px;"></i> No Class Found !!!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">  </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
@@ -89,7 +84,6 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-
                     <form id="addClass" method="post">
                         <div class="form-group">
                             <label for="" class="control-label label1">Class:</label>
@@ -134,7 +128,7 @@
                         <div class="form-group">
                             <label for="" class="control-label label1">Teacher/ Instructor:</label>
                             <select class="form-control label2" name="StaffID" id="" aria-invalid="false">
-                                <option value="">James Roy</option>
+                                <option value="12">James Roy</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -152,4 +146,26 @@
         </div>
     </div>
 }
-    <!-- /.modal -->
+<!-- /.modal -->
+@section scripts{
+     <script type="text/javascript">
+         (function() {
+                          'use strict';
+            window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+             // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                     if (form.checkValidity() === false) {
+                                                    event.preventDefault();
+                                                    event.stopPropagation();
+                                                }
+                                                form.classList.add('was-validated');
+                                            }, false);
+                 });
+              }, false);
+            })();
+     </script>
+}
+

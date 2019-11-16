@@ -163,6 +163,7 @@
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\MasterLogin.cs" />
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\Membership.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductType.cs" />
     <Compile Include="Models\Prospectus.cs" />
@@ -3561,11 +3562,12 @@
     <Content Include="Views\POS\SalesLedger.cshtml" />
     <Content Include="Views\Training\AddReminder.cshtml" />
     <Content Include="Views\Training\AssignClass.cshtml" />
-    <Content Include="Views\Membership\AddMembership.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Stock\Index.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
+    <Content Include="Views\Membership\ViewMemberships.cshtml" />
+    <Content Include="Views\Member\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

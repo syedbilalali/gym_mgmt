@@ -14,7 +14,7 @@ namespace gym_mgmt_01.BAL.Master
         DataAdapter da = new DataAdapter();
         DataTable dt;
         public void AddClasses(Classes class1) {
-            string command = "";
+            string command = "physiofit_admin.spInsertClasses";
             SqlParameter[] param = new SqlParameter[8];
             param[0] = new SqlParameter("@ClassName" , class1.ClassName);
             param[1] = new SqlParameter("@From" , class1.From);
@@ -30,7 +30,7 @@ namespace gym_mgmt_01.BAL.Master
             
         }
         public List<Classes> getAllClasses() {
-            string command = "";
+            string command = "SELECT * from dbo.Classes";
             List<Classes> classes = new List<Classes>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)
@@ -39,14 +39,14 @@ namespace gym_mgmt_01.BAL.Master
                            select new Classes()
                            {
                                Id = int.Parse(dr["Id"].ToString()),
-                               ClassName = dr["Name"].ToString(),
-                               From = DateTime.Parse(dr["Tax_Rate_Name"].ToString()),
-                               To = DateTime.Parse(dr["Sold_Club"].ToString()),
-                               Repeats = dr[""].ToString(),
-                               RepeatsEnd = DateTime.Parse(dr[""].ToString()),
-                               Resource = dr[""].ToString(),
-                               StaffID = int.Parse(dr[""].ToString()),
-                               Note = dr[""].ToString(),
+                               ClassName = dr["ClassName"].ToString(),
+                               From = DateTime.Parse(dr["From"].ToString()),
+                               To = DateTime.Parse(dr["To"].ToString()),
+                               Repeats = dr["Repeats"].ToString(),
+                               RepeatsEnd = DateTime.Parse(dr["RepeatsEnd"].ToString()),
+                               Resource = dr["Resource"].ToString(),
+                               StaffID = int.Parse(dr["StaffID"].ToString()),
+                               Note = dr["Note"].ToString(),
                                CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString())
                            }).ToList();
             }
@@ -74,6 +74,13 @@ namespace gym_mgmt_01.BAL.Master
                 };
             }
             return cld;
+        }
+        public bool deleteClassbyID(int id)
+        {
+            string command = "DELETE  FROM dbo.Classes WHERE Id=@Id";
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter("@Id" , id);
+            return da.Insert(param, command);
         }
     }
 }

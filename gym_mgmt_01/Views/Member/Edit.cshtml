@@ -1,0 +1,587 @@
+﻿
+@{
+    ViewBag.Title = "Physiofit | Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model gym_mgmt_01.Models.Member
+@using (Html.BeginForm("Edit", "Member", FormMethod.Post, new { enctype = "multipart/form-data", id = "memreg", @class = "needs-validation", @novalidate = "" }))
+{
+    @Html.AntiForgeryToken()
+    <form id="memberReg" method="post">
+        <div class="row uppercontainer">
+            <div class="col-md-12">
+                @if (ViewBag.Message != "")
+                {
+                    <div class="alert alert-success" style="display:@ViewBag.Alert;">
+                        <i class="ti-user"></i>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                        @ViewBag.Message
+                    </div>
+
+                }
+            </div>
+        </div>
+        <div class="row uppercontainer">
+            <div class="col-md-6">
+                <h4># @ViewBag.ID </h4>
+            </div>
+            <div class="col-md-6">
+                <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-3 col-xlg-3 col-md-3">
+                <div class="card">
+                    <div class="card-body profilecard">
+                        <center class="m-t-30">
+                            <img src="~/assets/images/users/deafult.png" width="150px" height="150px" id="profImg" class="img-circle" width="150" />
+                            <h4 class="card-title m-t-10"></h4>
+                            <!--    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6> -->
+                            <div class="row text-center justify-content-md-center">
+                                @*<div class="profileupload"><input type="file" class="link btnprofile" name="my_file" id="my_file"></div>*@
+                                @*<div class="profileupload"><a href="javascript:void(0)" id="uploadPhoto" class="link btnprofile"><i class="mdi mdi-cloud-upload"></i>&nbsp;Upload Photo</a></div>*@
+                                @*<div class="profileupload"><a href="javascript:void(0)" class="link btnprofile"><i class="mdi mdi-camera"></i> &nbsp;Take Photo</a></div>*@
+                                <div class="upload-btn-wrapper">
+                                    <button class="btn upld">
+                                        @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "" })
+                                    </button>
+                                    <input type="file" name="ImageFile" id="upldImage" />
+                                </div>
+                            </div>
+                            <div class="m-b-30 checkaddmember" style="display:none;">
+                                <span class="text-muted">Member&nbsp;&nbsp;</span>
+                                <input id="memberType" name="memberType" type="checkbox" checked class="js-switch" data-color="#f62d51" data-size="small" />
+                                <span class="text-truncate">&nbsp;&nbsp;Prospectus</span>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <div class="col-lg-9 col-xlg-9 col-md-10">
+                <div class="card">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs profile-tab" role="tablist">
+                        <!--   <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Timeline</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Profile</a> </li> -->
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab"> <i class="ti-user"></i>&nbsp;Details</a> </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="settings" role="tabpanel">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><i class="ti-user"></i>&nbsp;&nbsp;Details</h4>
+                                            <div class="form p-t-20">
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">First Name</label>
+                                                    <div class="input-group mb-3">
+                                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "First Name", @required = "" } })
+
+                                                        @Html.ValidationMessageFor(modal => modal.FirstName, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        First Name Is Required
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Last Name</label>
+                                                    <div class="input-group mb-3">
+                                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "First Name", @required = "" } })
+                
+                                                        @Html.ValidationMessageFor(modal => modal.FirstName, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Date of Birth</label>
+                                                    <div class="input-group mb-3">
+                                                        @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @type="date" , @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "First Name", @required = "" } })
+                   
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="ti-calendar"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Gender</label>
+                                                    <div class="input-group mb-3">
+                                                        <select class="form-control" name="gender" required="">
+                                                            <option>Male</option>
+                                                            <option>Female</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="pwd2">Note</label>
+                                                    @Html.TextAreaFor(model => model.note, new { @class = "form-control" , @maxlength="100" , @rows="8" , @placeholder="Message" , @required="" })
+                                               
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><i class="ti-agenda"></i>&nbsp;&nbsp;Contact</h4>
+                                            <div class="form p-t-20">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Email address</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="Email" placeholder="example@email.com" aria-label="Email" required>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="ti-email"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Cell</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" maxlength="12" name="Cell" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="" required>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="mdi mdi-cellphone-android"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Home</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" maxlength="12" name="Home" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="icons-Old-Telephone"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Work</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" maxlength="12" name="Work" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class=" icons-Old-Telephone"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*<div class="form-group">
+                                                        <label for="pwd1">Address Search</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Enter your address." aria-label="Password">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text"><i class="mdi  mdi-magnify"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>*@
+                                                <div class="form-group mt-3 row">
+                                                    <label for="example-text-input" class="col-4 col-form-label">Address</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" name="Address" placeholder="123 main road" type="text" value="" id="example-text-input">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mt-3 row">
+                                                    <label for="example-text-input" class="col-4 col-form-label">Suburb</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" name="Suburb" placeholder="CBD" type="text" value="" id="example-text-input">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mt-3 row">
+                                                    <label for="example-text-input" class="col-4 col-form-label">City</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" type="text" name="City" value="" id="example-text-input">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mt-3 row">
+                                                    <label for="example-text-input" class="col-4 col-form-label">Zip Code</label>
+                                                    <div class="col-8">
+                                                        <input class="form-control" name="Zipcode" placeholder="18091" type="text" value="" id="example-text-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6" style="display:none">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><i class="ti-list"></i>&nbsp;&nbsp;Additional Details</h4>
+                                            <div class="form p-t-20">
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Club</label>
+                                                    <div class="input-group mb-3">
+                                                        <select class="form-control" name="Club">
+                                                            <option value="0">N/A</option>
+                                                            <option value="1">YG Club</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Trainer</label>
+                                                    <div class="input-group mb-3">
+                                                        <select class="form-control" name="TrainerID">
+                                                            <option value="0">N/A</option>
+                                                            <option value="1">Fred Dean</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Joining Date</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="date" class="form-control" name="JoiningDate" placeholder="" aria-label="" aria-describedby="basic-addon1" />
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="ti-calendar"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Sales Rep</label>
+                                                    <div class="input-group mb-3">
+                                                        <select class="form-control" name="SalesRepresentID">
+                                                            <option value="0">N/A</option>
+                                                            <option value="1">All Stuff</option>
+                                                            <option value="2">YG Club</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Source Promotion</label>
+                                                    <div class="input-group mb-3">
+                                                        <select class="form-control" name="SourcePromotionID">
+                                                            <option value="0">Unknown</option>
+                                                            <option value="1">Marketing Agents</option>
+                                                            <option value="2">Summer 2018 mall promo</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Referred By Member</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="search" class="form-control" name="ReferredMemberBy" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="ti-search"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Occupation</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="Occupation" placeholder="Student" aria-label="" aria-describedby="basic-addon1" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="pwd1">Organization</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" name="Organisation" placeholder="A Company" aria-label="" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Involvement Type </label>
+                                                    <div class="input-group mb-3">
+                                                        <select class="form-control" name="InvolvementType">
+                                                            <option value="Sample Data">Sample Data</option>
+                                                            <option value="Member">Member</option>
+                                                            <option value="Staff">Staff</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="emergencyContact" class="col-lg-6" style="display:none">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><i class="ti-support"></i>&nbsp;&nbsp;Emergency Contact</h4>
+                                            <div class="form p-t-20">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">First Name</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="ecFirstName" placeholder="Name" aria-label="firstname">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Last Name</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="ecLastName" placeholder="Name" aria-label="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Relationship</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="ecRelationship" placeholder="Family Member" aria-label="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Email</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="email" class="form-control" name="ecEmail" placeholder="" aria-label="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Cell</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="tel" class="form-control" name="ecCell" placeholder="9803456789" aria-label="">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="mdi mdi-cellphone-android"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Home</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="tel" class="form-control" name="ecHome" placeholder="423 334 5671" aria-label="">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class=" icons-Old-Telephone"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Works</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="tel" class="form-control" name="ecWorks" placeholder="" aria-label="">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class=" icons-Old-Telephone"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Medical Information(if applicable)</label>
+                                                    <div class="input-group mb-3">
+                                                        <textarea class="form-control" id="exampleTextarea" name="ecMedicalInfo" rows="5" placeholder="Enter any medical information here.."></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Age</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="ecAge" placeholder="" aria-label="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="prospectusDetails" class="col-lg-6" style="display:none">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><i class="ti-support"></i>&nbsp;&nbsp;Prospectus Details</h4>
+                                            <div class="form p-t-20">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Contact Method</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="pdContactMethods" placeholder="Name" aria-label="firstname">
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Fitness Goal</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="pdFitnessGoal" placeholder="Name" aria-label="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Previous Gym</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="pdPreviousGym" placeholder="Family Member" aria-label="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Lead Strength</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="email" class="form-control" name="pdLeadStrength" placeholder="" aria-label="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Created</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="tel" class="form-control" name="pdCreated" placeholder="9803456789" aria-label="">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="mdi mdi-cellphone-android"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6" style="display:none">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><i class="ti-layers"></i>&nbsp;&nbsp; Custom Fields</h4>
+                                            <div class="form p-t-20">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Size</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" placeholder="" aria-label="firstname">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputuname">Area</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" placeholder="" aria-label="">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6" style="display:none">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><i class="ti-layers"></i>&nbsp;&nbsp; Custom Lookups</h4>
+                                            <div class="form p-t-20">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Type</label>
+                                                    <div class="input-group mb-3">
+                                                        <select class="form-control">
+                                                            <option value="large">Large</option>
+                                                            <option value="medium">Medium</option>
+                                                            <option value="small">Small</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <button id="addMemberShipB" class="btn btn-success btn-save btn-member-save savemember">Save and Add Membership</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+    </form>
+}
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var MemberType = "";
+            var addMemberShipA = document.querySelector('#addMemberShipA');
+            var addMemberShipB = document.querySelector('#addMemberShipB');
+            var prospectusDetails = document.querySelector('#prospectusDetails');
+            var emergencyContact = document.querySelector('#emergencyContact');
+            var memberType = document.querySelector('#memberType');
+            if (memberType.checked) {
+
+                MemberType = "Prospectus";
+                //  prospectusDetails.style.display = "block";
+                // emergencyContact.style.display = "none";
+                addMemberShipA.innerHTML = "Update";
+                addMemberShipB.innerHTML = "Update";
+            } else {
+
+                MemberType = "Member";
+                addMemberShipA.innerHTML = "Add and Save Membership ";
+                addMemberShipB.innerHTML = "Add and Save Membership ";
+                //   prospectusDetails.style.display = "none";
+                // emergencyContact.style.display = "block";
+            }
+            memberType.addEventListener('change', (event) => {
+                if (event.target.checked) {
+                    MemberType = "Prospectus";
+                    prospectusDetails.style.display = "block";
+                    emergencyContact.style.display = "none";
+                    addMemberShipA.innerHTML = "Update";
+                    addMemberShipB.innerHTML = "Update";
+                    //  alert('checked');
+                } else {
+                    MemberType = "Prospectus";
+                    prospectusDetails.style.display = "none";
+                    emergencyContact.style.display = "block";
+                    addMemberShipA.innerHTML = "Add and Save Membership ";
+                    addMemberShipB.innerHTML = "Add and Save Membership ";
+                    // alert('not checked');
+                }
+            })
+            "use strict";
+             $(".tst1").click(function(){
+                    $.toast({
+                    heading: 'Welcome to Material Pro admin',
+                    text: 'Use the predefined ones, or specify a custom position object.',
+                    position: 'top-right',
+                    loaderBg:'#ff6849',
+                    icon: 'info',
+                    hideAfter: 3000,
+                    stack: 6
+                });
+
+            });
+            $('#upldImage').change(function () {
+                readURL(this);
+            });
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var form = document.querySelector('#memreg');
+                        var bool = Validate(form);
+                        if (!bool) {
+                            $('#profImg').attr('src', '/assets/images/users/deafult.png');
+                        } else {
+                            $('#profImg').attr('src', e.target.result);
+                        }
+
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
+            function Validate(oForm) {
+                var arrInputs = oForm.getElementsByTagName("input");
+                for (var i = 0; i < arrInputs.length; i++) {
+                    var oInput = arrInputs[i];
+                    if (oInput.type == "file") {
+                        var sFileName = oInput.value;
+                        if (sFileName.length > 0) {
+                            var blnValid = false;
+                            for (var j = 0; j < _validFileExtensions.length; j++) {
+                                var sCurExtension = _validFileExtensions[j];
+                                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                                    blnValid = true;
+                                    break;
+                                }
+                            }
+                            if (!blnValid) {
+                                alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                                return false;
+                            }
+                        }
+                    }
+                }
+
+                return true;
+            }
+        });
+        (function() {
+                          'use strict';
+            window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+             // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                     if (form.checkValidity() === false) {
+                                                    event.preventDefault();
+                                                    event.stopPropagation();
+                                                }
+                                                form.classList.add('was-validated');
+                                            }, false);
+                 });
+              }, false);
+            })();
+
+    </script>
+}
+<!-- ============================================================== -->
+<!-- End Right sidebar -->
+<!-- ============================================================== -->

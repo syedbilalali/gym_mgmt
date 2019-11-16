@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Configuration;
 using System.IO;
 using System.Data;
+using gym_mgmt_01.Models;
 
 namespace gym_mgmt_01.Controllers
 {
@@ -36,8 +37,13 @@ namespace gym_mgmt_01.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public ActionResult EditStock()
+        public ActionResult EditStock(FormCollection fc)
         {
+            int ProductID  =  int.Parse(fc[""].ToString());
+            int stockID = int.Parse(fc[""].ToString());
+           // decimal stockIn = decimal.Parse();
+            
+           // po.UpdateStocks(stockID ,ProductID , )
             return RedirectToAction("Index");
         }
         public ActionResult DeleteStocks(int id)
@@ -62,6 +68,12 @@ namespace gym_mgmt_01.Controllers
             {
                 throw;
             }
+        }
+        public JsonResult StockEdit(int? id)
+        {
+            List<Stocks> stocks = po.getAllStocks();
+            var prod = stocks.Find(x => x.Id.Equals(id));
+            return Json(prod, JsonRequestBehavior.AllowGet);
         }
     }
 }

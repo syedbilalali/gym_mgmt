@@ -27,15 +27,16 @@ namespace gym_mgmt_01.BAL.Master
             param[6] = new SqlParameter("@ImgURL" , mb.ImagePath);
             da.Insert(param , command);
         }
-        public void UpdateMember(int id , Member mb) {
-            string command = "";
-            SqlParameter[] param = new SqlParameter[6];
-            param[0] = new SqlParameter("@FirstName", mb.FirstName);
-            param[1] = new SqlParameter("@LastName", mb.LastName);
-            param[2] = new SqlParameter("@Gender", mb.Gender);
-            param[3] = new SqlParameter("@DOB", mb.DOB);
-            param[4] = new SqlParameter("@Note", mb.note);
-            param[5] = new SqlParameter("@ImgURL", mb.ImagePath);
+        public void UpdateMember(Member mb) {
+            string command = "UPDATE physiofit_admin.Member SET FirstName=@FirstName, LastName=@LastName , DOB=@DOB, Gender=@Gender  , Note=@Note , MemberType=@MemberType, ImgURL=@ImgURL WHERE Id=@Id";
+            SqlParameter[] param = new SqlParameter[7];
+            param[0] = new SqlParameter("@Id", mb.Id);
+            param[1] = new SqlParameter("@FirstName", mb.FirstName);
+            param[2] = new SqlParameter("@LastName", mb.LastName);
+            param[3] = new SqlParameter("@Gender", mb.Gender);
+            param[4] = new SqlParameter("@DOB", mb.DOB);
+            param[5] = new SqlParameter("@Note", mb.note);
+            param[6] = new SqlParameter("@ImgURL", mb.ImagePath);
             da.Insert(param, command);
         }
         public void DeleteMember(int id) {
@@ -67,6 +68,29 @@ namespace gym_mgmt_01.BAL.Master
           //  param[0] = new SqlParameter("@Name" , name);
            /// return da.FetchByParameter(param , command);
             return da.FetchAll(command);
+        }
+        public Member getMember(int? id) {
+            DataTable dt = new DataTable();
+            string command = "SELECT * FROM physiofit_admin.Member WHERE physiofit_admin.Member.Id=@Id";
+            SqlParameter[] param = new SqlParameter[1];
+            Member mem = new Member();
+            param[0] = new SqlParameter("@Id", id);
+            dt = da.FetchByParameter(param, command);
+            if (dt.Rows.Count > 0) {
+                mem = new Member()
+                {
+                    Id = int.Parse(dt.Rows[0]["Id"].ToString()),
+                    FirstName = dt.Rows[0]["FirstName"].ToString(),
+                    LastName = dt.Rows[0]["LastName"].ToString(),
+                    DOB = dt.Rows[0]["DOB"].ToString(),
+                    Gender = dt.Rows[0]["Gender"].ToString(),
+                    note = dt.Rows[0]["Note"].ToString(),
+                    MemberType = dt.Rows[0]["MemberType"].ToString(),
+                    ImagePath = dt.Rows[0]["ImgURL"].ToString(),
+                };
+            }
+            return mem;
+            
         }
 
     }

@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Physiofit | Stocks ";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var index = 1;
 }
@@ -141,11 +141,32 @@
                     <form>
                         <div class="form-group">
                             <label for="" class="control-label label1">Product Name :</label>
-                            <input type="text" maxlength="20" name="productname" class="form-control label2" id="" required>
+                            <select class="form-control label2" name="productName" id="productName">
+                                @if (Model.products.Count > 0)
+                                {
+                                    <option value="0" selected>--SELECT PRODUCT--</option>
+                                    foreach (var products in Model.products)
+                                    {
+                                        <option value="@products.Id">@products.Name</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="0">None</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1"> Buy Price :</label>
+                            <input type="text" maxlength="20" name="getprice" class="form-control label2" id="buyPrice" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1"> Sell Price :</label>
+                            <input type="text" maxlength="20" name="sellprice" class="form-control label2" id="sellPrice" />
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1"> Quantity :</label>
-                            <input type="text" maxlength="20" name="barcode" class="form-control label2" id="" />
+                            <input type="text" maxlength="20" name="barcode" class="form-control label2" id="quantity" />
                         </div>
                     </form>
                 </div>
@@ -159,7 +180,27 @@
 </div>
 @section scripts {
     <script type="text/javascript">
-        
+        function GetDetails(id) {
+            $.ajax({
+                url: "/Stock/StockEdit/" + id,
+                typr: "GET",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                success: function (response) {
+                   // alert(" SucessFull Get the Value " + JSON.stringify(response));
+                  //  $('#prodID').val(response.Id);
+                    $('#productName').val(response.product_Id);
+                    $('#buyPrice').val(response.get_price);
+                    $('#sellPrice').val(response.sell_price);
+                    $('#quantity').val(response.current_stock);
+                    $('#updateProd').modal('show');
+            },
+            error: function (response) {
+                alert(response.responseText);
+                }
+            });
+            return false;
+        }
     </script>
 }
 
