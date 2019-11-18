@@ -139,7 +139,9 @@
     <Compile Include="BAL\Master\SellsOrderItemsOpt.cs" />
     <Compile Include="BAL\Master\SellsOrderOpt.cs" />
     <Compile Include="BAL\Master\StaffOperation.cs" />
+    <Compile Include="BAL\Master\SubscriptionOpt.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -147,6 +149,7 @@
     <Compile Include="Controllers\MembershipController.cs" />
     <Compile Include="Controllers\POSController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\StockController.cs" />
@@ -159,6 +162,7 @@
     <Compile Include="Models\AdditionalDetails.cs" />
     <Compile Include="Models\Classes.cs" />
     <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\EmailFormModel.cs" />
     <Compile Include="Models\EmergencyContact.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\MasterLogin.cs" />
@@ -172,6 +176,7 @@
     <Compile Include="Models\SellsOrderItems.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\Stocks.cs" />
+    <Compile Include="Models\Subscriptions.cs" />
     <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -3568,6 +3573,10 @@
     <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\Membership\ViewMemberships.cshtml" />
     <Content Include="Views\Member\Edit.cshtml" />
+    <Content Include="Views\Email\Contact.cshtml" />
+    <Content Include="Views\Email\Sent.cshtml" />
+    <Content Include="Views\Membership\Subscriptions.cshtml" />
+    <Content Include="Views\Report\AllSubscriptions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

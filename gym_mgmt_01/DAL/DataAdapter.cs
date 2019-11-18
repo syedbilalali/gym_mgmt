@@ -98,6 +98,30 @@ namespace gym_mgmt_01.DAL
                 }
             }
         }
+        public DataTable FetchByParamSP(SqlParameter[] param , String command)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString.connect()))
+            {
+                using (SqlCommand cmd = new SqlCommand(command))
+                {
+                    using (SqlDataAdapter da = new SqlDataAdapter())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        da.SelectCommand = cmd;
+                        for (int i = 0; i < param.Length; i++)
+                        {
+                            cmd.Parameters.Add(param[i]);
+                        }
+                        using (DataTable dt = new System.Data.DataTable())
+                        {
+                            da.Fill(dt);
+                            return dt;
+                        }
+                    }
+                }
+            }
+        }
         public DataTable FetchByParameter(SqlParameter[] param, string command)
         {
             using (SqlConnection con = new SqlConnection(connectionString.connect()))

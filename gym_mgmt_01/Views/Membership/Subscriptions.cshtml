@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewBag.Title = "Subscriptions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model dynamic
+@using (Html.BeginForm())
+{
+    <div class="row upp2">
+        <!-- Column -->
+        <div class="row rolebtns2">
+            <div class="col-lg-6 col-xlg-6 col-md-6">
+                <form action="#">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Type the product type.." aria-label="">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="mdi  mdi-magnify"></i></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6 col-xlg-6 col-md-6">
+                <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" onclick="" data-whatever="">Add Subscription</button>
+            </div>
+        </div>
+        <div class="addrolestab">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Membership Name</th>
+                        <th>Amount</th>
+                        <th>Expiry Date</th>
+                        <th>Member Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.subscription.Count > 0)
+                    {
+                        foreach (var sub in Model.subscription)
+                        {
+                            <tr>
+                                <td>@sub.MembershipName </td>
+                                <td><b>$</b>@sub.Ammount</td>
+                                <td>@sub.ExpirayDate</td>
+                                <td>@sub.MemberName</td>
+                                <td>
+                                    <button type="button" class="btn btn-info editbtn1">Edit</button>
+                                    <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("deleteSubscriptions", "Membership", new { id = sub.Id })'">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" align="center">
+                                <div class="alert alert-info">
+                                    <i class="ti-info" style="margin-right: 5px;border-radius: 50%;border: 1px solid #249ddc; padding: 3px; font-size: 10px;"></i> No Subscriptions Found !!!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">  </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("addSubscriptions", "Membership", new { @class = "needs-validation" }))
+{
+    <div class="modal" id="addcat" tabindex="-1" role="dialog" aria-labelledby="addcatlabel">
+        @Html.AntiForgeryToken()
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addcatlabel">Subscriptions</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Choose Member :</label>
+                            <select name="member" class="form-control label2">
+                                @if (Model.member.Count > 0)
+                                {
+                                    <option>--SELECT OPTIONS--</option>
+                                    foreach (var mem in Model.member)
+                                    {
+                                        <option value="@mem.Id">@mem.FirstName</option>
+                                    }
+                                }
+                                else {
+                                    <option value="0">NONE</option>
+                                }
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1"> Choose Membership :</label>
+                            <select name="membershp" class="form-control label2">
+                                @if (Model.membrshp.Count > 0)
+                                {
+                                    <option>--SELECT OPTIONS--</option>
+                                    foreach (var mshp in Model.membrshp)
+                                    {
+                                        <option value="@mshp.Id">@mshp.Name</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="0">NONE</option>
+                                }
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default btn-info">Add Subscription</button>
+                    <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section scripts {
+
+}
+
+

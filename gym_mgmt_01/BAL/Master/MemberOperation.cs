@@ -51,6 +51,25 @@ namespace gym_mgmt_01.BAL.Master
             string command = "SELECT * FROM physiofit_admin.Member";
             return da.FetchAll(command);
         }
+        public List<Member> getAllMembers() {
+            DataTable dt = new DataTable();
+            string command = "SELECT * FROM physiofit_admin.Member";
+            dt = da.FetchAll(command);
+            List<Member> data = new List<Member>();
+            if (dt.Rows.Count > 0) {
+                data = (from DataRow dr in dt.Rows select new Member() {
+                    Id = int.Parse(dr["Id"].ToString()),
+                    FirstName = dr["FirstName"].ToString(),
+                    LastName = dr["LastName"].ToString(),
+                    DOB = dr["DOB"].ToString(),
+                    Gender = dr["Gender"].ToString(),
+                    note = dr["Note"].ToString(),
+                    MemberType = dr["MemberType"].ToString(),
+                    ImagePath = dr["ImgURL"].ToString()
+                }).ToList();
+            }
+            return data;
+        }
         public string getMemberID() {
             DataAdapter da = new DataAdapter();
             int lastID = da.getLastID("Id", "physiofit_admin.Member");
