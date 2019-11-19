@@ -16,7 +16,7 @@ namespace gym_mgmt_01.Controllers
         public ActionResult Index()
         {
             List<Classes> cl = classOpt.getAllClasses();
-            model.classes = cl;
+            model.classes = cl; 
             return View(model);
         }
         [HttpPost]
@@ -35,8 +35,9 @@ namespace gym_mgmt_01.Controllers
             return RedirectToAction("Index");
         }
         public ActionResult AssignClass() {
-         //   List<ClassSubscriptions>  list = 
-            return View();
+            List<ClassSubscriptions> list = classOpt.getAllClassSubs();
+            model.classSubs = list;
+            return View(model);
         }
         public ActionResult AddReminder() {
             return View();
@@ -46,7 +47,7 @@ namespace gym_mgmt_01.Controllers
         {
             try
             {
-                bool result = classOpt.deleteClassbyID(id); ;
+                bool result = classOpt.deleteClassbyID(id);
                 if (result == true)
                 {
                     ViewBag.Message = "Customer Deleted Successfully";
@@ -57,7 +58,6 @@ namespace gym_mgmt_01.Controllers
                     ViewBag.Message = "Unsucessfull";
                     ModelState.Clear();
                 }
-
                 return RedirectToAction("Index");
             }
             catch
