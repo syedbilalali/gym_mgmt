@@ -16,5 +16,14 @@ namespace gym_mgmt_01.Controllers
         public ActionResult AllSubscriptions() {
             return View();
         }
+        public ActionResult AllPayments() {
+            return View();
+        }
+        public ActionResult AllBills() {
+            return View();
+        }
+        public ActionResult AllVisitor() {
+            return View();
+        }
     }
 }

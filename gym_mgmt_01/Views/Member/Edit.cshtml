@@ -65,8 +65,9 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs profile-tab" role="tablist">
                         <!--   <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Timeline</a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Profile</a> </li> -->
+    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Profile</a> </li> -->
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab"> <i class="ti-user"></i>&nbsp;Details</a> </li>
+                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#membership" role="tab"><i class="ti-id-badge"></i>&nbsp;Membership</a></li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
@@ -92,15 +93,15 @@
                                                     <label for="exampleInputuname">Last Name</label>
                                                     <div class="input-group mb-3">
                                                         @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "First Name", @required = "" } })
-                
+
                                                         @Html.ValidationMessageFor(modal => modal.FirstName, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Date of Birth</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @type="date" , @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "First Name", @required = "" } })
-                   
+                                                        @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @type = "date", @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "First Name", @required = "" } })
+
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="ti-calendar"></i></span>
                                                         </div>
@@ -115,11 +116,10 @@
                                                         </select>
                                                     </div>
                                                 </div>
-
                                                 <div class="form-group">
                                                     <label for="pwd2">Note</label>
-                                                    @Html.TextAreaFor(model => model.note, new { @class = "form-control" , @maxlength="100" , @rows="8" , @placeholder="Message" , @required="" })
-                                               
+                                                    @Html.TextAreaFor(model => model.note, new { @class = "form-control", @maxlength = "100", @rows = "8", @placeholder = "Message", @required = "" })
+
                                                 </div>
                                             </div>
                                         </div>
@@ -167,14 +167,14 @@
                                                     </div>
                                                 </div>
                                                 @*<div class="form-group">
-                                                        <label for="pwd1">Address Search</label>
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" placeholder="Enter your address." aria-label="Password">
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text"><i class="mdi  mdi-magnify"></i></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>*@
+                                    <label for="pwd1">Address Search</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Enter your address." aria-label="Password">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="mdi  mdi-magnify"></i></span>
+                                        </div>
+                                    </div>
+                                </div>*@
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">Address</label>
                                                     <div class="col-8">
@@ -454,8 +454,40 @@
                             </div>
                             <button id="addMemberShipB" class="btn btn-success btn-save btn-member-save savemember">Save and Add Membership</button>
                         </div>
+                        <div class="tab-pane" id="membership" role="tabpanel">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><i class="ti-id-badge"></i>&nbsp;&nbsp;Memberships</h4>
+                                            <div class="form p-t-20">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Membership Name</th>
+                                                            <th>Expiray Date</th>
+                                                            <th>Amount</th>
+                                                            <th>Membership Types</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>3 Months</td>
+                                                            <td>12-03-2019</td>
+                                                            <td>1200</td>
+                                                            <td>None</td>
+                                                            <td>Ren</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
             </div>
             <!-- Column -->

@@ -3577,6 +3577,9 @@
     <Content Include="Views\Email\Sent.cshtml" />
     <Content Include="Views\Membership\Subscriptions.cshtml" />
     <Content Include="Views\Report\AllSubscriptions.cshtml" />
+    <Content Include="Views\Report\AllPayments.cshtml" />
+    <Content Include="Views\Report\AllVisitor.cshtml" />
+    <Content Include="Views\Report\AllBills.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
