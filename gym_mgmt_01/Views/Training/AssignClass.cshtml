@@ -3,6 +3,89 @@
     ViewBag.Title = "AssignClass";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model dynamic 
+@using (Html.BeginForm("AssignClass" , "Training"))
+{
+    <div class="row upp2">
+        <!-- Column -->
+        <div class="row rolebtns2">
+            <div class="col-lg-6 col-xlg-6 col-md-6">
+                <form action="#">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Type the product type.." aria-label="">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="mdi  mdi-magnify"></i></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
-<h2>AssignClass</h2>
+            <div class="col-lg-6 col-xlg-6 col-md-6">
+                <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" data-whatever="">Schedule Member</button>
+            </div>
+        </div>
+
+        <div class="addrolestab">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Class Name</th>
+                        <th>Class Time</th>
+                        <th>Class Teacher</th>
+                        <th>Class Ends </th>
+                        <th>Member Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Drink</td>
+                        <td>Sales tax</td>
+                        <td>Clubname</td>
+                        <td>
+                            <button type="button" class="btn btn-info editbtn1">Edit</button>
+                            <button type="button" class="btn btn-primary deletebtn1">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Column -->
+    </div>
+}
+@using (Html.BeginForm("addClassSubscriptions", "Training", new { @class = "needs-validation" }))
+{
+    <div class="modal" id="addcat" tabindex="-1" role="dialog" aria-labelledby="addcatlabel">
+        @Html.AntiForgeryToken()
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addcatlabel">Assign Classes</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Choose Member :</label>
+                            <select name="member" class="form-control label2">
+                               
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1"> Choose Class :</label>
+                            <select name="membershp" class="form-control label2">
+                                
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default btn-info">Assign Class</button>
+                    <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 

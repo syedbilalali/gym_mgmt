@@ -3,7 +3,11 @@
     ViewBag.Title = "Physiofit | Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using gym_mgmt_01.Models;
 @model gym_mgmt_01.Models.Member
+@{ 
+    List<gym_mgmt_01.Models.Membership> membership = ViewData["membership"] as List<gym_mgmt_01.Models.Membership>;
+}
 @using (Html.BeginForm("Edit", "Member", FormMethod.Post, new { enctype = "multipart/form-data", id = "memreg", @class = "needs-validation", @novalidate = "" }))
 {
     @Html.AntiForgeryToken()
@@ -29,7 +33,6 @@
                 <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
             </div>
         </div>
-
         <div class="row">
             <!-- Column -->
             <div class="col-lg-3 col-xlg-3 col-md-3">
@@ -462,26 +465,40 @@
                                         <div class="card-body">
                                             <h4 class="card-title"><i class="ti-id-badge"></i>&nbsp;&nbsp;Memberships</h4>
                                             <div class="form p-t-20">
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Membership Name</th>
-                                                            <th>Expiray Date</th>
-                                                            <th>Amount</th>
-                                                            <th>Membership Types</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>3 Months</td>
-                                                            <td>12-03-2019</td>
-                                                            <td>1200</td>
-                                                            <td>None</td>
-                                                            <td>Ren</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                                @if (membership.Count > 0)
+                                                {
+                                                    <table class="table table-bordered" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Membership Name</th>
+                                                                <th>Expiray Date</th>
+                                                                <th>Amount</th>
+                                                                <th>Membership Types</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var subs in membership)
+                                                            {
+                                                                <tr>
+                                                                    <td>@subs.Id</td>
+                                                                    <td>@subs.Name</td>
+                                                                    <td>@subs.Description</td>
+                                                                    <td>@subs.Capacity</td>
+                                                                    <td>@subs.StartDate</td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                }
+                                                else
+                                                {
+                                                    <div class="alert alert-danger">
+                                                        No Membership Found !!!
+                                                    </div>
+                                                }
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -495,10 +512,10 @@
                                         <div class="card-body">
                                             <h4 class="card-title"><i class="ti-receipt"></i>&nbsp;&nbsp;Trainings</h4>
                                             <div class="form p-t-20">
-                                                <table class="table table-bordered">
+                                                <table class="table table-bordered" style="display:none;">
                                                     <thead>
                                                         <tr>
-                                                            <th>Training Name</th>
+                                                            <th>Class Name</th>
                                                             <th>Schedule Time</th>
                                                             <th>Traininer Name</th>
                                                             <th>Start From </th>
@@ -515,6 +532,9 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                                <div class="alert alert-danger">
+                                                    No Trainings Schedule Found !!!
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -68,7 +68,7 @@
                         <!--   <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Timeline</a> </li>
                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Profile</a> </li> -->
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab"> <i class="ti-user"></i>&nbsp;Details</a> </li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#membership" role="tab"><i class="ti-user"></i>&nbsp;Membership</a></li>
+             
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
@@ -85,16 +85,27 @@
                                                         @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "First Name", @required = "" } })
 
                                                         @Html.ValidationMessageFor(modal => modal.FirstName, "", new { @class = "text-danger" })
+                                                        <div class="valid-feedback">
+                                                            This looks good.
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Please enter first name.
+                                                        </div>
                                                     </div>
-                                                    <div class="invalid-feedback">
-                                                        First Name Is Required
-                                                    </div>
+                                                   
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Last Name</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" maxlength="40" name="lastName" placeholder="Last Name" aria-label="Last Name" required="" aria-describedby="basic-addon1">
+                                                        <div class="valid-feedback">
+                                                            This looks good.
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Please enter last name.
+                                                        </div>
                                                     </div>
+                                                   
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Date of Birth</label>
@@ -103,21 +114,39 @@
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="ti-calendar"></i></span>
                                                         </div>
+                                                        <div class="valid-feedback">
+                                                            This looks good.
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Choose Date of Birth
+                                                        </div>
                                                     </div>
+                                                   
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Gender</label>
                                                     <div class="input-group mb-3">
                                                         <select class="form-control" name="gender" required="">
+                                                            <option selected> --SELECT Gender-- </option>
                                                             <option>Male</option>
                                                             <option>Female</option>
                                                         </select>
+                                                        <div class="valid-feedback">
+                                                            This looks good.
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Choose gender
+                                                        </div>
                                                     </div>
+                                                   
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="pwd2">Note</label>
                                                     <textarea class="form-control" maxlength="100" name="note" id="exampleTextarea" required="" rows="8" placeholder="Message"></textarea>
+                                                    <div class="valid-feedback">
+                                                        This looks good.
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -131,7 +160,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Email address</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="Email" placeholder="example@email.com" aria-label="Email" required>
+                                                        <input type="text" class="form-control" name="Email" placeholder="example@email.com" aria-label="Email" required="">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="ti-email"></i></span>
                                                         </div>
@@ -140,7 +169,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Cell</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" maxlength="12" name="Cell" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="" required>
+                                                        <input type="text" class="form-control" maxlength="12" name="Cell" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="" required="">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="mdi mdi-cellphone-android"></i></span>
                                                         </div>
@@ -149,7 +178,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Home</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" maxlength="12" name="Home" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="">
+                                                        <input type="text" class="form-control" maxlength="12" name="Home" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="" required="">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="icons-Old-Telephone"></i></span>
                                                         </div>
@@ -158,7 +187,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Work</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" maxlength="12" name="Work" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="">
+                                                        <input type="text" class="form-control" maxlength="12" name="Work" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="" aria-label="" required="">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class=" icons-Old-Telephone"></i></span>
                                                         </div>
@@ -176,25 +205,25 @@
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">Address</label>
                                                     <div class="col-8">
-                                                        <input class="form-control" name="Address" placeholder="123 main road" type="text" value="" id="example-text-input">
+                                                        <input class="form-control" name="Address" placeholder="123 main road" type="text" value="" id="example-text-input" required="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">Suburb</label>
                                                     <div class="col-8">
-                                                        <input class="form-control" name="Suburb" placeholder="CBD" type="text" value="" id="example-text-input">
+                                                        <input class="form-control" name="Suburb" placeholder="CBD" type="text" value="" id="example-text-input" required="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">City</label>
                                                     <div class="col-8">
-                                                        <input class="form-control" type="text" name="City" value="" id="example-text-input">
+                                                        <input class="form-control" type="text" name="City" value="" id="example-text-input" required="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">Zip Code</label>
                                                     <div class="col-8">
-                                                        <input class="form-control" name="Zipcode" placeholder="18091" type="text" value="" id="example-text-input">
+                                                        <input class="form-control" name="Zipcode" placeholder="18091" type="text" value="" id="example-text-input" required="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -634,7 +663,7 @@
             }
         });
         (function() {
-                          'use strict';
+            'use strict';
             window.addEventListener('load', function() {
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
             var forms = document.getElementsByClassName('needs-validation');
@@ -642,15 +671,14 @@
             var validation = Array.prototype.filter.call(forms, function(form) {
                 form.addEventListener('submit', function(event) {
                      if (form.checkValidity() === false) {
-                                                    event.preventDefault();
-                                                    event.stopPropagation();
-                                                }
-                                                form.classList.add('was-validated');
-                                            }, false);
+                              event.preventDefault();
+                              event.stopPropagation();
+                     }
+                     form.classList.add('was-validated');
+                     }, false);
                  });
               }, false);
             })();
-       
     </script>
 }
 <!-- ============================================================== -->

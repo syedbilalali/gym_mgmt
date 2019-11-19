@@ -54,8 +54,8 @@ namespace gym_mgmt_01.BAL.Master
             }
             return mem;
         }
-        public Membership getMembershipByID(int Id) {
-            string command = "";
+        public Membership getMembershipByID(int? Id) {
+            string command = "SELECT * from physiofit_admin.Membership where Id=@Id";
             DataTable dt = new DataTable();
             SqlParameter[] param = new SqlParameter[1];
             Membership data = new Membership();
@@ -79,8 +79,19 @@ namespace gym_mgmt_01.BAL.Master
                 };
             }
             return data;
-        } 
+        }
+        public DataTable getDTMembershipByID(int? id) {
+
+            string command = "SELECT Id , Name , Description , Capacity , StartDate from physiofit_admin.Membership where Id=(SELECT MembershipID FROM Subscriptions WHERE MemberID=@Id)";
+            DataTable dt = new DataTable();
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter("@Id", id);
+            dt = da.FetchByParameter(param, command);
+            return dt;
+        }
+        
         public bool deleteMembership(int id) {
+
             string command = "physiofit_admin.spMembershipOpt";
             SqlParameter[] param = new SqlParameter[2];
             param[0] = new SqlParameter("@Action" , "DELETE");

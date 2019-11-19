@@ -161,6 +161,7 @@
     </Compile>
     <Compile Include="Models\AdditionalDetails.cs" />
     <Compile Include="Models\Classes.cs" />
+    <Compile Include="Models\ClassSubscriptions.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\EmailFormModel.cs" />
     <Compile Include="Models\EmergencyContact.cs" />

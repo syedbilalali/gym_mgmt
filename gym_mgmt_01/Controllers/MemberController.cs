@@ -7,7 +7,9 @@ using System.IO;
 using System.Web.Mvc;
 using gym_mgmt_01.BAL.Master;
 using gym_mgmt_01.Models;
+
 using System.Data;
+using System.Reflection;
 
 namespace gym_mgmt_01.Controllers
 {
@@ -17,6 +19,8 @@ namespace gym_mgmt_01.Controllers
         // GET: Member
         MemberOperation mo = new MemberOperation();
         ContactOpration co = new ContactOpration();
+        MembershipOpt memOpt = new MembershipOpt();
+        DataTable dt = new DataTable();
         dynamic model = new System.Dynamic.ExpandoObject();
         //   EmergencyContactOpt eco = new EmergencyContactOpt();
         //  AddtionalDetailsOpt ado = new AddtionalDetailsOpt();
@@ -32,6 +36,7 @@ namespace gym_mgmt_01.Controllers
             }
             else {
 
+                    
                 Member mem = mo.getMember(id);
                 ViewBag.ID = mem.Id;
                 model.data = mem;
@@ -40,6 +45,7 @@ namespace gym_mgmt_01.Controllers
             }
 
         }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(FormCollection fc, HttpPostedFileBase ImageFile) {
@@ -227,13 +233,43 @@ namespace gym_mgmt_01.Controllers
             }
             else
             {
-
+                dt = memOpt.getDTMembershipByID(id);
+                List<gym_mgmt_01.Models.Membership> memlist = new List<gym_mgmt_01.Models.Membership>();
+                memlist = ConvertDataTable<gym_mgmt_01.Models.Membership>(dt);
+                ViewData["membership"] = memlist;
                 Member mem = mo.getMember(id);
                 ViewBag.ID = mem.Id;
                 model.data = mem;
                 ViewBag.Alert = "none";
                 return View(mem);
             }
+        }
+        private static List<T> ConvertDataTable<T>(DataTable dt)
+        {
+            List<T> data = new List<T>();
+            foreach (DataRow row in dt.Rows)
+            {
+                T item = GetItem<T>(row);
+                data.Add(item);
+            }
+            return data;
+        }
+        private static T GetItem<T>(DataRow dr)
+        {
+            Type temp = typeof(T);
+            T obj = Activator.CreateInstance<T>();
+
+            foreach (DataColumn column in dr.Table.Columns)
+            {
+                foreach (PropertyInfo pro in temp.GetProperties())
+                {
+                    if (pro.Name == column.ColumnName)
+                        pro.SetValue(obj, dr[column.ColumnName], null);
+                    else
+                        continue;
+                }
+            }
+            return obj;
         }
         [HttpPost]
         public ActionResult Edit(FormCollection fc , HttpPostedFileBase ImageFile) {

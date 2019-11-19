@@ -82,5 +82,8 @@ namespace gym_mgmt_01.BAL.Master
             param[0] = new SqlParameter("@Id" , id);
             return da.Insert(param, command);
         }
+        public void AddClassSubscriptions() { 
+
+        }
     }
 }

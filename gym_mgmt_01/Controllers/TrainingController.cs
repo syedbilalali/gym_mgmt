@@ -35,6 +35,7 @@ namespace gym_mgmt_01.Controllers
             return RedirectToAction("Index");
         }
         public ActionResult AssignClass() {
+         //   List<ClassSubscriptions>  list = 
             return View();
         }
         public ActionResult AddReminder() {
