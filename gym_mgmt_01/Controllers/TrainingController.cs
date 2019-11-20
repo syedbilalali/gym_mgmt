@@ -12,12 +12,15 @@ namespace gym_mgmt_01.Controllers
     {
         ClassesOpt classOpt = new ClassesOpt();
         MemberOperation memOpt = new MemberOperation();
+        StaffOperation staffOp = new StaffOperation();
         dynamic model = new System.Dynamic.ExpandoObject();
         // GET: Training
         public ActionResult Index()
         {
             List<Classes> cl = classOpt.getAllClasses();
-            model.classes = cl; 
+            List<Staff> st = staffOp.getAllStaff();
+            model.classes = cl;
+            model.staff = st;
             return View(model);
         }
         [HttpPost]

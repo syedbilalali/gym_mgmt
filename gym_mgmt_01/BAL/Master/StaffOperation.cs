@@ -43,6 +43,25 @@ namespace gym_mgmt_01.BAL.Master
             param[0] = new SqlParameter("@StaffID",StaffID);
             return da.Insert(param, command);
         }
+        public List<Staff> getAllStaff() {
+            string command = "SELECT * FROM physiofit_admin.Staff";
+            List<Staff> st = new List<Staff>();
+            DataTable dt = new DataTable();
+            dt = da.FetchAll(command);
+            if (dt.Rows.Count > 0) {
+                st = (from DataRow dr in dt.Rows select new Staff() {
+                    StaffID = dr["StaffID"].ToString(),
+                    FirstName = dr["FirstName"].ToString(),
+                    LastName = dr["LastName"].ToString(),
+                    Gender = dr["Gender"].ToString(),
+                    Email = dr["Email"].ToString(),
+                    Password = dr["Password"].ToString(),
+                    Designation = dr["Designation"].ToString(),
+                    ImgURL = dr["ImgURL"].ToString(),
+                }).ToList();
+            }
+            return st;
+        }
     }
    
 }

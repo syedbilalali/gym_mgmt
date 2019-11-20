@@ -29,7 +29,6 @@
                     <th>Role Group</th>
                     <th>Role</th>
                     <th>Description</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,20 +37,23 @@
                 <tr>
                     <td> @rolegroup1.GroupName</td>
                     <td>
-                        <select class="form-control">
-                            <option value="">Select Role Group</option>
-                            <option value="0">Admin</option>
-                            <option value="1">Staff</option>
-                            <option value="2">Trainer</option>
-                        </select>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio1">Admin</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio2">Staff</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio3">User</label>
+                        </div>
                     </td>
                     <td>@rolegroup1.Description</td>
-                    <td>
-                        <button type="button" class="btn btn-info editbtn1">Edit</button>
-                        <button type="button" class="btn btn-primary deletebtn1">Delete</button>
-                    </td>
+                   
                 </tr>
-                    }
+                    }   
                 }
             </tbody>
         </table>

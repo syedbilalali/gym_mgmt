@@ -43,10 +43,10 @@
                         {
                             <tr>
                                 <td>@data.ClassName</td>
-                                <td>@data.From</td>
-                                <td>@data.To</td>
+                                <td>@data.From.ToString("hh:mm tt")</td>
+                                <td>@data.To.ToString("hh:mm tt")</td>
                                 <td>@data.Repeats</td>
-                                <td>@data.RepeatsEnd</td>
+                                <td>@data.RepeatsEnd.ToString("dd/MM/yyyy")</td>
                                 <td>@data.StaffID</td>
                                 <td>
                                     <button type="button" class="btn btn-info editbtn1" onclick="">Edit</button>
@@ -90,16 +90,12 @@
                             <input type="text" name="className" required="" class="form-control label2" id="" />
                         </div>
                         <div class="form-group">
-                            <label for="" class="control-label label1">Date:</label>
-                            <input type="date" name="Date" required="" class="form-control label2" id="" />
-                        </div>
-                        <div class="form-group">
                             <label for="" class="control-label label1">From:</label>
-                            <input type="time" name="From" required="" class="form-control label2" id="" />
+                            <input type="time" min="09:00" max="18:00" name="From" required="" class="form-control label2" id="" />
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1">To:</label>
-                            <input type="time" name="To" required="" class="form-control label2" id="" />
+                            <input type="time" min="09:00" max="18:00" name="To" required="" class="form-control label2" id="" />
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1">Repeats:</label>
@@ -131,7 +127,19 @@
                         <div class="form-group">
                             <label for="" class="control-label label1">Teacher/ Instructor:</label>
                             <select class="form-control label2" name="StaffID" id="" aria-invalid="false">
-                                <option value="12">James Roy</option>
+                                <option value="">--SELECT OPTIONS--</option>
+                                @if (Model.staff.Count > 0)
+                                {
+                                    foreach (var st in Model.staff)
+                                    {
+                                        <option value="@st.StaffID">@st.FirstName</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="">NONE</option>
+                                }
+
                             </select>
                         </div>
                         <div class="form-group">

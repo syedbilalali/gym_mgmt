@@ -90,7 +90,7 @@ namespace gym_mgmt_01.BAL.Master
             da.Insert(param, command);
         }
         public List<ClassSubscriptions> getAllClassSubs() {
-            string command = "SELECT cs.Id ,cs.ClassID ,cs.MemberID , cls.ClassName , (mem.FirstName + ' ' + mem.LastName ) as MemberName , (st.FirstName + '' + st.LastName ) as TrainnerName , (cls.[To] )as ExpirayDate , cs.CreatedAt FROM ClassSubscriptions cs INNER JOIN Classes cls ON cs.ClassID = cls.Id INNER JOIN physiofit_admin.Member mem ON mem.Id = cs.MemberID  FULL JOIN  physiofit_admin.Staff st ON st.StaffID = cls.StaffID";
+            string command = "SELECT cs.Id ,cs.ClassID ,cs.MemberID , cls.ClassName , (mem.FirstName + ' ' + mem.LastName ) as MemberName , (st.FirstName + '' + st.LastName ) as TrainnerName , (cls.[To] )as ExpirayDate , cs.CreatedAt FROM ClassSubscriptions cs INNER JOIN Classes cls ON cs.ClassID = cls.Id INNER JOIN physiofit_admin.Member mem ON mem.Id = cs.MemberID  LEFT JOIN  physiofit_admin.Staff st ON st.StaffID = cls.StaffID";
             List<ClassSubscriptions> classes = new List<ClassSubscriptions>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)
