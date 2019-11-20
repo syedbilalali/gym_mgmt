@@ -11,6 +11,7 @@ namespace gym_mgmt_01.Controllers
     public class TrainingController : Controller
     {
         ClassesOpt classOpt = new ClassesOpt();
+        MemberOperation memOpt = new MemberOperation();
         dynamic model = new System.Dynamic.ExpandoObject();
         // GET: Training
         public ActionResult Index()
@@ -35,13 +36,17 @@ namespace gym_mgmt_01.Controllers
             return RedirectToAction("Index");
         }
         public ActionResult AssignClass() {
+            
             List<ClassSubscriptions> list = classOpt.getAllClassSubs();
+            List<Member> memlist = memOpt.getAllMembers();
+            List<Classes> classlist = classOpt.getAllClasses();
             model.classSubs = list;
+            model.members = memlist;
+            model.classlist = classlist;
             return View(model);
         }
         public ActionResult AddReminder() {
             return View();
-        
         }
         public ActionResult DeleteClasses(int id)
         {
@@ -64,6 +69,19 @@ namespace gym_mgmt_01.Controllers
             {
                 throw;
             }
+        }
+        public ActionResult addClassSubscriptions(FormCollection fc) {
+            if (ModelState.IsValid) {
+
+                int classID = int.Parse(fc["class"].ToString());
+                int memberID = int.Parse(fc["member"].ToString());
+
+                ClassSubscriptions cs = new ClassSubscriptions();
+                cs.ClassID = classID;
+                cs.MemberID = memberID;
+                classOpt.AddClassSubscriptions(cs);
+            }
+            return RedirectToAction("AssignClass");
         }
     }
 }

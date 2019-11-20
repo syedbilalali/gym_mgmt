@@ -69,7 +69,7 @@
     </div>
 }
 
-@using (Html.BeginForm("addSubscriptions", "Membership", new { @class = "needs-validation" }))
+@using (Html.BeginForm("addSubscriptions", "Membership", new { @class = "needs-validation", @novalidate = "" }))
 {
     <div class="modal" id="addcat" tabindex="-1" role="dialog" aria-labelledby="addcatlabel">
         @Html.AntiForgeryToken()
@@ -83,37 +83,44 @@
                     <form method="post">
                         <div class="form-group">
                             <label for="" class="control-label label1">Choose Member :</label>
-                            <select name="member" class="form-control label2">
-                                @if (Model.member.Count > 0)
-                                {
-                                    <option>--SELECT OPTIONS--</option>
-                                    foreach (var mem in Model.member)
+                            <div class="controls">
+                                <select name="member" id="select" data-validation-required-message="Please select the member first" class="form-control label2" aria-invalid="false" required="">
+                                    @if (Model.member.Count > 0)
                                     {
-                                        <option value="@mem.Id">@mem.FirstName</option>
+                                        <option value="">--SELECT OPTIONS--</option>
+                                        foreach (var mem in Model.member)
+                                        {
+                                            <option value="@mem.Id">@mem.FirstName</option>
+                                        }
                                     }
-                                }
-                                else {
-                                    <option value="0">NONE</option>
-                                }
+                                    else
+                                    {
+                                        <option value="0">NONE</option>
+                                    }
 
-                            </select>
+                                </select>
+                                <div class="help-block" style=" padding-left:30%;"></div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1"> Choose Membership :</label>
-                            <select name="membershp" class="form-control label2">
-                                @if (Model.membrshp.Count > 0)
-                                {
-                                    <option>--SELECT OPTIONS--</option>
-                                    foreach (var mshp in Model.membrshp)
+                            <div class="controls">
+                                <select name="membershp" class="form-control label2" data-validation-required-message=" Please select class first." required="" aria-invalid="false">
+                                    @if (Model.membrshp.Count > 0)
                                     {
-                                        <option value="@mshp.Id">@mshp.Name</option>
+                                        <option value="">--SELECT OPTIONS--</option>
+                                        foreach (var mshp in Model.membrshp)
+                                        {
+                                            <option value="@mshp.Id">@mshp.Name</option>
+                                        }
                                     }
-                                }
-                                else
-                                {
-                                    <option value="0">NONE</option>
-                                }
-                            </select>
+                                    else
+                                    {
+                                        <option value="0">NONE</option>
+                                    }
+                                </select>
+                                <div class="help-block" style=" padding-left:30%;"></div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -126,7 +133,30 @@
     </div>
 }
 @section scripts {
-
+    <script src="@Url.Content("~/dist/js/pages/validation.js")"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+        ! function (window, document, $) {
+            "use strict";
+            $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
+        }(window, document, jQuery);
+    </script>
 }
 
 
