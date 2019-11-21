@@ -53,5 +53,8 @@ namespace gym_mgmt_01.BAL.Master
             }
             return data;
         }
+        //public List<Subscriptions> getAllSubscriptions(DateTime from , DateTime to) {
+            
+        //}
     }
 }

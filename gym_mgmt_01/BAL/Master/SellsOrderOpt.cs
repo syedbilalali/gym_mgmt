@@ -92,5 +92,12 @@ namespace gym_mgmt_01.BAL.Master
             string c =  b.PadLeft(4 , pad);
             return c.PadLeft(1, pad1);
         }
+        public int getLastInvoiceIDINT() {
+            DataTable dt = new DataTable();
+            string command = "SELECT Invoice_number FROM dbo.SellsOrder WHERE Id = (SELECT MAX(Id) AS LastID  FROM dbo.SellsOrder)";
+            dt = da.FetchAll(command);
+            string gValue = dt.Rows[0]["Invoice_number"].ToString();
+            return int.Parse(gValue);
+        }
     }
 }

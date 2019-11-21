@@ -52,19 +52,18 @@ namespace gym_mgmt_01.BAL.Master
             param[2] = new SqlParameter("@UserID", UserID);
             da.InsertSP(param, command);
         }
-        public List<RoleGroup> getAllRole()
+        public List<Role> getAllRole()
         {
-            string command = " SELECT * FROM physiofit_admin.Role";
-            List<RoleGroup> roleGroup = new List<RoleGroup>();
+            string command = " SELECT * FROM physiofit_admin.Roles";
+            List<Role> roleGroup = new List<Role>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)
             {
                 roleGroup = (from DataRow dr in dt.Rows
-                             select new RoleGroup()
+                             select new Role()
                              {
                                  Id = int.Parse(dr["Id"].ToString()),
-                                 GroupName = dr["GroupName"].ToString(),
-                                 Description = dr["Description"].ToString(),
+                                 Roles = dr["Role"].ToString(),
                                  CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString())
                              }).ToList();
             }

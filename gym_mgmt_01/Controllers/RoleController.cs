@@ -16,10 +16,14 @@ namespace gym_mgmt_01.Controllers
         dynamic model = new System.Dynamic.ExpandoObject();
         public ActionResult Index()
         {
-            List<RoleGroup> role = ro.getAllRoleGroup();
-            ViewData["RoleGroup"] = role;
-            model.roleGroup = role;
+            List<Role> role = ro.getAllRole();
+            List<RoleGroup> roleGroup = ro.getAllRoleGroup();
+            ViewData["Role"] = role;
+            model.roleGroup = roleGroup;
             return View(model);
+        }
+        public ActionResult addRoleGroup(FormCollection fc) {
+            return RedirectToAction("Index");
         }
     }
 }

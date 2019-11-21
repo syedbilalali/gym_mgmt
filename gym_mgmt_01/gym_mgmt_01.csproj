@@ -172,6 +172,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductType.cs" />
     <Compile Include="Models\Prospectus.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\RoleGroup.cs" />
     <Compile Include="Models\SellsOrder.cs" />
     <Compile Include="Models\SellsOrderItems.cs" />

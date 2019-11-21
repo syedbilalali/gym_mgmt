@@ -40,11 +40,10 @@
 
                     foreach (var stocks in Model.stocks)
                     {
-
                         <tr>
                             <td> @(index++)</td>
                             <td>
-                                @stocks.product_Id
+                                @stocks.product_name
                             </td>
                             <td>@stocks.stockin</td>
                             <td>@stocks.stockout</td>

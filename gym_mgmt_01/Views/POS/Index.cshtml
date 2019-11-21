@@ -477,6 +477,7 @@
             var cat = document.querySelector('#category');
             var prod = document.querySelector('#product');
             var menubtn = document.querySelector('#menubtn');
+            
             menubtn.innerHTML = resp.name;
             $.ajax({
                 type: "POST",
@@ -581,6 +582,26 @@
             getInvoiceID().then(function (data) {
                 // alert(" Init : " + data);
             });
+        }
+        function resetPanel() {
+            //alert("Panel Reseting... ");
+            var subtotal = document.querySelector('#lblSubtotal');
+            var salestax = document.querySelector('#lblSalesTax');
+            var total = document.querySelector('#lbltotal');
+            var due = document.querySelector('#lblDue');
+            var table1 = document.querySelector('#invoicePanel');
+            var length = table1.rows.length;
+            alert(" Table Length : " + length);
+            for (var i = 1; i < length-1; i++) {
+                //alert("Index I -: " + i);
+                table1.deleteRow(i);
+            }
+            subtotal.innerHTML = "$0.00";
+            salestax.innerHTML = "$0.00";
+            total.innerHTML = "$0.00";
+            due.innerHTML = "$0.00";
+            getCategory();
+            //alert("Panel Reseted... ");
         }
         function cashPay() {
 
@@ -698,7 +719,10 @@
                 addSellsOrderItems(invoiceID.value, col3, col1, col4, 0, col2);
             }
             addSellsOrder(invoiceID.value, selectedMember , subtotal.innerHTML, salestax.innerHTML, totalammount.innerHTML, "PAID", totalPay.innerHTML, 0, remianPrice.innerHTML);
-            //  alert("Complete Sale and  Clear the Screen ");
+            alert("Complete Sale and  Clear the Screen ");
+             resetPanel();
+            window.open('/invoice/get_last_Invoice');
+           
         }
         function addItems(ProductID, StockID, Name, SoldPrice, Stock) {
             window.Item.push({ ProductID: ProductID, StockID: StockID, Name: Name, SoldPrice: SoldPrice, Stock: Stock });
@@ -778,7 +802,7 @@
                 }
             });
         }
-        function addSellsOrderItems(invoice_Id, product_Id, quantity, unit_price, discount_price, total_price) {
+        function addSellsOrderItems(invoice_Id, product_Id, quantity, unit_price,  discount_price, total_price) {
             //Add Sells Orde Items
             var soi = new Object();
             soi.invoice_Id = invoice_Id;

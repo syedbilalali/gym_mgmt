@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var rolegroup =(List<gym_mgmt_01.Models.RoleGroup>)  ViewData["RoleGroup"];
+    var roles =(List<gym_mgmt_01.Models.Role>)  ViewData["Role"];
 }
 @model dynamic 
 <div class="row upp2">
@@ -37,21 +37,19 @@
                 <tr>
                     <td> @rolegroup1.GroupName</td>
                     <td>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio1">Admin</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio2">Staff</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio3">User</label>
-                        </div>
+                        @if (roles.Count > 0)
+                        {
+                            foreach (var role in roles)
+                            {
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio1">@role.Roles</label>
+                                </div>
+                            }
+                        }
+                        
                     </td>
                     <td>@rolegroup1.Description</td>
-                   
                 </tr>
                     }   
                 }
@@ -60,7 +58,7 @@
     </div>
     <!-- Column -->
 </div>
-<!---Add Role Model-->
+<!---Add Role Model-->  
 <!-- /.modal -->
 <div class="modal" id="addroles" tabindex="-1" role="dialog" aria-labelledby="addroleslabel">
     <div class="modal-dialog" role="document">
@@ -78,10 +76,13 @@
                     <div class="form-group">
                         <label for="" class="control-label label1">Role</label>
                         <select class="form-control label2">
-                            <option value="0">--SELECT ROLEGROUP--</option>
-                            @foreach (var c in @rolegroup) // Print the list
+                            <option value="0">--SELECT ROLE--</option>
+                            @if (roles.Count > 0)
                             {
-                                <option value="@c.Id">@c.GroupName</option>
+                                foreach (var role in roles)
+                                {
+                                    <option value="@role.Id">@role.Roles</option>
+                                }
                             }
                         </select>
                     </div>
@@ -89,13 +90,11 @@
                         <label for="" class="control-label label1">Description:</label>
                         <textarea type="text" class="form-control label2" id="" rows="3"></textarea>
                     </div>
-
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-default btn-info">Submit</button>
-                <button type="button" class="btn btn-default btn-info" data-dismiss="modal"> </button>
-
+                <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Clear</button>
             </div>
         </div>
     </div>

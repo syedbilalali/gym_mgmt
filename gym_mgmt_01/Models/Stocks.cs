@@ -16,5 +16,6 @@ namespace gym_mgmt_01.Models
         public int current_stock { get; set;  }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set;  }
+        public string product_name { get; set;  }
     }
 }

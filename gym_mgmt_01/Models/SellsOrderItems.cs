@@ -16,5 +16,6 @@ namespace gym_mgmt_01.Models
         public decimal discount_price { get; set;  }
         public decimal total_price { get; set; }
         public DateTime CreatedAt { get; set;  }
+        public string ProductName { get; set;  }
     }
 }

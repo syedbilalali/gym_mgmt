@@ -64,7 +64,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public List<SellsOrderItems> getAlSellsOrderItemsByID(int id)
         {
-            string command = "SELECT * FROM dbo.SalesOrderItems WHERE invoice_Id=@Id";
+            string command = "SELECT soi.* , po.Name FROM dbo.SalesOrderItems soi LEFT JOIN Products po ON soi.product_Id = po.Id WHERE invoice_Id=@Id";
             List<SellsOrderItems> sellsOrderItems = new List<SellsOrderItems>();
             SqlParameter[] param = new SqlParameter[1];
             param[0] = new SqlParameter("@Id", id);
@@ -82,7 +82,8 @@ namespace gym_mgmt_01.BAL.Master
                                        unit_price = decimal.Parse(dr["unit_price"].ToString()),
                                        discount_price = decimal.Parse(dr["discount_price"].ToString()),
                                        total_price = decimal.Parse(dr["total_amount"].ToString()),
-                                       CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString())
+                                       CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString()),
+                                       ProductName = dr["Name"].ToString()
                                    }).ToList();
             }
             return sellsOrderItems;

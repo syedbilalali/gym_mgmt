@@ -68,7 +68,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public List<Product> getAllProductByType(int id)
         {
-            string command = "SELECT * FROM Products prod INNER JOIN Stocks stc ON prod.Id =stc.product_Id where Type_Id=" + id;
+            string command = "SELECT * FROM Products prod INNER JOIN Stocks stc ON prod.Id = stc.product_Id where Type_Id=" + id;
            // string command = "SELECT * FROM Products WHERE Type_Id=" + id;
             List<Product> product = new List<Product>();
             dt = da.FetchAll(command);
@@ -143,7 +143,7 @@ namespace gym_mgmt_01.BAL.Master
         //Stock
         public List<Stocks> getAllStocks()
         {
-            string command = "SELECT * FROM Stocks";
+            string command = "SELECT st.* , prod.Name FROM Stocks st INNER JOIN Products prod ON st.product_Id = prod.Id;";
             List<Stocks> stocks = new List<Stocks>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)
@@ -157,7 +157,8 @@ namespace gym_mgmt_01.BAL.Master
                               sell_price = decimal.Parse(dr["sell_price"].ToString()), 
                                    stockin = int.Parse(dr["stock_in"].ToString()),
                               stockout = int.Parse(dr["stock_out"].ToString()),
-                              current_stock = int.Parse(dr["current_stock"].ToString())
+                              current_stock = int.Parse(dr["current_stock"].ToString()),
+                              product_name = dr["Name"].ToString()
 
                           }).ToList();
             }

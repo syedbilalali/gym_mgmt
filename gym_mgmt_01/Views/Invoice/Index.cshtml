@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Physiofit | Invoice";
     Layout = null;
 }
 <!DOCTYPE html>
@@ -79,7 +79,7 @@
                                         @sellOrderItems.CreatedAt.Date.ToString("dd MMM yyyy")
                                                                 }
                                                             </td>
-                                <td>@sellOrderItems.product_Id</td>
+                                <td>@sellOrderItems.ProductName</td>
                                 <td>@sellOrderItems.quantity</td>
                                 <td>@sellOrderItems.discount_price</td>
                                 <td>$@sellOrderItems.unit_price </td>
