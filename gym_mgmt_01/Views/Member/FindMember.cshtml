@@ -188,7 +188,7 @@
                             cell3.innerHTML = json[count].LastName ;
                             cell4.innerHTML = "Count " + count;
                             cell5.innerHTML = "Check In";
-                            data += '<a href="/Member/Edit/'+ json[count].Id +'"> <div id="cd1" class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i*j].ImagePath +'" /></div>';
+                            data += '<a href="/Member/Edit/'+ json[count].Id +'"> <div id="cd1" class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[count].ImagePath +'" /></div>';
                             data += ' <div class="col60"> <h4>' + json[count].FirstName + ' ' +json[count].LastName + '</h4>' + '<hr>' + ' <h5>User ID '+  json[count].Id +' </h5>';
                             data += ' <p>Created on <b>' + (count) + '</b></p></a>';
 
