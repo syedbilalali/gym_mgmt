@@ -6,7 +6,7 @@
     int count = 0;
     int id = 0;
 }
-
+@model dynamic 
     <div class="searchinput">
         <input type="text" id="srch" name="search" onkeyup="btnsearch()" class="search1" placeholder="Search Member..">
         <button type="button" id="btnPost" class="search2"><i class="ti-search"></i></button>
@@ -15,7 +15,7 @@
         <a class="buttoncol" data-rel="#rowvalue" href="#"><i class="ti-menu gridpart"></i></a>
         <a class="buttoncol active" data-rel="#colvalue" href="#"><i class="ti-layout-grid2-alt gridpart"></i></a>
     </div>
-<div class="radiobtns">
+<div class="radiobtns" style="display:none;">
     <input type="radio" name="memberFilter" value="everyone" checked> Everyone
     <input type="radio" name="memberFilter" value="currentmembers"> Current Members
     <input type="radio" name="memberFilter" value="recentvisitors"> Recent Visitors
@@ -48,43 +48,36 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel1">Manual Check-in</h4>
+                <h4 class="modal-title" id="exampleModalLabel1">Membership Change : </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label label1">Member Name:</label>
-                        <input type="text" class="form-control label2" id="" />
+                        <input type="text" readonly placeholder=" Member Name " class="form-control label2" value="Hello World" id="modalmemberName" />
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="control-label label1">Member ID:</label>
-                        <input type="text" class="form-control label2" id="" />
+                        <input type="text" readonly placeholder="Member ID" value="12" class="form-control label2" id="modalmemberID" />
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="control-label label1">Door:</label>
-                        <select class="form-control label2">
-                            <option value="reception">Reception</option>
-                            <option value="yg">YG Club</option>
+                        <label for="message-text" class="control-label label1">Modify Membership:</label>
+                        <select class="form-control label2" id="modalMembership">
+                            <option value="">--SELECT Membership--</option>
+                            @if (Model.memshp.Count > 0) {
+                                foreach (var mem in Model.memshp) {
+                                    <option value="@mem.Id">@mem.Name</option>
+                                }
+                            }
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="control-label label1">Membership:</label>
-                        <select class="form-control label2">
-                            <option value="">Select Membership</option>
-                            <option value="12">12 Months membership</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="control-label label3">Staff Override:</label>
-                        <input type="checkbox" class="label4" />
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Open Door</button>
+                <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Check-in</button>
+ 
             </div>
         </div>
     </div>
@@ -193,7 +186,7 @@
                             data += ' <p>Created on <b>' + (count) + '</b></p></a>';
 
                             data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
-                            data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>';
+                            data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" id="' + json[count].Id +'" onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button>';
                             data += '</div></div></div>';
 
                             count++;
@@ -239,7 +232,7 @@
                             data += ' <div class="col60"> <h4>' + json[i*j].FirstName + ' ' +json[i*j].LastName + '</h4>' + '<hr>' + ' <h5>User ID </h5>';
                             data += ' <p>Created on <b>' + count + '</b></p>';
                             data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
-                            data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever=""><i class="ti-import importicon"></i></button>';
+                            data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" id="'+ json[i*j].Id+'" data-target="#exampleModal" onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button>';
                             data += '</div></div></div>';
                             count++;
                         }
@@ -260,6 +253,37 @@
            });
         });
         });
+        function modifyMembership(data) {
+
+            var modalmembrname = document.getElementById('modalmemberName');
+            var modalmembrID = document.getElementById('modalmemberID');
+            var modalMembership = document.getElementById('modalMembership');
+        //    modalmembrname.value = "Bilal";
+        //    modalmembrID.value = "21";
+            alert(" Change Membership... " + data.id);
+            alert(" " + modalmembrname.value + " " + modalmembrID.value);
+            $.ajax({
+                type: "POST",
+                url: "/Member/getMembership",
+                data: '{"id":"' + data.id + '"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    if (response != null) {
+                        alert(JSON.stringify(response));
+                    } else {
+                        alert("Something went wrong");
+                    }
+                },
+                failure: function(response) {
+                    alert(response.responseText);
+                },
+                error: function(response) {
+                    alert(response.responseText);
+                }
+            });
+        
+        } 
         $(function () {
         $("#btnPost").click(function() {
         var employee = new Object();

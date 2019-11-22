@@ -604,7 +604,6 @@
             //alert("Panel Reseted... ");
         }
         function cashPay() {
-
             alert(" On Cash Pay : ");
             var paymentPanel = document.querySelector('#paymentPanel');
             var str = '<div class="row stt"><div class="col-md-6">Cash</div><div class="col-md-6"><label id="lblDue">$0.00</label></div></div>';
@@ -690,7 +689,7 @@
             var total_amount = document.querySelector('#lbltotal');
             var due_amount = document.querySelector('#lblDue');
             var extact_Data = document.getElementById('extData');
-            alert(" Total Amount : " + total_amount.innerText + " Due Amount : " + due_amount.innerText);
+           // alert(" Total Amount : " + total_amount.innerText + " Due Amount : " + due_amount.innerText);
             extact_Data.value = total_amount.innerText;
         }
         function completeSale() {

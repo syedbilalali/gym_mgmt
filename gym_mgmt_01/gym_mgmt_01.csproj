@@ -135,6 +135,7 @@
     <Compile Include="BAL\Master\MembershipOpt.cs" />
     <Compile Include="BAL\Master\ProductOperation.cs" />
     <Compile Include="BAL\Master\PropectusOperation.cs" />
+    <Compile Include="BAL\Master\ReportOperation.cs" />
     <Compile Include="BAL\Master\RoleOperation.cs" />
     <Compile Include="BAL\Master\SellsOrderItemsOpt.cs" />
     <Compile Include="BAL\Master\SellsOrderOpt.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Models\SellsOrderItems.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\Stocks.cs" />
+    <Compile Include="Models\SubscriptionReport.cs" />
     <Compile Include="Models\Subscriptions.cs" />
     <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

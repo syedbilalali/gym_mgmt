@@ -31,6 +31,7 @@ namespace gym_mgmt_01.Controllers
             {
                 ViewBag.ID = mo.getMemberID();
                 //   MemberID = int.Parse(mo.getMemberID());
+                
                 ViewBag.Alert = "none";
                 return View();
             }
@@ -119,7 +120,9 @@ namespace gym_mgmt_01.Controllers
             } else {
                 //   Response.Write(" ID No");
             }
-            return View();
+            List<Membership> st = memOpt.getAllMembership();
+            model.memshp = st;
+            return View(model);
         }
         [HttpPost]
         public JsonResult AjaxPostCall(Employee employeeData)
@@ -131,6 +134,20 @@ namespace gym_mgmt_01.Controllers
                 Location = employeeData.Location
             };
             return Json(employee, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult getMembership(int? id) {
+            DataTable dt = memOpt.getDTMembershipByID(id);
+            Membership data = new Membership();
+            if (dt.Rows.Count > 0)
+            {
+                data = new Membership()
+                {
+                    Id = int.Parse(dt.Rows[0]["id"].ToString()),
+                    Name = dt.Rows[0]["Name"].ToString(),
+                };
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
         public string DataTableToJSONWithJavaScriptSerializer(DataTable table)
         {
