@@ -31,7 +31,6 @@ namespace gym_mgmt_01.Controllers
             {
                 ViewBag.ID = mo.getMemberID();
                 //   MemberID = int.Parse(mo.getMemberID());
-                
                 ViewBag.Alert = "none";
                 return View();
             }
@@ -81,16 +80,6 @@ namespace gym_mgmt_01.Controllers
             //return RedirectToAction ("Index");
             return View();
         }
-        [HttpGet]
-        public JsonResult getJSONData() {
-            Employee employee = new Employee
-            {
-                Name = "Gnanavel Sekar",
-                Designation = "Software Engineer",
-                Location = "Chennai"
-            };
-            return Json(employee, JsonRequestBehavior.AllowGet);
-        }
         [HttpPost]
         public JsonResult putJSON(string searchValue) {
 
@@ -120,84 +109,9 @@ namespace gym_mgmt_01.Controllers
             } else {
                 //   Response.Write(" ID No");
             }
-            List<Membership> st = memOpt.getAllMembership();
-            model.memshp = st;
-            return View(model);
+            return View();
         }
-        [HttpPost]
-        public JsonResult AjaxPostCall(Employee employeeData)
-        {
-            Employee employee = new Employee
-            {
-                Name = employeeData.Name,
-                Designation = employeeData.Designation,
-                Location = employeeData.Location
-            };
-            return Json(employee, JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
-        public JsonResult getMembership(int? id) {
-            DataTable dt = memOpt.getDTMembershipByID(id);
-            Membership data = new Membership();
-            if (dt.Rows.Count > 0)
-            {
-                data = new Membership()
-                {
-                    Id = int.Parse(dt.Rows[0]["id"].ToString()),
-                    Name = dt.Rows[0]["Name"].ToString(),
-                };
-            }
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-        public string DataTableToJSONWithJavaScriptSerializer(DataTable table)
-        {
-            System.Web.Script.Serialization.JavaScriptSerializer jsSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            foreach (DataRow row in table.Rows)
-            {
-                childRow = new Dictionary<string, object>();
-                foreach (DataColumn col in table.Columns)
-                {
-                    childRow.Add(col.ColumnName, row[col]);
-                }
-                parentRow.Add(childRow);
-            }
-            return jsSerializer.Serialize(parentRow);
-        }
-        public string DataTableToJSONWithStringBuilder(DataTable table)
-        {
-            var JSONString = new System.Text.StringBuilder();
-            if (table.Rows.Count > 0)
-            {
-                JSONString.Append("[");
-                for (int i = 0; i < table.Rows.Count; i++)
-                {
-                    JSONString.Append("{");
-                    for (int j = 0; j < table.Columns.Count; j++)
-                    {
-                        if (j < table.Columns.Count - 1)
-                        {
-                            JSONString.Append("\"" + table.Columns[j].ColumnName.ToString() + "\":" + "\"" + table.Rows[i][j].ToString() + "\",");
-                        }
-                        else if (j == table.Columns.Count - 1)
-                        {
-                            JSONString.Append("\"" + table.Columns[j].ColumnName.ToString() + "\":" + "\"" + table.Rows[i][j].ToString() + "\"");
-                        }
-                    }
-                    if (i == table.Rows.Count - 1)
-                    {
-                        JSONString.Append("}");
-                    }
-                    else
-                    {
-                        JSONString.Append("},");
-                    }
-                }
-                JSONString.Append("]");
-            }
-            return JSONString.ToString();
-        }
+        
         string fullPath;
         string relativePath;
         private string uploadFile(HttpPostedFileBase file) {
@@ -322,24 +236,7 @@ namespace gym_mgmt_01.Controllers
             //return RedirectToAction ("Index");
             return View();
         }
-        public class Employee
-        {
-            public string Name
-            {
-                get;
-                set;
-            }
-            public string Designation
-            {
-                get;
-                set;
-            }
-            public string Location
-            {
-                get;
-                set;
-            }
-        }
+      
 
     }
 }
