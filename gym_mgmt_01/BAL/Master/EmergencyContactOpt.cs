@@ -16,7 +16,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public void AddEmergencyContact(EmergencyContact ec) {
             
-            string command = "INSERT INTO EmergencyContact(MemberID ,FirstName,LastName ,Relationship,Email  , Cell, Home ,Work, MedicalInfo , Age) VALUES(@MemberID ,@FirstName,@LastName ,@Relationship,@Email  , @Cell, @Home ,@Work, @MedicalInfo , @Age)";
+            string command = "INSERT INTO dbo.EmergencyContact(MemberID ,FirstName,LastName ,Relationship,Email  , Cell, Home ,Work, MedicalInfo , Age) VALUES(@MemberID ,@FirstName,@LastName ,@Relationship,@Email  , @Cell, @Home ,@Work, @MedicalInfo , @Age)";
             SqlParameter[] param = new SqlParameter[10];
             param[0] = new SqlParameter("@MemberID", ec.MemberID);
             param[1] = new SqlParameter("@FirstName", ec.FirstName);

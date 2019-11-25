@@ -90,6 +90,7 @@ namespace gym_mgmt_01.Controllers
                 Subscriptions sop = new Subscriptions();
                 sop.MembershipID = int.Parse(fc["membershp"].ToString());
                 sop.MemberID = int.Parse(fc["member"].ToString());
+            
                 subs.AddSubscriptions(sop);
             }
             return RedirectToAction("Subscriptions");

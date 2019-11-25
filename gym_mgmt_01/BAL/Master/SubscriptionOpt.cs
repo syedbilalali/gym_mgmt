@@ -14,7 +14,7 @@ namespace gym_mgmt_01.BAL.Master
         DataAdapter da = new DataAdapter();
         public void AddSubscriptions(Subscriptions so) {
 
-            string command = "INSERT INTO Subscriptions(MembershipID, MemberID , CreatedAt)  VALUES (@MembershipID, @MemberID , CURRENT_TIMESTAMP)";
+            string command = "INSERT INTO dbo.Subscriptions(MembershipID, MemberID , CreatedAt)  VALUES (@MembershipID, @MemberID , CURRENT_TIMESTAMP)";
             SqlParameter[] param = new SqlParameter[2];
             param[0] = new SqlParameter("@MembershipID" , so.MembershipID);
             param[1] = new SqlParameter("@MemberID" ,so.MemberID);
@@ -28,7 +28,7 @@ namespace gym_mgmt_01.BAL.Master
             return da.Insert(param, command);
         }
         public void UpdateSubscriptions(Subscriptions so) {
-            string command = "UPDATE physiofit_admin.Subscriptions SET MembershipID=@MembershipID , MemberID=@MemberID WHERE Id=@Id";
+            string command = "UPDATE dbo.Subscriptions SET MembershipID=@MembershipID , MemberID=@MemberID WHERE Id=@Id";
             SqlParameter[] param = new SqlParameter[3];
             param[0] = new SqlParameter("@Id", so.Id);
             param[1] = new SqlParameter("@MembershipID", so.MembershipID);
@@ -37,7 +37,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public List<Subscriptions> getAllSubscriptions() {
             List<Subscriptions> data  = new List<Subscriptions>();
-            string command = "physiofit_admin.spSubscriptions";
+            string command = "dbo.spSubscriptions";
             SqlParameter[] param = new SqlParameter[1];
             param[0] = new SqlParameter("@Action" , "ALL_DATA");
             DataTable dt = new DataTable();

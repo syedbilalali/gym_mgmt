@@ -16,7 +16,7 @@ namespace gym_mgmt_01.BAL.Master
         public ProductOperation() { 
         }
         public void AddProductType(string Name , string Tax_Rate_Name  , string SoldInCLub) {
-            string command = "physiofit_admin.spInsertProductType";
+            string command = "dbo.spInsertProductType";
             SqlParameter[] param = new SqlParameter[3];
             param[0] = new SqlParameter("@Name" , Name);
             param[1] = new SqlParameter("@Tax_Rate_Name" , Tax_Rate_Name);
@@ -42,13 +42,13 @@ namespace gym_mgmt_01.BAL.Master
         }
         public bool DeleteProducts(int Id)
         {
-            string command = "physiofit_admin.spDeleteProducts";
+            string command = "dbo.spDeleteProducts";
             SqlParameter[] param = new SqlParameter[1];
             param[0] = new SqlParameter("@Id", Id);
             return da.InsertSP(param, command);
         }
         public List<ProductType> getAllProductType() {
-            string command = "SELECT * FROM physiofit_admin.ProductType ";
+            string command = "SELECT * FROM dbo.ProductType ";
             List<ProductType> productType = new List<ProductType>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)
@@ -87,7 +87,7 @@ namespace gym_mgmt_01.BAL.Master
         //Products 
         public List<Product> getAllProducts()
         {
-            string command = "SELECT * FROM Products";
+            string command = "SELECT * FROM dbo.Products";
             List<Product> productType = new List<Product>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)
@@ -109,7 +109,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public void AddProduct(string Name , int Type_Id ,int Supplier_Id , int POS_group_Id , string Barcode , string Description, string ImageURL ) {
 
-            string command = "physiofit_admin.spInsertProducts";
+            string command = "dbo.spInsertProducts";
             SqlParameter[] param = new SqlParameter[7];
             param[0] = new SqlParameter("@Name", Name);
             param[1] = new SqlParameter("@Type_Id", Type_Id);
@@ -122,7 +122,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public void UpdateProduct(int Id , string Name, int Type_Id, int Supplier_Id, int POS_group_Id, string Barcode, string Description, string ImageURL)
         {
-            string command = "physiofit_admin.spUpdateProducts";
+            string command = "dbo.spUpdateProducts";
             SqlParameter[] param = new SqlParameter[8];
             param[0] = new SqlParameter("@Id", Id);
             param[1] = new SqlParameter("@Name", Name);
@@ -135,7 +135,7 @@ namespace gym_mgmt_01.BAL.Master
             da.InsertSP(param, command);
         }
         public bool DeleteProduct(int Id) {
-            string command = "spDeleteProducts";
+            string command = "dbo.spDeleteProducts";
             SqlParameter[] param = new SqlParameter[1];
             param[0] = new SqlParameter("@Id", Id);
             return da.InsertSP(param, command);
@@ -167,7 +167,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public void AddStocks(int Product_Id ,decimal buyPrice , decimal sellPrice ,  int stock_in , int stock_out  , int current_stock) {
 
-            string command = "physiofit_admin.spInsertStocks";
+            string command = "dbo.spInsertStocks";
             SqlParameter[] param = new SqlParameter[6];
             param[0] = new SqlParameter("@ProductID", Product_Id);
             param[1] = new SqlParameter("@get_price", buyPrice);
@@ -179,7 +179,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public void UpdateStocks(int stock_ID , int Product_Id, int stock_in, int stock_out, int current_stock, DateTime CreatedAt) {
             
-            string command = "physiofit_admin.spUpdateStocks";
+            string command = "dbo.spUpdateStocks";
             SqlParameter[] param = new SqlParameter[6];
             param[0] = new SqlParameter("@Id", stock_ID);
             param[1] = new SqlParameter("@ProductID", Product_Id);
@@ -191,7 +191,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public bool DeleteStock(int Id) {
 
-            string command = "physiofit_admin.spDeleteStocks";
+            string command = "dbo.spDeleteStocks";
             SqlParameter[] param = new SqlParameter[1];
             param[0] = new SqlParameter("@Id", Id);
             return da.InsertSP(param, command);

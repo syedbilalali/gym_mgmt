@@ -17,7 +17,7 @@ namespace gym_mgmt_01.BAL.Master
         public void AddContact(Contact c)
         {
             //Insert Command 
-            string command = "INSERT INTO physiofit_admin.Contact(MemberID , Email, Cell ,Home,Work  , Address, Suburb , City, ZipCode, Subscribed) VALUES(@MemberID , @Email, @Cell ,@Home,@Work  , @Address, @Suburb , @City, @ZipCode, @Subscribed)";
+            string command = "INSERT INTO dbo.Contact(MemberID , Email, Cell ,Home,Work  , Address, Suburb , City, ZipCode, Subscribed) VALUES(@MemberID , @Email, @Cell ,@Home,@Work  , @Address, @Suburb , @City, @ZipCode, @Subscribed)";
             SqlParameter[] param = new SqlParameter[10];
             param[0] = new SqlParameter("@MemberID", c.MemberID);
             param[1] = new SqlParameter("@Email", c.Email);
@@ -34,7 +34,7 @@ namespace gym_mgmt_01.BAL.Master
         public void UpdateContact(Contact c)
         {
             //Insert Command 
-            string command = "UPDATE physiofit_admin.Contact  SET MemberID=@MemberID ,Email= @Email,Cell=@Cell ,Home=@Home,Work=@Work ,Address=@Address, Suburb=@Suburb , City=@City, ZipCode=@ZipCode, Subscribed=@Subscribed WHERE Id=@Id";
+            string command = "UPDATE dbo.Contact  SET MemberID=@MemberID ,Email= @Email,Cell=@Cell ,Home=@Home,Work=@Work ,Address=@Address, Suburb=@Suburb , City=@City, ZipCode=@ZipCode, Subscribed=@Subscribed WHERE Id=@Id";
             SqlParameter[] param = new SqlParameter[11];
             param[0] = new SqlParameter("@MemberID", c.MemberID);
             param[1] = new SqlParameter("@Email", c.Email);

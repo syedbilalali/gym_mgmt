@@ -16,7 +16,7 @@ namespace gym_mgmt_01.BAL.Master
         public SellsOrderItemsOpt() { 
         }
         public void addSellsOrderItems(SellsOrderItems soi)  {
-            string command = "physiofit_admin.spInsertSellOrderItems";
+            string command = "dbo.spInsertSellOrderItems";
             SqlParameter[] param = new SqlParameter[7];
             param[0] = new SqlParameter("@Invoice_Id", soi.Invoice_Id);
             param[1] = new SqlParameter("@Invoice_number", soi.Invoice_number);
@@ -29,7 +29,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public void updateSellsOrderItems(SellsOrderItems soi) {
 
-            string command = "physiofit_admin.spInsertProductType";
+            string command = "dbo.spInsertProductType";
             SqlParameter[] param = new SqlParameter[7];
             param[0] = new SqlParameter("@Invoice_Id", soi.Invoice_Id);
             param[1] = new SqlParameter("@product_Id", soi.product_Id);
@@ -42,7 +42,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public List<SellsOrderItems> getAlSellsOrderItems() {
 
-            string command = "SELECT * FROM physiofit_admin.P";
+            string command = "SELECT * FROM dbo.P";
             List<SellsOrderItems> sellsOrderItems = new List<SellsOrderItems>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)

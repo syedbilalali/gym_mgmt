@@ -16,20 +16,20 @@ namespace gym_mgmt_01.BAL.Master
         public RoleOperation() { 
         }
         public void AddRoles(int GroupID , string RoleFor) {
-            string command = "spInsertRoleGroup";
+            string command = "dbo.spInsertRoleGroup";
             SqlParameter[] param = new SqlParameter[2];
             param[0] = new SqlParameter("@GroupID", GroupID);
             param[1] = new SqlParameter("@RoleFor", RoleFor);
             da.InsertSP(param, command);
         }
         public void AddRoleGroup(string GroupName) {
-            string command = "spInsertRoleGroup";
+            string command = "dbo.spInsertRoleGroup";
             SqlParameter[] param = new SqlParameter[1];
             param[0] = new SqlParameter("@GroupName" , GroupName);
             da.InsertSP(param , command);
         }
         public List<RoleGroup> getAllRoleGroup() {
-            string command = " SELECT * FROM physiofit_admin.RoleGroup";
+            string command = " SELECT * FROM dbo.RoleGroup";
             List<RoleGroup> roleGroup = new List<RoleGroup>();
             dt =  da.FetchAll(command);
             if (dt.Rows.Count > 0) {
@@ -45,7 +45,7 @@ namespace gym_mgmt_01.BAL.Master
             return roleGroup;
         }
         public void AddUserRoles(int RoleGroupID , int RoleID  , int UserID) {
-            string command = "spInsertUserRoles";
+            string command = "dbo.spInsertUserRoles";
             SqlParameter[] param = new SqlParameter[3];
             param[0] = new SqlParameter("@RoleGroupID", RoleGroupID);
             param[1] = new SqlParameter("@RoleID", RoleID);
@@ -54,7 +54,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public List<Role> getAllRole()
         {
-            string command = " SELECT * FROM physiofit_admin.Roles";
+            string command = " SELECT * FROM dbo.Roles";
             List<Role> roleGroup = new List<Role>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)
@@ -70,7 +70,7 @@ namespace gym_mgmt_01.BAL.Master
             return roleGroup;
         }
         public List<UserRoles> getAllUserRoles() {
-            string command = " SELECT * FROM physiofit_admin.UserRoles";
+            string command = " SELECT * FROM dbo.UserRoles";
             List<UserRoles> roleGroup = new List<UserRoles>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)

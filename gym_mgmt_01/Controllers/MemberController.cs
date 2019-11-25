@@ -103,27 +103,20 @@ namespace gym_mgmt_01.Controllers
                     }).ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult FindMember(int? id) {
+        public ActionResult FindMember(int? id)
+        {
             //    Response.Write(" ID -: " + id);
-            if (id != null) {
+            if (id != null)
+            {
                 Response.Write(" ID -: " + id);
-            } else {
+            }
+            else
+            {
                 //   Response.Write(" ID No");
             }
             List<Membership> st = memOpt.getAllMembership();
             model.memshp = st;
             return View(model);
-        }
-        [HttpPost]
-        public JsonResult AjaxPostCall(Employee employeeData)
-        {
-            Employee employee = new Employee
-            {
-                Name = employeeData.Name,
-                Designation = employeeData.Designation,
-                Location = employeeData.Location
-            };
-            return Json(employee, JsonRequestBehavior.AllowGet);
         }
         public string DataTableToJSONWithJavaScriptSerializer(DataTable table)
         {

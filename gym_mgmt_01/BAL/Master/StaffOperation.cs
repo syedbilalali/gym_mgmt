@@ -16,7 +16,7 @@ namespace gym_mgmt_01.BAL.Master
         public void AddStaff(Staff pro)
         {
 
-            string command = "INSERT INTO physiofit_admin.Staff(FirstName,LastName,Gender,Email,Password,Designation,ImgURL) VALUES(@FirstName,@LastName,@Gender,@Email,@Password, @Designation,@ImgURL)";
+            string command = "INSERT INTO dbo.Staff(FirstName,LastName,Gender,Email,Password,Designation,ImgURL) VALUES(@FirstName,@LastName,@Gender,@Email,@Password, @Designation,@ImgURL)";
             SqlParameter[] param = new SqlParameter[7];
             param[0] = new SqlParameter("@FirstName", pro.FirstName);
             param[1] = new SqlParameter("@LastName", pro.LastName);
@@ -28,23 +28,23 @@ namespace gym_mgmt_01.BAL.Master
             da.Insert(param, command);
         }
         public DataTable geAllStaff() {
-            string command = "SELECT * FROM physiofit_admin.Staff";
+            string command = "SELECT * FROM dbo.Staff";
             return da.FetchAll(command);
         }
         public DataTable getStaffByID(int id) {
-            string command = "SELECT * FROM physiofit_admin.Staff WHERE StaffID=@StaffID";
+            string command = "SELECT * FROM dbo.Staff WHERE StaffID=@StaffID";
             SqlParameter[] param = new SqlParameter[1];
             param[0] = new SqlParameter("@StaffID", id);
             return da.FetchByParameter(param, command);
         }
         public bool deleteStaffByID(int StaffID) {
-            string command = "DELETE FROM physiofit_admin.Staff WHERE StaffID=@StaffID";
+            string command = "DELETE FROM dbo.Staff WHERE StaffID=@StaffID";
             SqlParameter[] param = new SqlParameter[1];
             param[0] = new SqlParameter("@StaffID",StaffID);
             return da.Insert(param, command);
         }
         public List<Staff> getAllStaff() {
-            string command = "SELECT * FROM physiofit_admin.Staff";
+            string command = "SELECT * FROM dbo.Staff";
             List<Staff> st = new List<Staff>();
             DataTable dt = new DataTable();
             dt = da.FetchAll(command);

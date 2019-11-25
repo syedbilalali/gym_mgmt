@@ -28,7 +28,6 @@ namespace gym_mgmt_01.Controllers
             model.prod = new List<Product>(); 
             return View(model);
         }
-      
         public ActionResult FindSub(int id) {
             //  Response.Write(" Data : " + id);
             List<Product> prod = po.getAllProductByType(id);

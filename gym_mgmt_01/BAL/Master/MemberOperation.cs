@@ -16,7 +16,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public void AddMemeber(Member mb ) {
             //Insert Command 
-            string command = "INSERT INTO physiofit_admin.Member(FirstName, LastName , DOB,Gender  , Note , MemberType, ImgURL) VALUES(@FirstName, @LastName ,@DOB,  @Gender ,@Note , @MemberType , @ImgURL)";
+            string command = "INSERT INTO dbo.Member(FirstName, LastName , DOB,Gender  , Note , MemberType, ImgURL) VALUES(@FirstName, @LastName ,@DOB,  @Gender ,@Note , @MemberType , @ImgURL)";
             SqlParameter[] param = new SqlParameter[7];
             param[0] = new SqlParameter("@FirstName" , mb.FirstName);
             param[1] = new SqlParameter("@LastName" , mb.LastName);
@@ -28,7 +28,7 @@ namespace gym_mgmt_01.BAL.Master
             da.Insert(param , command);
         }
         public void UpdateMember(Member mb) {
-            string command = "UPDATE physiofit_admin.Member SET FirstName=@FirstName, LastName=@LastName , DOB=@DOB, Gender=@Gender  , Note=@Note , MemberType=@MemberType, ImgURL=@ImgURL WHERE Id=@Id";
+            string command = "UPDATE dbo.Member SET FirstName=@FirstName, LastName=@LastName , DOB=@DOB, Gender=@Gender  , Note=@Note , MemberType=@MemberType, ImgURL=@ImgURL WHERE Id=@Id";
             SqlParameter[] param = new SqlParameter[7];
             param[0] = new SqlParameter("@Id", mb.Id);
             param[1] = new SqlParameter("@FirstName", mb.FirstName);
@@ -48,12 +48,12 @@ namespace gym_mgmt_01.BAL.Master
         }
         public DataTable getMember() {
             DataTable dt = new DataTable();
-            string command = "SELECT * FROM physiofit_admin.Member";
+            string command = "SELECT * FROM dbo.Member";
             return da.FetchAll(command);
         }
         public List<Member> getAllMembers() {
             DataTable dt = new DataTable();
-            string command = "SELECT * FROM physiofit_admin.Member";
+            string command = "SELECT * FROM dbo.Member";
             dt = da.FetchAll(command);
             List<Member> data = new List<Member>();
             if (dt.Rows.Count > 0) {
@@ -72,7 +72,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public string getMemberID() {
             DataAdapter da = new DataAdapter();
-            int lastID = da.getLastID("Id", "physiofit_admin.Member");
+            int lastID = da.getLastID("Id", "dbo.Member");
             if (lastID != 0)
             {
                 lastID++;
@@ -82,15 +82,16 @@ namespace gym_mgmt_01.BAL.Master
         public DataTable getMember(string name)
         {
             DataTable dt = new DataTable();
-            string command = "SELECT *  FROM physiofit_admin.Member WHERE physiofit_admin.Member.FirstName LIKE '%" + name +"%' ";
+            string command = "SELECT *  FROM dbo.Member WHERE dbo.Member.FirstName LIKE '%" + name +"%' ";
             //SqlParameter[] param = new SqlParameter[1];
           //  param[0] = new SqlParameter("@Name" , name);
            /// return da.FetchByParameter(param , command);
             return da.FetchAll(command);
         }
         public Member getMember(int? id) {
+            
             DataTable dt = new DataTable();
-            string command = "SELECT * FROM physiofit_admin.Member WHERE physiofit_admin.Member.Id=@Id";
+            string command = "SELECT * FROM dbo.Member WHERE dbo.Member.Id=@Id";
             SqlParameter[] param = new SqlParameter[1];
             Member mem = new Member();
             param[0] = new SqlParameter("@Id", id);

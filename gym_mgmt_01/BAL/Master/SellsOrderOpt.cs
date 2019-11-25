@@ -16,7 +16,7 @@ namespace gym_mgmt_01.BAL.Master
         public SellsOrderOpt() {
         }
         public void addSellsOrder(SellsOrder so) {
-            string command = "physiofit_admin.spInsertSellOrder";
+            string command = "dbo.spInsertSellOrder";
             SqlParameter[] param = new SqlParameter[9];
             param[0] = new SqlParameter("@Invoice_number", so.Invoice_number);
             param[1] = new SqlParameter("@Member_name", so.Member_Name);
@@ -32,7 +32,7 @@ namespace gym_mgmt_01.BAL.Master
         public List<SellsOrder> getAlSellsOrder()
         {
 
-            string command = "SELECT * FROM physiofit_admin.SellsOrder";
+            string command = "SELECT * FROM dbo.SellsOrder";
             List<SellsOrder> sellsOrder = new List<SellsOrder>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)

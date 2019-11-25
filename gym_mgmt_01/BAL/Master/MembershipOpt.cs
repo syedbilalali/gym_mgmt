@@ -16,7 +16,7 @@ namespace gym_mgmt_01.BAL.Master
         public bool AddMembership(Membership mem) {
 
             bool flag = false;
-            string command = "physiofit_admin.spMembershipOpt";
+            string command = "dbo.spMembershipOpt";
             SqlParameter[] param = new SqlParameter[9];
             param[0] = new SqlParameter("@Action" , "INSERT");
             param[1] = new SqlParameter("@Name" , mem.Name);
@@ -32,7 +32,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public List<Membership> getAllMembership() {
             DataTable dt = new DataTable();
-            string command = "SELECT * FROM physiofit_admin.Membership";
+            string command = "SELECT * FROM dbo.Membership";
             List<Membership> mem = new List<Membership>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0) {
@@ -55,7 +55,7 @@ namespace gym_mgmt_01.BAL.Master
             return mem;
         }
         public Membership getMembershipByID(int? Id) {
-            string command = "SELECT * from physiofit_admin.Membership where Id=@Id";
+            string command = "SELECT * from dbo.Membership where Id=@Id";
             DataTable dt = new DataTable();
             SqlParameter[] param = new SqlParameter[1];
             Membership data = new Membership();
@@ -82,7 +82,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public DataTable getDTMembershipByID(int? id) {
 
-            string command = "SELECT Id , Name , Description , Capacity , StartDate from physiofit_admin.Membership where Id=(SELECT MembershipID FROM Subscriptions WHERE MemberID=@Id)";
+            string command = "SELECT Id , Name , Description , Capacity , StartDate from dbo.Membership where Id=(SELECT MembershipID FROM Subscriptions WHERE MemberID=@Id)";
             DataTable dt = new DataTable();
             SqlParameter[] param = new SqlParameter[1];
             param[0] = new SqlParameter("@Id", id);
@@ -92,7 +92,7 @@ namespace gym_mgmt_01.BAL.Master
         
         public bool deleteMembership(int id) {
 
-            string command = "physiofit_admin.spMembershipOpt";
+            string command = "dbo.spMembershipOpt";
             SqlParameter[] param = new SqlParameter[2];
             param[0] = new SqlParameter("@Action" , "DELETE");
             param[1] = new SqlParameter("@Id" , id);
@@ -100,7 +100,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public void UpdateMembership(Membership mem)
         {
-            string command = "physiofit_admin.spMembershipOpt";
+            string command = "dbo.spMembershipOpt";
             SqlParameter[] param = new SqlParameter[9];
             param[0] = new SqlParameter("@Action", "UPDATE");
             param[1] = new SqlParameter("@Id", mem.Id);

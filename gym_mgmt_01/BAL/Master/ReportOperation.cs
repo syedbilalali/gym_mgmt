@@ -18,8 +18,8 @@ namespace gym_mgmt_01.BAL.Master
             DataTable dt = new DataTable();
             List<SubscriptionReport> subs = new List<SubscriptionReport>();
             string command = "SELECT subs.Id , mem.Name , mem.Amount , mem.EndDate  , mem.Capacity , m.FirstName ";
-            command += " FROM Subscriptions subs INNER JOIN physiofit_admin.Membership mem ON subs.MembershipID = mem.Id ";
-            command += " INNER JOIN physiofit_admin.Member m ON subs.MemberID = m.Id ";
+            command += " FROM Subscriptions subs INNER JOIN dbo.Membership mem ON subs.MembershipID = mem.Id ";
+            command += " INNER JOIN dbo.Member m ON subs.MemberID = m.Id ";
             dt = da.FetchAll(command);
             subs = (from DataRow dr in dt.Rows select new SubscriptionReport() {
                 Id = int.Parse(dr["Id"].ToString()),
@@ -39,8 +39,8 @@ namespace gym_mgmt_01.BAL.Master
             string todatest = String.Format("{0:yyyy-MM-dd}", todate);
             List<SubscriptionReport> subs = new List<SubscriptionReport>();
             string command = "SELECT subs.Id , mem.Name , mem.Amount , mem.EndDate  , mem.Capacity , m.FirstName ";
-            command += " FROM Subscriptions subs INNER JOIN physiofit_admin.Membership mem ON subs.MembershipID = mem.Id ";
-            command += " INNER JOIN physiofit_admin.Member m ON subs.MemberID = m.Id WHERE subs.CreatedAt BETWEEN '" +fromdatest+ "' AND '" +todatest+ "'";
+            command += " FROM Subscriptions subs INNER JOIN dbo.Membership mem ON subs.MembershipID = mem.Id ";
+            command += " INNER JOIN dbo.Member m ON subs.MemberID = m.Id WHERE subs.CreatedAt BETWEEN '" +fromdatest+ "' AND '" +todatest+ "'";
             dt = da.FetchAll(command);
             subs = (from DataRow dr in dt.Rows
                     select new SubscriptionReport()

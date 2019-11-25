@@ -14,7 +14,7 @@ namespace gym_mgmt_01.BAL.Master
         DataAdapter da = new DataAdapter();
         DataTable dt;
         public void AddClasses(Classes class1) {
-            string command = "physiofit_admin.spInsertClasses";
+            string command = "dbo.spInsertClasses";
             SqlParameter[] param = new SqlParameter[8];
             param[0] = new SqlParameter("@ClassName" , class1.ClassName);
             param[1] = new SqlParameter("@From" , class1.From);
@@ -83,14 +83,14 @@ namespace gym_mgmt_01.BAL.Master
             return da.Insert(param, command);
         }
         public void AddClassSubscriptions(ClassSubscriptions cs) {
-            string command = "INSERT INTO ClassSubscriptions(ClassID , MemberID , CreatedAt) VALUES (@ClassID , @MemberID , CURRENT_TIMESTAMP)";
+            string command = "INSERT INTO dbo.ClassSubscriptions(ClassID , MemberID , CreatedAt) VALUES (@ClassID , @MemberID , CURRENT_TIMESTAMP)";
             SqlParameter[] param = new SqlParameter[2];
             param[0] = new SqlParameter("@ClassID" ,cs.ClassID );
             param[1] = new SqlParameter("@MemberID" ,  cs.MemberID);
             da.Insert(param, command);
         }
         public List<ClassSubscriptions> getAllClassSubs() {
-            string command = "SELECT cs.Id ,cs.ClassID ,cs.MemberID , cls.ClassName , (mem.FirstName + ' ' + mem.LastName ) as MemberName , (st.FirstName + '' + st.LastName ) as TrainnerName , (cls.[To] )as ExpirayDate , cs.CreatedAt FROM ClassSubscriptions cs INNER JOIN Classes cls ON cs.ClassID = cls.Id INNER JOIN physiofit_admin.Member mem ON mem.Id = cs.MemberID  LEFT JOIN  physiofit_admin.Staff st ON st.StaffID = cls.StaffID";
+            string command = "SELECT cs.Id ,cs.ClassID ,cs.MemberID , cls.ClassName , (mem.FirstName + ' ' + mem.LastName ) as MemberName , (st.FirstName + '' + st.LastName ) as TrainnerName , (cls.[To] )as ExpirayDate , cs.CreatedAt FROM ClassSubscriptions cs INNER JOIN Classes cls ON cs.ClassID = cls.Id INNER JOIN dbo.Member mem ON mem.Id = cs.MemberID  LEFT JOIN dbo.Staff st ON st.StaffID = cls.StaffID";
             List<ClassSubscriptions> classes = new List<ClassSubscriptions>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)

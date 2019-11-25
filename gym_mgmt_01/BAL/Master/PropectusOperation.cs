@@ -17,7 +17,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public void AddProspectus(Prospectus pro) {
 
-            string command = "INSERT INTO Prospectus(MemberID ,ContactMethod,FitnessGoal ,PreviousGym LeadStrength,Created) VALUES(@MemberID ,@ContactMethod,@FitnessGoal ,@PreviousGym @LeadStrength,@Created)";
+            string command = "INSERT INTO dbo.Prospectus(MemberID ,ContactMethod,FitnessGoal ,PreviousGym LeadStrength,Created) VALUES(@MemberID ,@ContactMethod,@FitnessGoal ,@PreviousGym @LeadStrength,@Created)";
             SqlParameter[] param = new SqlParameter[6];
             param[0] = new SqlParameter("@MemberID", pro.MemberID);
             param[1] = new SqlParameter("@ContactMethod", pro.ContactMethod);
