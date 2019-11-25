@@ -74,7 +74,6 @@ namespace gym_mgmt_01.BAL.Master
                 sellsOrderItems = (from DataRow dr in dt.Rows
                                    select new SellsOrderItems()
                                    {
-                                       Id = int.Parse(dr["Id"].ToString()),
                                        Invoice_Id = int.Parse(dr["invoice_Id"].ToString()),
                                        Invoice_number = dr["Invoice_number"].ToString(),
                                        product_Id = int.Parse(dr["product_Id"].ToString()),

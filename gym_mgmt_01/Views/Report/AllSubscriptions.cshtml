@@ -32,9 +32,9 @@
 
         <div class="col-lg-6 col-xlg-6 col-md-6 btnsection">
             <button type="button" style="display:none;" class="btn btn-info">Reset Filters</button>
-            @using (Html.BeginForm("SubscriptionExport", "Report", FormMethod.Post))
+            @using (Html.BeginForm("SubscriptionExport", "Report", FormMethod.Post , new { @style="display:contents;" }))
             {
-                
+
                 <button type="submit" class="btn btn-info">Export to CSV</button>
             }
 

@@ -383,7 +383,7 @@
             showHidePanel(prod, cat);
         }
         function getProduct(data) {
-            alert(" Adding the Product !!!");
+           // alert(" Adding the Product !!!");
         }
         function addProduct(data) {
             var prodadd = false;
@@ -408,7 +408,7 @@
                             priceTable.rows[i].cells[2].innerHTML = cur_price;
                         } else {
 
-                            alert(" Stock not found !!!! ");
+                           // alert(" Stock not found !!!! ");
                         }
                         prodadd = false;
                         break;
@@ -591,7 +591,7 @@
             var due = document.querySelector('#lblDue');
             var table1 = document.querySelector('#invoicePanel');
             var length = table1.rows.length;
-            alert(" Table Length : " + length);
+          //  alert(" Table Length : " + length);
             for (var i = 1; i < length-1; i++) {
                 //alert("Index I -: " + i);
                 table1.deleteRow(i);
@@ -604,7 +604,7 @@
             //alert("Panel Reseted... ");
         }
         function cashPay() {
-            alert(" On Cash Pay : ");
+         //   alert(" On Cash Pay : ");
             var paymentPanel = document.querySelector('#paymentPanel');
             var str = '<div class="row stt"><div class="col-md-6">Cash</div><div class="col-md-6"><label id="lblDue">$0.00</label></div></div>';
             $(str).insertAfter("#paymentPanel");
@@ -718,7 +718,7 @@
                 addSellsOrderItems(invoiceID.value, col3, col1, col4, 0, col2);
             }
             addSellsOrder(invoiceID.value, selectedMember , subtotal.innerHTML, salestax.innerHTML, totalammount.innerHTML, "PAID", totalPay.innerHTML, 0, remianPrice.innerHTML);
-            alert("Complete Sale and  Clear the Screen ");
+          //  alert("Complete Sale and  Clear the Screen ");
              resetPanel();
             window.open('/invoice/get_last_Invoice');
            
@@ -779,7 +779,7 @@
             so.Total_Pay = Total_Pay;
             so.Discount_price = Discount_price;
             so.Remain_price = Remain_price;
-            alert(" SellsOrder : " + JSON.stringify(so));
+            //alert(" SellsOrder : " + JSON.stringify(so));
             $.ajax({
                 type: "POST",
                 url: "/POS/addSellsOrder",
@@ -811,7 +811,7 @@
             soi.unit_price = unit_price;
             soi.discount_price = discount_price;
             soi.total_price = total_price;
-            alert(" SellsOrderITems : " + JSON.stringify(soi));
+            //alert(" SellsOrderITems : " + JSON.stringify(soi));
             $.ajax({
                 type: "POST",
                 url: "/POS/addSellsOrderItems",

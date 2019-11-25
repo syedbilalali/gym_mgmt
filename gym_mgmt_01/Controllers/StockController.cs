@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using System.Configuration;
 using System.IO;
 using System.Data;
-using gym_mgmt_01.Models;
+
 
 namespace gym_mgmt_01.Controllers
 {

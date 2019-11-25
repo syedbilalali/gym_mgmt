@@ -1,8 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "AllPayments";
+    ViewBag.Title = " Physiofit | All Payments ";
     Layout = "~/Views/Shared/_Layout.cshtml";
-     var fromDate = ViewBag.fromDate as DateTime?;
+    var fromDate = ViewBag.fromDate as DateTime?;
     var toDate = ViewBag.toDate as DateTime?;
 }
 @model dynamic
@@ -32,7 +32,10 @@
 
         <div class="col-lg-6 col-xlg-6 col-md-6 btnsection">
             <button type="button" style="display:none;" class="btn btn-info">Reset Filters</button>
-            <button type="button" class="btn btn-info">Export to CSV</button>
+            @using (Html.BeginForm("PaymentsExport", "Report", FormMethod.Post, new { @style = "display:contents;" }))
+            {
+                <button type="submit" class="btn btn-info">Export to CSV</button>
+            }
             <button type="button" class="btn btn-info">Print</button>
         </div>
     </div>
