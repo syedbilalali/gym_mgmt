@@ -15,5 +15,7 @@ namespace gym_mgmt_01.Models
         public string MemberName { get; set; }
         public string TrainnerName { get; set;  }
         public DateTime ExpirayDate { get; set; }
+        public DateTime FromTime { get; set;  }
+        public DateTime ToTime { get; set;  }
     }
 }

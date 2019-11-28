@@ -48,6 +48,20 @@ namespace gym_mgmt_01.Controllers
             model.classlist = classlist;
             return View(model);
         }
+        public JsonResult getSubscriptionByID(int? id)
+        {
+            List<ClassSubscriptions> list = classOpt.getAllClassSubs();
+            var cls =list.Find(x => x.Id.Equals(id));
+            return Json(cls, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult updateSubscription(FormCollection fc) {
+            int subsCriptionID = int.Parse(fc["Id"].ToString());
+            int memberID = int.Parse(fc["memberudt"].ToString());
+            int classID = int.Parse(fc["classudt"].ToString());
+            classOpt.updateClassSubscription(subsCriptionID , memberID , classID); 
+            return RedirectToAction("Index");
+        }
         public ActionResult AddReminder() {
             return View();
         }

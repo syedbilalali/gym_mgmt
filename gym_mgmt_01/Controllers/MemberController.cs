@@ -49,9 +49,8 @@ namespace gym_mgmt_01.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(FormCollection fc, HttpPostedFileBase ImageFile) {
+        public ActionResult Index(FormCollection fc, HttpPostedFileBase ImageFile)  {
             if (ModelState.IsValid) {
-
                 Member m1 = new Member();
                 Contact con = new Contact();
                 m1.FirstName = fc["FirstName"];
@@ -80,6 +79,14 @@ namespace gym_mgmt_01.Controllers
             }
             //return RedirectToAction ("Index");
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Save(MemberRegistration mr) {
+            if (ModelState.IsValid) { 
+
+            }
+            return View("Index");
         }
         [HttpPost]
         public JsonResult putJSON(string searchValue) {

@@ -720,7 +720,7 @@
             addSellsOrder(invoiceID.value, selectedMember , subtotal.innerHTML, salestax.innerHTML, totalammount.innerHTML, "PAID", totalPay.innerHTML, 0, remianPrice.innerHTML);
           //  alert("Complete Sale and  Clear the Screen ");
              resetPanel();
-            window.open('/invoice/get_last_Invoice');
+             window.open('/invoice/get_last_Invoice','_blank');
            
         }
         function addItems(ProductID, StockID, Name, SoldPrice, Stock) {
@@ -790,7 +790,7 @@
                     if (response != null) {
                         // alert("Sells Order Reponse: " + response);
                     } else {
-                        alert("");
+                    //    alert("");
                     }
                 },
                 failure: function (response) {

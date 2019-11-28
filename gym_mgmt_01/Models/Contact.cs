@@ -16,12 +16,20 @@ namespace gym_mgmt_01.Models
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid Email Address.")]
         public string Email { get; set;  }
+        [RegularExpression(@"^(?:\+971 | 00971 | 0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$" , ErrorMessage = " Invalid Mobile Number !!!")]
         public string Cell { get; set;  }
+
+        [RegularExpression(@"^(?:\+971 | 00971 | 0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Cell Number !!!")]
         public string Home { get; set;  }
+
+        [RegularExpression(@"^(?:\+971 | 00971 | 0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Home Number !!!")]
         public string Work { get; set;  }
         public string Address { get; set;  }
         public string Suburb { get; set;  }
         public string City { get; set;  }
+
+        [Display(Name = " Enter Zipcode ")]
+        [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = " Invalid Zip. ")]
         public string Zipcode { get; set;  }
 
         public string Subscribed { get; set;  }

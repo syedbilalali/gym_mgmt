@@ -16,10 +16,11 @@ namespace gym_mgmt_01.Controllers
     public class InvoiceController : Controller
     {
         // GET: Invoice
+
         SellsOrderItemsOpt soiOp = new SellsOrderItemsOpt();
         SellsOrderOpt soOp = new SellsOrderOpt();
         dynamic model = new System.Dynamic.ExpandoObject();
-        private int invID = 0;
+      //  private int invID = 0;
         public ActionResult Index()
         {
             // this.invID = getLastInvoiceID();
@@ -30,7 +31,6 @@ namespace gym_mgmt_01.Controllers
             return View(model);
         }
         public ActionResult get_last_Invoice() {
-        
             return new  ActionAsPdf("Index");
         }
         private int getLastInvoiceID() {

@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using gym_mgmt_01.BAL.Master;
 using gym_mgmt_01.Models;
-using System.Web.Mvc;
 using System.Configuration;
 using System.IO;
 using System.Data;
@@ -29,11 +28,13 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         public ActionResult SaveStock(FormCollection fc)
         {
-            int productID = int.Parse(fc["productName"].ToString());
-            int quantity = int.Parse(fc["quantity"].ToString());
-            decimal get_price =  decimal.Parse(fc["getprice"].ToString());
-            decimal sell_price = decimal.Parse(fc["sellprice"].ToString());
-            po.AddStocks(productID,get_price,sell_price, quantity, 0, quantity);
+            if (ModelState.IsValid) {
+                int productID = int.Parse(fc["productName"].ToString());
+                int quantity = int.Parse(fc["quantity"].ToString());
+                decimal get_price = decimal.Parse(fc["getprice"].ToString());
+                decimal sell_price = decimal.Parse(fc["sellprice"].ToString());
+                po.AddStocks(productID, get_price, sell_price, quantity, 0, quantity);
+            }
             return RedirectToAction("Index");
         }
         [HttpPost]

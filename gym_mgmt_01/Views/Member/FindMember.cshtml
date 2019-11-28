@@ -155,19 +155,21 @@
                   //  alert(" Data Length : " + data.length);
                     //alert(" Rows : " + rows);
                     var left = data.length % 3;
+                   // alert(" Length Data : " + data.length);
                     //alert(" Left Item : " + left);
                     var json = JSON.parse(JSON.stringify(data));
                     var table = document.querySelector('#memberData1');
                     var count_rows = table.rows.count;
                     console.log(" JSON Data : ");
                     console.log(json);
-                   // alert(json);
+                   // alert(" Rows : " + rows + "  Left : " + left);
                     var div = 0;
                     let count = 0;
                     for (var i = 0; i < rows; i++) {
                       //  alert(" I : " + i);
                         data = '<div class="row" id="cont">'
                         for (var j = 0; j < 3; ++j) {
+                             // alert(" Count : " + count);
                          //   alert(" j : " + j);
                             var mrow = table.insertRow(count_rows);
                             var cell1 = mrow.insertCell(0);
@@ -184,17 +186,46 @@
                             data += '<a href="/Member/Edit/'+ json[count].Id +'"> <div id="cd1" class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[count].ImagePath +'" /></div>';
                             data += ' <div class="col60"> <h4>' + json[count].FirstName + ' ' +json[count].LastName + '</h4>' + '<hr>' + ' <h5>User ID '+  json[count].Id +' </h5>';
                             data += ' <p>Created on <b>' + (count) + '</b></p></a>';
-
                             data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
                             data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" id="' + json[count].Id +'" onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button>';
                             data += '</div></div></div>';
-
                             count++;
+                          
                         }
                         data += '</div>';
+                        //memberdata += data;
+                    }
+                    if (left > 0) {
+                      //  alert(" Left : " + left + " Count : " + count);
+                        var extra = '<div class="row" id="cont">';
+                        for (var k = j; k < j+left; k++) {
+                           // alert(" Is left k - :" + k + " Left : " + left);
+                              var mrow = table.insertRow(count_rows);
+                            var cell1 = mrow.insertCell(0);
+                            var cell2 = mrow.insertCell(1);
+                            var cell3 = mrow.insertCell(2);
+                            var cell4 = mrow.insertCell(3);
+                            var cell5 = mrow.insertCell(4);
+                            cell1.innerHTML = '<a href="/Member/Edit/' + json[count].Id + '"> #'+ count + '</a>';
+                           // alert(count + " i -: " + i +" j -: " + j);
+                            cell2.innerHTML = json[count].FirstName ;
+                            cell3.innerHTML = json[count].LastName ;
+                            cell4.innerHTML = "Count " + count;
+                            cell5.innerHTML = "Check In";
+
+                            data += '<a href="/Member/Edit/' + json[count].Id + '"> <div id="cd1" class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[count].ImagePath + '" /></div>';
+                            data += ' <div class="col60"> <h4>' + json[count].FirstName + ' ' + json[count].LastName + '</h4>' + '<hr>' + ' <h5>User ID ' + json[count].Id + ' </h5>';
+                            data += ' <p>Created on <b>' + (count) + '</b></p></a>';
+                            data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
+                            data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" id="' + json[count].Id + '" onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button>';
+                            data += '</div></div></div>';
+                            count++;
+                        }
+                        extra += '</div>';
                         memberdata += data;
                     }
                     $('#colvalue').html(memberdata);
+                   
                 } else {
                     alert("Something went wrong");
                 }
@@ -218,8 +249,8 @@
                 if (response != null) {
                     var data = response;
                     var memberdata = '';
-                    alert(" Data Length " + data.length);
-                    alert(" Data " +JSON.stringify( data));
+                 //   alert(" Data Length " + data.length);
+                 //   alert(" Data " +JSON.stringify( data));
                     var rows = data.length / 3;
                     var left = data.length % 3;
                     var json = JSON.parse(JSON.stringify(data));
@@ -260,8 +291,8 @@
             var modalMembership = document.getElementById('modalMembership');
         //    modalmembrname.value = "Bilal";
         //    modalmembrID.value = "21";
-            alert(" Change Membership... " + data.id);
-            alert(" " + modalmembrname.value + " " + modalmembrID.value);
+          //  alert(" Change Membership... " + data.id);
+           // alert(" " + modalmembrname.value + " " + modalmembrID.value);
             $.ajax({
                 type: "POST",
                 url: "/Member/getMembership",

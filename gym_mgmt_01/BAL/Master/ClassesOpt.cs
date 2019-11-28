@@ -89,8 +89,16 @@ namespace gym_mgmt_01.BAL.Master
             param[1] = new SqlParameter("@MemberID" ,  cs.MemberID);
             da.Insert(param, command);
         }
+        public void updateClassSubscription(int subscriptionID  , int MemberID , int ClassID) {
+            string command = "UPDATE dbo.ClassSubscriptions SET ClassID=@ClassID , MemberID=@MemberID WHERE Id=@Id";
+            SqlParameter[] param = new SqlParameter[3];
+            param[0] = new SqlParameter("@Id", subscriptionID);
+            param[1] = new SqlParameter("@ClassID", ClassID);
+            param[2] = new SqlParameter("@MemberID", MemberID);
+            da.Insert(param, command);
+        }
         public List<ClassSubscriptions> getAllClassSubs() {
-            string command = "SELECT cs.Id ,cs.ClassID ,cs.MemberID , cls.ClassName , (mem.FirstName + ' ' + mem.LastName ) as MemberName , (st.FirstName + '' + st.LastName ) as TrainnerName , (cls.[To] )as ExpirayDate , cs.CreatedAt FROM ClassSubscriptions cs INNER JOIN Classes cls ON cs.ClassID = cls.Id INNER JOIN dbo.Member mem ON mem.Id = cs.MemberID  LEFT JOIN dbo.Staff st ON st.StaffID = cls.StaffID";
+            string command = "SELECT cs.Id ,cs.ClassID ,cs.MemberID , cls.ClassName , (mem.FirstName + ' ' + mem.LastName ) as MemberName , (st.FirstName + '' + st.LastName ) as TrainnerName , (cls.RepeatsEnd )as ExpirayDate , (cls.[From]) as FromTime,  (cls.[To]) as ToTime , cs.CreatedAt FROM ClassSubscriptions cs INNER JOIN Classes cls ON cs.ClassID = cls.Id INNER JOIN dbo.Member mem ON mem.Id = cs.MemberID  LEFT JOIN dbo.Staff st ON st.StaffID = cls.StaffID ";
             List<ClassSubscriptions> classes = new List<ClassSubscriptions>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)
@@ -102,9 +110,11 @@ namespace gym_mgmt_01.BAL.Master
                                ClassID = int.Parse(dr["ClassID"].ToString()),
                                MemberID = int.Parse(dr["MemberID"].ToString()),
                                ClassName = dr["ClassName"].ToString(),
-                               MemberName = dr["MemberName"].ToString(), 
+                               MemberName = dr["MemberName"].ToString(),
                                TrainnerName = dr["TrainnerName"].ToString(),
                                ExpirayDate = DateTime.Parse(dr["ExpirayDate"].ToString()),
+                               FromTime = DateTime.Parse(dr["FromTime"].ToString()),
+                               ToTime = DateTime.Parse(dr["ToTime"].ToString()),
                                CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString())
                            }).ToList();
             }

@@ -198,7 +198,6 @@ namespace gym_mgmt_01.BAL.Master
         }
         public List<Item> getItems(int ItemID) {
 
-            
             string command = "SELECT prod.Id as ProductID , st.Id as StockID , prod.Name , st.sell_price as SoldPrice , st.current_stock  as Stock   FROM Stocks st INNER JOIN Products prod ON st.product_Id = prod.Id where prod.Id=@Id";
             dt = new DataTable();
             List<Item> stocks = new List<Item>();
