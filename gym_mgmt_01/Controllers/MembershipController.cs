@@ -85,15 +85,21 @@ namespace gym_mgmt_01.Controllers
             return View(model);
         }
         public ActionResult addSubscriptions(FormCollection fc) {
+            
             if (ModelState.IsValid) {
 
                 Subscriptions sop = new Subscriptions();
                 sop.MembershipID = int.Parse(fc["membershp"].ToString());
                 sop.MemberID = int.Parse(fc["member"].ToString());
-            
                 subs.AddSubscriptions(sop);
             }
             return RedirectToAction("Subscriptions");
+        }
+        public JsonResult getSubscription(int id) {
+
+            List<Membership> mshOpt = memOpt.getAllMembership();
+            var prod = mshOpt.Find(x => x.Id.Equals(id));
+            return Json(prod, JsonRequestBehavior.AllowGet);
         }
         public ActionResult deleteSubscriptions(int id)
         {
@@ -116,6 +122,15 @@ namespace gym_mgmt_01.Controllers
             {
                 throw;
             }
+        }
+        [HttpPost]
+        public ActionResult editSubscription(FormCollection fc)
+        {
+
+            int MemberID = int.Parse(fc["memberID"].ToString());
+            int MembershipID = int.Parse(fc["membershipID"].ToString());
+            //  subs.UpdateSubscriptions(MemberID , MembershipID);
+            return RedirectToAction("Index");
         }
     }
 }

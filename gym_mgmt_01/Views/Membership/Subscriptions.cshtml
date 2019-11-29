@@ -45,7 +45,7 @@
                                 <td>@sub.ExpirayDate</td>
                                 <td>@sub.MemberName</td>
                                 <td>
-                                    <button type="button" class="btn btn-info editbtn1">Edit</button>
+                                    <button type="button" class="btn btn-info editbtn1" onclick="editSubscription(@sub.Id)">Edit</button>
                                     <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("deleteSubscriptions", "Membership", new { id = sub.Id })'">Delete</button>
                                 </td>
                             </tr>
@@ -133,13 +133,90 @@
                         <div class="form-group" style="display:none;">
                             <label for="" class="control-label label1"> Amount Pay :</label>
                             <div class="controls">
-                               <input type="text" class="form-control label2" />
+                                <input type="text" class="form-control label2" />
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-default btn-info">Add Subscription</button>
+                    <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@using (Html.BeginForm("editSubscriptions", "Membership", new { @class = "needs-validation", @novalidate = "" }))
+{
+    <div class="modal" id="editSubscription" tabindex="-1" role="dialog" aria-labelledby="addcatlabel">
+        @Html.AntiForgeryToken()
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addcatlabel">Edit Subscriptions</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Choose Member :</label>
+                            <div class="controls">
+                                <select name="member" id="select" data-validation-required-message="Please select the member first" class="form-control label2" aria-invalid="false" required="">
+                                    @if (Model.member.Count > 0)
+                                    {
+                                        <option value="">--SELECT OPTIONS--</option>
+                                        foreach (var mem in Model.member)
+                                        {
+                                            <option value="@mem.Id">@mem.FirstName</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="0">NONE</option>
+                                    }
+                                </select>
+                                <div class="help-block" style=" padding-left:30%;"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1"> Choose Membership :</label>
+                            <div class="controls">
+                                <select name="membershp" class="form-control label2" data-validation-required-message=" Please select class first." required="" aria-invalid="false">
+                                    @if (Model.membrshp.Count > 0)
+                                    {
+                                        <option value="">--SELECT OPTIONS--</option>
+                                        foreach (var mshp in Model.membrshp)
+                                        {
+                                            <option value="@mshp.Id">@mshp.Name</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="0">NONE</option>
+                                    }
+                                </select>
+                                <div class="help-block" style=" padding-left:30%;"></div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:none;">
+                            <label for="" class="control-label label1"> Payment Status :</label>
+                            <div class="controls">
+                                <select class="form-control label2" data-validation-required-message=" Please select payment status first." required="" aria-invalid="false">
+                                    <option value="Paid">Paid</option>
+                                    <option value="Unpaid">Unpaid</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:none;">
+                            <label for="" class="control-label label1"> Amount Pay :</label>
+                            <div class="controls">
+                                <input type="text" class="form-control label2" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default btn-info">Edit Subscription</button>
                     <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -170,7 +247,30 @@
             "use strict";
             $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
         }(window, document, jQuery);
+
+        function editSubscription(id) {
+        
+             $.ajax({
+                url: "/Membership/getSubscription/" + id,
+                typr: "GET",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                 success: function (response) {
+                     alert(JSON.stringify(response));
+                    //alert(" SucessFull Get the Value " + JSON.stringify(response));
+             //       $('#prodID').val(response.Id);
+                //    $('#productname1').val(response.Name);
+              ///      $('#barcode').val(response.Barcode);
+         //           $('#description').val(response.Description);
+                 //   $('#associatedclub').val(response.SoldInClubs);
+               //      $('#prodprof').attr("src", response.ImageURL);
+                    $('#editSubscription').modal('show');
+            },
+            error: function (response) {
+                alert(response.responseText);
+                }
+            });
+            return false;
+        }
     </script>
 }
-
-
