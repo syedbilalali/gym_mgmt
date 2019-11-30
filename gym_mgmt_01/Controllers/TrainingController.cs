@@ -62,6 +62,13 @@ namespace gym_mgmt_01.Controllers
             classOpt.updateClassSubscription(subsCriptionID , memberID , classID); 
             return RedirectToAction("Index");
         }
+        public JsonResult getClasses(int id) {
+            List<Classes> classes = classOpt.getAllClasses();
+            var data = classes.Find(x => x.Id.Equals(id));
+            data.From = DateTime.Parse(data.From.ToString("hh:mm tt"));
+            data.To = DateTime.Parse(data.To.ToString("hh:mm tt"));
+            return Json(data , JsonRequestBehavior.AllowGet);
+        }
         public ActionResult AddReminder() {
             return View();
         }

@@ -49,7 +49,7 @@
                                 <td>@data.RepeatsEnd.ToString("dd/MM/yyyy")</td>
                                 <td>@data.StaffID</td>
                                 <td>
-                                    <button type="button" class="btn btn-info editbtn1" onclick="">Edit</button>
+                                    <button type="button" class="btn btn-info editbtn1" onclick="editClass(@data.Id)">Edit</button>
                                     <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteClasses", "Training", new { id = data.Id })'">Delete</button>
                                 </td>
                             </tr>
@@ -73,7 +73,8 @@
     <!-- Column -->
 </div>
 <!-- /.modal -->
-@using (Html.BeginForm("Index", "Training", FormMethod.Post, new { @id = "addClass" , @class="needs-validation" , @novalidate="" }))
+<!---- Add Class Modal -->
+@using (Html.BeginForm("Index", "Training", FormMethod.Post, new { @id = "addClass", @class = "needs-validation", @novalidate = "" }))
 {
     @Html.AntiForgeryToken()
     <div class="modal" id="addclass" tabindex="-1" role="dialog" aria-labelledby="addclasslabel">
@@ -111,7 +112,7 @@
                                     <option value="1 mon">Monthly</option>
                                     <option value="1 day">Daily</option>
                                 </select>
-                                <div class="help-block"  style="padding-left:30%;"></div>
+                                <div class="help-block" style="padding-left:30%;"></div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -157,10 +158,94 @@
         </div>
     </div>
 }
+@using (Html.BeginForm("Edit", "Training", FormMethod.Post, new { @id = "editClass", @class = "needs-validation", @novalidate = "" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal" id="editclass" tabindex="-1" role="dialog" aria-labelledby="addclasslabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addclasslabel">Add Class</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addClass" method="post">
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Class:</label>
+                            <input type="text" name="className" required="" class="form-control label2" id="className" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">From:</label>
+                            <input type="time" min="09:00" max="18:00" name="From" required="" class="form-control label2" id="timeFrom" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">To:</label>
+                            <input type="time" min="09:00" max="18:00" name="To" required="" class="form-control label2" id="timeTo" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Repeats:</label>
+                            <div class="controls">
+                                <select class="form-control label2" name="Repeats" id="Repeats" aria-invalid="false">
+                                    <option value="0">N/A (Single Appointment)</option>
+                                    <option value="7 days">Weekly</option>
+                                    <option value="14 days">Fortnightly</option>
+                                    <option value="21 days">3 Weeks</option>
+                                    <option value="28 days">4 Weeks</option>
+                                    <option value="42 days">6 Weeks</option>
+                                    <option value="56 days">8 Weeks</option>
+                                    <option value="1 mon">Monthly</option>
+                                    <option value="1 day">Daily</option>
+                                </select>
+                                <div class="help-block" style="padding-left:30%;"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Repeat Ends:</label>
+                            <input type="date" name="RepeatsEnd" class="form-control label2" id="RepeatsEnds" />
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Resource:</label>
+                            <select class="form-control label2" name="Resource" id="Resource" aria-invalid="false">
+                                <option value="">Studio</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Teacher/ Instructor:</label>
+                            <select class="form-control label2" name="StaffID" id="StaffID" aria-invalid="false">
+                                <option value="0">--SELECT OPTIONS--</option>
+                                @if (Model.staff.Count > 0)
+                                {
+                                    foreach (var st in Model.staff)
+                                    {
+                                        <option value="@st.StaffID">@st.FirstName</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="0">NONE</option>
+                                }
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label label1">Note:</label>
+                            <textarea type="date" name="Note" class="form-control label2" id="note"></textarea>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default btn-info">Save Class</button>
+                    <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 <!-- /.modal -->
 @section scripts{
-     <script type="text/javascript">
-         (function () {
+    <script type="text/javascript">
+        (function () {
             'use strict';
             window.addEventListener('load', function () {
                 // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -177,10 +262,37 @@
                 });
             }, false);
         })();
-        ! function(window, document, $) {
-            "use strict";
-            $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
-        }(window, document, jQuery);
-     </script>
+        function editClass(id) {
+             $.ajax({
+                url: "/Training/getClasses/" + id,
+                typr: "GET",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                 success: function (response) {
+
+                     alert(JSON.stringify(response));
+                     //alert(" SucessFull Get the Value " + JSON.stringify(response));
+                     $('#className').val(response.ClassName);
+                     alert(response.From);
+                     var date =  Date.parse(response.From);
+                     alert(" Date : " + date);
+                     var dateObj = new Date(JSON.stringify(response.From)); 
+                     utcString = dateObj.toUTCString();
+                 //    $('#timeFrom').val('12:00:00');
+                 //    $('#timeTo').val('13:00:00');
+                     $('#Repeats').val(response.Repeats);
+                     $('#RepeatsEnds').val(response.RepeatsEnd);
+                     $('#Resource').val(response.Resource);
+                     $('#StaffID').val(response.StaffID);
+                     $('#note').val(response.Note);
+                     $('#editclass').modal('show');
+            },
+            error: function (response) {
+                alert(response.responseText);
+                }
+            });
+            return false;
+        }
+    </script>
 }
 

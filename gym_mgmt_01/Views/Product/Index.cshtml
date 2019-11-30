@@ -33,7 +33,6 @@
                     <th>Type</th>
                     <th>Barcode</th>
                     <th>Description</th>
-                    <th>Stock</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -53,7 +52,6 @@
                             <td>@product.Type_Id</td>
                             <td>@product.Barcode</td>
                             <td>@product.Description</td>
-                            <td><button type="button" class="btn btn-light" onclick="">Add Stock</button></td>
                             <td>
                                 <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@product.Id)">Edit</button>
                                 <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProducts", "Product", new { id = product.Id })'">Delete</button>
@@ -156,7 +154,7 @@
 <!----------------->
 <!-------Modal For Updat Product Type ---------------->
 <div class="modal" id="updateProd" tabindex="-1" role="dialog" aria-labelledby="addcatlabel">
-    @using (Html.BeginForm("EditProduct", "Product", FormMethod.Post))
+    @using (Html.BeginForm("EditProduct", "Product", FormMethod.Post ,  new { enctype = "multipart/form-data" }))
     {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -214,8 +212,8 @@
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1">Choose Image :</label>
-                            <input type="file" id="prodImage" name="prodImage" />
-                            <img src="~/assets/images/products/prod_default.png" id="prodprof" width="100px" height="100px" style="margin: 15px auto; border: 0px solid #fff; border-radius: 10px;" />
+                            <input type="file" id="prodImage1" name="prodImage" />
+                            <img src="~/assets/images/products/prod_default.png" id="prodprof1" width="100px" height="100px" style="margin: 15px auto; border: 0px solid #fff; border-radius: 10px;" />
                         </div>
                     </form>
                 </div>
@@ -235,12 +233,16 @@
                 console.log(" On file Choose ");
                 readURL(this);
             });
+            $('#prodImage1').change(function () {
+                console.log(" On file Choose ");
+                readURL(this);
+            });
             function readURL(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
                         $('#prodprof').attr('src', e.target.result);
-                        //$('#prodprof1').attr('src', e.target.result);
+                        $('#prodprof1').attr('src', e.target.result);
                     }
                     reader.readAsDataURL(input.files[0]);
                 }
@@ -253,13 +255,15 @@
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
                 success: function (response) {
-                    //alert(" SucessFull Get the Value " + JSON.stringify(response));
+                 //  alert(" SucessFull Get the Value " + JSON.stringify(response));
                     $('#prodID').val(response.Id);
+                    $('#productType').val(response.Type_Id);
                     $('#productname1').val(response.Name);
                     $('#barcode').val(response.Barcode);
                     $('#description').val(response.Description);
                  //   $('#associatedclub').val(response.SoldInClubs);
                      $('#prodprof').attr("src", response.ImageURL);
+                     $('#prodprof1').attr("src", response.ImageURL);
                     $('#updateProd').modal('show');
             },
             error: function (response) {

@@ -37,11 +37,11 @@ namespace gym_mgmt_01.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public ActionResult EditProduct(FormCollection fc, HttpPostedFileBase fileBase)
+        public ActionResult EditProduct(FormCollection fc, HttpPostedFileBase prodImage)
         {
             if (ModelState.IsValid)
             {
-                string imagePath = uploadFile(fileBase);
+                string imagePath = uploadFile(prodImage);
                 po.UpdateProduct(int.Parse(fc["id"].ToString()), fc["productname"].ToString(), int.Parse(fc["productType"].ToString()), int.Parse(fc["supplier"].ToString()), int.Parse(fc["posGroup"].ToString()), fc["barcode"].ToString(), fc["description"].ToString(), imagePath);
             }
             return RedirectToAction("Index");
@@ -59,16 +59,14 @@ namespace gym_mgmt_01.Controllers
             string trailingPath;
             if (file != null)
             {
-                if (file.ContentType == "image/jpeg")
+                if (file.ContentType == "image/jpeg" || file.ContentType == "image/png" || file.ContentType == "image/jpg")
                 {
                     if (file.ContentLength < 102400)
                     {
 
                         string FileName = Path.GetFileNameWithoutExtension(file.FileName);
-
                         //To Get File Extension  
                         string FileExtension = Path.GetExtension(file.FileName);
-
                         //Add Current Date To Attached File Name  
                         FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName.Trim() + FileExtension;
 
