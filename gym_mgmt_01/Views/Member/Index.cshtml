@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = " Physiofit | Member ";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.MemberType = "";
     List<SelectListItem> Genderlist = new List<SelectListItem>();
@@ -84,20 +84,18 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">First Name <span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.member.FirstName, new { htmlAttributes = new { @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "First Name", @required = "" } })
-                                                        @Html.ValidationMessageFor(modal => modal.member.FirstName, "", new { @class = "" })
+                                                        @Html.EditorFor(model => model.member.FirstName, new { htmlAttributes = new { @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "Enter First Name", @required = "" } })
+                                                        @Html.ValidationMessageFor(modal => modal.member.FirstName, "", new { @class = "text-danger" })
                                                         <div class="invalid-feedback">
                                                             Please enter valid first name 
                                                         </div>
                                                     </div>
-                                           
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Last Name <span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.member.LastName, new { htmlAttributes = new { @class = "form-control", @maxlength = "40", @name = "lastName", @placeholder = "Last Name", @required = ""  } })
+                                                        @Html.EditorFor(model => model.member.LastName, new { htmlAttributes = new { @class = "form-control", @maxlength = "40", @name = "lastName", @placeholder = "Enter Last Name", @required = ""  } })
                                                         @Html.ValidationMessageFor(modal => modal.member.LastName, "", new { @class = "text-danger" })
-                 
                                                         <div class="invalid-feedback">
                                                             Please enter valid last name
                                                         </div>
@@ -111,7 +109,7 @@
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="ti-calendar"></i></span>
                                                         </div>
-                                                        
+                                              
                                                         <div class="invalid-feedback">
                                                             Choose Date of Birth
                                                         </div>
@@ -121,7 +119,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Gender<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.DropDownListFor(model => model.member.Gender, Genderlist, new { @class = " custom-select " , @required="" })
+                                                        @Html.DropDownListFor(model => model.member.Gender, Genderlist, new { @class = " custom-select " , @placeholder=" Select Gender ", @required="" })
                                                         @Html.ValidationMessageFor(modal => modal.member.Gender, "", new { @class = "text-danger" })
                                                         <div class="invalid-feedback">
                                                             Choose gender
@@ -149,28 +147,26 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Email address</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = " Enter Email Address" } })
-
+                                                        @Html.EditorFor(model => model.contact.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = " Enter Email Address"  } })
+                                                        @Html.ValidationMessageFor(modal => modal.contact.Email, "", new { @class = "text-danger" })
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="ti-email"></i></span>
                                                         </div>
-                                                        @Html.ValidationMessageFor(modal => modal.contact.Email, "", new { @class = "text-danger" })
-                                                        
                                                         <div class="invalid-feedback">
-                                                            Enter Email Address !!!
+                                                            Enter Valid Email Address !!!
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Cell<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Contact Number ", @required = "" } })
+                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Cell Number ", @required = "" } })
 
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="mdi mdi-cellphone-android"></i></span>
                                                         </div>
                                                         @Html.ValidationMessageFor(modal => modal.contact.Cell, "", new { @class = "text-danger" })
-                                                        
+                             
                                                         <div class="invalid-feedback">
                                                             Enter Mobile Number !!!
                                                         </div>
@@ -179,7 +175,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Home</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text", } })
+                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder=" Enter Home Number. " } })
 
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class="icons-Old-Telephone"></i></span>
@@ -193,7 +189,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Work</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Work, new { htmlAttributes = new { @class = "form-control", @type = "text", } })
+                                                        @Html.EditorFor(model => model.contact.Work, new { htmlAttributes = new { @class = "form-control", @type = "text",  @placeholder=" Enter Work Number. " } })
 
                                                         <div class="input-group-append">
                                                             <span class="input-group-text"><i class=" icons-Old-Telephone"></i></span>
@@ -207,7 +203,7 @@
                                             <div class="form-group mt-3 row">
                                                 <label for="example-text-input" class="col-4 col-form-label">Address</label>
                                                 <div class="col-8">
-                                                    @Html.EditorFor(model => model.contact.Address, new { htmlAttributes = new { @class = "form-control", @type = "text", @minlength = "50" } })
+                                                    @Html.EditorFor(model => model.contact.Address, new { htmlAttributes = new { @class = "form-control", @type = "text",@placeholder=" 123 Main Road" , @minlength = "50" } })
                                                     @Html.ValidationMessageFor(modal => modal.contact.Address, "", new { @class = "text-danger" })
                                                 </div>
     
@@ -219,10 +215,10 @@
 
                                                 <label for="example-text-input" class="col-4 col-form-label">Suburb</label>
                                                 <div class="col-8">
-                                                    @Html.EditorFor(model => model.contact.Suburb, new { htmlAttributes = new { @class = "form-control", @type = "text", } })
+                                                    @Html.EditorFor(model => model.contact.Suburb, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder=" CBD " } })
                                                     @Html.ValidationMessageFor(modal => modal.contact.Suburb, "", new { @class = "text-danger" })
                                                 </div>
-                                                
+                      
                                                 <div class="invalid-feedback">
                                                     Choose gender
                                                 </div>
@@ -241,14 +237,14 @@
                                             <div class="form-group mt-3 row">
                                                 <label for="example-text-input" class="col-4 col-form-label">Zip Code</label>
                                                 <div class="col-8">
-                                                    @Html.EditorFor(model => model.contact.Zipcode, new { htmlAttributes = new { @class = "form-control", @maxlength = "6", @placeholder = " Enter Zipcode ", @type = "text", } })
+                                                    @Html.EditorFor(model => model.contact.Zipcode, new { htmlAttributes = new { @class = "form-control", @maxlength = "6", @placeholder = "81203", @type = "text", } })
                                                     @Html.ValidationMessageFor(modal => modal.contact.Zipcode, "", new { @class = "text-danger" })
                                                 </div>
                                                 <div class="invalid-feedback">
                                                     Please provide valid zipcode.
                                                 </div>
                                             </div>
-                                            </div>
+                                            </div> 
                                         </div>
                                     </div>
                                 </div>
@@ -697,10 +693,6 @@
             });
         }, false);
         })();
-        !function (window, document, $) {
-            "use strict";
-            $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
-        }(window, document, jQuery);
     </script>
 }
 <!-- ============================================================== -->

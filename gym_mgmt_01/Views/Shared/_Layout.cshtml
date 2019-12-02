@@ -141,7 +141,7 @@
                 <!-- Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="@Url.Action("Index" , "Home")">
                         <!-- Logo icon -->
                         <h3 class="light-logo logoname"><span class="phy2">Physio</span>fit</h3>
                     </a>
@@ -456,6 +456,8 @@
     <script src="@Url.Content("~/dist/js/dashboard1.js")"></script>
     <script src="@Url.Content("~/assets/node_modules/toast-master/js/jquery.toast.js")"></script>
     <script src="@Url.Content("~/assets/node_modules/switchery/dist/switchery.min.js")"></script>
+    <script src="@Url.Content("~/dist/js/pages/validation.js")"></script>
+
     @RenderSection("scripts", required: false)
     <script>
         $(function () {

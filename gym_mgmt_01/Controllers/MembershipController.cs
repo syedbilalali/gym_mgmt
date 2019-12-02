@@ -20,24 +20,18 @@ namespace gym_mgmt_01.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Index(FormCollection fc) {
+        public ActionResult Index(Membership mem) {
 
-            Membership mem = new Membership();
+        //    Membership mem = new Membership();
             if (ModelState.IsValid) {
-                mem.Name = fc["Name"].ToString();
-                mem.Description = fc["Description"].ToString();
-                // mem.ValidDays = int.Parse(fc["ValidDays"].ToString());
-                mem.ValidDays = 0;
-                mem.Amount = decimal.Parse(fc["Amount"].ToString());
-                mem.StartDate = DateTime.Parse(fc["StartDate"].ToString());
-                mem.EndDate = DateTime.Parse(fc["EndDate"].ToString());
-                int subtractingDays = int.Parse(fc["PreExpDays"].ToString());
-                mem.PreEndDate = mem.EndDate.Subtract(TimeSpan.FromDays(subtractingDays));
-                mem.Capacity = int.Parse(fc["Capacity"].ToString());
+                 
+                 int subtractingDays = int.Parse(mem.PreExpirationDays.ToString());
+                 mem.PreEndDate = mem.EndDate.Subtract(TimeSpan.FromDays(subtractingDays));
                 bool flag =  memOpt.AddMembership(mem);
                 if (flag)
                 {
                     ViewBag.Message = " Successfully Add Membership !!! ";
+                    ModelState.Clear();
                 }
                 else {
                     ViewBag.Message = " Something Went Wrong !!! ";
@@ -94,6 +88,13 @@ namespace gym_mgmt_01.Controllers
                 subs.AddSubscriptions(sop);
             }
             return RedirectToAction("Subscriptions");
+        }
+        public JsonResult getMemberships(int id)
+        {
+
+            List<Membership> mshOpt = memOpt.getAllMemberships();
+            var prod = mshOpt.Find(x => x.Id.Equals(id));
+            return Json(prod, JsonRequestBehavior.AllowGet);
         }
         public JsonResult getSubscription(int id) {
 

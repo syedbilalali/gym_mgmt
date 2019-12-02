@@ -23,13 +23,19 @@ namespace gym_mgmt_01.Models
         public string Home { get; set;  }
 
         [RegularExpression(@"^(?:\+971 | 00971 | 0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Home Number !!!")]
-        public string Work { get; set;  }
+        public string Work { get; set;  } 
+
+        [MaxLength(150, ErrorMessage = "Address can't be more than 150 characters"), MinLength(5, ErrorMessage = "Address can't be less than 5 characters")]
         public string Address { get; set;  }
+
+        [MaxLength(20, ErrorMessage = "Suburb can't be more than 20 characters"), MinLength(5, ErrorMessage = "Suburb can't be less than 5 characters")]
         public string Suburb { get; set;  }
+
+        [MaxLength(20, ErrorMessage = "City can't be more than 20 characters"), MinLength(5, ErrorMessage ="City can't be less than 5 characters")]
         public string City { get; set;  }
 
         [Display(Name = " Enter Zipcode ")]
-        [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = " Invalid Zip. ")]
+        [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = " Enter Valid Zipcode. ")]
         public string Zipcode { get; set;  }
 
         public string Subscribed { get; set;  }

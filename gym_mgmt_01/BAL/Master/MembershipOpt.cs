@@ -54,6 +54,32 @@ namespace gym_mgmt_01.BAL.Master
             }
             return mem;
         }
+        public List<Membership> getAllMemberships()
+        {
+            DataTable dt = new DataTable();
+            string command = "SELECT * FROM dbo.Membership";
+            List<Membership> mem = new List<Membership>();
+            dt = da.FetchAll(command);
+            if (dt.Rows.Count > 0)
+            {
+                mem = (from DataRow dr in dt.Rows
+                       select new Membership()
+                       {
+                           Id = int.Parse(dr["Id"].ToString()),
+                           Name = dr["Name"].ToString(),
+                           Description = dr["Description"].ToString(),
+                           ValidDays = int.Parse(dr["ValidDays"].ToString()),
+                           Amount = decimal.Parse(dr["Amount"].ToString()),
+                           sStartDate = DateTime.Parse(dr["StartDate"].ToString()).ToString(),
+                           sEndDate = DateTime.Parse(dr["EndDate"].ToString()).ToString(),
+                           //     PreEndDate = DateTime.Parse(dr["PreEndDate"].ToString()),
+                           Capacity = int.Parse(dr["Capacity"].ToString()),
+                           //    CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString()),
+                           //    UpdatedAt = DateTime.Parse(dr["UpdatedAt"].ToString())
+                       }).ToList();
+            }
+            return mem;
+        }
         public Membership getMembershipByID(int? Id) {
             string command = "SELECT * from dbo.Membership where Id=@Id";
             DataTable dt = new DataTable();

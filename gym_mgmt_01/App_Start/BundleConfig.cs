@@ -21,6 +21,9 @@ namespace gym_mgmt_01
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
+            // JQuery validator.   
+            bundles.Add(new ScriptBundle("~/bundles/custom-validator").Include(
+                                  "~/Scripts/script-custom-validator.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

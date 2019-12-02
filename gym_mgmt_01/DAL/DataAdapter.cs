@@ -66,7 +66,6 @@ namespace gym_mgmt_01.DAL
                 {
                     using (SqlDataAdapter da = new SqlDataAdapter())
                     {
-
                         cmd.Connection = con;
                         da.SelectCommand = cmd;
                         using (DataTable dt = new System.Data.DataTable())
