@@ -8,7 +8,7 @@
 }
 @model dynamic
 <div class="row upp2">
-    <!-- Column -->
+    <!-- Column --> 
     <!-- Column -->
     <div class="col-lg-8 col-xlg-8 col-md-8">
         <input type="hidden" id="InvoiceID" name="InvoiceID">
@@ -100,8 +100,26 @@
             <button class="btnpos chargetomember ptp" type="button" data-toggle="modal" data-target="#charge" data-whatever="">Charge to Member</button>
             <button class="btnpos cancelpos ptp" type="button" data-toggle="modal" data-target="#cancel" data-whatever="">Cancel</button>
             <button class="btnpos completesale ptp" id="btnCompeleteSale" type="button" data-toggle="modal" data-target="#" data-whatever="">Complete Sale</button>
-        </div>
+            <div class="memberselected" id="memberselected" style="display:none;">
+                    <div class="form-group" style=" display:none;">
+                        <label for="message-text" class="control-label label1">Staff:</label>
+                        <select class="form-control label2">
+                            <option value="0">YG staff</option>
+                            <option value="1">second</option>
 
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="row memberassigned">
+                            <div class="col-md-3"><img src="assets/images/users/user1.png" id="memberimage" /></div>
+                            <div class="col-md-7">
+                                <label id="membername">Username</label>
+                            </div>
+                            <div class="col-md-2" id="removeSelectedMem"  onclick="removeSelectedMembers()"><button>x</button></div>
+                        </div>
+                    </div>
+            </div>
+        </div>
     </div>
     <!-- Column -->
 </div>
@@ -281,7 +299,7 @@
                                 Are you sure you want to cancel the sale?
                             </p>
                         </div>
-                    </div>
+                    </div>  
                 </form>
             </div>
             <div class="modal-footer">
@@ -657,24 +675,35 @@
         }
         var selectedMember = "None";
         function selectMembers(mem) {
+            var table1 = document.querySelector("#invoicePanel");
+            if (table1.rows.length > 1) {
+                          var findMemPnl = document.querySelector('#findMemPnl');
+                    findMemPnl.style.display = "none";
+                    var selectPnl = document.querySelector('#SelectMemPnl');
+                    selectPnl.style.display = "";
+                    var selobj = objs.filter(function (obj) {
+                        return obj.Id == mem.id;
+                    });
+                    var showselectedmembers = document.querySelector("#memberselected");
+                    var membername = document.querySelector("#membername");
 
-            var findMemPnl = document.querySelector('#findMemPnl');
-            findMemPnl.style.display = "none";
-            var selectPnl = document.querySelector('#SelectMemPnl');
-            selectPnl.style.display = "";
-            var selobj = objs.filter(function (obj) {
-                return obj.Id == mem.id;
-            });
-            var selImage = document.querySelector('#selImage');
-            var selName = document.querySelector('#selName');
-            var selID = document.querySelector('#selID');
-            var selDate = document.querySelector('#selDate');
-
-            selImage.src = selobj[0].ImagePath;
-            selID.innerText = selobj[0].Id;
-            selName.innerText = selobj[0].FirstName + " " + selobj[0].LastName;
-            selectedMember = selobj[0].FirstName + " " + selobj[0].LastName;
-            selDate.innerText = selobj[0].DOB;
+                    var memberimage = document.querySelector("#memberimage");
+                    var selImage = document.querySelector('#selImage');
+                    var selName = document.querySelector('#selName');
+                    var selID = document.querySelector('#selID');
+                    var selDate = document.querySelector('#selDate');
+                    membername.innerText = selobj[0].FirstName + " " + selobj[0].LastName;
+                    memberimage.src = selobj[0].ImagePath;
+                    selImage.src = selobj[0].ImagePath;
+                    selID.innerText = selobj[0].Id;
+                    selName.innerText = selobj[0].FirstName + " " + selobj[0].LastName;
+                    selectedMember = selobj[0].FirstName + " " + selobj[0].LastName;
+                    selDate.innerText = selobj[0].DOB;
+                    showselectedmembers.style.display = "block";
+            } else {
+                alert(" Please select Product. ");
+            }
+          
         }
         function closeSelectMembers() {
 
@@ -683,6 +712,9 @@
             var selectPnl = document.querySelector('#SelectMemPnl');
             selectPnl.style.display = "none";
             //alert(" Close the Current Memebers ");
+          //  removeSelectedMembers();  
+            var selectedmember = document.getElementById("memberselected");
+            selectedmember.style.display = "none";
         }
         function makePayment() {
 
@@ -721,6 +753,18 @@
           //  alert("Complete Sale and  Clear the Screen ");
              resetPanel();
              window.open('/invoice/get_last_Invoice','_blank');
+           
+        }
+        function removeSelectedMembers() {
+
+            alert(" Removing Selected Members : ");
+            var selectedmember = document.getElementById("memberselected");
+            selectedmember.style.display = "none";
+
+               var findMemPnl = document.querySelector('#findMemPnl');
+            findMemPnl.style.display = "";
+            var selectPnl = document.querySelector('#SelectMemPnl');
+            selectPnl.style.display = "none";
            
         }
         function addItems(ProductID, StockID, Name, SoldPrice, Stock) {
@@ -863,5 +907,6 @@
                 });
             });
         }
+        function 
     </script>
 }

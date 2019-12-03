@@ -32,7 +32,7 @@ namespace gym_mgmt_01.Controllers
             // pt.SoldInClubs = fc["associatedclub"].ToString();
             po.AddProductType(fc["typename"].ToString(), fc["taxrate"].ToString(), fc["associatedclub"].ToString());
             ///  Response.Write("Hello  World");
-            return RedirectToAction("Index");
+            return                               RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult EditProductType(FormCollection fc)
@@ -56,12 +56,12 @@ namespace gym_mgmt_01.Controllers
                 bool result = po.DeleteProductType(id);
                 if (result == true)
                 {
-                    ViewBag.Message = "Customer Deleted Successfully";
+                    ViewBag.Message = "Category Deleted Successfully";
                     ModelState.Clear();
                 }
                 else
                 {
-                    ViewBag.Message = "Unsucessfull";
+                    ViewBag.Message = " Something went wrong. ";
                     ModelState.Clear();
                 }
 

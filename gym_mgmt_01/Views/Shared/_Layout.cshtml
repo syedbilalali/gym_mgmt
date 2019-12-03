@@ -114,7 +114,32 @@
 	.selbtn button:focus{
 	outline: none!important;
 	}
-	
+    .tablepos {
+    background-color: #fff;
+    padding-bottom: 1.5px;
+    margin-bottom: 20px;
+    }
+	.memberselected{
+	margin: 150px 20px 20px;
+	border: 1px solid #cfcfcf;
+	border-radius: 5px;
+	padding: 20px 10px;
+	}
+	.memberassigned{
+	padding-top: 20px;
+	}
+	.memberassigned img{
+	width: 90%;
+	}
+	.memberassigned h6{
+    padding: 10px 5px;
+	}
+	.memberassigned button{
+	border: 0px solid #fff;
+	background: transparent;
+	font-size: 15px;
+	font-weight: 600;
+	}
     </style>
 </head>
 
@@ -163,7 +188,7 @@
                         <li class="nav-item">
                             <h4 class="memberid"></h4>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" style="display:none;">
                             <form class="app-search d-none d-md-block d-lg-block">
                                 <input type="text" class="form-control" placeholder="Find Member..">
                             </form>
@@ -176,7 +201,7 @@
                         <!-- ============================================================== -->
                         <!-- Comment -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" style="display:none;">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="ti-email"></i>
                                 <div class="notify"> <span class=""></span> <span class="point"></span> </div>
@@ -230,7 +255,7 @@
                         <!-- ============================================================== -->
                         <!-- Messages -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" style="display:none;">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="icon-note"></i>
                                 <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
@@ -285,7 +310,7 @@
                         <!-- mega menu -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown mega-dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ti-layout-width-default"></i></a>
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" style="display:none;" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ti-layout-width-default"></i></a>
 
                         </li>
                         <!-- ============================================================== -->
@@ -313,7 +338,7 @@
                         <!-- ============================================================== -->
                         <!-- End User Profile -->
                         <!-- ============================================================== -->
-                        <li class="nav-item right-side-toggle"> <a class="nav-link  waves-effect waves-light" href="javascript:void(0)"><i class="ti-settings"></i></a></li>
+                        <li class="nav-item right-side-toggle" > <a class="nav-link  waves-effect waves-light"  style="=" href="javascript:void(0)"><i class="ti-settings"></i></a></li>
                     </ul>
                 </div>
             </nav>

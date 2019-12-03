@@ -50,7 +50,8 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(FormCollection fc, HttpPostedFileBase ImageFile)  {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 Member m1 = new Member();
                 Contact con = new Contact();
                 m1.FirstName = fc["FirstName"];
@@ -76,6 +77,9 @@ namespace gym_mgmt_01.Controllers
                 ViewBag.ID = mo.getMemberID();
                 ViewBag.Alert = "block";
                 ViewBag.Message = "Successfully add Member !!! ";
+            }
+            else {
+                ViewBag.Message = "Something went wrong !!! ";
             }
             //return RedirectToAction ("Index");
             return View();
@@ -298,7 +302,5 @@ namespace gym_mgmt_01.Controllers
             //return RedirectToAction ("Index");
             return View();
         }
-      
-
     }
 }
