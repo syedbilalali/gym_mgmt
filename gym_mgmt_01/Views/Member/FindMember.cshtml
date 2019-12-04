@@ -24,6 +24,9 @@
 </div>
 <div class="container1" id="colvalue" style="display:none;"> 
 </div>
+<div class="container2" id="colvalue" style="display:none">
+    <div class="centered">No Result Found. </div>
+</div>
 <div class="container1" id="rowvalue">
     <table id="memberData">
         <thead>
@@ -36,7 +39,6 @@
             </tr>
         </thead>
         <tbody id="memberData1">
-
         </tbody>
     </table>
 </div>
@@ -109,7 +111,7 @@
            input = document.getElementById("srch");
             //alert(" Input : " + input);
             // Make Upper Case
-            filter = input.value.toUpperCase();
+            filter = input.value;
            // alert(" Filter Value : " + filter);
             //Get External Div
             var divs = document.getElementById('colvalue');
@@ -125,19 +127,21 @@
                     var h4 = card[j].getElementsByTagName("h4")[0];
                     txtValue = h4.textContent || h4.innerText;
                     ///alert(" Filter Values : " + txtValue + " Filter Text : " + filter + " On UpperCase" + txtValue.toUpperCase());
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    if (txtValue.indexOf(filter) > -1) {
                        // alert(" Gone Show ");
+                        console.log("   Show all things ");
                         card[j].style.display = "";
                     } else {
                     //    alert(" Gone HIde");
+                        console.log(" Hide all things  ");
                         card[j].style.display = "none";
                     }
                 }
             }
             $("#srch").on("keyup", function () {
-                var value = $(this).val().toUpperCase();
+                var value = $(this).val();
                      $("#memberData1 tr").filter(function() {
-                    $(this).toggle($(this).text().toUpperCase().indexOf(value) > -1)
+                    $(this).toggle($(this).text().indexOf(value) > -1)
                  });
             });
         }
@@ -152,11 +156,8 @@
                     var data = response;
                     var memberdata = '';
                     var rows = parseInt(data.length / 3);
-                  //  alert(" Data Length : " + data.length);
-                    //alert(" Rows : " + rows);
+                   
                     var left = data.length % 3;
-                   // alert(" Length Data : " + data.length);
-                    //alert(" Left Item : " + left);
                     var json = JSON.parse(JSON.stringify(data));
                     var table = document.querySelector('#memberData1');
                     var count_rows = table.rows.count;
@@ -190,17 +191,16 @@
                             data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" id="' + json[count].Id +'" onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button>';
                             data += '</div></div></div>';
                             count++;
-                          
                         }
                         data += '</div>';
-                        //memberdata += data;
+                       // memberdata += data;
                     }
                     if (left > 0) {
                       //  alert(" Left : " + left + " Count : " + count);
                         var extra = '<div class="row" id="cont">';
                         for (var k = j; k < j+left; k++) {
                            // alert(" Is left k - :" + k + " Left : " + left);
-                              var mrow = table.insertRow(count_rows);
+                            var mrow = table.insertRow(count_rows);
                             var cell1 = mrow.insertCell(0);
                             var cell2 = mrow.insertCell(1);
                             var cell3 = mrow.insertCell(2);
@@ -213,7 +213,7 @@
                             cell4.innerHTML = "Count " + count;
                             cell5.innerHTML = "Check In";
 
-                            data += '<a href="/Member/Edit/' + json[count].Id + '"> <div id="cd1" class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[count].ImagePath + '" /></div>';
+                            data += '<a href="/Member/Edit/' + json[count].Id + '"> <div id="cd1" class="col33 memberwrapper">' + ' <div class="col40">' + '<img class="userimg" src="' + json[count].ImagePath + '" /></div>';
                             data += ' <div class="col60"> <h4>' + json[count].FirstName + ' ' + json[count].LastName + '</h4>' + '<hr>' + ' <h5>User ID ' + json[count].Id + ' </h5>';
                             data += ' <p>Created on <b>' + (count) + '</b></p></a>';
                             data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
@@ -225,7 +225,6 @@
                         memberdata += data;
                     }
                     $('#colvalue').html(memberdata);
-                   
                 } else {
                     alert("Something went wrong");
                 }
