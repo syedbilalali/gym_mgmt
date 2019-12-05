@@ -16,13 +16,13 @@ namespace gym_mgmt_01.Models
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid Email Address.")]
         public string Email { get; set;  }
-        [RegularExpression(@"^(?:\+971 | 00971 | 0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$" , ErrorMessage = " Invalid Mobile Number !!!")]
+        [RegularExpression(@"^(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Mobile Number !!!")]
         public string Cell { get; set;  }
 
-        [RegularExpression(@"^(?:\+971 | 00971 | 0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Cell Number !!!")]
+        [RegularExpression(@"^(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Cell Number !!!")]
         public string Home { get; set;  }
 
-        [RegularExpression(@"^(?:\+971 | 00971 | 0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Home Number !!!")]
+        [RegularExpression(@"^(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Home Number !!!")]
         public string Work { get; set;  } 
 
         [MaxLength(150, ErrorMessage = "Address can't be more than 150 characters"), MinLength(5, ErrorMessage = "Address can't be less than 5 characters")]

@@ -81,7 +81,6 @@ namespace gym_mgmt_01.Controllers
         public ActionResult addSubscriptions(FormCollection fc) {
             
             if (ModelState.IsValid) {
-
                 Subscriptions sop = new Subscriptions();
                 sop.MembershipID = int.Parse(fc["membershp"].ToString());
                 sop.MemberID = int.Parse(fc["member"].ToString());
@@ -91,9 +90,12 @@ namespace gym_mgmt_01.Controllers
         }
         public JsonResult getMemberships(int id)
         {
-
             List<Membership> mshOpt = memOpt.getAllMemberships();
             var prod = mshOpt.Find(x => x.Id.Equals(id));
+            if (prod == null)
+            {
+                return Json(" No Result Found !!! ", JsonRequestBehavior.AllowGet);
+            }
             return Json(prod, JsonRequestBehavior.AllowGet);
         }
         public JsonResult getSubscription(int id) {

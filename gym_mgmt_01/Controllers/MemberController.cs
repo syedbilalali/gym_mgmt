@@ -22,9 +22,6 @@ namespace gym_mgmt_01.Controllers
         MembershipOpt memOpt = new MembershipOpt();
         DataTable dt = new DataTable();
         dynamic model = new System.Dynamic.ExpandoObject();
-        //   EmergencyContactOpt eco = new EmergencyContactOpt();
-        //  AddtionalDetailsOpt ado = new AddtionalDetailsOpt();
-        //  PropectusOperation po = new PropectusOperation();
         public ActionResult Index(int? id)
         {
             if (id == null)
@@ -36,8 +33,7 @@ namespace gym_mgmt_01.Controllers
                 return View();
             }
             else {
-
-                    
+            
                 Member mem = mo.getMember(id);
                 ViewBag.ID = mem.Id;
                 model.data = mem;
@@ -87,8 +83,13 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Save(MemberRegistration mr) {
-            if (ModelState.IsValid) { 
+            if (ModelState.IsValid) {
 
+                mr.member.ImagePath = uploadFile(mr.member.ImageFile);
+                mr.member.MemberType = "member";
+                mr.contact.Subscribed = "";
+                mo.AddMemeber(mr.member);
+                co.AddContact(mr.contact);
             }
             return View("Index");
         }
@@ -113,6 +114,13 @@ namespace gym_mgmt_01.Controllers
                         ImagePath = dr["ImgURL"].ToString()
                     }).ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult getMember(int? id) {
+            List<Member> mem = mo.getAllMembers();
+            var member1 = mem.Find(x => x.Id.Equals(id));
+
+            return Json(member1, JsonRequestBehavior.AllowGet);
         }
         public ActionResult FindMember(int? id)
         {
