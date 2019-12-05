@@ -42,7 +42,7 @@
                         {
                             <tr>
                                 <td>@sb.ClassName</td>
-                                <td>@{ if (sb.TrainnerName == "") { <i>None</i> } else { <i>sb.TrainnerName</i>  } }
+                                <td>@{ if (sb.TrainnerName == "") { <i>None</i> } else { <i>@sb.TrainnerName</i>  } }
                                 </td>
                                 <td>From : @sb.FromTime.ToString(" HH:MM ")  -  To : @sb.ToTime.ToString(" HH:MM ")</td>
                                 <td>@sb.ExpirayDate.ToString("dd-mm-yyyy")</td>
@@ -208,12 +208,11 @@
                     dataType: "json",
                success: function (response) {
 
-                   alert(JSON.stringify(response));
-                   $('#subsMembers').val(response.MemberID).trigger('change');
+                   // alert(JSON.stringify(response));
+                   $('#subsMembers').val(response.MemberID).trigger('change').attr("selected", "selected");
                    $('#subsclass').val(response.ClassID).trigger('change');
                    $('#Id').val(response.Id);
-
-               $('#editSubs').modal('show');
+                   $('#editSubs').modal('show');
             },
             error: function (response) {
                 alert(response.responseText);

@@ -128,10 +128,10 @@ namespace gym_mgmt_01.Controllers
         public ActionResult editSubscription(FormCollection fc)
         {
 
-            int MemberID = int.Parse(fc["memberID"].ToString());
-            int MembershipID = int.Parse(fc["membershipID"].ToString());
+            int MemberID = int.Parse(fc["member"].ToString());
+            int MembershipID = int.Parse(fc["membershp"].ToString());
             //  subs.UpdateSubscriptions(MemberID , MembershipID);
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewMemberships");
         }
     }
 }

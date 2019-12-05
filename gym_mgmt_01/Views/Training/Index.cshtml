@@ -273,13 +273,39 @@
                      alert(JSON.stringify(response));
                      //alert(" SucessFull Get the Value " + JSON.stringify(response));
                      $('#className').val(response.ClassName);
+                     var value = new Date
+                        (
+                        parseInt(response.From.replace(/(^.*\()|([+-].*$)/g, ''))
+                     );
+                     var to = new Date(
+                         parseInt(response.To.replace(/(^.*\()|([+-].*$)/g, ''))
+                     );
+                     var dat = value.getMonth() +
+                         1 +
+                       "/" +
+                     value.getDate() +
+                       "/" +
+                     value.getFullYear();
                      alert(response.From);
-                     var date =  Date.parse(response.From);
-                     alert(" Date : " + date);
+                     var date = Date.parse(response.From.replace(/(^.*\()|([+-].*$)/g, ''));
+           
+                     alert(" Time Is : " + value.getTime());
+                     var hour = value.getUTCHours();
+                     var min = value.getUTCMinutes();
+                     var sec = value.getUTCSeconds();
+
+                     var hour1 = to.getUTCHours();
+                     var min1 = to.getUTCMinutes();
+                     var sec1 = to.getUTCSeconds();
+                     alert(" Hour " + hour + " Min " + min);
                      var dateObj = new Date(JSON.stringify(response.From)); 
                      utcString = dateObj.toUTCString();
-                 //    $('#timeFrom').val('12:00:00');
-                 //    $('#timeTo').val('13:00:00');
+                     var from = '0' + hour + ':' + min + ':' + sec + '0';
+                     var to1 =  '0' + hour1 + ':' + min1 + ':' + sec1 + '0';
+                     alert(from);
+                     alert(to1);
+                     $('#timeFrom').val(from);
+                     $('#timeTo').val(to1);
                      $('#Repeats').val(response.Repeats);
                      $('#RepeatsEnds').val(response.RepeatsEnd);
                      $('#Resource').val(response.Resource);

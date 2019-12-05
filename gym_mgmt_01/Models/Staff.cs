@@ -20,6 +20,8 @@ namespace gym_mgmt_01.Models
         [StringLength(30, MinimumLength = 4,
                   ErrorMessage = "Last name should be between 4 and 30 characters")]
         public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Last Name is Required")]
         public string Email { get; set; }
         public DateTime DOB { get; set; }
 
