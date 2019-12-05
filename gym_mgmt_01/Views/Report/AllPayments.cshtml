@@ -8,6 +8,7 @@
 @model dynamic
 <div class="row upp2">
     <!-- Column -->
+
     <div class="row rolebtns2">
         <div class="col-lg-6 col-xlg-6 col-md-6">
             @using (@Html.BeginForm("AllBills", "Report", FormMethod.Post))
@@ -36,7 +37,10 @@
             {
                 <button type="submit" class="btn btn-info">Export to CSV</button>
             }
-            <button type="button" class="btn btn-info">Print</button>
+            @using (Html.BeginForm("AllPaymentPrint", "Report", FormMethod.Post, new { @style = "display:contents;" }))
+            {
+            <button type="submit" class="btn btn-info">Print</button>
+            }
         </div>
     </div>
     <div class="addrolestab scrolltab">
