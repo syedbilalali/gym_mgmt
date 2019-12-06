@@ -18,7 +18,7 @@ namespace gym_mgmt_01.Models
 
         [DisplayName("Last Name")]
         [Required(ErrorMessage = " Last Name Required. ")]
-        [RegularExpression(@" ^[a-zA-Z]+$", ErrorMessage = " Please enter valid name. ")]
+      //  [RegularExpression(@" ^[a-zA-Z]+$", ErrorMessage = " Please enter valid name. ")]
         public string  LastName { get; set; }
 
         [DateMinimumAge(18, ErrorMessage = "{0} must be someone at least {1} years of age")]
@@ -39,6 +39,8 @@ namespace gym_mgmt_01.Models
 
         [DisplayName("Upload File")]
         public string ImagePath { get; set;  }
+
+        public HttpPostedFileBase ImageFile { get; set; }
 
     }
     public class DateMinimumAgeAttribute : ValidationAttribute

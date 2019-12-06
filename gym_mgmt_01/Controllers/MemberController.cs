@@ -72,8 +72,10 @@ namespace gym_mgmt_01.Controllers
                 con.City = fc["City"];
                 con.Zipcode = fc["Zipcode"];
                 con.Subscribed = "";
+                
                 mo.AddMemeber(m1);
                 co.AddContact(con);
+                
                 ViewBag.ID = mo.getMemberID();
                 ViewBag.Alert = "block";
                 ViewBag.Message = "Successfully add Member !!! ";
@@ -82,12 +84,20 @@ namespace gym_mgmt_01.Controllers
                 ViewBag.Message = "Something went wrong !!! ";
             }
             //return RedirectToAction ("Index");
-            return View();
+            return View(fc);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Save(MemberRegistration mr) {
-            if (ModelState.IsValid) { 
+            if (ModelState.IsValid)
+            {
+                mr.member.ImagePath = uploadFile(mr.member.ImageFile); 
+                mr.member.MemberType = "member";
+                mr.contact.Subscribed = "";
+                mo.AddMemeber(mr.member);
+                co.AddContact(mr.contact);
+                ViewBag.Message = "Successfully add Member !!! ";
+
 
             }
             return View("Index");
