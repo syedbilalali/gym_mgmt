@@ -3,6 +3,11 @@
 @{
     ViewBag.Title = "Staff | Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+     List<SelectListItem> Genderlist = new List<SelectListItem>();
+    Genderlist.Add(new SelectListItem() { Text = "--SELECT Gender--", Value = "" });
+    Genderlist.Add(new SelectListItem() { Text = "Male", Value = "Male" });
+    Genderlist.Add(new SelectListItem() { Text = "Female", Value = "Female" });
+    Genderlist.Add(new SelectListItem() { Text = "Other", Value = "Other" });
 }
 
 @using (Html.BeginForm("Index", "Staff", FormMethod.Post, new { enctype = "multipart/form-data" , id="staffreg" ,  @class="needs-validation" , @novalidate="" }))
@@ -59,48 +64,45 @@
 
                                                     @*<input type="text" name="firstName" class="form-control" id="validationDefault01" placeholder="First name" value="" required>*@
                                                     @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "First Name", @required = "" } })
-                                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    @*<label for="validationDefault02">Last name</label>*@
-                                                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @for = "validationDefault01" })
-                                                    @*<input type="text" name="lastName" class="form-control" id="validationDefault02" placeholder="Last name" value="" required>*@
-                                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name", @required = "" } })
-                                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="validationDefaultUsername">Email</label>
                                                     <div class="input-group">
-                                                        <input type="text" name="email" class="form-control" id="validationDefaultUsername" placeholder="Email Address" aria-describedby="inputGroupPrepend2" required>
+                                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        @*<label for="validationDefault02">Last name</label>*@
+                                                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @for = "validationDefault01" })
+                                                        @*<input type="text" name="lastName" class="form-control" id="validationDefault02" placeholder="Last name" value="" required>*@
+                                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name", @required = "" } })
+                                                        @*@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })*@
+
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @for = "validationDefault01" })
+                                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @required = "" } })
+                                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
-                                            </div>
                                             <div class="form-row">
                                                 <div class="col-md-4 mb-3">
-                                                    <label for="validationDefault03">Gender</label>
-                                                    <select class="custom-select" name="gender" required>
-                                                        <option value="--">--Select Gender--</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
-                                                    </select>
+                                                    @Html.LabelFor(model => model.Gender, htmlAttributes: new { @for = "validationDefault01" })
+                                                    @Html.DropDownListFor(model => model.Gender, Genderlist, new { @class = " custom-select ", @placeholder = " Select Gender ", @required = "" })
+                                                    <div class="input-group">
+                                                        @Html.ValidationMessageFor(modal => modal.Gender, "", new { @class = "text-danger" })
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label for="validationDefault04">Password</label>
-                                                    <input type="password" name="password" class="form-control" id="validationDefault04" placeholder="Password" required>
+                                                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @for = "validationDefault01" })
+                                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control",  InputType = "password", @placeholder = "Password", Type = "password", @required = "" } })
+                                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label for="validationDefault05">Confirm Password</label>
-                                                    <input type="password" class="form-control" id="validationDefault05" placeholder="Confirm Password" required>
+                                                    @Html.LabelFor(model => model.Designation, htmlAttributes: new { @for = "validationDefault01" })
+                                                    @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "form-control", @placeholder = "Designation", @required = "" } })
+                                                    @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
                                                 </div>
 
                                             </div>
-                                            <div class="form-row">
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="validationDefault04">Designation</label>
-                                                    <input type="text" name="designation" class="form-control" id="validationDefault04" placeholder="Designation" required>
-                                                </div>
-                                            </div>
+                                           
                                             <button class="btn btn-primary" type="submit">Add</button>
                                         </form>
                                     </div>
@@ -208,6 +210,8 @@
         </script>
 }
 @section scripts {
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script type="text/javascript">
         $(function () {
             $('#upldImage').change(function () {

@@ -52,6 +52,7 @@
                                         @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
                                     </button>
                                     <input type="file" name="ImageFile" id="upldImage" />
+                                    @Html.HiddenFor(model => model.member.ImageUri, htmlAttributes: new { @id = "_dat" });
                                 </div>
                             </div>
                             <div class="m-b-30 checkaddmember" style="display:none;">
@@ -639,6 +640,7 @@
                             $('#profImg').attr('src', '/assets/images/users/deafult.png');
                         } else {
                             $('#profImg').attr('src', e.target.result);
+                            $('#_dat').val(e.target.result);
                         }
                     }
                     reader.readAsDataURL(input.files[0]);
