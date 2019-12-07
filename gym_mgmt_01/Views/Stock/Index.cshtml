@@ -103,15 +103,15 @@
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1"> Buy Price :</label>
-                            <input type="text" maxlength="20" name="getprice" required="" class="form-control label2" id="" />
+                            <input type="text" maxlength="20" name="getprice" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required="" placeholder="Enter Buy Price " class="form-control label2" id="" />
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1"> Sell Price :</label>
-                            <input type="text" maxlength="20" name="sellprice" required="" class="form-control label2" id="" />
+                            <input type="text" maxlength="20" name="sellprice" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  required="" placeholder="Enter Sell Price " class="form-control label2" id="" />
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1">Quantity :</label>
-                            <input type="text" maxlength="20" name="quantity" required="" class="form-control label2" id="" />
+                            <input type="text" maxlength="20" name="quantity" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required=""  placeholder="Enter Product Quantity. " class="form-control label2" id="" />
                         </div>
                     </form>
                 </div>
@@ -155,15 +155,15 @@
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1"> Buy Price :</label>
-                            <input type="text" maxlength="20" name="getprice" class="form-control label2" id="buyPrice" />
+                            <input type="text" maxlength="20" name="getprice" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  class="form-control label2" id="buyPrice" />
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1"> Sell Price :</label>
-                            <input type="text" maxlength="20" name="sellprice" class="form-control  label2" id="sellPrice" />
+                            <input type="text" maxlength="20" name="sellprice" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control  label2" id="sellPrice" />
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1"> Quantity :</label>
-                            <input type="text" maxlength="20" name="barcode" class="form-control label2" id="quantity" />
+                            <input type="text" maxlength="20" name="barcode" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control label2" id="quantity" />
                         </div>
                 </div>
                 <div class="modal-footer">

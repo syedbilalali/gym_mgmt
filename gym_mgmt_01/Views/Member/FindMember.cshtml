@@ -79,7 +79,6 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
- 
             </div>
         </div>
     </div>
@@ -183,7 +182,7 @@
                             card += ' <div class="col60"> <h4>' + json[i].FirstName + ' ' + json[i].LastName + '</h4>' + '<hr>' + ' <h5>User ID ' + json[i].Id + ' </h5>';
                             card += ' <p>Created on <b>' + (count) + '</b></p></a>';
                             card += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
-                            card += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" id="' + json[i].Id + '" onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button>';
+                            card += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" id="' + json[i].Id + '" onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button>';
                             card += '</div></div></div>';
                        }
                       card += '</div>';
@@ -227,7 +226,7 @@
                             data += ' <div class="col60"> <h4>' + json[i*j].FirstName + ' ' +json[i*j].LastName + '</h4>' + '<hr>' + ' <h5>User ID </h5>';
                             data += ' <p>Created on <b>' + count + '</b></p>';
                             data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
-                            data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" id="'+ json[i*j].Id+'" data-target="#exampleModal" onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button>';
+                            data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" id="'+ json[i*j].Id+'"  onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button>';
                             data += '</div></div></div>';
                             count++;
                         }
@@ -261,8 +260,11 @@
                 dataType: "json",
                 success: function(response) {
                     if (response != null) {
-                     alert(JSON.stringify(response));
-
+                       // alert(JSON.stringify(response));
+                        var membername = response.FirstName + ' ' + response.LastName;
+                        modalmembrID = response.Id;
+                        modalmembrname.value = membername;
+                        $('#exampleModal').modal('show');
                     } else {
                         alert("Something went wrong");
                     }

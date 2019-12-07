@@ -78,7 +78,7 @@
 
                                         @sellOrderItems.CreatedAt.Date.ToString("dd MMM yyyy")
                                                                 }
-                                                            </td>
+                                </td>
                                 <td>@sellOrderItems.ProductName</td>
                                 <td>@sellOrderItems.quantity</td>
                                 <td>@sellOrderItems.discount_price</td>
@@ -101,8 +101,8 @@
                     </tr>
                     <tr>
                         <td colspan="2" class="bold">To Pay</td>
-                        <td colspan="2" class="bold">$0.00</td>
-                        <td colspan="2" class="bold">Paid</td>
+                        <td colspan="2" class="bold">$@Model.SellOrder.Total_Pay</td>
+                        <td colspan="2" class="bold">Status : @Model.SellOrder.Paid_Status</td>
                     </tr>
                 </tbody>
             </table>

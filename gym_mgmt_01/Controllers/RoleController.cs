@@ -16,14 +16,35 @@ namespace gym_mgmt_01.Controllers
         dynamic model = new System.Dynamic.ExpandoObject();
         public ActionResult Index()
         {
-            List<Role> role = ro.getAllRole();
-            List<RoleGroup> roleGroup = ro.getAllRoleGroup();
-            ViewData["Role"] = role;
-            model.roleGroup = roleGroup;
-            return View(model);
+            List<RoleGroup> rg = ro.getAllRoleGroup();
+            ViewData["rolegroup"] = rg;
+            return View();
         }
-        public ActionResult addRoleGroup(FormCollection fc) {
+        public ActionResult addRoleGroup(RoleGroup rg) {
+            if (ModelState.IsValid) {
+                ro.AddRoleGroup(rg);
+            }
             return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public JsonResult IsAlreadyGroup(string groupname)
+        {
+
+            return Json(IsgGroupAvailable(groupname));
+        }
+        public bool IsgGroupAvailable(string groupname) {
+            List<RoleGroup> data = ro.getAllRoleGroup();
+            var gn = (from u in data
+                              where u.GroupName.ToUpper() == groupname.ToUpper()
+                              select new { groupname }).FirstOrDefault();
+            bool status;
+            if (gn != null) 
+            {
+                status = false;
+            } else {
+                status = true;
+            }
+            return status;
         }
     }
 }

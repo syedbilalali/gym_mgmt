@@ -42,6 +42,13 @@ namespace gym_mgmt_01.Controllers
         public ActionResult Authorize() {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Authorize(int id)
+        {   
+
+            return View();
+        }
         [HttpGet]
         public JsonResult getStaff() {
             DataTable dt = new DataTable();

@@ -22,10 +22,12 @@ namespace gym_mgmt_01.BAL.Master
             param[1] = new SqlParameter("@RoleFor", RoleFor);
             da.InsertSP(param, command);
         }
-        public void AddRoleGroup(string GroupName) {
+        public void AddRoleGroup(RoleGroup rg) {
             string command = "dbo.spInsertRoleGroup";
-            SqlParameter[] param = new SqlParameter[1];
-            param[0] = new SqlParameter("@GroupName" , GroupName);
+            SqlParameter[] param = new SqlParameter[3];
+            param[0] = new SqlParameter("@GroupName" , rg.GroupName);
+            param[1] = new SqlParameter("@Description" , rg.Description);
+            param[2] = new SqlParameter("@Access" , rg.Access);
             da.InsertSP(param , command);
         }
         public List<RoleGroup> getAllRoleGroup() {
@@ -39,6 +41,7 @@ namespace gym_mgmt_01.BAL.Master
                                  Id = int.Parse(dr["Id"].ToString()),
                                  GroupName = dr["GroupName"].ToString(),
                                  Description = dr["Description"].ToString(),
+                                 Access = dr["Access"].ToString(),
                                  CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString())
                              }).ToList();
             }
@@ -54,7 +57,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public List<Role> getAllRole()
         {
-            string command = " SELECT * FROM dbo.Roles";
+            string command = "SELECT * FROM dbo.Roles";
             List<Role> roleGroup = new List<Role>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)

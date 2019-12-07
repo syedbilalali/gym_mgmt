@@ -128,20 +128,19 @@
                 dataType: "json",
                 success: function (response) {
 
-                     alert(JSON.stringify(response));
-                   ///alert(" SucessFull Get the Value " + JSON.stringify(response));
+                    alert(JSON.stringify(response));
                     $('#membrshpname').val(response.Name);
                     $('#description').val(response.Description);
                     $('#memAmount').val(response.Amount);
-                    var startDate = Date.parse(response.sStartDate)
-                 //   var nowdate = startDate.getFullYear().toString() + '-' + (startDate.getMonth() + 1).toString().padStart(2, 0) + '-' + startDate.getDate().toString().padStart(2, 0);
-                    alert(startDate);
-               //q     alert(" Now Date : " + nowdate);
-                    //alert(Date.parse(response.sStartDate));
-                   // alert(Date.parse(response.sEndDate));
-
-                    $('#StartDate').val(response.sStartDate);
-                    $('#EndDate').val(Date.parse(response.sEndDate));
+                   // var startDate = Date.parse(response.sStartDate)
+                    var startDate = new Date( parseInt(response.StartDate.replace(/(^.*\()|([+-].*$)/g, '')) );
+                    var endDate = new Date(parseInt(response.EndDate.replace(/(^.*\()|([+-].*$)/g, '')));
+                    alert(" Start Date : " + startDate);
+                    alert(" End Date : " + endDate);
+                    var std = startDate.getDate() + '/' + (startDate.getMonth() + 1) + '/' + startDate.getFullYear();
+                    //   var nowdate = startDate.getFullYear().toString() + '-' + (startDate.getMonth() + 1).toString().padStart(2, 0) + '-' + startDate.getDate().toString().padStart(2, 0);
+                    $('#StartDate').val(std);
+                    $('#EndDate').val(endDate);
                     $('#preexpdays').val(response.PreEndDate);
                     $('#capacity').val(response.Capacity);
                     $('#editMembership').modal('show');
