@@ -68,8 +68,10 @@ namespace gym_mgmt_01.Controllers
                 con.City = fc["City"];
                 con.Zipcode = fc["Zipcode"];
                 con.Subscribed = "";
+                
                 mo.AddMemeber(m1);
                 co.AddContact(con);
+                
                 ViewBag.ID = mo.getMemberID();
                 ViewBag.Alert = "block";
                 ViewBag.Message = "Successfully add Member !!! ";
@@ -78,18 +80,13 @@ namespace gym_mgmt_01.Controllers
                 ViewBag.Message = "Something went wrong !!! ";
             }
             //return RedirectToAction ("Index");
-            return View();
+            return View(fc);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Save(MemberRegistration mr) {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid) { 
 
-                mr.member.ImagePath = uploadFile(mr.member.ImageFile);
-                mr.member.MemberType = "member";
-                mr.contact.Subscribed = "";
-                mo.AddMemeber(mr.member);
-                co.AddContact(mr.contact);
             }
             return View("Index");
         }
@@ -243,10 +240,25 @@ namespace gym_mgmt_01.Controllers
                 memlist = ConvertDataTable<gym_mgmt_01.Models.Membership>(dt);
                 ViewData["membership"] = memlist;
                 Member mem = mo.getMember(id);
-                ViewBag.ID = mem.Id;
-                model.data = mem;
-                ViewBag.Alert = "none";
-                return View(mem);
+                Contact cn = co.GetContact(id);
+              //  Contact con = 
+                MemberRegistration m = new MemberRegistration();
+              //  m.member.MemberType = "";
+               // m.contact.Subscribed = "";
+                 m.member = mem;
+                 m.contact = cn;
+               // mem.ImagePath = null;
+             //   m.contact = con;
+             ///   mo.UpdateMember(m.member);
+              //  co.UpdateContact(m.contact);
+                ViewBag.Message = "Update Member Data Here!!! ";
+                
+                //mem.ImagePath = mem.ImageUri;
+
+                //ViewBag.ID = mem.Id;
+                //model.data = mem;
+                //ViewBag.Alert = "none";
+                return View(m);
             }
         }
         private static List<T> ConvertDataTable<T>(DataTable dt)

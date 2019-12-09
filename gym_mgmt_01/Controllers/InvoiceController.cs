@@ -31,11 +31,7 @@ namespace gym_mgmt_01.Controllers
             return View(model);
         }
         public ActionResult get_last_Invoice() {
-
-            // var report = new PartialViewAsPdf("Index");
-            //   return report;
-            //  return new  ActionAsPdf("Index");
-            return new Rotativa.MVC.ActionAsPdf("Index");
+            return new  ActionAsPdf("Index");
         }
         private int getLastInvoiceID() {
 

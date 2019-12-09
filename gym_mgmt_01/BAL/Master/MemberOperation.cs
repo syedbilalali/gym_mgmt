@@ -29,14 +29,16 @@ namespace gym_mgmt_01.BAL.Master
         }
         public void UpdateMember(Member mb) {
             string command = "UPDATE dbo.Member SET FirstName=@FirstName, LastName=@LastName , DOB=@DOB, Gender=@Gender  , Note=@Note , MemberType=@MemberType, ImgURL=@ImgURL WHERE Id=@Id";
-            SqlParameter[] param = new SqlParameter[7];
+            SqlParameter[] param = new SqlParameter[8];
             param[0] = new SqlParameter("@Id", mb.Id);
             param[1] = new SqlParameter("@FirstName", mb.FirstName);
             param[2] = new SqlParameter("@LastName", mb.LastName);
-            param[3] = new SqlParameter("@Gender", mb.Gender);
-            param[4] = new SqlParameter("@DOB", mb.DOB);
+           //param[3] = new SqlParameter("@DOB", DateTime.TryParse(mb.DOB).ToString("yyyy-MM-dd"));
+            param[3] = new SqlParameter("@DOB", DateTime.Parse( mb.DOB).ToString("yyyy-MM-dd"));
+            param[4] = new SqlParameter("@Gender", mb.Gender);
             param[5] = new SqlParameter("@Note", mb.note);
-            param[6] = new SqlParameter("@ImgURL", mb.ImagePath);
+            param[6] = new SqlParameter("@MemberType", mb.MemberType);
+            param[7] = new SqlParameter("@ImgURL", mb.ImagePath);
             da.Insert(param, command);
         }
         public void DeleteMember(int id) {

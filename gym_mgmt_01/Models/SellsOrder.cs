@@ -8,7 +8,7 @@ namespace gym_mgmt_01.Models
     public class SellsOrder
     {
         public int Id { get; set;  }
-        public string Invoice_number { get; set;  }
+        public string Invoice_number { get; set;  }   
         public string Member_Name { get; set; }
         public decimal Subtotal { get; set; }
         public decimal Sales_Tax { get; set;  }

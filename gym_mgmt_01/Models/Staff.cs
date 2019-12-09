@@ -11,23 +11,32 @@ namespace gym_mgmt_01.Models
         public string StaffID { get; set;  }
 
 
-        [Required(ErrorMessage = "First Name is Required")]
-        [StringLength(30, MinimumLength = 4,
-                  ErrorMessage = "First name should be between 4 and 30 characters")]
+       
+        [Required(ErrorMessage = " First Name Required. ")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = " Please enter valid name. ")]
         public string FirstName { get; set;  }
 
-        [Required(ErrorMessage = "Last Name is Required")]
-        [StringLength(30, MinimumLength = 4,
-                  ErrorMessage = "Last name should be between 4 and 30 characters")]
+        [Required(ErrorMessage = " Last Name Required. ")]
+        [RegularExpression(@" ^[a-zA-Z]+$", ErrorMessage = " Please enter valid name. ")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Last Name is Required")]
+        [Display(Name = "Email Address")]
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address.")]
         public string Email { get; set; }
+
+        [DateMinimumAge(18, ErrorMessage = "{0} must be someone at least {1} years of age")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = " Please enter Date of Birth. ")]
         public DateTime DOB { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = " Please Choose Gender. ")]
         public string Gender { get; set;  }
+
+        [Required(ErrorMessage = " Please Choose Designation. ")]
         public string Designation { get; set;  }
+
+        [Required(ErrorMessage = " Please Enter Password. ")]
         public string Password { get; set;  }
         public string ImgURL { get; set; }
 
