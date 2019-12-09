@@ -8,6 +8,7 @@ using System.IO;
 using gym_mgmt_01.BAL.Master;
 using gym_mgmt_01.Models;
 using System.Configuration;
+using Newtonsoft.Json;
 
 namespace gym_mgmt_01.Controllers
  {
@@ -15,10 +16,12 @@ namespace gym_mgmt_01.Controllers
     public class StaffController : Controller
     {
         StaffOperation so = new StaffOperation();
+        RoleOperation ro = new RoleOperation();
         dynamic model = new System.Dynamic.ExpandoObject();
         // GET: Staff
         public ActionResult Index()
         {
+          
             return View();
         }
         [HttpPost]
@@ -34,20 +37,31 @@ namespace gym_mgmt_01.Controllers
             st.Designation = fc["designation"];
             string path = uploadFile(ImageFile);
             st.ImgURL =  path;
+            st.permission = getDefaultPermission();
          //   Response.Write("Staff Data : " + st.FirstName + " Designation " + st.Designation);
            so.AddStaff(st);
            ViewBag.result = "yes";
            return View();
         }
-        public ActionResult Authorize() {
-            return View();
+        public string getDefaultPermission() {
+
+            RoleOperation ro = new RoleOperation();
+            List<Role>  data = ro.getRoles();
+            ModuleDetails md = new ModuleDetails();
+            List<ModuleDetails> det = new List<ModuleDetails>();
+            foreach (var d in data) {
+                det.Add(new ModuleDetails { Module = d.Roles, status = "off" });
+            }
+            string js = JsonConvert.SerializeObject(det);
+            return js;
         }
-
-        [HttpPost]
         public ActionResult Authorize(int id)
-        {   
-
-            return View();
+        {
+            List<Staff> staffs = so.getAllStaff();
+            Staff st = staffs.Find(x => x.StaffID.Contains(id.ToString()));
+            List<ModuleDetails> md = JsonConvert.DeserializeObject<List<ModuleDetails>>(st.permission);
+            model.module = md;
+            return View(model);
         }
         [HttpGet]
         public JsonResult getStaff() {
@@ -85,6 +99,11 @@ namespace gym_mgmt_01.Controllers
             model.staff = data;
             return View(model);
         }
+        [HttpPost]
+        public ActionResult SetAuth(FormCollection fc) {
+            return View("Authorize");
+        }
+        
         public ActionResult DeleteStaff(int id)
         {
             try
@@ -150,4 +169,5 @@ namespace gym_mgmt_01.Controllers
             return relativePath;
         }
     }
+   
 }

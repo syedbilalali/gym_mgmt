@@ -34,6 +34,7 @@
                     <th>Role Group</th>
                     <th>Role</th>
                     <th>Description</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,7 +46,10 @@
                             <td> @gr.GroupName</td>
                             <td>@gr.Access</td>
                             <td>@gr.Description</td>
-                        </tr>
+                            <td>
+                                <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteRoles", "Role", new { id = gr.Id })'">Delete</button>
+                            </td>
+                        </tr> 
                     }
                 }
                 else

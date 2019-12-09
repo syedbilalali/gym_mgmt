@@ -16,8 +16,8 @@ namespace gym_mgmt_01.BAL.Master
         public void AddStaff(Staff pro)
         {
 
-            string command = "INSERT INTO dbo.Staff(FirstName,LastName,Gender,Email,Password,Designation,ImgURL) VALUES(@FirstName,@LastName,@Gender,@Email,@Password, @Designation,@ImgURL)";
-            SqlParameter[] param = new SqlParameter[7];
+            string command = "INSERT INTO dbo.Staff(FirstName,LastName,Gender,Email,Password,Designation,ImgURL , permisions) VALUES(@FirstName,@LastName,@Gender,@Email,@Password, @Designation,@ImgURL , @permisions)";
+            SqlParameter[] param = new SqlParameter[8];
             param[0] = new SqlParameter("@FirstName", pro.FirstName);
             param[1] = new SqlParameter("@LastName", pro.LastName);
             param[2] = new SqlParameter("@Gender", pro.Gender);
@@ -25,6 +25,9 @@ namespace gym_mgmt_01.BAL.Master
             param[4] = new SqlParameter("@Password", pro.Password);
             param[5] = new SqlParameter("@Designation", pro.Designation);
             param[6] = new SqlParameter("@ImgURL", pro.ImgURL);
+            param[7] = new SqlParameter("@permisions", pro.permission);
+           
+
             da.Insert(param, command);
         }
         public DataTable geAllStaff() {
@@ -58,6 +61,7 @@ namespace gym_mgmt_01.BAL.Master
                     Password = dr["Password"].ToString(),
                     Designation = dr["Designation"].ToString(),
                     ImgURL = dr["ImgURL"].ToString(),
+                    permission = dr["permisions"].ToString(),
                 }).ToList();
             }
             return st;

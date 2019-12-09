@@ -198,6 +198,7 @@
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MemberRegistration.cs" />
     <Compile Include="Models\Membership.cs" />
+    <Compile Include="Models\ModuleDetails.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductType.cs" />
     <Compile Include="Models\Prospectus.cs" />

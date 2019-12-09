@@ -53,14 +53,14 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title">Staff</h4>
-                                        <form id="staffReg" method="post">
+                                      
                                             <div class="form-row">
                                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="form-row">
                                                 <div class="col-md-4 mb-3">
                                                     @*<label for="validationDefault01">First name</label>*@
-                                                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @for = "validationDefault01" })
+                                                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { })
 
                                                     @*<input type="text" name="firstName" class="form-control" id="validationDefault01" placeholder="First name" value="" required>*@
                                                     @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "First Name", @required = "" } })
@@ -70,41 +70,42 @@
                                                     </div>
                                                     <div class="col-md-4 mb-3">
                                                         @*<label for="validationDefault02">Last name</label>*@
-                                                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @for = "validationDefault01" })
+                                                        @Html.LabelFor(model => model.LastName, htmlAttributes: new {  })
                                                         @*<input type="text" name="lastName" class="form-control" id="validationDefault02" placeholder="Last name" value="" required>*@
-                                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name", @required = "" } })
+                                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name" } })
                                                         @*@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })*@
 
                                                     </div>
                                                     <div class="col-md-4 mb-3">
-                                                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @for = "validationDefault01" })
+                                                        @Html.LabelFor(model => model.Email, htmlAttributes: new { })
                                                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @required = "" } })
                                                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             <div class="form-row">
                                                 <div class="col-md-4 mb-3">
-                                                    @Html.LabelFor(model => model.Gender, htmlAttributes: new { @for = "validationDefault01" })
+                                                    @Html.LabelFor(model => model.Gender, htmlAttributes: new {  })
                                                     @Html.DropDownListFor(model => model.Gender, Genderlist, new { @class = " custom-select ", @placeholder = " Select Gender ", @required = "" })
                                                     <div class="input-group">
                                                         @Html.ValidationMessageFor(modal => modal.Gender, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @for = "validationDefault01" })
+                                                    @Html.LabelFor(model => model.Password, htmlAttributes: new { })
                                                     @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control",  InputType = "password", @placeholder = "Password", Type = "password", @required = "" } })
                                                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    @Html.LabelFor(model => model.Designation, htmlAttributes: new { @for = "validationDefault01" })
+                                                    @Html.LabelFor(model => model.Designation, htmlAttributes: new {  })
                                                     @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "form-control", @placeholder = "Designation", @required = "" } })
                                                     @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
                                                 </div>
 
                                             </div>
-                                           
+                                     
                                             <button class="btn btn-primary" type="submit">Add</button>
-                                        </form>
+                                  
+                                      
                                     </div>
                                 </div>
 
@@ -259,23 +260,23 @@
   
                 return true;
             }
-            (function() {
-                'use strict';
-                window.addEventListener('load', function() {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                     if (form.checkValidity() === false) {
-                              event.preventDefault();
-                              event.stopPropagation();
-                     }
-                        form.classList.add('was-validated');
-                }, false);
-                 });
-              }, false);
-            })();
+            //(function() {
+            //    'use strict';
+            //    window.addEventListener('load', function() {
+            //    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            //    var forms = document.getElementsByClassName('needs-validation');
+            //    // Loop over them and prevent submission
+            //    var validation = Array.prototype.filter.call(forms, function(form) {
+            //    form.addEventListener('submit', function(event) {
+            //         if (form.checkValidity() === false) {
+            //                  event.preventDefault();
+            //                  event.stopPropagation();
+            //         }
+            //            form.classList.add('was-validated');
+            //    }, false);
+            //     });
+            //  }, false);
+            //})();
         });
     </script>
 }

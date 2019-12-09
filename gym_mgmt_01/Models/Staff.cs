@@ -9,15 +9,16 @@ namespace gym_mgmt_01.Models
     public class Staff
     {
         public string StaffID { get; set;  }
-
-
-       
+        [Display(Name = "First   Name")]
         [Required(ErrorMessage = " First Name Required. ")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = " Please enter valid name. ")]
         public string FirstName { get; set;  }
 
+
+
         [Required(ErrorMessage = " Last Name Required. ")]
-        [RegularExpression(@" ^[a-zA-Z]+$", ErrorMessage = " Please enter valid name. ")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = " Please enter valid name. ")]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Display(Name = "Email Address")]
@@ -39,6 +40,7 @@ namespace gym_mgmt_01.Models
         [Required(ErrorMessage = " Please Enter Password. ")]
         public string Password { get; set;  }
         public string ImgURL { get; set; }
+        public string permission { get; set;  }
 
 
     }

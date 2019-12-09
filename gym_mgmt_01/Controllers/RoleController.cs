@@ -46,5 +46,27 @@ namespace gym_mgmt_01.Controllers
             }
             return status;
         }
+        public ActionResult DeleteRoles(int id) {
+
+            try
+            {
+                bool result = ro.DeleteRoles(id); 
+                if (result == true)
+                {
+                    ViewBag.Message = "Role Group Deleted Successfully";
+                    ModelState.Clear();
+                }
+                else
+                {
+                    ViewBag.Message = "Something went wrong. !!! ";
+                    ModelState.Clear();
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

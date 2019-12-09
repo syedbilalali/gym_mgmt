@@ -40,6 +40,10 @@ namespace gym_mgmt_01.Models
         [DisplayName("Upload File")]
         public string ImagePath { get; set;  }
 
+        public string ImageUri { get; set;  }
+
+
+
     }
     public class DateMinimumAgeAttribute : ValidationAttribute
     {

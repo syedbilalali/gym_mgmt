@@ -90,5 +90,27 @@ namespace gym_mgmt_01.BAL.Master
             }
             return roleGroup;
         }
+        public bool DeleteRoles(int Id) {
+            string command = "DELETE FROM RoleGroup WHERE id=@Id";
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter("@Id", Id);
+            return da.Insert(param , command);
+        }
+        public List<Role> getRoles() {
+            string command = "SELECT * FROM dbo.RoleGroup WHERE Access='Staff'";
+            List<Role> roleGroup = new List<Role>();
+            dt = da.FetchAll(command);
+            if (dt.Rows.Count > 0)
+            {
+                roleGroup = (from DataRow dr in dt.Rows
+                             select new Role()
+                             {
+                                 Id = int.Parse(dr["Id"].ToString()),
+                                 Roles = dr["GroupName"].ToString(),
+                                 CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString())
+                             }).ToList();
+            }
+            return roleGroup;
+        }
     }
 }
