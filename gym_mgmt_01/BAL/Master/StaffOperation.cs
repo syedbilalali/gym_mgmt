@@ -34,6 +34,14 @@ namespace gym_mgmt_01.BAL.Master
             string command = "SELECT * FROM dbo.Staff";
             return da.FetchAll(command);
         }
+        public void updatePermission(String perm , String staffID ) {
+            
+            string command = "UPDATE dbo.Staff SET permisions=@perm WHERE StaffID=@StaffID";
+            SqlParameter[] param = new SqlParameter[2];
+            param[0] = new SqlParameter("@StaffID" , staffID);
+            param[1] = new SqlParameter("@perm" , perm);
+            da.Insert(param , command);
+        }
         public DataTable getStaffByID(int id) {
             string command = "SELECT * FROM dbo.Staff WHERE StaffID=@StaffID";
             SqlParameter[] param = new SqlParameter[1];

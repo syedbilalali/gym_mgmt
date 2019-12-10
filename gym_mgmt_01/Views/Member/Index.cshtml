@@ -127,7 +127,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="pwd2">Note</label>
-                                                    @Html.TextAreaFor(model => model.member.note, new { @class = "form-control", @rows = "8", @maxlength = "100", placeholder = " Enter Notes. ", @required = "" })
+                                                    @Html.TextAreaFor(model => model.member.note, new { @class = "form-control", @rows = "8", @maxlength = "100", placeholder = " Enter Notes. " })
 
                                                     <div class="input-group">
                                                         @Html.ValidationMessageFor(modal => modal.member.note, "", new { @class = "text-danger" })
@@ -146,7 +146,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Email address</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = " Enter Email Address" , @required = "" } })
+                                                        @Html.EditorFor(model => model.contact.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = " Enter Email Address" } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Email, "", new { @class = "text-danger" })
@@ -157,7 +157,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Cell<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Cell Number ", @required = "" } })
+                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Cell Number " } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Cell, "", new { @class = "text-danger" })
@@ -168,7 +168,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Home</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Home Number. " , @required = ""} })
+                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Home Number. "} })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Home, "", new { @class = "text-danger" })
@@ -179,7 +179,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Work</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Work, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Work Number. " , @required = ""} })
+                                                        @Html.EditorFor(model => model.contact.Work, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Work Number. " } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Work, "", new { @class = "text-danger" })
@@ -191,7 +191,7 @@
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">Address</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.Address, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " 123 Main Road", @minlength = "50" , @required = "" } })
+                                                        @Html.EditorFor(model => model.contact.Address, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " 123 Main Road", @minlength = "50" } })
 
                                                     </div>
                                                     <div class="input-group">
@@ -203,7 +203,7 @@
 
                                                     <label for="example-text-input" class="col-4 col-form-label">Suburb</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.Suburb, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " CBD " , @required = "" } })
+                                                        @Html.EditorFor(model => model.contact.Suburb, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " CBD "  } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Suburb, "", new { @class = "text-danger" })
@@ -216,7 +216,7 @@
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">City</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.City, new { htmlAttributes = new { @class = "form-control", @type = "text", @required = ""} })
+                                                        @Html.EditorFor(model => model.contact.City, new { htmlAttributes = new { @class = "form-control", @type = "text"} })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.City, "", new { @class = "text-danger" })
@@ -229,7 +229,7 @@
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">Zip Code</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.Zipcode, new { htmlAttributes = new { @class = "form-control", @maxlength = "6", @placeholder = "81203", @type = "text",  @required = ""} })
+                                                        @Html.EditorFor(model => model.contact.Zipcode, new { htmlAttributes = new { @class = "form-control", @maxlength = "6", @placeholder = "81203", @type = "text"} })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Zipcode, "", new { @class = "text-danger" })

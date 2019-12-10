@@ -9,5 +9,6 @@ namespace gym_mgmt_01.Models
     {
         public string Module { get; set; }
         public string status { get; set; }
+        public bool isSelected { get; set;  }
     }
 }
