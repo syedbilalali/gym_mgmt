@@ -85,8 +85,10 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Save(MemberRegistration mr) {
-            if (ModelState.IsValid) { 
+            if (ModelState.IsValid) {
 
+                mo.AddMemeber(mr.member);
+                co.AddContact(mr.contact);
             }
             return View("Index");
         }

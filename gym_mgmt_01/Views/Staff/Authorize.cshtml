@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Authorize";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 @model dynamic
 @using (Html.BeginForm("SetAuth", "Staff", FormMethod.Post))
@@ -19,7 +20,7 @@
                     </div>
             </div>
             <div class="col-lg-6 col-xlg-6 col-md-6">
-                <button type="submit"    class="btn btn-info btnaddrole"  data-toggle="modal" data-target="#addcat" data-whatever="">Save</button>
+                <button type="submit" class="btn btn-info btnad drole"  data-toggle="modal" data-target="#addcat" data-whatever="">Save</button>
             </div>
         </div>
         <div class="addrolestab">
@@ -31,24 +32,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.module.Count > 0)
+                    @foreach (var dt in (IEnumerable<gym_mgmt_01.Models.ModuleDetails>)ViewData["auth"])
                     {
-                        foreach (var st in Model.module)
-                        {
-                            <tr>
-                                <td>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(mode => dt.Module)
+                            </td>
+                            <td>
+                                @Html.CheckBox("Status", dt.status == "on" ? true : false, new { @type = "checkbox", @class = "js-switch" })
+                            </td>
+                        </tr>
 
-                                    @st.Module
-                                </td>
-                                <td>
-
-                                    @*<input id="memberType" name="memberType" type="checkbox" checked class="js-switch" data-color="#f62d51" data-size="small" />*@
-                                    @Html.CheckBox("Status", st.status == "on" ? true : false, new { @type = "checkbox", @class = "js-switch" })
-
-                                </td>
-                            </tr>
-                        }
                     }
+                    
                 </tbody>
             </table>
         </div>
@@ -56,10 +52,9 @@
 
     </div>
 }
-
-    @section scripts {
-        <script type="text/javascript">
-
-        </script>
-    }
+@section scripts {
+    <script type="text/javascript">
+        
+    </script>
+}
 

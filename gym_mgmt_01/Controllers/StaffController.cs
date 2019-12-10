@@ -60,8 +60,8 @@ namespace gym_mgmt_01.Controllers
             List<Staff> staffs = so.getAllStaff();
             Staff st = staffs.Find(x => x.StaffID.Contains(id.ToString()));
             List<ModuleDetails> md = JsonConvert.DeserializeObject<List<ModuleDetails>>(st.permission);
-            model.module = md;
-            return View(model);
+            ViewData["auth"] = md;
+            return View();
         }
         [HttpGet]
         public JsonResult getStaff() {
