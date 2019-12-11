@@ -8,7 +8,11 @@ using System.Web;
 namespace gym_mgmt_01.Models
 {
     public class Member
-    {   
+    {
+
+        public Member() {
+            note = "";
+        }
         public int Id { get; set;  }
 
         [DisplayName("First Name")]
@@ -41,8 +45,6 @@ namespace gym_mgmt_01.Models
         public string ImagePath { get; set;  }
 
         public string ImageUri { get; set;  }
-
-
 
     }
     public class DateMinimumAgeAttribute : ValidationAttribute

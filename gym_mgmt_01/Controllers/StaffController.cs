@@ -18,7 +18,6 @@ namespace gym_mgmt_01.Controllers
         StaffOperation so = new StaffOperation();
         RoleOperation ro = new RoleOperation();
         dynamic model = new System.Dynamic.ExpandoObject();
-        private int id = 0;
         // GET: Staff
         public ActionResult Index()
         {
@@ -26,21 +25,18 @@ namespace gym_mgmt_01.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(FormCollection  fc , HttpPostedFileBase ImageFile) {
-           
-            Staff st = new Staff();
-            st.FirstName = fc["firstName"];
-            st.LastName = fc["lastName"];
-            st.Email = fc["email"];
-            st.Gender = fc["gender"];
-            st.Password = fc["password"];
-            st.Designation = fc["designation"];
-            string path = uploadFile(ImageFile);
-            st.ImgURL =  path;
-            st.permission = getDefaultPermission();
-            so.AddStaff(st);
-            ViewBag.result = "yes";
-            return View();
+        public ActionResult Index(Staff st) {
+
+            if (ModelState.IsValid) {
+
+                string path = uploadFile(st.PostedFile);
+                st.ImgURL = path;
+                st.permission = getDefaultPermission();
+                so.AddStaff(st);
+                ViewBag.result = "yes";
+                ViewBag.Message = " Staff Member added successfully !!! ";
+            }
+           return View();
         }
         public string getDefaultPermission() {
 
@@ -49,23 +45,18 @@ namespace gym_mgmt_01.Controllers
             ModuleDetails md = new ModuleDetails();
             List<ModuleDetails> det = new List<ModuleDetails>();
             foreach (var d in data) {
-                det.Add(new ModuleDetails { Module = d.Roles, status = "off" , isSelected = false });
+                det.Add(new ModuleDetails { Module = d.Roles, status = "off" });
             }
             string js = JsonConvert.SerializeObject(det);
             return js;
         }
         public ActionResult Authorize(int id)
-        {  
+        {
             List<Staff> staffs = so.getAllStaff();
             TempData["Id"] = id.ToString();
             Staff st = staffs.Find(x => x.StaffID.Contains(id.ToString()));
             List<ModuleDetails> md = JsonConvert.DeserializeObject<List<ModuleDetails>>(st.permission);
             return View(md);
-        }
-        [HttpPost]
-        public ActionResult Authorize(List<gym_mgmt_01.Models.ModuleDetails> md) {
-
-            return View();
         }
         [HttpGet]
         public JsonResult getStaff() {
@@ -104,8 +95,8 @@ namespace gym_mgmt_01.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult SetAuth(List<ModuleDetails> md ) {
-
+        public ActionResult SetAuth(List<ModuleDetails> md)
+        {
             string Id = TempData["id"].ToString();
             so.updatePermission(JsonConvert.SerializeObject(md), Id);
             return RedirectToAction("Authorize", new { id = Id });

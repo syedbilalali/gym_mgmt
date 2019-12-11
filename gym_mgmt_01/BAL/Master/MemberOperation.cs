@@ -22,9 +22,9 @@ namespace gym_mgmt_01.BAL.Master
             param[1] = new SqlParameter("@LastName" , mb.LastName);
             param[2] = new SqlParameter("@DOB", mb.DOB);
             param[3] = new SqlParameter("@Gender", mb.Gender);
-            param[4] = new SqlParameter("@Note" , mb.note);
+            param[4] = new SqlParameter("@Note", (mb.note == null) ? "" : mb.note) ;
             param[5] = new SqlParameter("@MemberType", mb.MemberType);
-            param[6] = new SqlParameter("@ImgURL" , mb.ImagePath);
+            param[6] = new SqlParameter("@ImgURL" , (mb.ImagePath == null) ? "" : mb.ImagePath);
             da.Insert(param , command);
         }
         public void UpdateMember(Member mb) {

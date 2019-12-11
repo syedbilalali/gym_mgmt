@@ -26,7 +26,6 @@ namespace gym_mgmt_01.BAL.Master
             param[5] = new SqlParameter("@Designation", pro.Designation);
             param[6] = new SqlParameter("@ImgURL", pro.ImgURL);
             param[7] = new SqlParameter("@permisions", pro.permission);
-           
 
             da.Insert(param, command);
         }

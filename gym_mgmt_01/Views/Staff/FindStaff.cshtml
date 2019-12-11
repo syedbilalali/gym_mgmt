@@ -18,11 +18,11 @@
             </form>
         </div>
         <div class="col-lg-6 col-xlg-6 col-md-6">
-            <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" data-whatever=""> Add Staff</button>
+            <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" onclick="location.href='@Url.Action("", "Staff")'"  data-whatever=""> Add Staff</button>
         </div>
     </div>
     <div class="addrolestab">
-        <table class="table table-hover">
+        <table class="table table-hover table-responsive">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -67,6 +67,6 @@
 </div>
 @section scripts {
     <script type="text/javascript">
-
+     
     </script>
 }

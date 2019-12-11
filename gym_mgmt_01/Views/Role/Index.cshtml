@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = " Physiofit | Role Group ";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var roles = (List<gym_mgmt_01.Models.Role>)ViewData["Role"];
     ViewBag.MemberType = "";
@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="addrolestab">
-        <table class="table table-hover">
+        <table class="table table-hover table-responsive">
             <thead>
                 <tr>
                     <th>Role Group</th>
@@ -67,7 +67,6 @@
 <!-- /.modal -->
 @using (Html.BeginForm("addRoleGroup", "Role", FormMethod.Post))
 {
-
     <div class="modal" id="addroles" tabindex="-1" role="dialog" aria-labelledby="addroleslabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -95,7 +94,6 @@
                         @Html.TextAreaFor(model => model.Description, new { @type = "text", @class = "form-control label2", @id = "", @rows = "3" })
                         @Html.ValidationMessageFor(model => Model.Description, "", new { @class = "text-danger" })
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-default btn-info">Submit</button>

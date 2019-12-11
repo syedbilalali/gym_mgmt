@@ -68,7 +68,6 @@ namespace gym_mgmt_01.Controllers
                 con.City = fc["City"];
                 con.Zipcode = fc["Zipcode"];
                 con.Subscribed = "";
-                
                 mo.AddMemeber(m1);
                 co.AddContact(con);
                 
@@ -77,6 +76,7 @@ namespace gym_mgmt_01.Controllers
                 ViewBag.Message = "Successfully add Member !!! ";
             }
             else {
+
                 ViewBag.Message = "Something went wrong !!! ";
             }
             //return RedirectToAction ("Index");
@@ -87,8 +87,14 @@ namespace gym_mgmt_01.Controllers
         public ActionResult Save(MemberRegistration mr) {
             if (ModelState.IsValid) {
 
+                mr.member.ImagePath = mr.member.ImageUri;
+                mr.member.MemberType = "member";
+                mr.contact.Subscribed = "";
                 mo.AddMemeber(mr.member);
                 co.AddContact(mr.contact);
+                ViewBag.Message = "Successfully add Member !!! ";
+                ModelState.Clear();
+                return RedirectToAction("Index");
             }
             return View("Index");
         }
