@@ -14,8 +14,7 @@
     <!-- This page CSS -->
     <!-- chartist CSS -->
     <link href="@Url.Content("~/assets/node_modules/morrisjs/morris.css")" rel="stylesheet">
-    <!--Toaster Popup message CSS -->
-    <link href="@Url.Content("~/assets/node_modules/toast-master/css/jquery.toast.css")" rel="stylesheet">
+  
     <!-- Custom CSS -->
     <link href="@Url.Content("~/dist/css/style.min.css")" rel="stylesheet">
     <link href="@Url.Content("~/assets/node_modules/switchery/dist/switchery.min.css")" rel="stylesheet" />
@@ -105,9 +104,7 @@
     width: 80px;
     height: 80px;
 	}
-	.row{
-	width: 100%;
-	}
+
 	.selbtn{
 	margin: 15px 0px;
 	}
@@ -411,7 +408,7 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="@Url.Action("Index", "Training")">Add Training Class</a></li>
                                 <li><a href="@Url.Action("AssignClass", "Training")">Assign Training Class</a></li>
-                                <li><a href="@Url.Action("AddReminder", "Training")">Set Reminder</a></li>
+                                @*<li><a href="@Url.Action("AddReminder", "Training")">Set Reminder</a></li>*@
                             </ul>
                         </li>
                         <li>
@@ -420,7 +417,7 @@
                                 <li><a href="@Url.Action("AllPayments", "Report")">All Payments</a></li>
                                 <li><a href="@Url.Action("AllBills", "Report")">All Bills </a></li>
                                 <li><a href="@Url.Action("AllSubscriptions", "Report")">All Subscription</a></li>
-                                <li><a href="@Url.Action("AllVisitor", "Report")">All Visitors Information</a></li>
+                                @*<li><a href="@Url.Action("AllVisitor", "Report")">All Visitors Information</a></li>*@
                             </ul>
                         </li>
                     </ul>
@@ -484,8 +481,7 @@
     <script src="@Url.Content("~/assets/node_modules/raphael/raphael-min.js")"></script>
     <script src="@Url.Content("~/assets/node_modules/morrisjs/morris.min.js")"></script>
     <script src="@Url.Content("~/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js")"></script>
-    <!-- Popup message jquery -->
-    <script src="@Url.Content("~/assets/node_modules/toast-master/js/jquery.toast.js")"></script>
+
     <!-- Chart JS -->
     <script src="@Url.Content("~/dist/js/dashboard1.js")"></script>
     <script src="@Url.Content("~/assets/node_modules/toast-master/js/jquery.toast.js")"></script>

@@ -27,7 +27,7 @@ namespace gym_mgmt_01.Models
 
         [DateMinimumAge(18, ErrorMessage = "{0} must be someone at least {1} years of age")]
         [DisplayName("Date of Birth")]
-       [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = " Please enter Date of Birth. ")]
         public string DOB { get; set; }
 

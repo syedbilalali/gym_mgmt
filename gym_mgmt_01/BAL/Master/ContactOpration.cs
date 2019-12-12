@@ -37,15 +37,15 @@ namespace gym_mgmt_01.BAL.Master
             string command = "UPDATE dbo.Contact  SET MemberID=@MemberID ,Email= @Email,Cell=@Cell ,Home=@Home,Work=@Work ,Address=@Address, Suburb=@Suburb , City=@City, ZipCode=@ZipCode, Subscribed=@Subscribed WHERE Id=@Id";
             SqlParameter[] param = new SqlParameter[11];
             param[0] = new SqlParameter("@MemberID", c.MemberID);
-            param[1] = new SqlParameter("@Email", c.Email);
-            param[2] = new SqlParameter("@Cell", c.Cell);
-            param[3] = new SqlParameter("@Home", c.Home);
-            param[4] = new SqlParameter("@Work", c.Work);
-            param[5] = new SqlParameter("@Address", c.Address);
-            param[6] = new SqlParameter("@Suburb", c.Suburb);
-            param[7] = new SqlParameter("@City", c.City);
-            param[8] = new SqlParameter("@ZipCode", c.Zipcode);
-            param[9] = new SqlParameter("@Subscribed", c.Subscribed);
+            param[1] = new SqlParameter("@Email", (c.Email == null) ? "" : c.Email);
+            param[2] = new SqlParameter("@Cell", (c.Cell == null) ? "" : c.Cell);
+            param[3] = new SqlParameter("@Home", (c.Home == null) ? "" : c.Home);
+            param[4] = new SqlParameter("@Work", (c.Work == null) ? "" : c.Work);
+            param[5] = new SqlParameter("@Address", (c.Address == null) ? "" : c.Address);
+            param[6] = new SqlParameter("@Suburb", (c.Suburb == null) ? "" : c.Suburb);
+            param[7] = new SqlParameter("@City", (c.City == null) ? "" : c.City);
+            param[8] = new SqlParameter("@ZipCode", (c.Zipcode == null) ? "" : c.Zipcode);
+            param[9] = new SqlParameter("@Subscribed", (c.Subscribed == null) ? "" : c.Subscribed);
             param[10] = new SqlParameter("@Id" , c.Id);
             da.Insert(param, command);
         }
@@ -54,7 +54,7 @@ namespace gym_mgmt_01.BAL.Master
         {
 
             DataTable dt = new DataTable();
-            string command = "SELECT * FROM dbo.Contact WHERE dbo.Contact.Id=@Id";
+            string command = "SELECT * FROM dbo.Contact WHERE dbo.Contact.MemberID=@Id";
             SqlParameter[] param = new SqlParameter[1];
             Contact con = new Contact();
             param[0] = new SqlParameter("@Id", id);

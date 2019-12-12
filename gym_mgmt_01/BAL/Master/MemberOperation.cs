@@ -33,12 +33,11 @@ namespace gym_mgmt_01.BAL.Master
             param[0] = new SqlParameter("@Id", mb.Id);
             param[1] = new SqlParameter("@FirstName", mb.FirstName);
             param[2] = new SqlParameter("@LastName", mb.LastName);
-           //param[3] = new SqlParameter("@DOB", DateTime.TryParse(mb.DOB).ToString("yyyy-MM-dd"));
-            param[3] = new SqlParameter("@DOB", DateTime.Parse( mb.DOB).ToString("yyyy-MM-dd"));
+            param[3] = new SqlParameter("@DOB", DateTime.Parse(mb.DOB).ToString("yyyy-MM-dd"));
             param[4] = new SqlParameter("@Gender", mb.Gender);
-            param[5] = new SqlParameter("@Note", mb.note);
+            param[5] = new SqlParameter("@Note", (mb.note == null) ? "" : mb.note);
             param[6] = new SqlParameter("@MemberType", mb.MemberType);
-            param[7] = new SqlParameter("@ImgURL", mb.ImagePath);
+            param[7] = new SqlParameter("@ImgURL", (mb.ImagePath == null) ? "" : mb.ImagePath);
             da.Insert(param, command);
         }
         public void DeleteMember(int id) {
@@ -109,6 +108,7 @@ namespace gym_mgmt_01.BAL.Master
                     note = dt.Rows[0]["Note"].ToString(),
                     MemberType = dt.Rows[0]["MemberType"].ToString(),
                     ImagePath = dt.Rows[0]["ImgURL"].ToString(),
+                   
                 };
             }
             return mem;

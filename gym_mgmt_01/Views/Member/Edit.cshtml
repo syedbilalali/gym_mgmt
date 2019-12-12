@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Physiofit | Edit";
+    ViewBag.Title = " Physiofit | Member ";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.MemberType = "";
     List<SelectListItem> Genderlist = new List<SelectListItem>();
@@ -8,8 +8,6 @@
     Genderlist.Add(new SelectListItem() { Text = "Male", Value = "Male" });
     Genderlist.Add(new SelectListItem() { Text = "Female", Value = "Female" });
     Genderlist.Add(new SelectListItem() { Text = "Other", Value = "Other" });
-    List<gym_mgmt_01.Models.Membership> membership = ViewData["membership"] as List<gym_mgmt_01.Models.Membership>;
-
 }
 @model gym_mgmt_01.Models.MemberRegistration
 @using (Html.BeginForm("Edit", "Member", FormMethod.Post, new { enctype = "multipart/form-data", id = "memreg", @class = "needs-validation", @novalidate = "" }))
@@ -18,20 +16,19 @@
     <form id="memberReg" method="post">
         <div class="row uppercontainer">
             <div class="col-md-12">
-                @if (ViewBag.Message == null)
+                @if (ViewBag.Message != null)
                 {
                     <div class="alert alert-success" style="display:@ViewBag.Alert;">
                         <i class="ti-user"></i>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                         @ViewBag.Message
                     </div>
-
                 }
             </div>
         </div>
         <div class="row uppercontainer">
             <div class="col-md-6">
-                <h4> MemberID #@ViewBag.ID </h4>
+                <h4>ID : #@ViewBag.ID </h4>
             </div>
             <div class="col-md-6">
                 <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
@@ -43,7 +40,7 @@
                 <div class="card">
                     <div class="card-body profilecard">
                         <center class="m-t-30">
-                            <img src="@Model.member.ImagePath" width="150px" height="150px" id="profImg" class="img-circle" width="150" />
+                            <img src="~/assets/images/users/deafult.png" width="150px" height="150px" id="profImg" class="img-circle" />
                             <h4 class="card-title m-t-10"></h4>
                             <!--    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6> -->
                             <div class="row text-center justify-content-md-center">
@@ -60,6 +57,7 @@
                             </div>
                             <div class="m-b-30 checkaddmember" style="display:none;">
                                 <span class="text-muted">Member&nbsp;&nbsp;</span>
+
                                 <input id="memberType" name="memberType" type="checkbox" checked class="js-switch" data-color="#f62d51" data-size="small" />
                                 <span class="text-truncate">&nbsp;&nbsp;Prospectus</span>
                             </div>
@@ -75,8 +73,6 @@
                         <!--   <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Timeline</a> </li>
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Profile</a> </li> -->
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab"> <i class="ti-user"></i>&nbsp;Details</a> </li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#membership" role="tab"><i class="ti-id-badge"></i>&nbsp;Membership</a></li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#training" role="tab"><i class="ti-receipt"></i>&nbsp;Training</a></li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
@@ -88,10 +84,9 @@
                                             <h4 class="card-title"><i class="ti-user"></i>&nbsp;&nbsp;Details</h4>
                                             <div class="form p-t-20">
                                                 <div class="form-group">
-                                                    <label for="exampleInputuname">First Name</label>
-                                                    <div class="input-group mb-3">
+                                                    <label for="exampleInputuname">First Name <span class=" text-danger">*</span></label>
+                                                    <div class="input-group">
                                                         @Html.EditorFor(model => model.member.FirstName, new { htmlAttributes = new { @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "Enter First Name. ", @required = "" } })
-
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.FirstName, "", new { @class = "text-danger" })
                                                         </div>
@@ -110,8 +105,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Date of Birth<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "dob", @placeholder = " Enter Date of Birth ", @required = "" } })
-
+                                                        @Html.EditorFor(model => model.member.DOB,  new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "dob", @placeholder = " Enter Date of Birth ", @required = "" } } )
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.DOB, "", new { @class = "text-danger" })
                                                         </div>
@@ -131,7 +125,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="pwd2">Note</label>
-                                                    @Html.TextAreaFor(model => model.member.note, new { @class = "form-control", @rows = "8", @maxlength = "100", placeholder = " Enter Notes. ", @required = "" })
+                                                    @Html.TextAreaFor(model => model.member.note, new { @class = "form-control", @rows = "8", @maxlength = "100", placeholder = " Enter Notes. " })
 
                                                     <div class="input-group">
                                                         @Html.ValidationMessageFor(modal => modal.member.note, "", new { @class = "text-danger" })
@@ -150,7 +144,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Email address</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = " Enter Email Address", @required = "" } })
+                                                        @Html.EditorFor(model => model.contact.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = " Enter Email Address" } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Email, "", new { @class = "text-danger" })
@@ -161,7 +155,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Cell<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Cell Number ", @required = "" } })
+                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Cell Number " } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Cell, "", new { @class = "text-danger" })
@@ -172,7 +166,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Home</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Home Number. ", @required = "" } })
+                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Home Number. " } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Home, "", new { @class = "text-danger" })
@@ -183,7 +177,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Work</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Work, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Work Number. ", @required = "" } })
+                                                        @Html.EditorFor(model => model.contact.Work, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Work Number. " } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Work, "", new { @class = "text-danger" })
@@ -195,7 +189,7 @@
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">Address</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.Address, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " 123 Main Road", @minlength = "50", @required = "" } })
+                                                        @Html.EditorFor(model => model.contact.Address, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " 123 Main Road", @minlength = "50" } })
 
                                                     </div>
                                                     <div class="input-group">
@@ -207,33 +201,27 @@
 
                                                     <label for="example-text-input" class="col-4 col-form-label">Suburb</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.Suburb, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " CBD ", @required = "" } })
+                                                        @Html.EditorFor(model => model.contact.Suburb, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " CBD " } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Suburb, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
-
-
-
                                                 </div>
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">City</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.City, new { htmlAttributes = new { @class = "form-control", @type = "text", @required = "" } })
+                                                        @Html.EditorFor(model => model.contact.City, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.City, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
-
-
-
                                                 </div>
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">Zip Code</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.Zipcode, new { htmlAttributes = new { @class = "form-control", @maxlength = "6", @placeholder = "81203", @type = "text", @required = "" } })
+                                                        @Html.EditorFor(model => model.contact.Zipcode, new { htmlAttributes = new { @class = "form-control", @maxlength = "6", @placeholder = "81203", @type = "text" } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Zipcode, "", new { @class = "text-danger" })
@@ -468,7 +456,6 @@
                                                         <input type="text" class="form-control" placeholder="" aria-label="">
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -492,89 +479,36 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                                    <button id="addMemberShipB" class="btn btn-success btn-save btn-member-save savemember">Save and Add Membership</button>
-                                </div>
-                                <div class="tab-pane" id="membership" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h4 class="card-title"><i class="ti-id-badge"></i>&nbsp;&nbsp;Memberships</h4>
-                                                    <div class="form p-t-20">
-                                                        @if (membership.Count > 0)
-                                                        {
-                                                            <table class="table table-bordered">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Membership Name</th>
-                                                                        <th>Expiray Date</th>
-                                                                        <th>Amount</th>
-                                                                        <th>Membership Types</th>
-                                                                        <th>Action</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach (var subs in membership)
-                                                                    {
-                                                                        <tr>
-                                                                            <td>@subs.Id</td>
-                                                                            <td>@subs.Name</td>
-                                                                            <td>@subs.Description</td>
-                                                                            <td>@subs.Capacity</td>
-                                                                            <td>@subs.StartDate</td>
-                                                                        </tr>
-                                                                    }
-                                                                </tbody>
-                                                            </table>
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="alert alert-danger">
-                                                                No Membership Found !!!
-                                                            </div>
-                                                        }
-
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="training" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h4 class="card-title"><i class="ti-receipt"></i>&nbsp;&nbsp;Trainings</h4>
-                                                    <div class="form p-t-20">
-                                                        <table class="table table-bordered" style="display:none;">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Class Name</th>
-                                                                    <th>Schedule Time</th>
-                                                                    <th>Traininer Name</th>
-                                                                    <th>Start From </th>
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>Weight Lifting</td>
-                                                                    <td>10:00 AM - 11:00 AM</td>
-                                                                    <td>Syed Bilal Ali</td>
-                                                                    <td>12-11-2019</td>
-                                                                    <td>Change</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <div class="alert alert-danger">
-                                                            No Trainings Schedule Found !!!
-                                                        </div>
-                                                    </div>
-                                                </div>
+                            <button id="addMemberShipB" class="btn btn-success btn-save btn-member-save savemember">Save and Add Membership</button>
+                        </div>
+                        <div class="tab-pane" id="membership" role="tabpanel">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><i class="ti-calendar"></i>&nbsp;&nbsp;Memberships</h4>
+                                            <div class="form p-t-20">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Membership Name</th>
+                                                            <th>Expiray Date</th>
+                                                            <th>Amount</th>
+                                                            <th>Membership Types</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>3 Months</td>
+                                                            <td>12-03-2019</td>
+                                                            <td>1200</td>
+                                                            <td>None</td>
+                                                            <td>Ren</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -582,11 +516,57 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Column -->
                 </div>
+            </div>
+            <!-- Column -->
+        </div>
     </form>
 }
+<!-- Row -->
+<!-- ============================================================== -->
+<!-- End PAge Content -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Right sidebar -->
+<!-- ============================================================== -->
+<!-- .right-sidebar -->
+<div class="right-sidebar">
+    <div class="slimscrollright">
+        <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
+        <div class="r-panel-body">
+            <ul class="m-t-20">
+
+                <li><a href="#">Advanced Configuration</a></li>
+
+                <li><a href="#">Booking and Classes</a></li>
+
+                <li><a href="#">Club Details</a></li>
+
+                <li><a href="#">CSV Upload</a></li>
+
+                <li><a href="#">Custom Fields</a></li>
+
+                <li><a href="#">Door Readers</a></li>
+
+                <li><a href="#">Forms and Waivers</a></li>
+
+                <li><a href="#">Integrations</a></li>
+                <li><a href="#">Measurement Configuration</a></li>
+                <li><a href="#">Member Portal</a></li>
+                <li><a href="#">Membership Types</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Roster and Open Hours</a></li>
+                <li><a href="#">Task Setup</a></li>
+                <li><a href="#">User Administration</a></li>
+                <li><a href="#">Workout Configuration</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 @section scripts {
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
     <script type="text/javascript">
         $(function () {
             var MemberType = "";
@@ -600,8 +580,8 @@
                 MemberType = "Prospectus";
                 //  prospectusDetails.style.display = "block";
                 // emergencyContact.style.display = "none";
-                addMemberShipA.innerHTML = "Update";
-                addMemberShipB.innerHTML = "Update";
+                addMemberShipA.innerHTML = "Save";
+                addMemberShipB.innerHTML = "Save";
             } else {
 
                 MemberType = "Member";
@@ -615,8 +595,8 @@
                     MemberType = "Prospectus";
                     prospectusDetails.style.display = "block";
                     emergencyContact.style.display = "none";
-                    addMemberShipA.innerHTML = "Update";
-                    addMemberShipB.innerHTML = "Update";
+                    addMemberShipA.innerHTML = "Save";
+                    addMemberShipB.innerHTML = "Save";
                     //  alert('checked');
                 } else {
                     MemberType = "Prospectus";
@@ -653,10 +633,8 @@
                             $('#profImg').attr('src', '/assets/images/users/deafult.png');
                         } else {
                             $('#profImg').attr('src', e.target.result);
-                             $('#_dat').val(e.target.result);
-
+                            $('#_dat').val(e.target.result);
                         }
-
                     }
                     reader.readAsDataURL(input.files[0]);
                 }
@@ -684,7 +662,6 @@
                         }
                     }
                 }
-
                 return true;
             }
         });
@@ -705,7 +682,6 @@
                 });
             }, false);
         })();
-
     </script>
 }
 <!-- ============================================================== -->

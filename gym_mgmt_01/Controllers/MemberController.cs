@@ -27,8 +27,6 @@ namespace gym_mgmt_01.Controllers
             if (id == null)
             {
                 ViewBag.ID = mo.getMemberID();
-                //   MemberID = int.Parse(mo.getMemberID());
-                
                 ViewBag.Alert = "none";
                 return View();
             }
@@ -42,67 +40,25 @@ namespace gym_mgmt_01.Controllers
             }
 
         }
-        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(FormCollection fc, HttpPostedFileBase ImageFile)  {
+        public ActionResult Save(MemberRegistration mr)
+        {
             if (ModelState.IsValid)
             {
-                Member m1 = new Member();
-                Contact con = new Contact();
-                m1.FirstName = fc["FirstName"];
-                m1.LastName = fc["LastName"];
-                m1.DOB = fc["dob"];
-                m1.Gender = fc["gender"];
-                m1.note = fc["note"];
-                m1.MemberType = fc["memberType"];
-                string path = uploadFile(ImageFile);
-                m1.ImagePath = path;
-                con.MemberID = int.Parse(mo.getMemberID()); ;
-                con.Cell = fc["Cell"];
-                con.Email = fc["Email"];
-                con.Home = fc["Home"];
-                con.Work = fc["Work"];
-                con.Address = fc["Address"];
-                con.Suburb = fc["Suburb"];
-                con.City = fc["City"];
-                con.Zipcode = fc["Zipcode"];
-                con.Subscribed = "";
-                mo.AddMemeber(m1);
-                co.AddContact(con);
-                
-                ViewBag.ID = mo.getMemberID();
-                ViewBag.Alert = "block";
-                ViewBag.Message = "Successfully add Member !!! ";
-            }
-            else {
-
-                ViewBag.Message = "Something went wrong !!! ";
-            }
-            //return RedirectToAction ("Index");
-            return View(fc);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Save(MemberRegistration mr) {
-            if (ModelState.IsValid) {
-
                 mr.member.ImagePath = mr.member.ImageUri;
                 mr.member.MemberType = "member";
                 mr.contact.Subscribed = "";
                 mo.AddMemeber(mr.member);
+                int a = int.Parse(mo.getMemberID())  - 1;
+                mr.contact.MemberID = int.Parse(a.ToString());
                 co.AddContact(mr.contact);
-                ViewBag.Message = "Successfully add Member !!! ";
+                ViewBag.Alert = "block";
+                ViewBag.Message = " Successfully Add Member !!! ";
                 ModelState.Clear();
                 return RedirectToAction("Index");
             }
             return View("Index");
-        }
-        [HttpPost]
-        public JsonResult putJSON(string searchValue) {
-
-            string data = searchValue + " WORLD ";
-            return Json(data, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public JsonResult getMember() {
@@ -129,14 +85,13 @@ namespace gym_mgmt_01.Controllers
         }
         public ActionResult FindMember(int? id)
         {
-            //    Response.Write(" ID -: " + id);
+            // Response.Write(" ID -: " + id);
             if (id != null)
             {
                 Response.Write(" ID -: " + id);
             }
             else
-            {
-                //   Response.Write(" ID No");
+            { 
             }
             List<Membership> st = memOpt.getAllMembership();
             model.memshp = st;
@@ -225,47 +180,31 @@ namespace gym_mgmt_01.Controllers
                 else {
                     Response.Write(" File Formate Not supported");
                 }
-
             }
             else {
                 relativePath = "/assets/images/users/user4.png";
-
             }
             return relativePath;
         }
         public ActionResult Edit(int? id) {
+            
             if (id == null)
             {
-                ViewBag.ID = mo.getMemberID();
-                //   MemberID = int.Parse(mo.getMemberID());
+                ViewBag.ID = id;
                 ViewBag.Alert = "none";
                 return View();
             }
             else
-            {
+            {   
                 dt = memOpt.getDTMembershipByID(id);
                 List<gym_mgmt_01.Models.Membership> memlist = new List<gym_mgmt_01.Models.Membership>();
                 memlist = ConvertDataTable<gym_mgmt_01.Models.Membership>(dt);
                 ViewData["membership"] = memlist;
                 Member mem = mo.getMember(id);
-                Contact cn = co.GetContact(id);
-              //  Contact con = 
+                Contact cn = co.GetContact(mem.Id);
                 MemberRegistration m = new MemberRegistration();
-              //  m.member.MemberType = "";
-               // m.contact.Subscribed = "";
-                 m.member = mem;
-                 m.contact = cn;
-               // mem.ImagePath = null;
-             //   m.contact = con;
-             ///   mo.UpdateMember(m.member);
-              //  co.UpdateContact(m.contact);
-                ViewBag.Message = "Update Member Data Here!!! ";
-                
-                //mem.ImagePath = mem.ImageUri;
-
-                //ViewBag.ID = mem.Id;
-                //model.data = mem;
-                //ViewBag.Alert = "none";
+                m.member = mem;
+                m.contact = cn;
                 return View(m);
             }
         }
@@ -297,38 +236,25 @@ namespace gym_mgmt_01.Controllers
             return obj;
         }
         [HttpPost]
-        public ActionResult Edit(FormCollection fc , HttpPostedFileBase ImageFile) {
+        public ActionResult Edit(MemberRegistration mr) {
             if (ModelState.IsValid)
             {
-
-                Member m1 = new Member();
-                Contact con = new Contact();
-                m1.FirstName = fc["FirstName"];
-                m1.LastName = fc["LastName"];
-                m1.DOB = fc["dob"];
-                m1.Gender = fc["gender"];
-                m1.note = fc["note"];
-                m1.MemberType = fc["memberType"];
-                string path = uploadFile(ImageFile);
-                m1.ImagePath = path;
-               // con.MemberID = int.Parse(mo.getMemberID()); ;
-                con.Cell = fc["Cell"];
-                con.Email = fc["Email"];
-                con.Home = fc["Home"];
-                con.Work = fc["Work"];
-                con.Address = fc["Address"];
-                con.Suburb = fc["Suburb"];
-                con.City = fc["City"];
-                con.Zipcode = fc["Zipcode"];
-                con.Subscribed = "";
+                mr.member.ImagePath = mr.member.ImageUri;
+                mr.member.MemberType = "member";
+                mr.contact.Subscribed = "";
+                Member m1 = mr.member;
+                Contact con = mr.contact;
                 mo.UpdateMember(m1);
-                co.AddContact(con);
+                co.UpdateContact(con);
                 ViewBag.ID = mo.getMemberID();
-                ViewBag.Alert = "block";
-                ViewBag.Message = "Successfully add Member !!! ";
+                ViewBag.Message = "Successfully Update  Member !!!";
             }
-            //return RedirectToAction ("Index");
             return View();
         }
-    }
+        [HttpPost]
+        public ActionResult UpdateMembers(MemberRegistration mr) {
+
+            return View();
+        }
+     }
 }
