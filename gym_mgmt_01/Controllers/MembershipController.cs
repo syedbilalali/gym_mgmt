@@ -129,7 +129,6 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         public ActionResult editSubscription(FormCollection fc)
         {
-
             int MemberID = int.Parse(fc["member"].ToString());
             int MembershipID = int.Parse(fc["membershp"].ToString());
             //  subs.UpdateSubscriptions(MemberID , MembershipID);

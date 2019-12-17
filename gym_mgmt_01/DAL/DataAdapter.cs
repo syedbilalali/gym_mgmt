@@ -130,7 +130,6 @@ namespace gym_mgmt_01.DAL
                 {
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {
-
                         cmd.Connection = con;
                         da.SelectCommand = cmd;
                         DataTable dt = new System.Data.DataTable();

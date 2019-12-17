@@ -86,7 +86,7 @@
                                                 @Html.LabelFor(model => model.LastName, htmlAttributes: new { })
                                                 @*<input type="text" name="lastName" class="form-control" id="validationDefault02" placeholder="Last name" value="" required>*@
                                                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name" } })
-                                                @*@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })*@
+                                               @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
 
                                             </div>
                                             <div class="col-md-4 mb-3">
@@ -117,7 +117,6 @@
                                         <button class="btn btn-primary" type="submit">Add</button>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 

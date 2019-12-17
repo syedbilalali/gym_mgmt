@@ -1,0 +1,135 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <title> </title>
+    <!-- This page CSS -->
+    <!-- chartist CSS -->
+    <link href="@Url.Content("~/assets/node_modules/morrisjs/morris.css")" rel="stylesheet">
+
+    <link href="@Url.Content("~/Content/style.css")" rel="stylesheet">
+
+    <link href="@Url.Content("~/dist/css/style.min.css")" rel="stylesheet">
+    <!-- Dashboard 1 Page CSS -->
+    <link href="@Url.Content("~/dist/css/pages/dashboard1.css")" rel="stylesheet">
+
+</head>
+
+<body class="invoicebody" style='font-family="sans-serif"'>
+    <itext creationdate="@DateTime.Now.ToString()"  producer="RazorPDF">
+        <div class="invoice">
+            <h2>PHYSIOFIT CLUB</h2>
+            <h3>Invoice</h3>
+            <div class="invoicetable">
+                <table class="table">
+                    <tbody>
+                        <tr style="border: 0px solid #fff;">
+                            <td>123 somewhere lane</td>
+                            <td class="bold">Invoice Date :</td>
+                            <td>@Model.SellOrder.CreatedAt.Date.ToString("dd MMM yyyy")</td>
+
+                        </tr>
+                        <tr>
+                            <td>Somewhereville</td>
+                            <td class="bold">Invoice Number :</td>
+                            <td>@Model.SellOrder.Invoice_number</td>
+                        </tr>
+                        <tr>
+                            <td>Somewhere</td>
+                            <td class="bold">Member :</td>
+                            <td>@Model.SellOrder.Member_Name</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="invoicetable">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Occured</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Paid</th>
+                            <th scope="col">Unit Price</th>
+                            <th scope="col">Totals</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.SellOrderItems.Count > 0)
+                        {
+                            foreach (var sellOrderItems in Model.SellOrderItems)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @{
+
+                                            @sellOrderItems.CreatedAt.Date.ToString("dd MMM yyyy")
+                                        }
+                                    </td>
+                                    <td>@sellOrderItems.ProductName</td>
+                                    <td>@sellOrderItems.quantity</td>
+                                    <td>@sellOrderItems.discount_price</td>
+                                    <td>$@sellOrderItems.unit_price </td>
+                                    <td>$@sellOrderItems.total_price</td>
+                                </tr>
+                            }
+                        }
+                        <tr>
+                            <td colspan="5" class="subclass1">Subtotal</td>
+                            <td class="bold">$@Model.SellOrder.Subtotal </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="subclass1">Sales Tax</td>
+                            <td class="bold">$@Model.SellOrder.Sales_Tax</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="subclass1">Total</td>
+                            <td class="bold">$@Model.SellOrder.Total_Amount</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="bold">To Pay</td>
+                            <td colspan="2" class="bold">$@Model.SellOrder.Total_Pay</td>
+                            <td colspan="2" class="bold">Status : @Model.SellOrder.Paid_Status</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </itext>
+        <!-- ============================================================== -->
+        <script src="@Url.Content("~/assets/node_modules/jquery/jquery-3.2.1.min.js")"></script>
+        <!-- Bootstrap popper Core JavaScript -->
+        <script src="@Url.Content("~/assets/node_modules/popper/popper.min.js")"></script>
+        <script src="@Url.Content("~/assets/node_modules/bootstrap/dist/js/bootstrap.min.js")"></script>
+
+        <!--Wave Effects -->
+        <script src="@Url.Content("~/dist/js/waves.js")"></script>
+        <!--Menu sidebar -->
+        <script src="@Url.Content("~/dist/js/sidebarmenu.js")"></script>
+        <!--Custom JavaScript -->
+        <script src="@Url.Content("~/dist/js/custom.min.js")"></script>
+        <!-- ============================================================== -->
+        <!-- This page plugins -->
+        <!-- ============================================================== -->
+        <!--morris JavaScript -->
+        <script src="@Url.Content("~/assets/node_modules/raphael/raphael-min.js")"></script>
+        <script src="@Url.Content("~/assets/node_modules/morrisjs/morris.min.js")"></script>
+        <script src="@Url.Content("~/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js")"></script>
+        <script>
+        </script>
+</body>
+</html>

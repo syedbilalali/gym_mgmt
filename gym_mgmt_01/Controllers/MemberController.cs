@@ -28,6 +28,7 @@ namespace gym_mgmt_01.Controllers
             {
                 ViewBag.ID = mo.getMemberID();
                 ViewBag.Alert = "none";
+                ViewBag.Message = "";
                 return View();
             }
             else {
@@ -40,28 +41,43 @@ namespace gym_mgmt_01.Controllers
             }
 
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(MemberRegistration mr)
-        {
+        public ActionResult Index([Bind(Exclude = "Id")] MemberRegistration mr) {
+            var validImageTypes = new string[]
+            {
+                "image/gif",
+                "image/jpeg",
+                "image/pjpeg",
+                "image/png"
+            };
+            if (mr.ImageFile == null || mr.ImageFile.ContentLength == 0)
+            {
+               // ModelState.AddModelError("ImageUpload", "This field is required");
+            }
+            else if (!validImageTypes.Contains(mr.ImageFile.ContentType))
+            {
+              //  ModelState.AddModelError("ImageUpload", "Please choose either a GIF, JPG or PNG image.");
+            }
             if (ModelState.IsValid)
             {
-                mr.member.ImagePath = mr.member.ImageUri;
                 mr.member.MemberType = "member";
                 mr.contact.Subscribed = "";
+                mr.member.ImagePath = uploadFile(mr.ImageFile);
                 mo.AddMemeber(mr.member);
-                int a = int.Parse(mo.getMemberID())  - 1;
+                int a = int.Parse(mo.getMemberID()) - 1;
                 mr.contact.MemberID = int.Parse(a.ToString());
                 co.AddContact(mr.contact);
-                ViewBag.Alert = "block";
                 ViewBag.Message = " Successfully Add Member !!! ";
                 ModelState.Clear();
-                return RedirectToAction("Index");
+                ViewBag.ID = mo.getMemberID();
             }
-            return View("Index");
+            return View();
         }
         [HttpGet]
         public JsonResult getMember() {
+            
             DataTable dt = new DataTable();
             dt = mo.getMember();
             List<Member> data = new List<Member>();
@@ -83,6 +99,12 @@ namespace gym_mgmt_01.Controllers
 
             return Json(member1, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public ActionResult getMembership(int? id) {
+            ///   List<Member> mem = mo.getAllMembers();
+            //   List<Membership> memshp = memOpt.getAllMembership();
+            return View();
+        }
         public ActionResult FindMember(int? id)
         {
             // Response.Write(" ID -: " + id);
@@ -96,55 +118,6 @@ namespace gym_mgmt_01.Controllers
             List<Membership> st = memOpt.getAllMembership();
             model.memshp = st;
             return View(model);
-        }
-        public string DataTableToJSONWithJavaScriptSerializer(DataTable table)
-        {
-            System.Web.Script.Serialization.JavaScriptSerializer jsSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            foreach (DataRow row in table.Rows)
-            {
-                childRow = new Dictionary<string, object>();
-                foreach (DataColumn col in table.Columns)
-                {
-                    childRow.Add(col.ColumnName, row[col]);
-                }
-                parentRow.Add(childRow);
-            }
-            return jsSerializer.Serialize(parentRow);
-        }
-        public string DataTableToJSONWithStringBuilder(DataTable table)
-        {
-            var JSONString = new System.Text.StringBuilder();
-            if (table.Rows.Count > 0)
-            {
-                JSONString.Append("[");
-                for (int i = 0; i < table.Rows.Count; i++)
-                {
-                    JSONString.Append("{");
-                    for (int j = 0; j < table.Columns.Count; j++)
-                    {
-                        if (j < table.Columns.Count - 1)
-                        {
-                            JSONString.Append("\"" + table.Columns[j].ColumnName.ToString() + "\":" + "\"" + table.Rows[i][j].ToString() + "\",");
-                        }
-                        else if (j == table.Columns.Count - 1)
-                        {
-                            JSONString.Append("\"" + table.Columns[j].ColumnName.ToString() + "\":" + "\"" + table.Rows[i][j].ToString() + "\"");
-                        }
-                    }
-                    if (i == table.Rows.Count - 1)
-                    {
-                        JSONString.Append("}");
-                    }
-                    else
-                    {
-                        JSONString.Append("},");
-                    }
-                }
-                JSONString.Append("]");
-            }
-            return JSONString.ToString();
         }
         string fullPath;
         string relativePath;
@@ -182,7 +155,7 @@ namespace gym_mgmt_01.Controllers
                 }
             }
             else {
-                relativePath = "/assets/images/users/user4.png";
+                relativePath = "/assets/images/users/deafult.png";
             }
             return relativePath;
         }
@@ -204,6 +177,7 @@ namespace gym_mgmt_01.Controllers
                 Contact cn = co.GetContact(mem.Id);
                 MemberRegistration m = new MemberRegistration();
                 m.member = mem;
+                ViewBag.ID = mem.Id;
                 m.contact = cn;
                 return View(m);
             }
@@ -236,23 +210,45 @@ namespace gym_mgmt_01.Controllers
             return obj;
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(MemberRegistration mr) {
             if (ModelState.IsValid)
             {
-                mr.member.ImagePath = mr.member.ImageUri;
+                var validImageTypes = new string[]
+                    {
+                    "image/gif",
+                    "image/jpeg",
+                    "image/pjpeg",
+                    "image/png"
+                };
+                if (mr.ImageFile == null || mr.ImageFile.ContentLength == 0)
+                {
+                    //   ModelState.AddModelError("ImageUpload", "This field is required");
+                }
+                else if (!validImageTypes.Contains(mr.ImageFile.ContentType))
+                {
+                    // ModelState.AddModelError("ImageUpload", "Please choose either a GIF, JPG or PNG image.");
+                }
                 mr.member.MemberType = "member";
                 mr.contact.Subscribed = "";
-                Member m1 = mr.member;
-                Contact con = mr.contact;
-                mo.UpdateMember(m1);
-                co.UpdateContact(con);
-                ViewBag.ID = mo.getMemberID();
+                string img = uploadFile(mr.ImageFile);
+                mr.member.ImagePath = img;
+                mo.UpdateMember(mr.member);
+                mr.contact.MemberID = mr.member.Id;
+                co.UpdateContact(mr.contact);
                 ViewBag.Message = "Successfully Update  Member !!!";
+                ModelState.Clear();
+                ViewBag.ID = mo.getMemberID();
             }
             return View();
         }
         [HttpPost]
         public ActionResult UpdateMembers(MemberRegistration mr) {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UpdateMembership(int MemberID , int MembershipID) {
 
             return View();
         }

@@ -64,7 +64,7 @@ namespace gym_mgmt_01.BAL.Master
                 con = new Contact()
                 {
                     Id = int.Parse(dt.Rows[0]["Id"].ToString()),
-                    MemberID = int.Parse(dt.Rows[0]["Id"].ToString()),
+                    MemberID = int.Parse(dt.Rows[0]["MemberId"].ToString()),
                     Email = dt.Rows[0]["Email"].ToString(),
                     Cell = dt.Rows[0]["Cell"].ToString(),
                     Home = dt.Rows[0]["Home"].ToString(),

@@ -89,7 +89,7 @@ namespace gym_mgmt_01.BAL.Master
             param[1] = new SqlParameter("@MemberID" ,  cs.MemberID);
             da.Insert(param, command);
         }
-        public void updateClassSubscription(int subscriptionID  , int MemberID , int ClassID) {
+        public void updateClassSubscription(int subscriptionID, int MemberID , int ClassID) {
             string command = "UPDATE dbo.ClassSubscriptions SET ClassID=@ClassID , MemberID=@MemberID WHERE Id=@Id";
             SqlParameter[] param = new SqlParameter[3];
             param[0] = new SqlParameter("@Id", subscriptionID);

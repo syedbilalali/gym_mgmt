@@ -2,6 +2,11 @@
 @{
     ViewBag.Title = "FindStaff";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> Genderlist = new List<SelectListItem>();
+    Genderlist.Add(new SelectListItem() { Text = "--SELECT Gender--", Value = "" });
+    Genderlist.Add(new SelectListItem() { Text = "Male", Value = "Male" });
+    Genderlist.Add(new SelectListItem() { Text = "Female", Value = "Female" });
+    Genderlist.Add(new SelectListItem() { Text = "Other", Value = "Other" });
 }
 @model dynamic
 <div class="row upp2">
@@ -18,7 +23,7 @@
             </form>
         </div>
         <div class="col-lg-6 col-xlg-6 col-md-6">
-            <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" onclick="location.href='@Url.Action("", "Staff")'"  data-whatever=""> Add Staff</button>
+            <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" onclick="location.href='@Url.Action("", "Staff")'" data-whatever=""> Add Staff</button>
         </div>
     </div>
     <div class="addrolestab">
@@ -37,36 +42,106 @@
                 {
                     foreach (var staff in Model.staff)
                     {
-                    <tr>
-                        <td>@staff.FirstName @staff.LastName</td>
-                        <td>@staff.Gender</td>
-                        <td>@staff.Designation</td>
-                        <td>@staff.Email</td>
-                        <td>
-                            <button type="button" class="btn btn-info editbtn1" onclick="location.href='@Url.Action("Authorize", "Staff", new { id = staff.StaffID })'" >Authorize</button>
-                            <button type="button" class="btn btn-info editbtn1">Edit</button>
-                            <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteStaff", "Staff", new { id = staff.StaffID })'">Delete</button>
-                        </td>
-                    </tr>
-                    }
-                }
-                else {
                         <tr>
-                            <td colspan="7" align="center">
-                                <div class="alert alert-info">
-                                    <i class="ti-info" style="margin-right: 5px;border-radius: 50%;border: 1px solid #249ddc; padding: 3px; font-size: 10px;"></i> No Staff Found !!!
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">  </button>
-                                </div>
+                            <td>@staff.FirstName @staff.LastName</td>
+                            <td>@staff.Gender</td>
+                            <td>@staff.Designation</td>
+                            <td>@staff.Email</td>
+                            <td>
+                                <button type="button" class="btn btn-info editbtn1" onclick="location.href='@Url.Action("Authorize", "Staff", new { id = staff.StaffID })'">Authorize</button>
+                                <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@staff.StaffID)">Edit</button>
+                                <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteStaff", "Staff", new { id = staff.StaffID })'">Delete</button>
                             </td>
                         </tr>
+                    }
                 }
-                </tbody>
-            </table>
+                else
+                {
+                    <tr>
+                        <td colspan="7" align="center">
+                            <div class="alert alert-info">
+                                <i class="ti-info" style="margin-right: 5px;border-radius: 50%;border: 1px solid #249ddc; padding: 3px; font-size: 10px;"></i> No Staff Found !!!
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">  </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
     <!-- Column -->
 </div>
+<!-------Modal For Updat Product Type ---------------->
+@Html.Partial("_EditStaff" , new gym_mgmt_01.Models.Staff())
+<!---------------------------------------------------->
 @section scripts {
     <script type="text/javascript">
-     
+        function GetDetails(id) {
+            $.ajax({
+                url: "/Staff/StaffEdit/" + id,
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (response) {
+                   alert(" SucessFull Get the Value " + JSON.stringify(response));
+                    $('#StaffID').val(response.StaffID);
+                    $('#FirstName').val(response.FirstName);
+                    $('#LastName').val(response.LastName);
+                    $('#Email').val(response.Email);
+                    $('#Designation').val(response.Designation);
+                    $('#Gender').val(response.Gender);
+                    $('#Password').val(response.Password);
+                    $('#updateProd').modal('show');
+                    $('#prodprof1').attr("src", response.ImgURL);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+            return false;
+        }
+          $('#upldImage').change(function () {
+           readURL(this);
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var form = document.querySelector('#memreg');
+                var bool = Validate(form);
+            if (!bool) {
+                $('#prodprof1').attr('src', '/assets/images/users/deafult.png');
+            } else {
+                $('#prodprof1').attr('src', e.target.result);
+            }
+        }
+        reader.readAsDataURL(input.files[0]);
+        }
+    }
+    var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
+            function Validate(oForm) {
+                var arrInputs = oForm.querySelector("#upldImage");
+                for (var i = 0; i < arrInputs.length; i++) {
+                    var oInput = arrInputs[i];
+                    if (oInput.type == "file") {
+                        var sFileName = oInput.value;
+                        if (sFileName.length > 0) {
+                            var blnValid = false;
+                            for (var j = 0; j < _validFileExtensions.length; j++) {
+                                var sCurExtension = _validFileExtensions[j];
+                                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                                    blnValid = true;
+                                    break;
+                                }
+                            }
+                            if (!blnValid) {
+                                alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                                return false;
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
     </script>
 }

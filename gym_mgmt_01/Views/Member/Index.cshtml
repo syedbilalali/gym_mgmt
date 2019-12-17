@@ -9,19 +9,21 @@
     Genderlist.Add(new SelectListItem() { Text = "Female", Value = "Female" });
     Genderlist.Add(new SelectListItem() { Text = "Other", Value = "Other" });
 }
+   
 @model gym_mgmt_01.Models.MemberRegistration
-@using (Html.BeginForm("Save", "Member", FormMethod.Post, new { enctype = "multipart/form-data", id = "memreg", @class = "needs-validation", @novalidate = "" }))
+@using (Html.BeginForm("Index", "Member", FormMethod.Post, new { enctype = "multipart/form-data", id = "memreg", @class = "needs-validation", @novalidate = "" }))
 {
     @Html.AntiForgeryToken()
     <form id="memberReg" method="post">
         <div class="row uppercontainer">
             <div class="col-md-12">
-                @if (ViewBag.Message != null)
+                
+                @if (ViewBag.Message != "")
                 {
-                    <div class="alert alert-success" style="display:@ViewBag.Alert;">
-                        <i class="ti-user"></i>
+                    <div class="alert alert-success" style="display:block;">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                         @ViewBag.Message
+
                     </div>
                 }
             </div>
@@ -52,7 +54,9 @@
                                         @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
                                     </button>
                                     <input type="file" name="ImageFile" id="upldImage" />
-                                    @Html.HiddenFor(model => model.member.ImageUri, htmlAttributes: new { @id = "_dat" })
+                                    @*@Html.EditorFor(model => model.member.ImageFile , new { @type="file" , @id="upldImage" });*@
+                                    @Html.HiddenFor(model => model.member.Id)
+                                    @Html.ValidationMessageFor(modal => modal.member.Id)
                                 </div>
                             </div>
                             <div class="m-b-30 checkaddmember" style="display:none;">
@@ -144,7 +148,7 @@
                                             <h4 class="card-title"><i class="ti-agenda"></i>&nbsp;&nbsp;Contact</h4>
                                             <div class="form p-t-20">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1">Email address</label>
+                                                    <label for="exampleInputEmail1">Email address<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
                                                         @Html.EditorFor(model => model.contact.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = " Enter Email Address" } })
 
@@ -157,7 +161,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Cell<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Cell Number " } })
+                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text",@onkeypress="return event.charCode >= 48 && event.charCode <= 57", @placeholder = "Ex. +971509090900 " } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Cell, "", new { @class = "text-danger" })
@@ -168,7 +172,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Home</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Home Number. "} })
+                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text",  @onkeypress="return event.charCode >= 48 && event.charCode <= 57" , @placeholder = "Ex. +971509090900"} })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Home, "", new { @class = "text-danger" })
@@ -179,7 +183,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Work</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Work, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Work Number. " } })
+                                                        @Html.EditorFor(model => model.contact.Work, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress="return event.charCode >= 48 && event.charCode <= 57", @placeholder = "Ex. +971509090900" } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Work, "", new { @class = "text-danger" })
@@ -191,7 +195,7 @@
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">Address</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.Address, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " 123 Main Road", @minlength = "50" } })
+                                                        @Html.EditorFor(model => model.contact.Address, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " 123 Main Road", @minlength="5", @maxlength = "100" } })
 
                                                     </div>
                                                     <div class="input-group">
@@ -635,7 +639,6 @@
                             $('#profImg').attr('src', '/assets/images/users/deafult.png');
                         } else {
                             $('#profImg').attr('src', e.target.result);
-                            $('#_dat').val(e.target.result);
                         }
                     }
                     reader.readAsDataURL(input.files[0]);

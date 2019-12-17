@@ -77,7 +77,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-default btn-info" data-dismiss="modal" onclick="updateMembership()">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -104,13 +104,41 @@
             $el.addClass('active');
             $($el.data('rel')).show();
         }
+        function updateMembership() {
+            //alert(" Update Membership.. ");
+            $.ajax({
+                type: "POST",
+                url: "/Member/UpdateMembership",
+                data: '{"MemberID":"' + data.id + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    if (response != null) {
+                       // alert(JSON.stringify(response));
+                        var membername = response.FirstName + ' ' + response.LastName;
+                        modalmembrID = response.Id;
+                        modalmembrname.value = membername;
+                        $('#exampleModal').modal('show');
+                    } else {
+                        alert("Something went wrong");
+                    }
+                },
+                failure: function(response) {
+                   alert(" Fail " + response.responseText);
+                },
+                error: function(response) {
+                    alert(" Error" + response.responseText);
+                }
+            });
+
+        }
         function btnsearch() {
            var input, filter, ul, li, a, i, txtValue;
             //Taking Input fromm Search
            input = document.getElementById("srch");
             //alert(" Input : " + input);
             // Make Upper Case
-            filter = input.value;
+            filter = input.value.toUpperCase();
            // alert(" Filter Value : " + filter);
             //Get External Div
             var divs = document.getElementById('colvalue');
@@ -122,10 +150,10 @@
             for (var i = 0; i < divlist.length; i++) {
                 var card = divlist[i].querySelectorAll('#cd1');
                 for (var j = 0; j < card.length; j++) {
-                   // alert(" On Card " + j);
+                  
                     var h4 = card[j].getElementsByTagName("h4")[0];
-                    txtValue = h4.textContent || h4.innerText;
-                    ///alert(" Filter Values : " + txtValue + " Filter Text : " + filter + " On UpperCase" + txtValue.toUpperCase());
+                    txtValue = h4.textContent.toUpperCase() || h4.innerText.toUpperCase();
+                    
                     if (txtValue.indexOf(filter) > -1) {
                        // alert(" Gone Show ");
                         console.log("   Show all things ");
@@ -178,7 +206,7 @@
                             cell3.innerHTML = json[i].LastName;
                             cell4.innerHTML = "No Owe";
                             cell5.innerHTML = "Check In";
-                            card += '<a href="/Member/Edit/' + json[i].Id + '"> <div id="cd1" class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[count].ImagePath + '" /></div>';
+                            card += '<a href="/Member/Edit/' + json[i].Id + '"> <div id="cd1" class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i].ImagePath + '" /></div>';
                             card += ' <div class="col60"> <h4>' + json[i].FirstName + ' ' + json[i].LastName + '</h4>' + '<hr>' + ' <h5>User ID ' + json[i].Id + ' </h5>';
                             card += ' <p>Created on <b>' + (count) + '</b></p></a>';
                             card += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
@@ -225,7 +253,7 @@
                             data += ' <div class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i*j].ImagePath +'" /></div>';
                             data += ' <div class="col60"> <h4>' + json[i*j].FirstName + ' ' +json[i*j].LastName + '</h4>' + '<hr>' + ' <h5>User ID </h5>';
                             data += ' <p>Created on <b>' + count + '</b></p>';
-                            data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
+                            data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/users/deafult.png")" />';
                             data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" id="'+ json[i*j].Id+'"  onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button>';
                             data += '</div></div></div>';
                             count++;
@@ -248,10 +276,11 @@
         });
         });
         function modifyMembership(data) {
+            alert("Modify Membership : " + JSON.stringify(data));
            // alert(" Modify Membership" + data.id);
             var modalmembrname = document.getElementById('modalmemberName');
             var modalmembrID = document.getElementById('modalmemberID');
-            var modalMembership = document.getElementById('modalMembership');
+            var modalMembership = document.getElementById('#modalMembership');
             $.ajax({
                 type: "POST",
                 url: "/Member/getMember",
@@ -260,8 +289,8 @@
                 dataType: "json",
                 success: function(response) {
                     if (response != null) {
-                       // alert(JSON.stringify(response));
-                        var membername = response.FirstName + ' ' + response.LastName;
+                       alert(JSON.stringify(response));
+                    var membername = response.FirstName + ' ' + response.LastName;
                         modalmembrID = response.Id;
                         modalmembrname.value = membername;
                         $('#exampleModal').modal('show');
@@ -276,17 +305,16 @@
                     alert(" Error" + response.responseText);
                 }
             });
-        
         } 
         $(function () {
-        $("#btnPost").click(function() {
-        var employee = new Object();
-            employee.Name = "Bilal";
-            employee.Designation = "Software Developer";
-            employee.Location = "Noida";
+            $("#btnPost").click(function() {
+                var employee = new Object();
+                    employee.Name = "Bilal";
+                    employee.Designation = "Software Developer";
+                    employee.Location = "Noida";
 
-        if (employee != null) {
-            $.ajax({
+            if (employee != null) {
+                $.ajax({
                 type: "POST",
                 url: "/Member/AjaxPostCall",
                 data: JSON.stringify(employee),

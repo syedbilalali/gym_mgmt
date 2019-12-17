@@ -9,6 +9,7 @@
     Genderlist.Add(new SelectListItem() { Text = "Female", Value = "Female" });
     Genderlist.Add(new SelectListItem() { Text = "Other", Value = "Other" });
 }
+
 @model gym_mgmt_01.Models.MemberRegistration
 @using (Html.BeginForm("Edit", "Member", FormMethod.Post, new { enctype = "multipart/form-data", id = "memreg", @class = "needs-validation", @novalidate = "" }))
 {
@@ -16,19 +17,20 @@
     <form id="memberReg" method="post">
         <div class="row uppercontainer">
             <div class="col-md-12">
-                @if (ViewBag.Message != null)
+
+                @if (ViewBag.Message != "")
                 {
-                    <div class="alert alert-success" style="display:@ViewBag.Alert;">
-                        <i class="ti-user"></i>
+                    <div class="alert alert-success" style="display:block;">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                         @ViewBag.Message
+
                     </div>
                 }
             </div>
         </div>
         <div class="row uppercontainer">
             <div class="col-md-6">
-                <h4>ID : #@ViewBag.ID </h4>
+                <h4>ID : #@ViewBag.ID      </h4>
             </div>
             <div class="col-md-6">
                 <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
@@ -52,7 +54,10 @@
                                         @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
                                     </button>
                                     <input type="file" name="ImageFile" id="upldImage" />
-                                    @Html.HiddenFor(model => model.member.ImageUri, htmlAttributes: new { @id = "_dat" })
+                                    @*@Html.EditorFor(model => model.member.ImageFile , new { @type="file" , @id="upldImage" });*@
+                                    @Html.HiddenFor(model => model.member.Id)
+                                    @Html.ValidationMessageFor(modal => modal.member.Id)
+                                  
                                 </div>
                             </div>
                             <div class="m-b-30 checkaddmember" style="display:none;">
@@ -87,6 +92,7 @@
                                                     <label for="exampleInputuname">First Name <span class=" text-danger">*</span></label>
                                                     <div class="input-group">
                                                         @Html.EditorFor(model => model.member.FirstName, new { htmlAttributes = new { @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "Enter First Name. ", @required = "" } })
+
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.FirstName, "", new { @class = "text-danger" })
                                                         </div>
@@ -105,7 +111,8 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Date of Birth<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.member.DOB,  new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "dob", @placeholder = " Enter Date of Birth ", @required = "" } } )
+                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "dob", @placeholder = " Enter Date of Birth ", @required = "" } })
+
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.DOB, "", new { @class = "text-danger" })
                                                         </div>
@@ -139,10 +146,12 @@
                                 <div class="col-lg-6">
                                     <div class="card">
                                         <div class="card-body">
+                                            @Html.HiddenFor(model => model.contact.MemberID)
+                                        
                                             <h4 class="card-title"><i class="ti-agenda"></i>&nbsp;&nbsp;Contact</h4>
                                             <div class="form p-t-20">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1">Email address</label>
+                                                    <label for="exampleInputEmail1">Email address<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
                                                         @Html.EditorFor(model => model.contact.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = " Enter Email Address" } })
 
@@ -155,7 +164,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Cell<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Cell Number " } })
+                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Ex. +971509090900 " } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Cell, "", new { @class = "text-danger" })
@@ -166,7 +175,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Home</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Home Number. " } })
+                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Ex. +971509090900" } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Home, "", new { @class = "text-danger" })
@@ -177,7 +186,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Work</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Work, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " Enter Work Number. " } })
+                                                        @Html.EditorFor(model => model.contact.Work, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Ex. +971509090900" } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Work, "", new { @class = "text-danger" })
@@ -189,7 +198,7 @@
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">Address</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.Address, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " 123 Main Road", @minlength = "50" } })
+                                                        @Html.EditorFor(model => model.contact.Address, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " 123 Main Road", @minlength = "5", @maxlength = "100" } })
 
                                                     </div>
                                                     <div class="input-group">
@@ -530,39 +539,6 @@
 <!-- Right sidebar -->
 <!-- ============================================================== -->
 <!-- .right-sidebar -->
-<div class="right-sidebar">
-    <div class="slimscrollright">
-        <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
-        <div class="r-panel-body">
-            <ul class="m-t-20">
-
-                <li><a href="#">Advanced Configuration</a></li>
-
-                <li><a href="#">Booking and Classes</a></li>
-
-                <li><a href="#">Club Details</a></li>
-
-                <li><a href="#">CSV Upload</a></li>
-
-                <li><a href="#">Custom Fields</a></li>
-
-                <li><a href="#">Door Readers</a></li>
-
-                <li><a href="#">Forms and Waivers</a></li>
-
-                <li><a href="#">Integrations</a></li>
-                <li><a href="#">Measurement Configuration</a></li>
-                <li><a href="#">Member Portal</a></li>
-                <li><a href="#">Membership Types</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Roster and Open Hours</a></li>
-                <li><a href="#">Task Setup</a></li>
-                <li><a href="#">User Administration</a></li>
-                <li><a href="#">Workout Configuration</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
 @section scripts {
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
@@ -580,8 +556,8 @@
                 MemberType = "Prospectus";
                 //  prospectusDetails.style.display = "block";
                 // emergencyContact.style.display = "none";
-                addMemberShipA.innerHTML = "Save";
-                addMemberShipB.innerHTML = "Save";
+                addMemberShipA.innerHTML = "Update";
+                addMemberShipB.innerHTML = "Update";
             } else {
 
                 MemberType = "Member";
@@ -633,7 +609,6 @@
                             $('#profImg').attr('src', '/assets/images/users/deafult.png');
                         } else {
                             $('#profImg').attr('src', e.target.result);
-                            $('#_dat').val(e.target.result);
                         }
                     }
                     reader.readAsDataURL(input.files[0]);

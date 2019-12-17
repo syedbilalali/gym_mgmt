@@ -374,7 +374,7 @@
                             <a class="waves-effect waves-dark" href="@Url.Action("FindMember", "Member")" aria-expanded="false"><i class="ti-id-badge"></i><span class="hide-menu">Find Member</span></a>
                         </li>
                         <li>
-                            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-agenda"></i><span class="hide-menu">Staff</span></a>
+                            <a class="has-arrow waves-effect waves-dark" href="@Url.Action("Index", "Staff")" aria-expanded="false"><i class="ti-agenda"></i><span class="hide-menu">Staff</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="@Url.Action("Index", "Staff")">Add Staff</a></li>
                                 <li><a href="@Url.Action("FindStaff", "Staff")">Find Staff</a></li>
@@ -386,7 +386,7 @@
                             <a class="waves-effect waves-dark" href="@Url.Action("Index", "Role")" aria-expanded="false"><i class="ti-clipboard"></i><span class="hide-menu">Roles</span></a>
                         </li>
                         <li>
-                            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-layout-grid3-alt"></i><span class="hide-menu">Point of Sale</span></a>
+                            <a class="has-arrow waves-effect waves-dark" href="@Url.Action("Index", "POS")" aria-expanded="false"><i class="ti-layout-grid3-alt"></i><span class="hide-menu">Point of Sale</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="@Url.Action("Index", "Category")">Category</a></li>
                                 <li><a href="@Url.Action("Index", "Product")">Product</a></li>
@@ -396,7 +396,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-world"></i><span class="hide-menu">Membership</span></a>
+                            <a class="has-arrow waves-effect waves-dark" href="@Url.Action("ViewMemberships", "Membership")" aria-expanded="false"><i class="ti-world"></i><span class="hide-menu">Membership</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="@Url.Action("Index", "Membership")">Add Membership</a></li>
                                 <li><a href="@Url.Action("ViewMemberships", "Membership")">View Memberships</a></li>

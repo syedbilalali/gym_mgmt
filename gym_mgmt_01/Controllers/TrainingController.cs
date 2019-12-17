@@ -57,10 +57,10 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         public ActionResult updateSubscription(FormCollection fc) {
             int subsCriptionID = int.Parse(fc["Id"].ToString());
-                int memberID = int.Parse(fc["memberudt"].ToString());
+            int memberID = int.Parse(fc["memberudt"].ToString());
             int classID = int.Parse(fc["classudt"].ToString());
             classOpt.updateClassSubscription(subsCriptionID , memberID , classID); 
-            return RedirectToAction("Index");
+            return RedirectToAction("AssignClass");
         }
         public JsonResult getClasses(int id) {
             List<Classes> classes = classOpt.getAllClasses();
@@ -107,6 +107,9 @@ namespace gym_mgmt_01.Controllers
                 classOpt.AddClassSubscriptions(cs);
             }
             return RedirectToAction("AssignClass");
+        }
+        public ActionResult editClasssSubscriptions(FormCollection fc) {
+            return View();
         }
     }
 }

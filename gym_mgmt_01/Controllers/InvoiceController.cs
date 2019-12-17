@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using gym_mgmt_01.DAL;
 using gym_mgmt_01.BAL.Master;
 using gym_mgmt_01.Models;
+using RazorPDF;
 
 namespace gym_mgmt_01.Controllers
 {
@@ -32,6 +33,29 @@ namespace gym_mgmt_01.Controllers
         }
         public ActionResult get_last_Invoice() {
             return new  ActionAsPdf("Index");
+        }
+        public ActionResult get_last_Inv() {
+            int lastInvoiceID = getLastInvoiceID();
+            ViewBag.Title = "Invoice ID : " + lastInvoiceID;
+            model.SellOrderItems = soiOp.getAlSellsOrderItemsByID(lastInvoiceID);
+            model.SellOrder = soOp.getAlSellsOrderByID(lastInvoiceID);
+            return new PdfResult(model,"Index");
+        }
+        public ActionResult PdfModel() {
+            int lastInvoiceID = getLastInvoiceID();
+            ViewBag.Title = "Invoice ID : " + lastInvoiceID;
+            model.SellOrderItems = soiOp.getAlSellsOrderItemsByID(lastInvoiceID);
+            model.SellOrder = soOp.getAlSellsOrderByID(lastInvoiceID);
+            var pdf = new PdfResult(model, "PdfModel");
+            // Add to the view bag
+            //pdf.ViewBag.Title = " Invoice ";
+            return pdf;
+            //return View(model);
+        }
+        public PdfResult Pdf()
+        {
+            // With no Model and default view name.  Pdf is always the default view name
+            return new PdfResult();
         }
         private int getLastInvoiceID() {
 

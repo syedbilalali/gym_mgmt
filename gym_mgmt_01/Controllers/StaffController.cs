@@ -26,7 +26,6 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(Staff st) {
-
             if (ModelState.IsValid) {
 
                 string path = uploadFile(st.PostedFile);
@@ -34,6 +33,7 @@ namespace gym_mgmt_01.Controllers
                 st.permission = getDefaultPermission();
                 so.AddStaff(st);
                 ViewBag.result = "yes";
+                ModelState.Clear();
                 ViewBag.Message = " Staff Member added successfully !!! ";
             }
            return View();
@@ -101,6 +101,21 @@ namespace gym_mgmt_01.Controllers
             so.updatePermission(JsonConvert.SerializeObject(md), Id);
             return RedirectToAction("Authorize", new { id = Id });
         }
+        public JsonResult StaffEdit(int id) {
+            
+            List<Staff> staff = so.getAllStaff();
+            var st = staff.Find(x => x.StaffID.Equals(id.ToString()));
+            return Json(st, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult EditStaff(Staff  st) {
+
+            if (ModelState.IsValid) {
+                st.ImgURL = uploadFile(st.PostedFile);
+                so.updateStaff(st);
+            }
+          //  return View("FindStaff");
+           return RedirectToAction("FindStaff");
+        }
         public ActionResult DeleteStaff(int id)
         {
             try
@@ -116,7 +131,6 @@ namespace gym_mgmt_01.Controllers
                     ViewBag.Message = " Sorry Something went Wrong !!! ";
                     ModelState.Clear();
                 }
-
                 return RedirectToAction("FindStaff");
             }
             catch

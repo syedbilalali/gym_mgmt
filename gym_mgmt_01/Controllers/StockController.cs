@@ -21,8 +21,9 @@ namespace gym_mgmt_01.Controllers
         {
             List<Stocks> stocks = po.getAllStocks();
             List<Product> product = po.getAllProducts();
-            model.stocks = stocks;
             model.products = product;
+            model.stocks = stocks;
+           
             return View(model);
         }
         [HttpPost]
@@ -37,14 +38,21 @@ namespace gym_mgmt_01.Controllers
             }
             return RedirectToAction("Index");
         }
-        [HttpPost]
+        [ChildActionOnly]
+        public PartialViewResult updateStock() {
+
+            List<Product> product = po.getAllProducts();
+            model.products = product;
+            return PartialView("_EditStock", model);
+        }
         public ActionResult EditStock(FormCollection fc)
         {
-            int ProductID  =  int.Parse(fc[""].ToString());
-            int stockID = int.Parse(fc[""].ToString());
-           // decimal stockIn = decimal.Parse();
-            
-           // po.UpdateStocks(stockID ,ProductID , )
+            int stockID = int.Parse(fc["stockID"].ToString());
+            int productID  =  int.Parse(fc["productName"].ToString());
+            decimal getprice  =decimal.Parse(fc["getPrice"].ToString());
+            decimal sellprice  =decimal.Parse( fc["sellPrice"].ToString());
+            int  quantity  = int.Parse(fc["quantity"].ToString());   
+          //  po.UpdateStocksIn(stockID ,productID ,quanti )
             return RedirectToAction("Index");
         }
         public ActionResult DeleteStocks(int id)

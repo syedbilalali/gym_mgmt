@@ -14,8 +14,7 @@ namespace gym_mgmt_01.BAL.Master
     {
         DataAdapter da = new DataAdapter();
         public void AddStaff(Staff pro)
-        {
-
+        { 
             string command = "INSERT INTO dbo.Staff(FirstName,LastName,Gender,Email,Password,Designation,ImgURL , permisions) VALUES(@FirstName,@LastName,@Gender,@Email,@Password, @Designation,@ImgURL , @permisions)";
             SqlParameter[] param = new SqlParameter[8];
             param[0] = new SqlParameter("@FirstName", pro.FirstName);
@@ -27,6 +26,20 @@ namespace gym_mgmt_01.BAL.Master
             param[6] = new SqlParameter("@ImgURL", pro.ImgURL);
             param[7] = new SqlParameter("@permisions", pro.permission);
 
+            da.Insert(param, command);
+        }
+        public void updateStaff(Staff pro)
+        {
+            string command = "UPDATE Staff SET FirstName=@FirstName,LastName=@LastName,Gender=@Gender,Email=@Email,Password=@Password,Designation=@Designation,ImgURL=@ImgURL WHERE StaffID=@StaffID";
+            SqlParameter[] param = new SqlParameter[8];
+            param[0] = new SqlParameter("@FirstName", pro.FirstName);
+            param[1] = new SqlParameter("@LastName", pro.LastName);
+            param[2] = new SqlParameter("@Gender", pro.Gender);
+            param[3] = new SqlParameter("@Email", pro.Email);
+            param[4] = new SqlParameter("@Password", pro.Password);
+            param[5] = new SqlParameter("@Designation", pro.Designation);
+            param[6] = new SqlParameter("@ImgURL", pro.ImgURL);
+            param[7] = new SqlParameter("@StaffID" , pro.StaffID);
             da.Insert(param, command);
         }
         public DataTable geAllStaff() {

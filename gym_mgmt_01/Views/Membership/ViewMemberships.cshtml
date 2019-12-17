@@ -128,15 +128,15 @@
                 dataType: "json",
                 success: function (response) {
 
-                    alert(JSON.stringify(response));
+                 //   alert(JSON.stringify(response));
                     $('#membrshpname').val(response.Name);
                     $('#description').val(response.Description);
                     $('#memAmount').val(response.Amount);
                    // var startDate = Date.parse(response.sStartDate)
                     var startDate = new Date( parseInt(response.StartDate.replace(/(^.*\()|([+-].*$)/g, '')) );
                     var endDate = new Date(parseInt(response.EndDate.replace(/(^.*\()|([+-].*$)/g, '')));
-                    alert(" Start Date : " + startDate);
-                    alert(" End Date : " + endDate);
+                    //alert(" Start Date : " + startDate);
+                   // alert(" End Date : " + endDate);
                     var std = startDate.getDate() + '/' + (startDate.getMonth() + 1) + '/' + startDate.getFullYear();
                     //   var nowdate = startDate.getFullYear().toString() + '-' + (startDate.getMonth() + 1).toString().padStart(2, 0) + '-' + startDate.getDate().toString().padStart(2, 0);
                     $('#StartDate').val(std);
