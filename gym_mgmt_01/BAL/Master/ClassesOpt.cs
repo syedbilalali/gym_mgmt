@@ -27,7 +27,18 @@ namespace gym_mgmt_01.BAL.Master
             da.InsertSP(param, command);
         }
         public void UpdateClass(Classes class1) {
-            
+            string command = "dbo.spUpdateClasses";
+            SqlParameter[] param = new SqlParameter[9];
+            param[0] = new SqlParameter("@ClassName", class1.ClassName);
+            param[1] = new SqlParameter("@From", class1.From);
+            param[2] = new SqlParameter("@To", class1.To);
+            param[3] = new SqlParameter("@Repeats", class1.Repeats);
+            param[4] = new SqlParameter("@RepeatsEnd", class1.RepeatsEnd);
+            param[5] = new SqlParameter("@Resource", class1.Resource);
+            param[6] = new SqlParameter("@StaffID", class1.StaffID);
+            param[7] = new SqlParameter("@Note", class1.Note);
+            param[8] = new SqlParameter("@Id" , class1.Id);
+            da.InsertSP(param, command);
         }
         public List<Classes> getAllClasses() {
             string command = "SELECT * from dbo.Classes";
@@ -41,7 +52,9 @@ namespace gym_mgmt_01.BAL.Master
                                Id = int.Parse(dr["Id"].ToString()),
                                ClassName = dr["ClassName"].ToString(),
                                From = DateTime.Parse(dr["From"].ToString()),
+                               FromStr = DateTime.Parse(dr["From"].ToString()).ToString("hh:mm:ss tt"),
                                To = DateTime.Parse(dr["To"].ToString()),
+                               ToStr = DateTime.Parse(dr["To"].ToString()).ToString("hh:mm:ss tt"),
                                Repeats = dr["Repeats"].ToString(),
                                RepeatsEnd = DateTime.Parse(dr["RepeatsEnd"].ToString()),
                                Resource = dr["Resource"].ToString(),

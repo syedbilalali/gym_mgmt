@@ -21,7 +21,6 @@ namespace gym_mgmt_01.Controllers
         }
         public ActionResult AllSubscriptions()
         {
-
             //Subscriptions Reports :
             List<SubscriptionReport> sbr = ro.getAllSubscriptionReport();
             model.subsReport = sbr;
@@ -34,8 +33,6 @@ namespace gym_mgmt_01.Controllers
             model.subsReport = sbr;
             return View(model);
         }
-
-
         [HttpPost]
         public FileResult SubscriptionExport()
         {
@@ -121,7 +118,6 @@ namespace gym_mgmt_01.Controllers
         }
         public ActionResult AllBills()
         {
-
             // All Invoice Report 
             List<SellsOrder> so = ro.getAlSellsOrder();
             model.sellsReport = so;
@@ -134,7 +130,6 @@ namespace gym_mgmt_01.Controllers
             model.sellsReport = so;
             return View(model);
         }
-
         [HttpPost]
         public ActionResult AllBillsExport()
         {
@@ -168,10 +163,7 @@ namespace gym_mgmt_01.Controllers
             }
             string current_date = DateTime.Now.ToShortDateString();
             return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "BillDated" + current_date + ".csv");
-
-
         }
-
         public ActionResult AllBillsPrint(string Invoice_number)
         {
             return new Rotativa.MVC.ActionAsPdf("AllBills", new { Invoice_number = Invoice_number })

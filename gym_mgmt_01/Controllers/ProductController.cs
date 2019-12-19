@@ -41,8 +41,16 @@ namespace gym_mgmt_01.Controllers
         {
             if (ModelState.IsValid)
             {
-                string imagePath = uploadFile(prodImage);
-                po.UpdateProduct(int.Parse(fc["id"].ToString()), fc["productname"].ToString(), int.Parse(fc["productType"].ToString()), int.Parse(fc["supplier"].ToString()), int.Parse(fc["posGroup"].ToString()), fc["barcode"].ToString(), fc["description"].ToString(), imagePath);
+                if (prodImage != null)
+                {
+                    string imagePath = uploadFile(prodImage);
+                    po.UpdateProduct(int.Parse(fc["id"].ToString()), fc["productname"].ToString(), int.Parse(fc["productType"].ToString()), int.Parse(fc["supplier"].ToString()), int.Parse(fc["posGroup"].ToString()), fc["barcode"].ToString(), fc["description"].ToString(), imagePath);
+                }
+                else {
+                    string prodImg = fc["prodImage"].ToString();
+                    po.UpdateProduct(int.Parse(fc["id"].ToString()), fc["productname"].ToString(), int.Parse(fc["productType"].ToString()), int.Parse(fc["supplier"].ToString()), int.Parse(fc["posGroup"].ToString()), fc["barcode"].ToString(), fc["description"].ToString(), prodImg);
+                }
+              
             }
             return RedirectToAction("Index");
         }

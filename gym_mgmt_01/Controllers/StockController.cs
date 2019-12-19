@@ -49,10 +49,10 @@ namespace gym_mgmt_01.Controllers
         {
             int stockID = int.Parse(fc["stockID"].ToString());
             int productID  =  int.Parse(fc["productName"].ToString());
-            decimal getprice  =decimal.Parse(fc["getPrice"].ToString());
-            decimal sellprice  =decimal.Parse( fc["sellPrice"].ToString());
+            decimal getprice = decimal.Parse(fc["getPrice"].ToString());
+            decimal sellprice = decimal.Parse( fc["sellPrice"].ToString());
             int  quantity  = int.Parse(fc["quantity"].ToString());   
-          //  po.UpdateStocksIn(stockID ,productID ,quanti )
+         //    po.UpdateStocksIn(stockID ,productID ,quanti )
             return RedirectToAction("Index");
         }
         public ActionResult DeleteStocks(int id)

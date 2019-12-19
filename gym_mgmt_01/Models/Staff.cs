@@ -41,7 +41,6 @@ namespace gym_mgmt_01.Models
         public string Password { get; set;  }
         public string ImgURL { get; set; }
 
-        [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif|.jpeg)$", ErrorMessage = "Only Image file allowed.")]
         public HttpPostedFileBase PostedFile { get; set; }
         public string permission { get; set;  }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace gym_mgmt_01.Models
@@ -20,13 +21,14 @@ namespace gym_mgmt_01.Models
         [RegularExpression(@"^[0-9]\d{0,9}(\.\d{1,3})?%?$", ErrorMessage = " Please enter valid amount. ")]
         public decimal Amount { get; set;  }
 
-        [Required]
+        [Required(ErrorMessage ="Start Date is required. ")]
         public DateTime StartDate { get; set;  }
 
         public string sStartDate { get; set;  }
 
 
-        [Required]
+        [Required(ErrorMessage = "End Date is required. ")]
+        [Remote("CheckStartDate", "Membership", HttpMethod = "POST", ErrorMessage = "Course already exists.")]
         public DateTime EndDate { get; set; }
         public string sEndDate { get; set;  }
 

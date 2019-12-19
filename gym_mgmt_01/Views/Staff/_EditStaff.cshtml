@@ -54,6 +54,7 @@
 
                             @Html.TextBoxFor(m => m.PostedFile, new { type = "file", @id = "upldImage", @name = "ImageFile" })
                             @Html.ValidationMessageFor(m => m.PostedFile, "", new { @class = "text-danger" })
+                            <input type="hidden" id="staffImg" name="ImgURL" value="" />
                             <img src="~/assets/images/products/prod_default.png" id="prodprof1" width="100px" height="100px" style="margin: 15px auto; border: 0px solid #fff; border-radius: 10px;" />
                         </div>
                     </form>

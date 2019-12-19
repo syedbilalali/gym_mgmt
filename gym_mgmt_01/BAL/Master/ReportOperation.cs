@@ -35,8 +35,8 @@ namespace gym_mgmt_01.BAL.Master
         {
 
             DataTable dt = new DataTable();
-            string fromdatest = String.Format("{0:yyyy-MM-dd}", fromdate);
-            string todatest = String.Format("{0:yyyy-MM-dd}", todate);
+            string fromdatest = String.Format("{0:yyyy-MM-dd}", fromdate) + " 00:00:00";
+            string todatest = String.Format("{0:yyyy-MM-dd}", todate) + " 00:00:00";
             List<SubscriptionReport> subs = new List<SubscriptionReport>();
             string command = "SELECT subs.Id , mem.Name , mem.Amount , mem.EndDate  , mem.Capacity , m.FirstName ";
             command += " FROM Subscriptions subs INNER JOIN dbo.Membership mem ON subs.MembershipID = mem.Id ";
@@ -83,8 +83,9 @@ namespace gym_mgmt_01.BAL.Master
         public List<SellsOrder> getAlSellsOrder(DateTime? fromdate, DateTime? todate)
         {
             DataTable dt = new DataTable();
-            string fromdatest = String.Format("{0:yyyy-MM-dd}", fromdate);
-            string todatest = String.Format("{0:yyyy-MM-dd}", todate); 
+            string fromdatest = String.Format("{0:yyyy-MM-dd}", fromdate) + " 00:00:00";
+            string todatest = String.Format("{0:yyyy-MM-dd}", todate) + " 00:00:00"; 
+
             string command = "SELECT * FROM dbo.SellsOrder so WHERE so.CreatedAt BETWEEN '" + fromdatest + "' AND '" + todatest + "'";
             List<SellsOrder> sellsOrder = new List<SellsOrder>();
             dt = da.FetchAll(command);

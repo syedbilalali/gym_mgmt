@@ -465,7 +465,7 @@
             var priceTable = document.querySelector('#invoicePanel');
         }
         function removeProduct(data) {
-            alert(" Removing Elements !!! ");
+            //alert(" Removing Elements !!! ");
             var priceTable = document.querySelector('#invoicePanel');
             var rowcount = priceTable.rows.length;
             //alert(" Rows Count : " + rowcount);
@@ -547,7 +547,7 @@
             menubtn.innerHTML = "Main Menu";
         }
         function updatePayDetails() {
-
+           // alert("Check Update After Removing Elements ");
             console.log("-------------Fill Payments --------------------");
             var totalItems = 0;
             var lastQty = 0;
@@ -555,9 +555,11 @@
             var lblSubTotal = document.querySelector('#lblSubtotal');
             var lblTotal = document.querySelector('#lbltotal');
             var lbltax = document.querySelector('#lblSalesTax');
+            var lblDue = document.querySelector('#lblDue');
             var lasttotal = 0.00, totaltax = 0.00, lastDiscount = 0.00, lasttax = 0.00;
             var table1 = document.querySelector('#invoicePanel');
             var length = table1.rows.length;
+       //     alert("Length : " + length);
             //Iterate Table Rows
                 console.log("----------- FOR LOOP START  --------------------");
                 for (var i = 1; i < length; i++) {
@@ -575,9 +577,16 @@
                     lblSubTotal.innerHTML = lasttotal.toFixed(2);
                     lbltax.innerHTML = totaltax;
                     lblTotal.innerHTML = parseFloat(totaltax) + parseFloat(lasttotal);
-                }
-                console.log(" __________ END OF FOR LOOP _______________");
-                console.log("------------- End Fill Payments --------------------");
+            }
+            if (length === 1) {
+              //  alert(" On Length One : ");
+                lblSubTotal.innerHTML = "0.00";
+                lbltax.innerHTML = "0.00";
+                lblTotal.innerHTML = "0.00";
+                lblDue.innerHTML = "0.00";
+               }
+               console.log(" __________ END OF FOR LOOP _______________");
+               console.log("------------- End Fill Payments --------------------");
         }
         function addCart() {
 
@@ -758,7 +767,7 @@
                 var totalprice = parseFloat(col1) * parseFloat(col4);
                 addSellsOrderItems(invoiceID.value, col3, col1, col4, 0, col2);
             }
-            alert(" Alert Total Pay : " + totalPay.innerHTML);
+          //  alert(" Alert Total Pay : " + totalPay.innerHTML);
             addSellsOrder(invoiceID.value, selectedMember , subtotal.innerHTML, salestax.innerHTML, totalammount.innerHTML, "PAID", totalPay.innerHTML, 0, remianPrice.innerHTML);
           //  alert("Complete Sale and  Clear the Screen ");
             resetPanel();
@@ -768,7 +777,7 @@
         }
         function removeSelectedMembers() {
 
-            alert(" Removing Selected Members : ");
+          //  alert(" Removing Selected Members : ");
             var selectedmember = document.getElementById("memberselected");
             selectedmember.style.display = "none";
 
@@ -824,7 +833,7 @@
         }
         function addSellsOrder(Invoice_number, member_name, subtotal, SalesTax, Total_Amount, Paid_Status, Total_Pay, Discount_price, Remain_price) {
             //Add Sells Order Here To the Server
-           alert(" Total PAy :" + Total_Pay);
+       //    alert(" Total PAy :" + Total_Pay);
             var so = new Object();
             so.Invoice_number = Invoice_number;
             so.Member_Name = member_name;

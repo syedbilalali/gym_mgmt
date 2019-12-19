@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "AllBills";
+    ViewBag.Title = " Physiofit | All Bills ";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var fromDate = ViewBag.fromDate as DateTime?;
     var toDate = ViewBag.toDate as DateTime?;
@@ -29,18 +29,31 @@
                     </div>
                  }
             </div>
-
             <div class="col-lg-6 col-xlg-6 col-md-6 btnsection">
                 <button type="button" style="display:none;" class="btn btn-info">Reset Filters</button>
                 @using (Html.BeginForm("AllBillsExport", "Report", FormMethod.Post, new { @style = "display:contents;" }))
                 {
+                    if (Model.sellsReport.Count > 0)
+                    {
+                        <button type="submit" class="btn btn-info">Export to CSV</button>
+                    }
+                    else
+                    {
+                        <button type="submit" disabled class="btn btn-info">Export to CSV</button>
+                    }
 
-                    <button type="submit" class="btn btn-info">Export to CSV</button>
+
                 }
-
                 @using (Html.BeginForm("AllBillsPrint", "Report", FormMethod.Post, new { @style = "display:contents;" }))
                 {
-                    <button type="submit" class="btn btn-info">Print</button>
+                    if (Model.sellsReport.Count > 0)
+                    {
+                        <button type="submit" class="btn btn-info">Print</button>
+                    }
+                    else
+                    {
+                        <button type="submit" disabled class="btn btn-info">Print</button>
+                    }
                 }
             </div>
         </div>

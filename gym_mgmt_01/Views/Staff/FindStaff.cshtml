@@ -93,6 +93,7 @@
                     $('#Password').val(response.Password);
                     $('#updateProd').modal('show');
                     $('#prodprof1').attr("src", response.ImgURL);
+                    $('#staffImg').attr("value",response.ImgURL );
                 },
                 error: function (response) {
                     alert(response.responseText);

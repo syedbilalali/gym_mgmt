@@ -28,8 +28,11 @@ namespace gym_mgmt_01.Controllers
         {   
             Classes cl = new Classes();
             cl.ClassName = fc["ClassName"].ToString();
-            cl.From = DateTime.Parse(fc["From"].ToString());
-            cl.To = DateTime.Parse(fc["To"].ToString());
+            string fromTime = fc["From"].ToString();
+            string to = fc["To"].ToString();
+            cl.From = DateTime.Parse( fromTime, System.Globalization.CultureInfo.CurrentCulture);
+           // cl.From = DateTime.Parse(fc["From"].ToString());
+            cl.To = DateTime.Parse(to, System.Globalization.CultureInfo.CurrentCulture);
             cl.Note = fc["Note"].ToString();
             cl.Repeats = fc["Repeats"].ToString();
             cl.RepeatsEnd = DateTime.Parse(fc["RepeatsEnd"].ToString());
@@ -108,8 +111,20 @@ namespace gym_mgmt_01.Controllers
             }
             return RedirectToAction("AssignClass");
         }
-        public ActionResult editClasssSubscriptions(FormCollection fc) {
-            return View();
+        public ActionResult EditClass(FormCollection fc) {
+
+            Classes cl = new Classes();
+            cl.Id = int.Parse(fc["classID"].ToString());
+            cl.ClassName = fc["className"].ToString();
+            cl.From = DateTime.Parse(fc["From"].ToString());
+            cl.To = DateTime.Parse(fc["To"].ToString());
+            cl.Note = fc["Note"].ToString();
+            cl.Repeats = fc["Repeats"].ToString();
+            cl.RepeatsEnd = DateTime.Parse(fc["RepeatsEnd"].ToString());
+            cl.Resource = fc["Resource"].ToString();
+            cl.StaffID = int.Parse(fc["StaffID"].ToString());
+            classOpt.UpdateClass(cl);
+            return RedirectToAction("Index");
         }
     }
 }

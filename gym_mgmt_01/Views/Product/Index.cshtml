@@ -213,7 +213,8 @@
                         <div class="form-group">
                             <label for="" class="control-label label1">Choose Image :</label>
                             <input type="file" id="prodImage1" name="prodImage" />
-                            <img src="~/assets/images/products/prod_default.png" id="prodprof1" width="100px" height="100px" style="margin: 15px auto; border: 0px solid #fff; border-radius: 10px;" />
+                            <input type="hidden" name="prodImage" id="prodImg1" value="" />
+                            <img src="~/assets/images/products/prod_default.png" id="prodprof1" name="prodImage" width="100px" height="100px" style="margin: 15px auto; border: 0px solid #fff; border-radius: 10px;" />
                         </div>
                     </form>
                 </div>
@@ -261,8 +262,11 @@
                     $('#productname1').val(response.Name);
                     $('#barcode').val(response.Barcode);
                     $('#description').val(response.Description);
+                   
                  //   $('#associatedclub').val(response.SoldInClubs);
-                     $('#prodprof').attr("src", response.ImageURL);
+                    $('#prodprof').attr("src", response.ImageURL);
+                    $('#prodImg1').attr("value", response.ImageURL);
+
                      $('#prodprof1').attr("src", response.ImageURL);
                     $('#updateProd').modal('show');
             },

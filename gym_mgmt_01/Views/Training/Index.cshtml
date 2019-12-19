@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Physiofit | Training ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model dynamic
@@ -158,7 +158,7 @@
         </div>
     </div>
 }
-@using (Html.BeginForm("Edit", "Training", FormMethod.Post, new { @id = "editClass", @class = "needs-validation", @novalidate = "" }))
+@using (Html.BeginForm("EditClass", "Training", FormMethod.Post, new { @id = "editClass", @class = "needs-validation", @novalidate = "" }))
 {
     @Html.AntiForgeryToken()
     <div class="modal" id="editclass" tabindex="-1" role="dialog" aria-labelledby="addclasslabel">
@@ -167,6 +167,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title" id="addclasslabel">Add Class</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <input type="hidden" id="classID" name="classID" value="">
                 </div>
                 <div class="modal-body">
                     <form id="addClass" method="post">
@@ -201,7 +202,7 @@
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1">Repeat Ends:</label>
-                            <input type="date" name="RepeatsEnd" class="form-control label2" id="RepeatsEnds" />
+                            <input type="date" name="RepeatsEnd" class="form-control label2" required="" id="RepeatsEnds" />
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1">Resource:</label>
@@ -232,7 +233,6 @@
                             <textarea type="date" name="Note" class="form-control label2" id="note"></textarea>
                         </div>
                     </form>
-
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-default btn-info">Save Class</button>
@@ -269,29 +269,43 @@
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
                  success: function (response) {
-
-                    // alert(JSON.stringify(response));
-                     //alert(" SucessFull Get the Value " + JSON.stringify(response));
+                     alert(" SucessFull Get the Value " + JSON.stringify(response));
                      $('#className').val(response.ClassName);
-                     var value = new Date( parseInt(response.From.replace(/(^.*\()|([+-].*$)/g, '')) );
-                     var to = new Date( parseInt(response.To.replace(/(^.*\()|([+-].*$)/g, '')) );
-                     var date = Date.parse(response.From.replace(/(^.*\()|([+-].*$)/g, ''));
-           
-                     var hour = value.getUTCHours();
-                     var min = value.getUTCMinutes();
-                     var sec = value.getUTCSeconds();
 
-                     var hour1 = to.getUTCHours();
-                     var min1 = to.getUTCMinutes();
-                     var sec1 = to.getUTCSeconds();
-                     var dateObj = new Date(JSON.stringify(response.From)); 
-                     utcString = dateObj.toUTCString();
-                     var from = '0' + hour + ':' + min + ':' + sec + '0';
-                     var to1 =  '0' + hour1 + ':' + min1 + ':' + sec1 + '0';
+                     var from = new Date( parseInt(response.From.replace(/(^.*\()|([+-].*$)/g, '')) );
+                     var to = new Date(parseInt(response.To.replace(/(^.*\()|([+-].*$)/g, '')));
+                     var repeatsEnd = new Date(parseInt(response.RepeatsEnd.replace(/(^.*\()|([+-].*$)/g, '')));
+
+                   //  alert(" Actual From Date : " + from);
+                    // alert(" Actual To Date  : " + to);
+                   //  alert(" Actual Repeats End : " + repeatsEnd);
+
+                     var hour = from.getHours();
+                     var min = from.getMinutes();
+                     var sec = from.getSeconds();
+
+                     var hour1 = to.getHours();
+                     var min1 = to.getMinutes();
+                     var sec1 = to.getSeconds();
+
+                     var day = repeatsEnd.getDate();
+                     var month = repeatsEnd.getMonth();
+                     var year = repeatsEnd.getFullYear();
+
+                     var date =  minTwoDigits(year) + '-' +minTwoDigits(month+1 ) + '-' + minTwoDigits(day);
+                     // alert(" Date : " + date);
+
+                     var from = minTwoDigits(hour) + ':' + minTwoDigits(min) + ':' + minTwoDigits(sec);
+                     var to1 = minTwoDigits(hour1) + ':' + minTwoDigits(min1) + ':' + minTwoDigits(sec1);
+                
+                    // alert("From Time :" + from);
+                   //  alert(" To Time : " + to1);
+               
+                     $("#classID").val(response.Id);
                      $('#timeFrom').val(from);
                      $('#timeTo').val(to1);
                      $('#Repeats').val(response.Repeats);
-                     $('#RepeatsEnds').val(response.RepeatsEnd);
+                     $('#RepeatsEnds').val(date);
                      $('#Resource').val(response.Resource);
                      $('#StaffID').val(response.StaffID);
                      $('#note').val(response.Note);
@@ -302,6 +316,9 @@
                 }
             });
             return false;
+        }
+        function minTwoDigits(n) {
+            return (n < 10 ? '0' : '') + n;
         }
     </script>
 }

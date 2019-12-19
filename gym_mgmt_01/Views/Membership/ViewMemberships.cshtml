@@ -61,10 +61,10 @@
                     </tr>
                 }
             </tbody>
-           </table>
+        </table>
     </div>
 </div>
-@using (Html.BeginForm("Edit", "Membership", FormMethod.Post, new { @id = "editMembership1", @class = "needs-validation", @novalidate = "" }))
+@using (Html.BeginForm("editSubscription", "Membership", FormMethod.Post, new { @id = "editMembership1", @class = "needs-validation", @novalidate = "" }))
 {
     @Html.AntiForgeryToken()
     <div class="modal" id="editMembership" tabindex="-1" role="dialog" aria-labelledby="addclasslabel">
@@ -83,27 +83,27 @@
                         <div class="form-group">
                             <label for="" class="control-label label1">Description</label>
                             <textarea type="date" name="Description" class="form-control label2" id="description"></textarea>
-                          
+
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1">Amount</label>
-                            <input type="text"  name="amount" required="" class="form-control label2" id="memAmount" />
+                            <input type="number" name="amount" required="" class="form-control label2" id="memAmount" />
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1">Start Date</label>
-                            <input type="date" name="StartDate" class="form-control label2" id="StartDate" />
+                            <input type="date" name="StartDate" class="form-control label2 date-inputmask" placeholder="Enter Start Date" id="StartDate" />
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1">End Date</label>
-                            <input type="date" name="EndDate" class="form-control label2" id="EndDate" />
+                            <input type="date" name="EndDate" class="form-control label2 date-inputmask" placeholder="Enter End Date" id="EndDate" />
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1">Pre Expiration Days :</label>
-                            <input type="date" name="PreExpirationDays" class="form-control label2" id="preexpdays" />
+                            <input type="number" name="PreExpirationDays" class="form-control label2" id="preexpdays" />
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label label1"> Allowed Members :</label>
-                            <input type="number"  name="Capacity" required="" class="form-control label2" id="capacity" />
+                            <input type="number" name="Capacity" required="" class="form-control label2" id="capacity" />
                         </div>
                     </form>
 
@@ -117,31 +117,47 @@
     </div>
 }
 @section scripts{
+    <!-- This Page JS -->
+   
     <script type="text/javascript">
 
         function editClass(id) {
-           var reMsAjax = /^\/Date\((d|-|.*)\)[\/|\\]$/;
+            var reMsAjax = /^\/Date\((d|-|.*)\)[\/|\\]$/;
             $.ajax({
                 url: "/Membership/getMemberships/" + id,
                 typr: "GET",
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
                 success: function (response) {
+                    alert(JSON.stringify(response));
 
-                 //   alert(JSON.stringify(response));
+                    var startDate = new Date(parseInt(response.StartDate.replace(/(^.*\()|([+-].*$)/g, '')));
+                    var endDate = new Date(parseInt(response.EndDate.replace(/(^.*\()|([+-].*$)/g, '')));
+                    
+                    alert(" Start Date : " + startDate);
+                    alert(" End Date : " + endDate);
+
+                    var sday = startDate.getDay();
+                    var smonth = startDate.getMonth();
+                    var syear = startDate.getFullYear();
+
+                    var sDate = minTwoDigits(syear) + '-' + minTwoDigits(smonth + 1) + '-' + minTwoDigits(sday);
+
+                    var eday = endDate.getDay();
+                    var emonth = endDate.getMonth();
+                    var eyear = endDate.getFullYear();
+
+                    var eDate =  minTwoDigits(eyear) + '-' +minTwoDigits(emonth+1 ) + '-' + minTwoDigits(eday);
+                    alert(" Start Date : " + sDate);
+                    alert(" End Date : " + eDate);
+
+
                     $('#membrshpname').val(response.Name);
                     $('#description').val(response.Description);
                     $('#memAmount').val(response.Amount);
-                   // var startDate = Date.parse(response.sStartDate)
-                    var startDate = new Date( parseInt(response.StartDate.replace(/(^.*\()|([+-].*$)/g, '')) );
-                    var endDate = new Date(parseInt(response.EndDate.replace(/(^.*\()|([+-].*$)/g, '')));
-                    //alert(" Start Date : " + startDate);
-                   // alert(" End Date : " + endDate);
-                    var std = startDate.getDate() + '/' + (startDate.getMonth() + 1) + '/' + startDate.getFullYear();
-                    //   var nowdate = startDate.getFullYear().toString() + '-' + (startDate.getMonth() + 1).toString().padStart(2, 0) + '-' + startDate.getDate().toString().padStart(2, 0);
-                    $('#StartDate').val(std);
-                    $('#EndDate').val(endDate);
-                    $('#preexpdays').val(response.PreEndDate);
+                    $('#StartDate').val(sDate);
+                    $('#EndDate').val(eDate);
+                    $('#preexpdays').val(response.PreExpirationDays);
                     $('#capacity').val(response.Capacity);
                     $('#editMembership').modal('show');
                 },
@@ -151,12 +167,15 @@
             });
             return false;
         }
-         $("#searchmembershp").on("keyup", function () {
-                var value = $(this).val().toUpperCase();
-                     $("#memship tr").filter(function() {
-                    $(this).toggle($(this).text().toUpperCase().indexOf(value) > -1)
-                 });
+        $("#searchmembershp").on("keyup", function () {
+            var value = $(this).val().toUpperCase();
+            $("#memship tr").filter(function () {
+                $(this).toggle($(this).text().toUpperCase().indexOf(value) > -1)
             });
+        });
+        function minTwoDigits(n) {
+            return (n < 10 ? '0' : '') + n;
+        }
     </script>
 }
 

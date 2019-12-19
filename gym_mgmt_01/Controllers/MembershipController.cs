@@ -25,8 +25,9 @@ namespace gym_mgmt_01.Controllers
         //    Membership mem = new Membership();
             if (ModelState.IsValid) {
                  
-                 int subtractingDays = int.Parse(mem.PreExpirationDays.ToString());
-                 mem.PreEndDate = mem.EndDate.Subtract(TimeSpan.FromDays(subtractingDays));
+                int subtractingDays = int.Parse(mem.PreExpirationDays.ToString());
+                mem.ValidDays = subtractingDays;
+                mem.PreEndDate = mem.EndDate.Subtract(TimeSpan.FromDays(subtractingDays));
                 bool flag =  memOpt.AddMembership(mem);
                 if (flag)
                 {
@@ -133,6 +134,25 @@ namespace gym_mgmt_01.Controllers
             int MembershipID = int.Parse(fc["membershp"].ToString());
             //  subs.UpdateSubscriptions(MemberID , MembershipID);
             return RedirectToAction("ViewMemberships");
+        }
+        [HttpPost]
+        public JsonResult CheckStartDate(DateTime endDate)
+        {
+            return Json(IsStartDateAvailable(endDate));
+        }
+        public bool IsStartDateAvailable(DateTime date )
+        {
+            string gn = null;
+            bool status;
+            if (gn != null)
+            {
+                status = false;
+            }
+            else
+            {
+                status = true;
+            }
+            return status;
         }
     }
 }

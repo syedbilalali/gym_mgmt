@@ -110,8 +110,15 @@ namespace gym_mgmt_01.Controllers
         public ActionResult EditStaff(Staff  st) {
 
             if (ModelState.IsValid) {
-                st.ImgURL = uploadFile(st.PostedFile);
-                so.updateStaff(st);
+                if (st.PostedFile != null)
+                {
+                    st.ImgURL = uploadFile(st.PostedFile);
+                    so.updateStaff(st);
+                }
+                else {
+                    so.updateStaff(st);
+                }
+              
             }
           //  return View("FindStaff");
            return RedirectToAction("FindStaff");
