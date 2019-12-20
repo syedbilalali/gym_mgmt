@@ -82,6 +82,7 @@ namespace gym_mgmt_01.Controllers
             dt = mo.getMember();
             List<Member> data = new List<Member>();
             data = (from DataRow dr in dt.Rows
+                    
                     select new Member()
                     {
                         Id = int.Parse(dr["Id"].ToString()),
@@ -252,5 +253,49 @@ namespace gym_mgmt_01.Controllers
 
             return View();
         }
-     }
+        [HttpPost]
+        public JsonResult IsAlreadyEmail(MemberRegistration mr)
+        {
+            return Json(IsEmailAvailable(mr.contact.Email));
+        }
+        public bool IsEmailAvailable(string email)
+        {
+            List<Contact> data = co.getAllContact();
+            var gn = (from u in data
+                      where u.Email.ToUpper() == email.ToUpper()
+                      select new { email }).FirstOrDefault();
+            bool status;
+            if (gn != null)
+            {
+                status = false;
+            }
+            else
+            {
+                status = true;
+            }
+            return status;
+        }
+        [HttpPost]
+        public JsonResult IsAlreadyCell(MemberRegistration mr)
+        {
+            return Json(IsCellAvailable(mr.contact.Cell));
+        }
+        public bool IsCellAvailable(string cell)
+        {
+            List<Contact> data = co.getAllContact();
+            var gn = (from u in data
+                      where u.Cell.ToUpper() == cell.ToUpper()
+                      select new { cell }).FirstOrDefault();
+            bool status;
+            if (gn != null)
+            {
+                status = false;
+            }
+            else
+            {
+                status = true;
+            }
+            return status;
+        }
+    }
 }

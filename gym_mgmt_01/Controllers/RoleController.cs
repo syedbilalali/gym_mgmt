@@ -23,6 +23,7 @@ namespace gym_mgmt_01.Controllers
         public ActionResult addRoleGroup(RoleGroup rg) {
             if (ModelState.IsValid) {
                 ro.AddRoleGroup(rg);
+                ModelState.Clear();
             }
             return RedirectToAction("Index");
         }

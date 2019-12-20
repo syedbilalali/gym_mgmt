@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace gym_mgmt_01.Models
 {
-    public class Membership
+    public class Membership : IValidatableObject
     {
         public int Id { get; set; }
 
@@ -28,6 +28,7 @@ namespace gym_mgmt_01.Models
 
 
         [Required(ErrorMessage = "End Date is required. ")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         [Remote("CheckStartDate", "Membership", HttpMethod = "POST", ErrorMessage = "Course already exists.")]
         public DateTime EndDate { get; set; }
         public string sEndDate { get; set;  }
@@ -41,5 +42,12 @@ namespace gym_mgmt_01.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            if (EndDate > StartDate)
+            {
+                yield return new ValidationResult("endDate must be greater than start date");
+            }
+        }
     }
 }

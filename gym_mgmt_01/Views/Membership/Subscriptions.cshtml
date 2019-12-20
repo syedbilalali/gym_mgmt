@@ -157,11 +157,12 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    
-                        <div class="form-group">
+                        <input type="hidden" id="subID" name="subID" value="" />
+                        <div class="form-group" style="display:none;">
+                            
                             <label for="" class="control-label label1">Choose Member :</label>
                             <div class="controls">
-                                <select name="member" id="select" data-validation-required-message="Please select the member first" class="form-control label2" aria-invalid="false" required="">
+                                <select name="member" id="member" data-validation-required-message="Please select the member first" class="form-control label2" aria-invalid="false" required="">
                                     @if (Model.member.Count > 0)
                                     {
                                         <option value="">--SELECT OPTIONS--</option>
@@ -181,7 +182,7 @@
                         <div class="form-group">
                             <label for="" class="control-label label1"> Choose Membership :</label>
                             <div class="controls">
-                                <select name="membershp" class="form-control label2" data-validation-required-message=" Please select class first." required="" aria-invalid="false">
+                                <select name="membership" id="membership" class="form-control label2" data-validation-required-message=" Please select membership first." required="" aria-invalid="false">
                                     @if (Model.membrshp.Count > 0)
                                     {
                                         <option value="">--SELECT OPTIONS--</option>
@@ -250,14 +251,11 @@
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
                  success: function (response) {
-                     alert(JSON.stringify(response));
-                    //alert(" SucessFull Get the Value " + JSON.stringify(response));
-             //       $('#prodID').val(response.Id);
-                //    $('#productname1').val(response.Name);
-              ///      $('#barcode').val(response.Barcode);
-         //           $('#description').val(response.Description);
-                 //   $('#associatedclub').val(response.SoldInClubs);
-               //      $('#prodprof').attr("src", response.ImageURL);
+                    //alert(JSON.stringify(response));
+                     //alert(" SucessFull Get the Value " + JSON.stringify(response));
+                     $('#subID').val(response.Id);
+                     $('#member').val(response.MemberID);
+                     $('#membership').val(response.MembershipID);
                     $('#editSubscription').modal('show');
             },
             error: function (response) {

@@ -101,9 +101,28 @@ namespace gym_mgmt_01.Controllers
         }
         public JsonResult getSubscription(int id) {
 
-            List<Membership> mshOpt = memOpt.getAllMembership();
-            var prod = mshOpt.Find(x => x.Id.Equals(id));
+         //   List<Membership> mshOpt = memOpt.getAllMembership();
+            List<Subscriptions> sb = subs.getAllSubscriptions();
+            var prod = sb.Find(x => x.Id.Equals(id));
             return Json(prod, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult editSubscription(FormCollection fc) {
+
+            //  string memberID = fc["member"].ToString();
+            int Id = int.Parse(fc["subID"].ToString());
+            int membershipID = int.Parse(fc["membership"]);
+            Subscriptions sb = new Subscriptions();
+            sb.Id = Id;
+            sb.MembershipID = membershipID;
+            bool flag = subs.UpdateSubscriptions(sb);
+            if (flag)
+            {
+                ViewBag.Message = "Membership Updated Successfully";
+            }
+            else {
+                ViewBag.Message = "Something went wrong !!! ";
+            }
+            return RedirectToAction("Subscriptions");
         }
         public ActionResult deleteSubscriptions(int id)
         {
@@ -128,11 +147,24 @@ namespace gym_mgmt_01.Controllers
             }
         }
         [HttpPost]
-        public ActionResult editSubscription(FormCollection fc)
+        public ActionResult editMembership(Membership mem)
         {
-            int MemberID = int.Parse(fc["member"].ToString());
-            int MembershipID = int.Parse(fc["membershp"].ToString());
-            //  subs.UpdateSubscriptions(MemberID , MembershipID);
+            if (ModelState.IsValid)
+            {
+                int subtractingDays = int.Parse(mem.PreExpirationDays.ToString());
+                mem.ValidDays = subtractingDays;
+                mem.PreEndDate = mem.EndDate.Subtract(TimeSpan.FromDays(subtractingDays));
+                bool flag = memOpt.UpdateMembership(mem);
+                if (flag)
+                {
+                    ViewBag.Message = " Successfully Add Membership !!! ";
+                    ModelState.Clear();
+                }
+                else
+                {
+                    ViewBag.Message = " Something Went Wrong !!! ";
+                }
+            }
             return RedirectToAction("ViewMemberships");
         }
         [HttpPost]

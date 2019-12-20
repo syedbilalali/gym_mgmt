@@ -145,47 +145,48 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                        <div class="form-group">
-                            <input type="hidden" id="Id" name="Id" value="">
-                            <label for="" class="control-label label1">Choose Member* :</label>
-                            <div class="controls">
-                                <select name="memberudt" id="subsMembers" data-validation-required-message="Please select member." class="form-control label2" required="" aria-invalid="false">
-                                    @if (Model.members.Count > 0)
+                    <input type="hidden" id="Id" name="Id" value="">
+                    <div class="form-group" style="display:none;">
+
+                        <label for="" class="control-label label1">Choose Member* :</label>
+                        <div class="controls">
+                            <select name="memberudt" id="subsMembers" data-validation-required-message="Please select member." class="form-control label2" required="" aria-invalid="false">
+                                @if (Model.members.Count > 0)
+                                {
+                                    <option value="">--SELECT Member--</option>
+                                    foreach (var mem in Model.members)
                                     {
-                                        <option value="">--SELECT Member--</option>
-                                        foreach (var mem in Model.members)
-                                        {
-                                            <option value="@mem.Id">@mem.FirstName @mem.LastName </option>
-                                        }
+                                        <option value="@mem.Id">@mem.FirstName @mem.LastName </option>
                                     }
-                                    else
-                                    {
-                                        <option value="0">NONE</option>
-                                    }
-                                </select>
-                                <div class="help-block" style=" padding-left:30%;"></div>
-                            </div>
+                                }
+                                else
+                                {
+                                    <option value="0">NONE</option>
+                                }
+                            </select>
+                            <div class="help-block" style=" padding-left:30%;"></div>
                         </div>
-                        <div class="form-group">
-                            <label for="" class="control-label label1"> Choose Class* :</label>
-                            <div class="controls">
-                                <select name="classudt" id="subsclass" class="form-control label2" data-validation-required-message=" Please select class" required="" aria-invalid="false">
-                                    @if (Model.classlist.Count > 0)
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label label1"> Choose Class* :</label>
+                        <div class="controls">
+                            <select name="classudt" id="subsclass" class="form-control label2" data-validation-required-message=" Please select class" required="" aria-invalid="false">
+                                @if (Model.classlist.Count > 0)
+                                {
+                                    <option value="">--SELECT Class--</option>
+                                    foreach (var mem in Model.classlist)
                                     {
-                                        <option value="">--SELECT Class--</option>
-                                        foreach (var mem in Model.classlist)
-                                        {
-                                            <option value="@mem.Id">@mem.ClassName</option>
-                                        }
+                                        <option value="@mem.Id">@mem.ClassName</option>
                                     }
-                                    else
-                                    {
-                                        <option value="0">NONE</option>
-                                    }
-                                </select>
-                                <div class="help-block" style="padding-left:30%;"></div>
-                            </div>
+                                }
+                                else
+                                {
+                                    <option value="0">NONE</option>
+                                }
+                            </select>
+                            <div class="help-block" style="padding-left:30%;"></div>
                         </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-default btn-info" >Edit Assign Class</button>
@@ -198,6 +199,23 @@
 @section scripts {
     <script type="text/javascript" src="@Url.Content("~/dist/js/pages/validation.js")"></script>
     <script type="text/javascript">
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
         function GetDetails(id) {
            $.ajax({
                 url: "/Training/getSubscriptionByID/" + id,
@@ -205,7 +223,7 @@
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
                success: function (response) {
-                    alert(JSON.stringify(response));
+                   // alert(JSON.stringify(response));
                    $('#subsMembers').val(response.MemberID).trigger('change').attr("selected", "selected");
                    $('#subsclass').val(response.ClassID).trigger('change');
                    $('#Id').val(response.Id);

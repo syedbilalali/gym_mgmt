@@ -49,7 +49,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public DataTable getMember() {
             DataTable dt = new DataTable();
-            string command = "SELECT * FROM dbo.Member";
+            string command = "SELECT * FROM dbo.Member Order by Id DESC";
             return da.FetchAll(command);
         }
         public List<Member> getAllMembers() {

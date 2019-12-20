@@ -3641,6 +3641,7 @@
     <Content Include="Views\Stock\_EditStock.cshtml" />
     <Content Include="Views\Invoice\PdfModel.cshtml" />
     <Content Include="Views\Invoice\Pdf.cshtml" />
+    <Content Include="Views\Membership\_EditMembership.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

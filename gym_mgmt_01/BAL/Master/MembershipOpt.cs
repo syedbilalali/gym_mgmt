@@ -70,9 +70,12 @@ namespace gym_mgmt_01.BAL.Master
                            Description = dr["Description"].ToString(),
                            ValidDays = int.Parse(dr["ValidDays"].ToString()),
                            Amount = decimal.Parse(dr["Amount"].ToString()),
+                           StartDate = DateTime.Parse(dr["StartDate"].ToString()),
+                           EndDate = DateTime.Parse(dr["EndDate"].ToString()),
                            sStartDate = DateTime.Parse(dr["StartDate"].ToString()).ToString(),
                            sEndDate = DateTime.Parse(dr["EndDate"].ToString()).ToString(),
                            //     PreEndDate = DateTime.Parse(dr["PreEndDate"].ToString()),
+                           PreExpirationDays = (DateTime.Parse(dr["EndDate"].ToString()) - DateTime.Parse(dr["PreEndDate"].ToString())).Days,
                            Capacity = int.Parse(dr["Capacity"].ToString()),
                            //    CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString()),
                            //    UpdatedAt = DateTime.Parse(dr["UpdatedAt"].ToString())
@@ -124,10 +127,10 @@ namespace gym_mgmt_01.BAL.Master
             param[1] = new SqlParameter("@Id" , id);
             return da.InsertSP(param , command);
         }
-        public void UpdateMembership(Membership mem)
+        public bool UpdateMembership(Membership mem)
         {
             string command = "dbo.spMembershipOpt";
-            SqlParameter[] param = new SqlParameter[9];
+            SqlParameter[] param = new SqlParameter[10];
             param[0] = new SqlParameter("@Action", "UPDATE");
             param[1] = new SqlParameter("@Id", mem.Id);
             param[2] = new SqlParameter("@Name", mem.Name);
@@ -138,7 +141,7 @@ namespace gym_mgmt_01.BAL.Master
             param[7] = new SqlParameter("@EndDate", mem.EndDate);
             param[8] = new SqlParameter("@PreEndDate", mem.PreEndDate);
             param[9] = new SqlParameter("@Capacity", mem.Capacity);
-            da.InsertSP(param, command);
+            return da.InsertSP(param, command);
         }
     }
 }

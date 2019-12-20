@@ -64,58 +64,7 @@
         </table>
     </div>
 </div>
-@using (Html.BeginForm("editSubscription", "Membership", FormMethod.Post, new { @id = "editMembership1", @class = "needs-validation", @novalidate = "" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="modal" id="editMembership" tabindex="-1" role="dialog" aria-labelledby="addclasslabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="addclasslabel">Edit Membership </h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <form id="addClass" method="post">
-                        <div class="form-group">
-                            <label for="" class="control-label label1">Name</label>
-                            <input type="text" name="Name" required="" class="form-control label2" id="membrshpname" />
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="control-label label1">Description</label>
-                            <textarea type="date" name="Description" class="form-control label2" id="description"></textarea>
-
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="control-label label1">Amount</label>
-                            <input type="number" name="amount" required="" class="form-control label2" id="memAmount" />
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="control-label label1">Start Date</label>
-                            <input type="date" name="StartDate" class="form-control label2 date-inputmask" placeholder="Enter Start Date" id="StartDate" />
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="control-label label1">End Date</label>
-                            <input type="date" name="EndDate" class="form-control label2 date-inputmask" placeholder="Enter End Date" id="EndDate" />
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="control-label label1">Pre Expiration Days :</label>
-                            <input type="number" name="PreExpirationDays" class="form-control label2" id="preexpdays" />
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="control-label label1"> Allowed Members :</label>
-                            <input type="number" name="Capacity" required="" class="form-control label2" id="capacity" />
-                        </div>
-                    </form>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-default btn-info">Edit Membership</button>
-                    <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-}
+@Html.Partial("_EditMembership" , new gym_mgmt_01.Models.Membership())
 @section scripts{
     <!-- This Page JS -->
    
@@ -129,13 +78,12 @@
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
                 success: function (response) {
-                    alert(JSON.stringify(response));
+               
 
                     var startDate = new Date(parseInt(response.StartDate.replace(/(^.*\()|([+-].*$)/g, '')));
                     var endDate = new Date(parseInt(response.EndDate.replace(/(^.*\()|([+-].*$)/g, '')));
                     
-                    alert(" Start Date : " + startDate);
-                    alert(" End Date : " + endDate);
+                 
 
                     var sday = startDate.getDay();
                     var smonth = startDate.getMonth();
@@ -148,10 +96,7 @@
                     var eyear = endDate.getFullYear();
 
                     var eDate =  minTwoDigits(eyear) + '-' +minTwoDigits(emonth+1 ) + '-' + minTwoDigits(eday);
-                    alert(" Start Date : " + sDate);
-                    alert(" End Date : " + eDate);
-
-
+                    $('#memID').val(response.Id);
                     $('#membrshpname').val(response.Name);
                     $('#description').val(response.Description);
                     $('#memAmount').val(response.Amount);

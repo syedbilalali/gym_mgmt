@@ -9,7 +9,7 @@
     Genderlist.Add(new SelectListItem() { Text = "Female", Value = "Female" });
     Genderlist.Add(new SelectListItem() { Text = "Other", Value = "Other" });
 }
-   
+
 @model gym_mgmt_01.Models.MemberRegistration
 @using (Html.BeginForm("Index", "Member", FormMethod.Post, new { enctype = "multipart/form-data", id = "memreg", @class = "needs-validation", @novalidate = "" }))
 {
@@ -17,7 +17,7 @@
     <form id="memberReg" method="post">
         <div class="row uppercontainer">
             <div class="col-md-12">
-                
+
                 @if (ViewBag.Message != "")
                 {
                     <div class="alert alert-success" style="display:block;">
@@ -61,7 +61,7 @@
                             </div>
                             <div class="m-b-30 checkaddmember" style="display:none;">
                                 <span class="text-muted">Member&nbsp;&nbsp;</span>
-                           
+
                                 <input id="memberType" name="memberType" type="checkbox" checked class="js-switch" data-color="#f62d51" data-size="small" />
                                 <span class="text-truncate">&nbsp;&nbsp;Prospectus</span>
                             </div>
@@ -104,20 +104,17 @@
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.LastName, "", new { @class = "text-danger" })
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Date of Birth<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
                                                         @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "dob", @placeholder = " Enter Date of Birth ", @required = "" } })
-
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.DOB, "", new { @class = "text-danger" })
                                                         </div>
-                                                        
                                                     </div>
-
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Gender<span class=" text-danger">*</span></label>
@@ -126,7 +123,7 @@
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.Gender, "", new { @class = "text-danger" })
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -136,7 +133,7 @@
                                                     <div class="input-group">
                                                         @Html.ValidationMessageFor(modal => modal.member.note, "", new { @class = "text-danger" })
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -155,29 +152,29 @@
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Email, "", new { @class = "text-danger" })
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Cell<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text",@onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43", @placeholder = "Ex. +971509090900 " } })
+                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43", @placeholder = "Ex. +971509090900 " } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Cell, "", new { @class = "text-danger" })
                                                         </div>
-                                                       
+
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Home</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text",  @onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43" , @placeholder = "Ex. +971509090900"} })
+                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43", @placeholder = "Ex. +971509090900" } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Home, "", new { @class = "text-danger" })
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -188,25 +185,25 @@
                                                             @Html.ValidationMessageFor(modal => modal.contact.Work, "", new { @class = "text-danger" })
                                                         </div>
 
-                                                        
+
                                                     </div>
                                                 </div>
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">Address</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.Address, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " 123 Main Road", @minlength="5", @maxlength = "100" } })
+                                                        @Html.EditorFor(model => model.contact.Address, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " 123 Main Road", @minlength = "5", @maxlength = "100" } })
 
                                                     </div>
                                                     <div class="input-group">
                                                         @Html.ValidationMessageFor(modal => modal.contact.Address, "", new { @class = "text-danger" })
                                                     </div>
-                                                    
+
                                                 </div>
                                                 <div class="form-group mt-3 row">
 
                                                     <label for="example-text-input" class="col-4 col-form-label">Suburb</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.Suburb, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " CBD "  } })
+                                                        @Html.EditorFor(model => model.contact.Suburb, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = " CBD " } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Suburb, "", new { @class = "text-danger" })
@@ -216,7 +213,7 @@
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">City</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.City, new { htmlAttributes = new { @class = "form-control", @type = "text"} })
+                                                        @Html.EditorFor(model => model.contact.City, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.City, "", new { @class = "text-danger" })
@@ -226,13 +223,13 @@
                                                 <div class="form-group mt-3 row">
                                                     <label for="example-text-input" class="col-4 col-form-label">Zip Code</label>
                                                     <div class="col-8">
-                                                        @Html.EditorFor(model => model.contact.Zipcode, new { htmlAttributes = new { @class = "form-control", @maxlength = "6", @placeholder = "81203", @type = "text"} })
+                                                        @Html.EditorFor(model => model.contact.Zipcode, new { htmlAttributes = new { @class = "form-control", @maxlength = "6", @placeholder = "81203", @type = "text" } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Zipcode, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
-                                                   
+
                                                 </div>
                                             </div>
                                         </div>
@@ -569,124 +566,127 @@
     </div>
 </div>
 @section scripts {
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            var MemberType = "";
-            var addMemberShipA = document.querySelector('#addMemberShipA');
-            var addMemberShipB = document.querySelector('#addMemberShipB');
-            var prospectusDetails = document.querySelector('#prospectusDetails');
-            var emergencyContact = document.querySelector('#emergencyContact');
-            var memberType = document.querySelector('#memberType');
-            if (memberType.checked) {
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var MemberType = "";
+        var addMemberShipA = document.querySelector('#addMemberShipA');
+        var addMemberShipB = document.querySelector('#addMemberShipB');
+        var prospectusDetails = document.querySelector('#prospectusDetails');
+        var emergencyContact = document.querySelector('#emergencyContact');
+        var memberType = document.querySelector('#memberType');
+        if (memberType.checked) {
 
+            MemberType = "Prospectus";
+            //  prospectusDetails.style.display = "block";
+            // emergencyContact.style.display = "none";
+            addMemberShipA.innerHTML = "Save";
+            addMemberShipB.innerHTML = "Save";
+        } else {
+
+            MemberType = "Member";
+            addMemberShipA.innerHTML = "Add and Save Membership ";
+            addMemberShipB.innerHTML = "Add and Save Membership ";
+            //   prospectusDetails.style.display = "none";
+            // emergencyContact.style.display = "block";
+        }
+        memberType.addEventListener('change', (event) => {
+            if (event.target.checked) {
                 MemberType = "Prospectus";
-                //  prospectusDetails.style.display = "block";
-                // emergencyContact.style.display = "none";
+                prospectusDetails.style.display = "block";
+                emergencyContact.style.display = "none";
                 addMemberShipA.innerHTML = "Save";
                 addMemberShipB.innerHTML = "Save";
+                //  alert('checked');
             } else {
-
-                MemberType = "Member";
+                MemberType = "Prospectus";
+                prospectusDetails.style.display = "none";
+                emergencyContact.style.display = "block";
                 addMemberShipA.innerHTML = "Add and Save Membership ";
                 addMemberShipB.innerHTML = "Add and Save Membership ";
-                //   prospectusDetails.style.display = "none";
-                // emergencyContact.style.display = "block";
+                // alert('not checked');
             }
-            memberType.addEventListener('change', (event) => {
-                if (event.target.checked) {
-                    MemberType = "Prospectus";
-                    prospectusDetails.style.display = "block";
-                    emergencyContact.style.display = "none";
-                    addMemberShipA.innerHTML = "Save";
-                    addMemberShipB.innerHTML = "Save";
-                    //  alert('checked');
-                } else {
-                    MemberType = "Prospectus";
-                    prospectusDetails.style.display = "none";
-                    emergencyContact.style.display = "block";
-                    addMemberShipA.innerHTML = "Add and Save Membership ";
-                    addMemberShipB.innerHTML = "Add and Save Membership ";
-                    // alert('not checked');
-                }
-            })
-            "use strict";
-            $(".tst1").click(function () {
-                $.toast({
-                    heading: 'Welcome to Material Pro admin',
-                    text: 'Use the predefined ones, or specify a custom position object.',
-                    position: 'top-right',
-                    loaderBg: '#ff6849',
-                    icon: 'info',
-                    hideAfter: 3000,
-                    stack: 6
-                });
+        })
+        "use strict";
+        $(".tst1").click(function () {
+            $.toast({
+                heading: 'Welcome to Material Pro admin',
+                text: 'Use the predefined ones, or specify a custom position object.',
+                position: 'top-right',
+                loaderBg: '#ff6849',
+                icon: 'info',
+                hideAfter: 3000,
+                stack: 6
+            });
 
-            });
-            $('#upldImage').change(function () {
-                readURL(this);
-            });
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var form = document.querySelector('#memreg');
-                        var bool = Validate(form);
-                        if (!bool) {
-                            $('#profImg').attr('src', '/assets/images/users/deafult.png');
-                        } else {
-                            $('#profImg').attr('src', e.target.result);
-                        }
-                    }
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-            var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
-            function Validate(oForm) {
-                var arrInputs = oForm.getElementsByTagName("input");
-                for (var i = 0; i < arrInputs.length; i++) {
-                    var oInput = arrInputs[i];
-                    if (oInput.type == "file") {
-                        var sFileName = oInput.value;
-                        if (sFileName.length > 0) {
-                            var blnValid = false;
-                            for (var j = 0; j < _validFileExtensions.length; j++) {
-                                var sCurExtension = _validFileExtensions[j];
-                                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
-                                    blnValid = true;
-                                    break;
-                                }
-                            }
-                            if (!blnValid) {
-                                alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
-                                return false;
-                            }
-                        }
-                    }
-                }
-                return true;
-            }
         });
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
+        $('#upldImage').change(function () {
+            readURL(this);
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var form = document.querySelector('#memreg');
+                    var bool = Validate(form);
+                    if (!bool) {
+                        $('#profImg').attr('src', '/assets/images/users/deafult.png');
+                    } else {
+                        $('#profImg').attr('src', e.target.result);
+                    }
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
+        function Validate(oForm) {
+            var arrInputs = oForm.getElementsByTagName("input");
+            for (var i = 0; i < arrInputs.length; i++) {
+                var oInput = arrInputs[i];
+                if (oInput.type == "file") {
+                    var sFileName = oInput.value;
+                    if (sFileName.length > 0) {
+                        var blnValid = false;
+                        for (var j = 0; j < _validFileExtensions.length; j++) {
+                            var sCurExtension = _validFileExtensions[j];
+                            if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                                blnValid = true;
+                                break;
+                            }
                         }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-    </script>
+                        if (!blnValid) {
+                            alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+    });
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 }
 <!-- ============================================================== -->
 <!-- End Right sidebar -->

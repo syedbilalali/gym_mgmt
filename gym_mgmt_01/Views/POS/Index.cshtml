@@ -736,6 +736,7 @@
         }
         function makePayment() {
             //alert(" O Cash ");
+            alert("Making the Payment ... ");
             var total_amount = document.querySelector('#lbltotal');
             var due_amount = document.querySelector('#lblDue');
             var extact_Data = document.getElementById('extData');
@@ -758,18 +759,10 @@
                 var col2 = table1.rows[i].cells[2].innerHTML;
                 var col3 = table1.rows[i].cells[5].innerHTML;
                 var col4 = table1.rows[i].cells[6].innerHTML;
-                //     alert(" Product Name  : " + col);
-                //   alert(" Product Qty  : " + col1);
-                // alert(" Product Price  : " + col2);
-                // alert(" Product ID  : " + col3);
-                // alert(" Product Actual Price   : " + col4);
-                // alert(" Invoice ID " + invoiceID.value);
                 var totalprice = parseFloat(col1) * parseFloat(col4);
                 addSellsOrderItems(invoiceID.value, col3, col1, col4, 0, col2);
             }
-          //  alert(" Alert Total Pay : " + totalPay.innerHTML);
             addSellsOrder(invoiceID.value, selectedMember , subtotal.innerHTML, salestax.innerHTML, totalammount.innerHTML, "PAID", totalPay.innerHTML, 0, remianPrice.innerHTML);
-          //  alert("Complete Sale and  Clear the Screen ");
             resetPanel();
             window.open('/invoice/get_last_Invoice', '_blank');
             window.location.reload();

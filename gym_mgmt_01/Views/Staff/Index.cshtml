@@ -14,7 +14,7 @@
     @Html.AntiForgeryToken()
     <div class="row uppercontainer">
         <div class="col-md-12">
-            @if (ViewBag.Message != null )
+            @if (ViewBag.Message != null)
             {
                 <div class="alert alert-success" style="display:@ViewBag.Alert;">
                     <i class="ti-user"></i>
@@ -86,7 +86,7 @@
                                                 @Html.LabelFor(model => model.LastName, htmlAttributes: new { })
                                                 @*<input type="text" name="lastName" class="form-control" id="validationDefault02" placeholder="Last name" value="" required>*@
                                                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name" } })
-                                               @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
 
                                             </div>
                                             <div class="col-md-4 mb-3">
@@ -220,8 +220,12 @@
     </script>
 }
 @section scripts {
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script type="text/javascript">
         $(function () {
             $('#upldImage').change(function () {

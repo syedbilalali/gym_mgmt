@@ -49,7 +49,29 @@ namespace gym_mgmt_01.BAL.Master
             param[10] = new SqlParameter("@Id" , c.Id);
             da.Insert(param, command);
         }
-
+        public List<Contact> getAllContact()
+        {
+            DataTable dt = new DataTable();
+            string command = "SELECT * FROM dbo.Contact";
+            dt = da.FetchAll(command);
+            List<Contact> data = new List<Contact>();
+            if (dt.Rows.Count > 0)
+            {
+                data = (from DataRow dr in dt.Rows
+                        select new Contact()
+                        {
+                            Id = int.Parse(dr["Id"].ToString()),
+                            MemberID = int.Parse(dr["MemberID"].ToString()),
+                            Email = dr["Email"].ToString(),
+                            Cell = dr["Cell"].ToString(),
+                            Home = dr["Home"].ToString(),
+                            Work = dr["Work"].ToString(),
+                            City = dr["City"].ToString(),
+                            Zipcode = dr["Zipcode"].ToString()
+                        }).ToList();
+            }
+            return data;
+        }
         public Contact GetContact(int? id)
         {
 

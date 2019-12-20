@@ -27,13 +27,12 @@ namespace gym_mgmt_01.BAL.Master
             param[0] = new SqlParameter("@Id", Id);
             return da.Insert(param, command);
         }
-        public void UpdateSubscriptions(Subscriptions so) {
-            string command = "UPDATE dbo.Subscriptions SET MembershipID=@MembershipID , MemberID=@MemberID WHERE Id=@Id";
-            SqlParameter[] param = new SqlParameter[3];
+        public bool UpdateSubscriptions(Subscriptions so) {
+            string command = "UPDATE dbo.Subscriptions SET MembershipID=@MembershipID WHERE Id=@Id";
+            SqlParameter[] param = new SqlParameter[2];
             param[0] = new SqlParameter("@Id", so.Id);
             param[1] = new SqlParameter("@MembershipID", so.MembershipID);
-            param[2] = new SqlParameter("@MemberID", so.MemberID);
-            da.Insert(param, command);
+            return  da.Insert(param, command);
         }
         public List<Subscriptions> getAllSubscriptions() {
             List<Subscriptions> data  = new List<Subscriptions>();
@@ -45,6 +44,8 @@ namespace gym_mgmt_01.BAL.Master
             if (dt.Rows.Count > 0) {
                 data = (from DataRow dr in dt.Rows select new Subscriptions() {
                     Id = int.Parse(dr["Id"].ToString()),
+                    MemberID = int.Parse(dr["MemberID"].ToString()),
+                    MembershipID = int.Parse(dr["MembershipID"].ToString()),
                     MemberName = dr["MembershipName"].ToString(),
                     Ammount = decimal.Parse(dr["Ammount"].ToString()),
                     ExpirayDate = DateTime.Parse(dr["ExpirayDate"].ToString()),

@@ -57,7 +57,7 @@
                                         <div class="form-row">
                                             <div class="col-md-12 mb-3">
                                                 <label for="" class="mb30">Amount</label>
-                                                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = " form-control mb70", @type = "number", @name = "Amount", @placeholder = " Enter Amount. " } })
+                                                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = " form-control mb70", @type = "number", @name = "Amount", @min = "0", @placeholder = " Enter Amount. " } })
                                                 @Html.ValidationMessageFor(modal => modal.Amount, "", new { @class = "text-danger" })
                                                 <div class="invalid-feedback">Please enter Membership Ammount !!!</div>
                                                 <div class="valid-feedback">This looks good !!! </div>
@@ -85,7 +85,7 @@
                                         <div class="form-row">
                                             <div class="col-md-12 mb-3">
                                                 <label for="" class="mb30">Pre Expiration Days</label>
-                                                @Html.EditorFor(model => model.PreExpirationDays, new { htmlAttributes = new { @class = "form-control mb70", @type = "number", @placeholder = " Enter Pre Expiration Days. " } })
+                                                @Html.EditorFor(model => model.PreExpirationDays, new { htmlAttributes = new { @class = "form-control mb70", @type = "number", @min = "0", @placeholder = " Enter Pre Expiration Days. " } })
                                                 @Html.ValidationMessageFor(modal => modal.PreExpirationDays, "", new { @class = "text-danger" })
                                                 <div class="invalid-feedback">Please Enter Pre Expiration Days !!!</div>
                                                 <div class="valid-feedback">This looks good !!! </div>
@@ -113,6 +113,12 @@
 }
 @section scripts{
     <script src="@Url.Content("~/dist/js/pages/validation.js")"></script>
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script type="text/javascript">
         $(function () {
             'use strict';
@@ -154,6 +160,6 @@
 
             }
         }
-       
+
     </script>
 }

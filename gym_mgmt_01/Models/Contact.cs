@@ -14,11 +14,15 @@ namespace gym_mgmt_01.Models
         public Contact() { }
         public int? Id { get; set; }
         public int? MemberID { get; set; }
+
         [Display(Name = "Email Address")]
+        [Remote("IsAlreadyEmail", "Member", HttpMethod = "POST", ErrorMessage = "Email already exists.")]
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid Email Address.")]
         public string Email { get; set; }
 
+
+        [Remote("IsAlreadyCell", "Member", HttpMethod = "POST", ErrorMessage = "Cell already exists.")]
         [Required(ErrorMessage = "Cell is required.")]
         [RegularExpression(@"(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Mobile Number !!!")]
         public string Cell { get; set; }
