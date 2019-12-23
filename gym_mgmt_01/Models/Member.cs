@@ -29,6 +29,7 @@ namespace gym_mgmt_01.Models
 
         [DateMinimumAge(18, ErrorMessage = "{0} must be someone at least {1} years of age")]
         [DisplayName("Date of Birth")]
+        [DateRange(ErrorMessage ="Not in Valid Date Range ")]
         [Required(ErrorMessage = " Please enter Date of Birth. ")]
         public string DOB { get; set; }
 
@@ -73,5 +74,17 @@ namespace gym_mgmt_01.Models
         }
 
         public int MinimumAge { get; }
+    }
+    public class DateRange : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            DateTime date = DateTime.Parse(value.ToString());
+            int years = int.Parse(date.Year.ToString());
+            if (years >= 1900 && years <= 9999) {
+                return true;
+            }
+            return false;
+        }
     }
 }

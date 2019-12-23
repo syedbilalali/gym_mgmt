@@ -186,6 +186,28 @@ namespace gym_mgmt_01.Controllers
             }
             return relativePath;
         }
+        [HttpPost]
+        public JsonResult IsAlreadyEmail(Staff st)
+        {
+            return Json(IsEmailAvailable(st.Email));
+        }
+        public bool IsEmailAvailable(string email)
+        {
+            List<Staff> data = so.getAllStaff();
+            var gn = (from u in data
+                      where u.Email.ToUpper() == email.ToUpper()
+                      select new { email }).FirstOrDefault();
+            bool status;
+            if (gn != null)
+            {
+                status = false;
+            }
+            else
+            {
+                status = true;
+            }
+            return status;
+        }
     }
    
 }

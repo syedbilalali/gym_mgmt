@@ -23,6 +23,7 @@
                     <div class="alert alert-success" style="display:block;">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                         @ViewBag.Message
+                        @Html.ValidationSummary()
                     </div>
                 }
             </div>
@@ -60,7 +61,6 @@
                             </div>
                             <div class="m-b-30 checkaddmember" style="display:none;">
                                 <span class="text-muted">Member&nbsp;&nbsp;</span>
-
                                 <input id="memberType" name="memberType" type="checkbox" checked class="js-switch" data-color="#f62d51" data-size="small" />
                                 <span class="text-truncate">&nbsp;&nbsp;Prospectus</span>
                             </div>
@@ -109,7 +109,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Date of Birth<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "dob", @placeholder = " Enter Date of Birth ",@min="1900-01-01", @max="9999-12-31" , @required = "" } })
+                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "dob", @placeholder = " Enter Date of Birth ",@min="1900-01-01", @max="2050-12-31" , @required = "" } })
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.DOB, "", new { @class = "text-danger" })
                                                         </div>

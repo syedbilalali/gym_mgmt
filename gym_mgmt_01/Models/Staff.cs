@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace gym_mgmt_01.Models
@@ -24,6 +25,7 @@ namespace gym_mgmt_01.Models
         [Display(Name = "Email Address")]
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid Email Address.")]
+        [Remote("IsAlreadyEmail", "Staff", HttpMethod = "POST", ErrorMessage = "Email already exists.")]
         public string Email { get; set; }
 
         [DateMinimumAge(18, ErrorMessage = "{0} must be someone at least {1} years of age")]

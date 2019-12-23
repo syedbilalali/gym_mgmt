@@ -60,20 +60,24 @@ namespace gym_mgmt_01.Controllers
             {
               //  ModelState.AddModelError("ImageUpload", "Please choose either a GIF, JPG or PNG image.");
             }
+           
             if (ModelState.IsValid)
             {
                 mr.member.MemberType = "member";
                 mr.contact.Subscribed = "";
-                mr.member.ImagePath = uploadFile(mr.ImageFile);
+              
                 mo.AddMemeber(mr.member);
+                mr.member.ImagePath = uploadFile(mr.ImageFile);
                 int a = int.Parse(mo.getMemberID()) - 1;
-                mr.member.note = mr.member.note.Trim();
+                if (mr.member.note != null && mr.member.note != "") {
+                    mr.member.note = mr.member.note.Trim();
+                }
                 mr.contact.MemberID = int.Parse(a.ToString());
                 co.AddContact(mr.contact);
                 ViewBag.Message = " Successfully Add Member !!! ";
                 ModelState.Clear();
-                ViewBag.ID = mo.getMemberID();
             }
+            ViewBag.ID = mo.getMemberID();
             return View();
         }
         [HttpGet]
@@ -133,7 +137,6 @@ namespace gym_mgmt_01.Controllers
                     {
 
                         string FileName = Path.GetFileNameWithoutExtension(file.FileName);
-
                         //To Get File Extension  
                         string FileExtension = Path.GetExtension(file.FileName);
 
@@ -151,9 +154,12 @@ namespace gym_mgmt_01.Controllers
                         //To copy and save file into server.  
                         file.SaveAs(fullPath);
                     }
+                    else {
+                        ModelState.AddModelError("ImagePath", "Please upload image less then 102400 ");
+                    }
                 }
                 else {
-                    Response.Write(" File Formate Not supported");
+                    ModelState.AddModelError("ImagePath", " Image formate not supportted ");
                 }
             }
             else {
