@@ -45,14 +45,12 @@ namespace gym_mgmt_01.Controllers
             model.products = product;
             return PartialView("_EditStock", model);
         }
-        public ActionResult EditStock(FormCollection fc)
+        public ActionResult EditStock(Stocks fc)
         {
-            int stockID = int.Parse(fc["stockID"].ToString());
-            int productID  =  int.Parse(fc["productName"].ToString());
-            decimal getprice = decimal.Parse(fc["getPrice"].ToString());
-            decimal sellprice = decimal.Parse( fc["sellPrice"].ToString());
-            int  quantity  = int.Parse(fc["quantity"].ToString());   
-         //    po.UpdateStocksIn(stockID ,productID ,quanti )
+            if (ModelState.IsValid) {
+                po.UpdateStocksIn(fc.Id, fc.get_price, fc.sell_price, fc.stockin, fc.current_stock);
+                ModelState.Clear();
+            }
             return RedirectToAction("Index");
         }
         public ActionResult DeleteStocks(int id)

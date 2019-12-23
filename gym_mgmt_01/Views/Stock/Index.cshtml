@@ -124,7 +124,7 @@
     }
 </div>
 <!-- /.modal -->
-@Html.Partial("_EditStock")
+@Html.Partial("_EditStock" , new gym_mgmt_01.Models.Stocks())
 <!----------------->
 @section scripts {
     <script type="text/javascript">
@@ -154,11 +154,12 @@
                 success: function (response) {
                    // alert(" SucessFull Get the Value " + JSON.stringify(response));
                     $('#stockID').val(response.Id);
+                    $('#Id').val(response.Id);
                   //  $('#prodID').val(response.Id);
-                    $('#productName').val(response.product_Id);
-                    $('#buyPrice').val(response.get_price);
-                    $('#sellPrice').val(response.sell_price);
-                    $('#quantity').val(response.current_stock);
+                  //  $('#productName').val(response.product_Id);
+                    $('#get_price').val(response.get_price);
+                    $('#sell_price').val(response.sell_price);
+                    $('#current_stock').val(response.current_stock);
                     $('#updateProd').modal('show');
             },
             error: function (response) {

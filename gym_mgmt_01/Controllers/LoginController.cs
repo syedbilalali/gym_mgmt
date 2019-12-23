@@ -30,7 +30,6 @@ namespace gym_mgmt_01.Controllers
                     Session["Password"] = Password;
                     return RedirectToAction("Index", "Home");
                 }
-                    
             }
             //Response.Write(" Valid " + isValid);
             ModelState.AddModelError("LogError", " Authentication Failed !!! ");

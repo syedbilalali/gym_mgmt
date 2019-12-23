@@ -42,7 +42,7 @@
                                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control mb70", @type = "text", @name = "name", @placeholder = " Enter Name of Membership. ", @required = "" } })
                                                 @Html.ValidationMessageFor(modal => modal.Name, "", new { @class = "text-danger" })
                                                 <div class="invalid-feedback">Please enter Membershipname !!!</div>
-                                                <div class="valid-feedback">This looks good !!! </div>
+                                                
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -51,7 +51,7 @@
                                                 @Html.TextAreaFor(model => model.Description, new { @class = "form-control mb70", @type = "text", @name = "Description", @placeholder = " Enter Description Here. " })
                                                 @Html.ValidationMessageFor(modal => modal.Description, "", new { @class = "text-danger" })
                                                 <div class="invalid-feedback">Please enter Descriptions !!!</div>
-                                                <div class="valid-feedback">This looks good !!! </div>
+                                              
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -60,26 +60,26 @@
                                                 @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = " form-control mb70", @type = "number", @name = "Amount", @min = "0", @placeholder = " Enter Amount. " } })
                                                 @Html.ValidationMessageFor(modal => modal.Amount, "", new { @class = "text-danger" })
                                                 <div class="invalid-feedback">Please enter Membership Ammount !!!</div>
-                                                <div class="valid-feedback">This looks good !!! </div>
+                                               
                                                 <div class="help-block"><ul role="alert"><li></li></ul></div>
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-12 mb-3">
                                                 <label for="" class="mb30">Start Date</label>
-                                                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control mb70", @type = "date" } })
+                                                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control mb70", @type = "date", @min="1900-01-01", @max="9999-12-31" } })
                                                 @Html.ValidationMessageFor(modal => modal.StartDate, "", new { @class = "text-danger" })
                                                 <div class="invalid-feedback">Choose start date for subscriptions !!!</div>
-                                                <div class="valid-feedback">This looks good !!! </div>
+                                                
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-12 mb-3">
                                                 <label for="" class="mb30">End Date</label>
-                                                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control mb70", @type = "date" } })
+                                                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control mb70", @type = "date" , @min="1900-01-01", @max="9999-12-31" } })
                                                 @Html.ValidationMessageFor(modal => modal.EndDate, "", new { @class = "text-danger" })
                                                 <div class="invalid-feedback">Choose end date for subscriptions !!!</div>
-                                                <div class="valid-feedback">This looks good !!! </div>
+                                               
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -88,7 +88,7 @@
                                                 @Html.EditorFor(model => model.PreExpirationDays, new { htmlAttributes = new { @class = "form-control mb70", @type = "number", @min = "0", @placeholder = " Enter Pre Expiration Days. " } })
                                                 @Html.ValidationMessageFor(modal => modal.PreExpirationDays, "", new { @class = "text-danger" })
                                                 <div class="invalid-feedback">Please Enter Pre Expiration Days !!!</div>
-                                                <div class="valid-feedback">This looks good !!! </div>
+                                               
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -97,7 +97,7 @@
                                                 @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control mb70", @type = "number", @placeholder = " Enter Allowed Members. " } })
                                                 @Html.ValidationMessageFor(modal => modal.Capacity, "", new { @class = "text-danger" })
                                                 <div class="invalid-feedback">Please Enter Maximum Allowed Member !!!</div>
-                                                <div class="valid-feedback">This looks good !!! </div>
+                                              
                                             </div>
                                         </div>
                                         <button type="submit" onclick="getDate()" class="btn btn-info subbtn">Submit</button>

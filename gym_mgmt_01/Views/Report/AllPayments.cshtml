@@ -35,11 +35,27 @@
             <button type="button" style="display:none;" class="btn btn-info">Reset Filters</button>
             @using (Html.BeginForm("PaymentsExport", "Report", FormMethod.Post, new { @style = "display:contents;" }))
             {
-                <button type="submit" class="btn btn-info">Export to CSV</button>
+                if (Model.sellsReport.Count > 0)
+                {
+                    <button type="submit" class="btn btn-info">Export to CSV</button>
+                }
+                else
+                {
+                    <button type="submit" disabled class="btn btn-info">Export to CSV</button>
+                }
+
             }
             @using (Html.BeginForm("AllPaymentPrint", "Report", FormMethod.Post, new { @style = "display:contents;" }))
             {
-            <button type="submit" class="btn btn-info">Print</button>
+                if (Model.sellsReport.Count > 0)
+                {
+                    <button type="submit" class="btn btn-info">Print</button>
+                }
+                else
+                {
+                    <button type="submit" disabled class="btn btn-info">Print</button>
+                }
+
             }
         </div>
     </div>

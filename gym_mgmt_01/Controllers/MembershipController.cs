@@ -168,15 +168,14 @@ namespace gym_mgmt_01.Controllers
             return RedirectToAction("ViewMemberships");
         }
         [HttpPost]
-        public JsonResult CheckStartDate(DateTime endDate)
+        public JsonResult CheckStartDate(Membership mem)
         {
-            return Json(IsStartDateAvailable(endDate));
+            return Json(IsStartDateAvailable(mem));
         }
-        public bool IsStartDateAvailable(DateTime date )
+        public bool IsStartDateAvailable(Membership mem)
         {
-            string gn = null;
             bool status;
-            if (gn != null)
+            if (DateTime.Compare(mem.StartDate , mem.EndDate) < 0)
             {
                 status = false;
             }
@@ -186,5 +185,22 @@ namespace gym_mgmt_01.Controllers
             }
             return status;
         }
+        [HttpPost]
+        public JsonResult CheckEndDate(Membership mem) {
+            return Json(IsEndDateAvailable(mem));
+        }
+        public bool IsEndDateAvailable(Membership mem) {
+            bool status;
+            if (DateTime.Compare(mem.StartDate, mem.EndDate) > 1)
+            {
+                status = false;
+            }
+            else
+            {
+                status = true;
+            }
+            return status;
+        }
+        
     }
 }

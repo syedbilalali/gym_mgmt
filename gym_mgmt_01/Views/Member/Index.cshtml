@@ -23,7 +23,6 @@
                     <div class="alert alert-success" style="display:block;">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                         @ViewBag.Message
-
                     </div>
                 }
             </div>
@@ -90,7 +89,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">First Name <span class=" text-danger">*</span></label>
                                                     <div class="input-group">
-                                                        @Html.EditorFor(model => model.member.FirstName, new { htmlAttributes = new { @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "Enter First Name. ", @required = "" } })
+                                                        @Html.EditorFor(model => model.member.FirstName, new { htmlAttributes = new { @class = "form-control", @maxlength = "40", @name = "firstName", @placeholder = "Enter First Name ", @required = "" } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.FirstName, "", new { @class = "text-danger" })
@@ -110,7 +109,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Date of Birth<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "dob", @placeholder = " Enter Date of Birth ", @required = "" } })
+                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "dob", @placeholder = " Enter Date of Birth ",@min="1900-01-01", @max="9999-12-31" , @required = "" } })
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.DOB, "", new { @class = "text-danger" })
                                                         </div>
@@ -180,12 +179,10 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Work</label>
                                                     <div class="input-group mb-3">
-
+                                                        @Html.EditorFor(model => model.contact.Work, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43", @placeholder = "Ex. +971509090900" } })
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Work, "", new { @class = "text-danger" })
                                                         </div>
-
-
                                                     </div>
                                                 </div>
                                                 <div class="form-group mt-3 row">

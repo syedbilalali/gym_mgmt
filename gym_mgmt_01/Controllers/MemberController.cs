@@ -67,6 +67,7 @@ namespace gym_mgmt_01.Controllers
                 mr.member.ImagePath = uploadFile(mr.ImageFile);
                 mo.AddMemeber(mr.member);
                 int a = int.Parse(mo.getMemberID()) - 1;
+                mr.member.note = mr.member.note.Trim();
                 mr.contact.MemberID = int.Parse(a.ToString());
                 co.AddContact(mr.contact);
                 ViewBag.Message = " Successfully Add Member !!! ";

@@ -99,7 +99,7 @@
             <button class="btnpos makepay ptp" type="button" data-toggle="modal" data-target="#payment" id="makepaymnt" data-whatever="">Make Payment</button>
             <button class="btnpos chargetomember ptp" type="button" data-toggle="modal" data-target="#charge" data-whatever="">Charge to Member</button>
             <button class="btnpos cancelpos ptp" type="button" data-toggle="modal" data-target="#cancel" data-whatever="">Cancel</button>
-            <button class="btnpos completesale ptp" id="btnCompeleteSale" type="button" data-toggle="modal" data-target="#" data-whatever="">Complete Sale</button>
+            <button class="btnpos completesale ptp" id="btnCompeleteSale" disabled type="button" data-toggle="modal" data-target="#" data-whatever="">Complete Sale</button>
             <div class="memberselected" id="memberselected" style="display:none;">
                     <div class="form-group" style=" display:none;">
                         <label for="message-text" class="control-label label1">Staff:</label>
@@ -241,7 +241,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <div class="row">
-                        <button type="button" id="cashType" class="btn btn-primary paybtn11">Cash</button>
+                        <button type="button" id="cashType" onclick="setTransaction()" class="btn btn-primary paybtn11">Cash</button>
                         @*<button type="button" class="btn btn-primary paybtn11">Eftpos</button>
                             <button type="button" class="btn btn-primary paybtn11">Credit Card</button>*@
                     </div>
@@ -460,6 +460,12 @@
             //alert("After Adding : " + Item);
             // alert(" Updating Pay Details !!! ");
             updatePayDetails();
+        }
+        function setTransaction() {
+           // alert(" Set Transaction : ");
+            var compltsale = document.querySelector('#btnCompeleteSale');
+            compltsale.disabled = false;
+            ("#payment").modal('hide');
         }
         function addTableRow(values) {
             var priceTable = document.querySelector('#invoicePanel');

@@ -25,6 +25,7 @@ namespace gym_mgmt_01.Controllers
             List<SubscriptionReport> sbr = ro.getAllSubscriptionReport();
             model.subsReport = sbr;
             return View(model);
+
         }
         [HttpPost]
         public ActionResult AllSubscriptions(DateTime? fromdate, DateTime? todate)
@@ -61,7 +62,7 @@ namespace gym_mgmt_01.Controllers
             }
             string current_date = DateTime.Now.ToShortDateString();
 
-            return File(Encoding.UTF8.GetBytes(sb.ToString()), "Subscriptions_" + current_date + ".csv");
+            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Subscriptions_" + current_date + ".csv");
         }
         [HttpPost]
         public ActionResult SubscriptionsPrint()
@@ -71,7 +72,6 @@ namespace gym_mgmt_01.Controllers
         }
         public ActionResult AllPayments()
         {
-
             List<SellsOrder> so = ro.getAlSellsOrder();
             model.sellsReport = so;
             return View(model);
@@ -88,9 +88,9 @@ namespace gym_mgmt_01.Controllers
             List<SellsOrder> so = ro.getAlSellsOrder();
             List<object> sor = (from sos in so.ToList()
                                 select new[] { sos.Invoice_number.ToString(),
-                                                            sos.Member_Name.ToString(),
-                                                            sos.Subtotal.ToString(),
-                                                            sos.Sales_Tax.ToString(),
+                                               sos.Member_Name.ToString(),
+                                               sos.Subtotal.ToString(),
+                                               sos.Sales_Tax.ToString(),
                                                             sos.Total_Amount.ToString(),
                                                              sos.Total_Pay.ToString(),
                                                              sos.Remain_price.ToString(),

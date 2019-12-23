@@ -177,15 +177,15 @@ namespace gym_mgmt_01.BAL.Master
             param[5] = new SqlParameter("@current_stock", current_stock);
             da.InsertSP(param, command);
         }
-        public void UpdateStocksIn(int stock_ID , int Product_Id, int stock_in, int current_stock, DateTime CreatedAt) {
+        public void UpdateStocksIn(int Id, decimal get_price , decimal sell_price, int stock_in, int current_stock) {
             
             string command = "dbo.spUpdateStocksIn";
             SqlParameter[] param = new SqlParameter[5];
-            param[0] = new SqlParameter("@Id", stock_ID);
-            param[1] = new SqlParameter("@ProductID", Product_Id);
-            param[2] = new SqlParameter("@stock_in", stock_in);
-            param[3] = new SqlParameter("@current_stock", current_stock);
-            param[4] = new SqlParameter("@CreatedAt", CreatedAt);
+            param[0] = new SqlParameter("@Id", Id);
+            param[1] = new SqlParameter("@get_price", get_price);
+            param[2] = new SqlParameter("@sell_price", sell_price);
+            param[3] = new SqlParameter("@stock_in", stock_in);
+            param[4] = new SqlParameter("@current_stock", current_stock);
             da.InsertSP(param, command);
         }
         public bool DeleteStock(int Id) {
