@@ -53,6 +53,7 @@
                                     <button class="btn upld">
                                         @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
                                     </button>
+                                        @Html.ValidationMessageFor(modal => modal.member.ImagePath )
                                     <input type="file" name="ImageFile" id="upldImage" />
                                     @*@Html.EditorFor(model => model.member.ImageFile , new { @type="file" , @id="upldImage" });*@
                                     @Html.HiddenFor(model => model.member.Id)

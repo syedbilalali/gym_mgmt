@@ -27,9 +27,13 @@ namespace gym_mgmt_01.Controllers
             if (id == null)
             {
                 ViewBag.ID = mo.getMemberID();
+                MemberRegistration mr = new MemberRegistration();
+                mr.member = new Member();
+                mr.contact = new Contact() { Id = int.Parse(mo.getMemberID()) };
+                
                 ViewBag.Alert = "none";
                 ViewBag.Message = "";
-                return View();
+                return View(mr);
             }
             else {
             
@@ -41,7 +45,6 @@ namespace gym_mgmt_01.Controllers
             }
 
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index([Bind(Exclude = "Id")] MemberRegistration mr) {
@@ -60,14 +63,14 @@ namespace gym_mgmt_01.Controllers
             {
               //  ModelState.AddModelError("ImageUpload", "Please choose either a GIF, JPG or PNG image.");
             }
-           
+            mr.member.ImagePath = uploadFile(mr.ImageFile);
             if (ModelState.IsValid)
             {
                 mr.member.MemberType = "member";
                 mr.contact.Subscribed = "";
               
                 mo.AddMemeber(mr.member);
-                mr.member.ImagePath = uploadFile(mr.ImageFile);
+              
                 int a = int.Parse(mo.getMemberID()) - 1;
                 if (mr.member.note != null && mr.member.note != "") {
                     mr.member.note = mr.member.note.Trim();
@@ -155,11 +158,11 @@ namespace gym_mgmt_01.Controllers
                         file.SaveAs(fullPath);
                     }
                     else {
-                        ModelState.AddModelError("ImagePath", "Please upload image less then 102400 ");
+                        ModelState.AddModelError("model.member.ImagePath", "Please upload image less then 102400 ");
                     }
                 }
                 else {
-                    ModelState.AddModelError("ImagePath", " Image formate not supportted ");
+                    ModelState.AddModelError("model.member.ImagePath", " Image formate not supportted ");
                 }
             }
             else {
@@ -263,9 +266,10 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         public JsonResult IsAlreadyEmail(MemberRegistration mr)
         {
-            return Json(IsEmailAvailable(mr.contact.Email));
+            string mode = "E";
+            return Json(IsEmailAvailable(mr.contact.Email , mode));
         }
-        public bool IsEmailAvailable(string email)
+        public bool IsEmailAvailable(string email , string mode)
         {
             List<Contact> data = co.getAllContact();
             var gn = (from u in data
@@ -288,11 +292,11 @@ namespace gym_mgmt_01.Controllers
             return Json(IsCellAvailable(mr.contact.Cell));
         }
         public bool IsCellAvailable(string cell)
-        {
+        {    
             List<Contact> data = co.getAllContact();
             var gn = (from u in data
-                      where u.Cell.ToUpper() == cell.ToUpper()
-                      select new { cell }).FirstOrDefault();
+            where u.Cell.ToUpper() == cell.ToUpper()
+            select new { cell }).FirstOrDefault();
             bool status;
             if (gn != null)
             {
