@@ -158,11 +158,11 @@ namespace gym_mgmt_01.Controllers
                         file.SaveAs(fullPath);
                     }
                     else {
-                        ModelState.AddModelError("model.member.ImagePath", "Please upload image less then 102400 ");
+                        ModelState.AddModelError("member.ImagePath", "Please upload image less then 102400 ");
                     }
                 }
                 else {
-                    ModelState.AddModelError("model.member.ImagePath", " Image formate not supportted ");
+                    ModelState.AddModelError("member.ImagePath", " Image formate not supportted ");
                 }
             }
             else {
