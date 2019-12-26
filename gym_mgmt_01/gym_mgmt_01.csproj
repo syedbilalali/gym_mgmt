@@ -206,6 +206,7 @@
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\MasterLogin.cs" />
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\MemberDetails.cs" />
     <Compile Include="Models\MemberRegistration.cs" />
     <Compile Include="Models\Membership.cs" />
     <Compile Include="Models\ModuleDetails.cs" />

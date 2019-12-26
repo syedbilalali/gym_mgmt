@@ -9,7 +9,7 @@
 @model dynamic 
     <div class="searchinput">
         <input type="text" id="srch" name="search" onkeyup="btnsearch()" class="search1" placeholder="Search Member..">
-        <button type="button" id="btnPost" class="search2"><i class="ti-search"></i></button>
+       
     </div>
     <div class="btnscontrol">
         <a class="buttoncol" data-rel="#rowvalue" href="#"><i class="ti-menu gridpart"></i></a>
@@ -175,7 +175,7 @@
         $(function () {
           $.ajax({
             type: "GET",
-            url: "/Member/getMember",
+            url: "/Member/getMembershipWithMember",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -186,6 +186,7 @@
                     var rows = parseInt(data.length / 3);
                     var left = data.length % 3;
                     var json = JSON.parse(JSON.stringify(data));
+                   
                     var table = document.querySelector('#memberData1');
                     var card;
                     var count_rows = table.rows.count;
@@ -208,9 +209,17 @@
                             cell5.innerHTML = "Check In";
                             card += '<a href="/Member/Edit/' + json[i].Id + '"> <div id="cd1" class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i].ImagePath + '" /></div>';
                             card += ' <div class="col60"> <h4>' + json[i].FirstName + ' ' + json[i].LastName + '</h4>' + '<hr>' + ' <h5>User ID ' + json[i].Id + ' </h5>';
-                            card += ' <p>Created on <b>' + (count) + '</b></p></a>';
-                            card += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
-                            card += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" id="' + json[i].Id + '" onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button>';
+                        card += ' <p> Membership : <b>' + json[i].Name + '</b></p></a>';
+                        if (json[i].Name != "None") {
+                             card += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
+                        } else {
+                             card += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/asterisk.png")" />';
+                        }
+                        card += '</div><div class="specify2">';
+                        if (json[i].Name != "None") {
+                              card += '<button type="button" class="btn" data-toggle="modal" id="' + json[i].Id + '" onclick="modifyMembership(this)" data-whatever="">';
+                        }
+                        card += '<i class="ti-import importicon"></i></button>';
                             card += '</div></div></div>';
                        }
                       card += '</div>';
@@ -254,7 +263,9 @@
                             data += ' <div class="col60"> <h4>' + json[i*j].FirstName + ' ' +json[i*j].LastName + '</h4>' + '<hr>' + ' <h5>User ID </h5>';
                             data += ' <p>Created on <b>' + count + '</b></p>';
                             data += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/users/deafult.png")" />';
-                            data += '</div><div class="specify2">' + ' <button type="button" class="btn" data-toggle="modal" id="'+ json[i*j].Id+'"  onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button>';
+                            data += '</div><div class="specify2">';
+                            data += ' <button type="button" class="btn" data-toggle="modal" id="' + json[i * j].Id + '"  onclick="modifyMembership(this)" data-whatever="">';
+                            data += '<i class="ti-import importicon"></i></button > ';
                             data += '</div></div></div>';
                             count++;
                         }
@@ -276,23 +287,29 @@
         });
         });
         function modifyMembership(data) {
-            alert("Modify Membership : " + JSON.stringify(data));
+       //  alert("Modify Membership : " + JSON.stringify(data.Id));
            // alert(" Modify Membership" + data.id);
             var modalmembrname = document.getElementById('modalmemberName');
             var modalmembrID = document.getElementById('modalmemberID');
             var modalMembership = document.getElementById('#modalMembership');
             $.ajax({
                 type: "POST",
-                url: "/Member/getMember",
+                url: "/Member/getMembershipWithMember",
                 data: '{"id":"' + data.id + '"}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function(response) {
                     if (response != null) {
-                       alert(JSON.stringify(response));
+                      alert(JSON.stringify(response));
                     var membername = response.FirstName + ' ' + response.LastName;
                         modalmembrID = response.Id;
                         modalmembrname.value = membername;
+                        alert(" MemShp L: " + response.MId);
+                        if (response.MId == "0") {
+                            $('#modalMembership').val("");
+                        } else {
+                              $('#modalMembership').val(response.MId);
+                        }
                         $('#exampleModal').modal('show');
                     } else {
                         alert("Something went wrong");

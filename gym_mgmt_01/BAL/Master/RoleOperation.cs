@@ -31,7 +31,7 @@ namespace gym_mgmt_01.BAL.Master
             da.InsertSP(param , command);
         }
         public List<RoleGroup> getAllRoleGroup() {
-            string command = " SELECT * FROM dbo.RoleGroup";
+            string command = " SELECT * FROM dbo.RoleGroup Order By Id DESC";
             List<RoleGroup> roleGroup = new List<RoleGroup>();
             dt =  da.FetchAll(command);
             if (dt.Rows.Count > 0) {

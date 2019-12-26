@@ -9,29 +9,30 @@
     Genderlist.Add(new SelectListItem() { Text = "Female", Value = "Female" });
     Genderlist.Add(new SelectListItem() { Text = "Other", Value = "Other" });
 }   
-   
+    
     <style>
         .imgmodel img {
-            width: 100%!important;
-            
-            object-fit: cover;
+         
+    
+            object-fit: scale-down;
             max-height: 500px;
         }
-        .imgmodel img {
-            width:100%;
-            object-fit: cover;
-        }
+     
 
         .jcrop-tracker{
             width: 100%!important;
             height: 500px!important;
-             object-fit: cover;
+             object-fit: fill;
         }
         .jcrop-holder{
              width: 100%!important;
              height: 500px!important;
-             object-fit: cover;
+             object-fit: fill;
              background-color: transparent!important;
+        }
+
+        .imgmodel .modal-body{
+            max-height: 500px;
         }
     </style>
 
@@ -67,6 +68,7 @@
                     <div class="card-body profilecard">
                         <center class="m-t-30">
                             <img src="~/assets/images/users/deafult.png" width="150px" height="150px" id="profImg" class="img-circle" />
+                            <input type="hidden" name="avatarCropped" id="avatarCropped">
                             <h4 class="card-title m-t-10"></h4>
                             <!--    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6> -->
                             <div class="row text-center justify-content-md-center">
@@ -74,11 +76,11 @@
                                 @*<div class="profileupload"><a href="javascript:void(0)" id="uploadPhoto" class="link btnprofile"><i class="mdi mdi-cloud-upload"></i>&nbsp;Upload Photo</a></div>*@
                                 @*<div class="profileupload"><a href="javascript:void(0)" class="link btnprofile"><i class="mdi mdi-camera"></i> &nbsp;Take Photo</a></div>*@
                                 <div class="upload-btn-wrapper">
-                                    <button class="btn upld">
+                                    <button class="btn upld" id="upldFile">
                                         @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
                                     </button>
                                     <br />
-                                        @Html.ValidationMessageFor(modal => modal.member.ImagePath , "" , new { htmlAttributes = new { @class="text-danger" } } )
+                                    @Html.ValidationMessageFor(modal => modal.member.ImagePath, "", new { htmlAttributes = new { @class = "text-danger" } })
                                     <input type="file" name="ImageFile" id="upldImage" />
                                     @*@Html.EditorFor(model => model.member.ImageFile , new { @type="file" , @id="upldImage" });*@
                                     @Html.HiddenFor(model => model.member.Id)
@@ -135,7 +137,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Date of Birth<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "dob", @placeholder = " Enter Date of Birth ",@min="1900-01-01", @max="2050-12-31" , @required = "" } })
+                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "dob", @placeholder = " Enter Date of Birth ", @min = "1900-01-01", @max = "2050-12-31", @required = "" } })
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.DOB, "", new { @class = "text-danger" })
                                                         </div>
@@ -563,16 +565,16 @@
             <div class="modal-body">
                 <img id="modalImg" src="https://cdn.pixabay.com/photo/2019/12/15/18/24/winter-4697776_960_720.jpg"  />
                 <canvas id="canvas" height="5" width="5" style="vertical-align:top; display:none;"></canvas> 
-                <input type="hidden" name="avatarCropped" id="avatarCropped">
+             
             </div>
             <div class="modal-footer">
-                <a href="#" id="hlcropImage" style="vertical-align:top;">Crop Image</a>
-                <button type="button" class="btn btn-primary">Select</button>
+                <button type="button" id="hlcropImage" class="btn btn-primary">Crop</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Row -->
 <!-- ============================================================== -->
 <!-- End PAge Content -->
@@ -675,10 +677,15 @@
             });
 
         });
+        $('#upldFile').on("click", function () {
+          //   $('#modelimg').modal('show');
+        })
         $('#upldImage').change(function () {
+            alert("Image Change : ");
+               $('#modelimg').modal('show');
             readURL(this);
         //    alert("After Selecting ");
-            $('#modelimg').modal('show');
+           
         });
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -763,7 +770,7 @@
         function initCrop() {
             $('#modalImg').Jcrop({
                 onChange: setCoordsAndImgSize,
-                aspectRatio: 1, // 1 means will be same for height and weight
+                aspectRatio: 0, // 1 means will be same for height and weight
                 onSelect: setCoordsAndImgSize
             }, function () { jcropApi = this });
         }
@@ -810,11 +817,12 @@
                 context.drawImage(img, x1, y1, width, height, 0, 0, width, height);
                 $('#avatarCropped').val(canvas.toDataURL());
              //   $('#profImg').val(canvas.toDataURL());
-                  $('#profImg').attr("src", canvas.toDataURL());
+                $('#profImg').attr("src", canvas.toDataURL());
+                alert($('#avatarCropped').text());
+                 $('#modelimg').modal('hide');
             };
             img.src = $('#modalImg').attr("src");
         }
- 
         function readFile(input) {
  
             if (input.files && input.files[0]) {

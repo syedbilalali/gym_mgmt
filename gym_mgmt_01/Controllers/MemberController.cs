@@ -63,7 +63,8 @@ namespace gym_mgmt_01.Controllers
             {
               //  ModelState.AddModelError("ImageUpload", "Please choose either a GIF, JPG or PNG image.");
             }
-            mr.member.ImagePath = uploadFile(mr.ImageFile);
+            //  mr.member.ImagePath = uploadFile(mr.ImageFile);
+            mr.member.ImagePath = SaveSnap(Request.Form["avatarCropped"]);
             if (ModelState.IsValid)
             {
                 mr.member.MemberType = "member";
@@ -97,9 +98,37 @@ namespace gym_mgmt_01.Controllers
                         FirstName = dr["FirstName"].ToString(),
                         LastName = dr["LastName"].ToString(),
                         Gender = dr["Gender"].ToString(),
+                        DOB = dr["DOB"].ToString(),
                         ImagePath = dr["ImgURL"].ToString()
                     }).ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult getMembershipWithMember() {
+            DataTable dt = new DataTable();
+            dt = mo.getMemberWithMembership();
+            List<MemberDetails> md = new List<MemberDetails>();
+            md = (from DataRow dr in dt.Rows
+                  select new MemberDetails() {
+                      Id = int.Parse(dr["Id"].ToString()),
+                      FirstName = dr["FirstName"].ToString(),
+                      LastName = dr["LastName"].ToString(),
+                      Gender = dr["Gender"].ToString(),
+                      DOB = dr["DOB"].ToString(),
+                      ImagePath = dr["ImgURL"].ToString(),
+                      MId = int.Parse(dr["MId"].ToString()),
+                      Name = dr["Name"].ToString(),
+                      Amount = decimal.Parse(dr["Amount"].ToString())
+                  }
+                ).ToList();
+            return Json(md,JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult getMembershipWithMember(int? id) {
+            List<MemberDetails> md = new List<MemberDetails>();
+            md = mo.getMemberWithMembershipAll();
+            var member1 = md.Find(x => x.Id.Equals(id));
+            return Json(member1, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult getMember(int? id) {
@@ -170,6 +199,18 @@ namespace gym_mgmt_01.Controllers
             }
             return relativePath;
         }
+        public string SaveSnap(string base64) {
+
+            byte[] bytes = Convert.FromBase64String(base64.Split(',')[1]);
+            string filename = String.Format(@"{0}image-{1}.jpg", "~/assets/images/users/" , DateTime.UtcNow.Ticks);
+            string filename1 = String.Format(@"{0}image-{1}.jpg", "/assets/images/users/", DateTime.UtcNow.Ticks);
+            using (FileStream stream = new FileStream(Server.MapPath(filename), FileMode.Create))
+            {
+                stream.Write(bytes, 0, bytes.Length);
+                stream.Flush();
+            }
+            return filename1;
+        }
         public ActionResult Edit(int? id) {
             
             if (id == null)
@@ -223,6 +264,8 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(MemberRegistration mr) {
+            ModelState.Remove("Email");
+            ModelState.Remove("Cell");
             if (ModelState.IsValid)
             {
                 var validImageTypes = new string[]

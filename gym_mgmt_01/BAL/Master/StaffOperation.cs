@@ -43,7 +43,7 @@ namespace gym_mgmt_01.BAL.Master
             da.Insert(param, command);
         }
         public DataTable geAllStaff() {
-            string command = "SELECT * FROM dbo.Staff";
+            string command = "SELECT * FROM dbo.Staff Order By StaffID DESC";
             return da.FetchAll(command);
         }
         public void updatePermission(String perm , String staffID ) {

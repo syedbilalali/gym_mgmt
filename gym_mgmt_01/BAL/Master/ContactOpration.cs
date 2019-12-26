@@ -34,8 +34,8 @@ namespace gym_mgmt_01.BAL.Master
         public void UpdateContact(Contact c)
         {
             //Insert Command 
-            string command = "UPDATE dbo.Contact  SET MemberID=@MemberID ,Email= @Email,Cell=@Cell ,Home=@Home,Work=@Work ,Address=@Address, Suburb=@Suburb , City=@City, ZipCode=@ZipCode, Subscribed=@Subscribed WHERE Id=@Id";
-            SqlParameter[] param = new SqlParameter[11];
+            string command = "UPDATE dbo.Contact  SET MemberID=@MemberID ,Email= @Email,Cell=@Cell ,Home=@Home,Work=@Work ,Address=@Address, Suburb=@Suburb , City=@City, ZipCode=@ZipCode, Subscribed=@Subscribed WHERE MemberID=@MemberID";
+            SqlParameter[] param = new SqlParameter[10];
             param[0] = new SqlParameter("@MemberID", c.MemberID);
             param[1] = new SqlParameter("@Email", (c.Email == null) ? "" : c.Email);
             param[2] = new SqlParameter("@Cell", (c.Cell == null) ? "" : c.Cell);
@@ -46,7 +46,7 @@ namespace gym_mgmt_01.BAL.Master
             param[7] = new SqlParameter("@City", (c.City == null) ? "" : c.City);
             param[8] = new SqlParameter("@ZipCode", (c.Zipcode == null) ? "" : c.Zipcode);
             param[9] = new SqlParameter("@Subscribed", (c.Subscribed == null) ? "" : c.Subscribed);
-            param[10] = new SqlParameter("@Id" , c.Id);
+          //  param[10] = new SqlParameter("@Id" , c.Id);
             da.Insert(param, command);
         }
         public List<Contact> getAllContact()
