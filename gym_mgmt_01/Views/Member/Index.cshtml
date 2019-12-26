@@ -8,9 +8,31 @@
     Genderlist.Add(new SelectListItem() { Text = "Male", Value = "Male" });
     Genderlist.Add(new SelectListItem() { Text = "Female", Value = "Female" });
     Genderlist.Add(new SelectListItem() { Text = "Other", Value = "Other" });
-}
+}   
+   
     <style>
-      
+        .imgmodel img {
+            width: 100%!important;
+            
+            object-fit: cover;
+            max-height: 500px;
+        }
+        .imgmodel img {
+            width:100%;
+            object-fit: cover;
+        }
+
+        .jcrop-tracker{
+            width: 100%!important;
+            height: 500px!important;
+             object-fit: cover;
+        }
+        .jcrop-holder{
+             width: 100%!important;
+             height: 500px!important;
+             object-fit: cover;
+             background-color: transparent!important;
+        }
     </style>
 
 @model gym_mgmt_01.Models.MemberRegistration
@@ -528,7 +550,6 @@
 }
 <div class="modal fade imgmodel" id="modelimg" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -540,8 +561,8 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <img id="modalImg" src="https://cdn.pixabay.com/photo/2019/12/15/18/24/winter-4697776_960_720.jpg" style="width: 100%, height: 500px; object-fit: contain" />
-                <canvas id="canvas" height="5" width="5" style="vertical-align:top;"></canvas> 
+                <img id="modalImg" src="https://cdn.pixabay.com/photo/2019/12/15/18/24/winter-4697776_960_720.jpg"  />
+                <canvas id="canvas" height="5" width="5" style="vertical-align:top; display:none;"></canvas> 
                 <input type="hidden" name="avatarCropped" id="avatarCropped">
             </div>
             <div class="modal-footer">
@@ -742,7 +763,7 @@
         function initCrop() {
             $('#modalImg').Jcrop({
                 onChange: setCoordsAndImgSize,
-                aspectRatio: 0, // 1 means will be same for height and weight
+                aspectRatio: 1, // 1 means will be same for height and weight
                 onSelect: setCoordsAndImgSize
             }, function () { jcropApi = this });
         }

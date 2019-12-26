@@ -21,6 +21,7 @@
     <!-- Dashboard 1 Page CSS -->
     <link href="@Url.Content("~/dist/css/pages/dashboard1.css")" rel="stylesheet">
     <link href="@Url.Content("~/Content/style.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/jquery.Jcrop.min.css")"  rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -28,121 +29,141 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-        .exportbtn{
-	float: left;
-	margin: 0px 0px 0px 20px;
-	}
-	.scrolltab{
-	overflow-x: auto;
-	}
-	.btnsection{
-	text-align: right;
-	margin-top: 29px;
-	}
-	.wid45{
-	width: 45%;
-	float: left;
-	}
-	.wid10{
-	width: 10%;
-	float: left;
-	}
+        .exportbtn {
+            float: left;
+            margin: 0px 0px 0px 20px;
+        }
 
-	.mb100{
-	width: 100%;
-	margin: 5px 0px 8px;
-	}
+        .scrolltab {
+            overflow-x: auto;
+        }
 
-	.stt{
-	padding: 1rem;
-    vertical-align: top;
-    border-bottom: 1px solid #e9ecef;
-	}
-	.subtotal{
-	margin-bottom: 1rem;
-	}
-	.tss{
-	margin-bottom: 0px;
-	}
-	.membernamecl{
-	border: 1px solid #cfcfcf;
-	border-radius: 5px;
-	padding: 0px 10px;
-	}
-	.st{
-	width: 30%;
-	float: left;
-	}
-	
-	.st70{
-	width: 70%;
-	float: left;
-	}
-	.st50{
-	width: 50%;
-	float: left;
-	}
-	.st20{
-	width: 20%;
-	float: left;
-	}
-	
-	.st10{
-	width: 10%;
-	float: left;
-	}
-	
-	.membernamecl h4{
-	font-size: 13px;
-	width: 100%;
-	}
-	.sh{
-	padding: 10px 5px 10px 20px;
-	}
-	.stimg{
-	padding: 10px 15px 10px 5px;
-    width: 80px;
-    height: 80px;
-	}
+        .btnsection {
+            text-align: right;
+            margin-top: 29px;
+        }
 
-	.selbtn{
-	margin: 15px 0px;
-	}
-	.selbtn button:focus{
-	outline: none!important;
-	}
-    .tablepos {
-    background-color: #fff;
-    padding-bottom: 1.5px;
-    margin-bottom: 20px;
-    }
-	.memberselected{
-	margin: 150px 20px 20px;
-	border: 1px solid #cfcfcf;
-	border-radius: 5px;
-	padding: 20px 10px;
-	}
-	.memberassigned{
-	padding-top: 20px;
-	}
-	.memberassigned img{
-	width: 90%;
-	}
-	.memberassigned h6{
-    padding: 10px 5px;
-	}
-	.memberassigned button{
-	border: 0px solid #fff;
-	background: transparent;
-	font-size: 15px;
-	font-weight: 600;
-	}
-    .centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    }
+        .wid45 {
+            width: 45%;
+            float: left;
+        }
+
+        .wid10 {
+            width: 10%;
+            float: left;
+        }
+
+        .mb100 {
+            width: 100%;
+            margin: 5px 0px 8px;
+        }
+
+        .stt {
+            padding: 1rem;
+            vertical-align: top;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .subtotal {
+            margin-bottom: 1rem;
+        }
+
+        .tss {
+            margin-bottom: 0px;
+        }
+
+        .membernamecl {
+            border: 1px solid #cfcfcf;
+            border-radius: 5px;
+            padding: 0px 10px;
+        }
+
+        .st {
+            width: 30%;
+            float: left;
+        }
+
+        .st70 {
+            width: 70%;
+            float: left;
+        }
+
+        .st50 {
+            width: 50%;
+            float: left;
+        }
+
+        .st20 {
+            width: 20%;
+            float: left;
+        }
+
+        .st10 {
+            width: 10%;
+            float: left;
+        }
+
+        .membernamecl h4 {
+            font-size: 13px;
+            width: 100%;
+        }
+
+        .sh {
+            padding: 10px 5px 10px 20px;
+        }
+
+        .stimg {
+            padding: 10px 15px 10px 5px;
+            width: 80px;
+            height: 80px;
+        }
+
+        .selbtn {
+            margin: 15px 0px;
+        }
+
+            .selbtn button:focus {
+                outline: none !important;
+            }
+
+        .tablepos {
+            background-color: #fff;
+            padding-bottom: 1.5px;
+            margin-bottom: 20px;
+        }
+
+        .memberselected {
+            margin: 150px 20px 20px;
+            border: 1px solid #cfcfcf;
+            border-radius: 5px;
+            padding: 20px 10px;
+        }
+
+        .memberassigned {
+            padding-top: 20px;
+        }
+
+            .memberassigned img {
+                width: 90%;
+            }
+
+            .memberassigned h6 {
+                padding: 10px 5px;
+            }
+
+            .memberassigned button {
+                border: 0px solid #fff;
+                background: transparent;
+                font-size: 15px;
+                font-weight: 600;
+            }
+
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
 </head>
 
