@@ -201,14 +201,23 @@ namespace gym_mgmt_01.Controllers
         }
         public string SaveSnap(string base64) {
 
-            byte[] bytes = Convert.FromBase64String(base64.Split(',')[1]);
-            string filename = String.Format(@"{0}image-{1}.jpg", "~/assets/images/users/" , DateTime.UtcNow.Ticks);
-            string filename1 = String.Format(@"{0}image-{1}.jpg", "/assets/images/users/", DateTime.UtcNow.Ticks);
-            using (FileStream stream = new FileStream(Server.MapPath(filename), FileMode.Create))
+            string filename = "";
+            string filename1 = "";
+            if (base64 != "")
             {
-                stream.Write(bytes, 0, bytes.Length);
-                stream.Flush();
+                byte[] bytes = Convert.FromBase64String(base64.Split(',')[1]);
+                filename = String.Format(@"{0}image-{1}.jpg", "~/assets/images/users/", DateTime.UtcNow.Ticks);
+                filename1 = String.Format(@"{0}image-{1}.jpg", "/assets/images/users/", DateTime.UtcNow.Ticks);
+                using (FileStream stream = new FileStream(Server.MapPath(filename), FileMode.Create))
+                {
+                    stream.Write(bytes, 0, bytes.Length);
+                    stream.Flush();
+                }
             }
+            else {
+                filename1 = "/assets/images/users/deafult.png";
+            }
+           
             return filename1;
         }
         public ActionResult Edit(int? id) {
@@ -291,7 +300,7 @@ namespace gym_mgmt_01.Controllers
                 mr.contact.MemberID = mr.member.Id;
                 co.UpdateContact(mr.contact);
                 ViewBag.Message = "Successfully Update  Member !!!";
-                ModelState.Clear();
+              //  ModelState.Clear();
                 ViewBag.ID = mo.getMemberID();
             }
             return View();

@@ -24,13 +24,16 @@ namespace gym_mgmt_01.Models
 
         [Remote("IsAlreadyCell", "Member", HttpMethod = "POST", ErrorMessage = "Cell already exists.")]
         [Required(ErrorMessage = "Cell is required.")]
-        [RegularExpression(@"(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Mobile Number !!!")]
+        [DataType(DataType.PhoneNumber)]
+       // [RegularExpression(@"(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Mobile Number !!!")]
         public string Cell { get; set; }
 
-        [RegularExpression(@"(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Cell Number !!!")]
+      //  [RegularExpression(@"(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Cell Number !!!")]
+        [DataType(DataType.PhoneNumber)]
         public string Home { get; set; }
 
-        [RegularExpression(@"(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}", ErrorMessage = " Invalid Home Number !!!")]
+      //  [RegularExpression(@"(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}", ErrorMessage = " Invalid Home Number !!!")]
+        [DataType(DataType.PhoneNumber)]
         public string Work { get; set; }
 
         [MaxLength(150, ErrorMessage = "Address can't be more than 150 characters"), MinLength(5, ErrorMessage = "Address can't be less than 5 characters")]
@@ -43,7 +46,8 @@ namespace gym_mgmt_01.Models
         public string City { get; set; }
 
         [Display(Name = " Enter Zipcode ")]
-        [RegularExpression(@"^[0-9]{5}(?:-[0-9]{4})?$", ErrorMessage = " Enter Valid Zipcode. ")]
+       // [RegularExpression(@"^[0-9]{5}(?:-[0-9]{4})?$", ErrorMessage = " Enter Valid Zipcode. ")]
+        [DataType(DataType.PostalCode)]
         public string Zipcode { get; set; }
 
         public string Subscribed { get; set; }

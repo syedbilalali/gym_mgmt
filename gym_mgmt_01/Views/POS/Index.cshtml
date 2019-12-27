@@ -76,24 +76,24 @@
             </table>
             <div class="subtotal" id="paymentPanel">
                 <div class="row stt">
-                    <div class="col-md-6 font-bold">Sub-Total</div>
-                    <div class="col-md-6 text-dark">$<label id="lblSubtotal">0.00</label></div>
+                    <div class="col-md-6 font-bold">Gross-Total</div>
+                    <div class="col-md-6 text-dark">OMR<label id="lblSubtotal">0.00</label></div>
                 </div>
                 <div class="row stt">
                     <div class="col-md-6 font-bold">Sales Tax</div>
-                    <div class="col-md-6 text-dark">$<label id="lblSalesTax">0.00</label></div>
+                    <div class="col-md-6 text-dark">OMR<label id="lblSalesTax">0.00</label></div>
                 </div>
                 <div class="row stt">
-                    <div class="col-md-6 font-bold">Total</div>
-                    <div class="col-md-6 text-dark">$<label id="lbltotal">0.00</label></div>
+                    <div class="col-md-6 font-bold">Net-Total</div>
+                    <div class="col-md-6 text-dark">OMR<label id="lbltotal">0.00</label></div>
                 </div>
                 <div class="row stt" id="divCash" style="display:none;">
                     <div class="col-md-6 font-bold">Cash</div>
-                    <div class="col-md-6 text-dark">$<label id="lblCash">0.00</label></div>
+                    <div class="col-md-6 text-dark">OMR<label id="lblCash">0.00</label></div>
                 </div>
                 <div class="row stt">
                     <div class="col-md-6 font-bold">Due</div>
-                    <div class="col-md-6 text-dark">$<label id="lblDue">0.00</label></div>
+                    <div class="col-md-6 text-dark">OMR<label id="lblDue">0.00</label></div>
                 </div>
             </div>
             <button class="btnpos makepay ptp" type="button" data-toggle="modal" data-target="#payment" id="makepaymnt" data-whatever="">Make Payment</button>
@@ -412,11 +412,12 @@
                 //alert("Table " + priceTable.rows.length);
                 for (var i = 1; i < priceTable.rows.length; i++) {
                     var col = priceTable.rows[i].cells[5].innerHTML;
-                    // alert("Column Value : [" + col + "]" + " ID Value : " + data.id);
+                    alert("Column Value : [" + col + "]" + " ID Value : " + data.id);
                     if (data[0].ItemID == col) {
                         //alert(" Updating the Value : ");
                         var get_qty = priceTable.rows[i].cells[1].innerHTML;
                         var get_price = priceTable.rows[i].cells[2].innerHTML;
+                        alert(" Data Qty : " + data[0].Qty + "  Get Qty : " + get_qty );
                         if (data[0].Qty != get_qty) {
                             //alert(" Get Price :" + get_price);
                             var cur_qty = (parseInt(get_qty) + parseInt(1));
@@ -425,7 +426,7 @@
                             priceTable.rows[i].cells[1].innerHTML = cur_qty;
                             priceTable.rows[i].cells[2].innerHTML = cur_price;
                         } else {
-                           // alert(" Stock not found !!!! ");
+                           alert(" Stock not found !!!! ");
                         }
                         prodadd = false;
                         break;

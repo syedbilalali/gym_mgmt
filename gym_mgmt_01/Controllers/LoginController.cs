@@ -10,8 +10,11 @@ namespace gym_mgmt_01.Controllers
 {
     public class LoginController : Controller
     {
-        MasterLogin ml = new MasterLogin();
+        
+        MasterOperation ml = new MasterOperation();
+        StaffOperation so = new StaffOperation();
         bool isValid;
+        bool isValid1;
         // GET: Login
         public ActionResult Index()
         {
@@ -19,19 +22,30 @@ namespace gym_mgmt_01.Controllers
         }
         [HttpPost]
         public ActionResult Index(FormCollection fc) {
+
             if (ModelState.IsValid) {
                 string Email = fc["Email"].ToString();
                 string Password = fc["Password"].ToString();
                 isValid = ml.Login(Email , Password);
-                if (isValid)
-                {
+                isValid1 = so.Login(Email, Password);
+
+                if (!isValid && isValid1) {
+
                     FormsAuthentication.SetAuthCookie(Email, false);
+                    Session["user"] = "Staff";
+                    Session["Email"] = Email;
+                    Session["Password"] = Password;
+                    return RedirectToAction("Index", "Home");
+                }
+                if (isValid)
+                {   
+                    FormsAuthentication.SetAuthCookie(Email, false);
+                    Session["user"] = "Admin";
                     Session["Email"] = Email;
                     Session["Password"] = Password;
                     return RedirectToAction("Index", "Home");
                 }
             }
-            //Response.Write(" Valid " + isValid);
             ModelState.AddModelError("LogError", " Authentication Failed !!! ");
             return View();
         }

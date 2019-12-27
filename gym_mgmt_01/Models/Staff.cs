@@ -41,6 +41,11 @@ namespace gym_mgmt_01.Models
 
         [Required(ErrorMessage = " Please Enter Password. ")]
         public string Password { get; set;  }
+
+        [Display(Name="Confirm Password")]
+        [Required(ErrorMessage = " Enter Confirm Password. ")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Password and Confirmation Password must match.")]
+        public string ConfirmPassword { get; set;  }
         public string ImgURL { get; set; }
 
         public HttpPostedFileBase PostedFile { get; set; }

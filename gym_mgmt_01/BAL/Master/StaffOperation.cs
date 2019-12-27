@@ -42,6 +42,32 @@ namespace gym_mgmt_01.BAL.Master
             param[7] = new SqlParameter("@StaffID" , pro.StaffID);
             da.Insert(param, command);
         }
+        public bool Login(String Email, String Password)
+        {
+
+            DataTable dt;
+            bool allow = false;
+            string command = "SELECT * FROM dbo.Staff WHERE Email=@Email and Password=@Password";
+            SqlParameter[] param = new SqlParameter[2];
+            param[0] = new SqlParameter("@Email", Email);
+            param[1] = new SqlParameter("@Password", Password);
+            dt = da.FetchByParameter(param, command);
+            if (dt.Rows.Count > 0)
+            {
+                if (dt.Rows[0]["Email"].ToString().Contains(Email) && dt.Rows[0]["Password"].ToString().Contains(Password))
+                {
+                    allow = true;
+                }
+            }
+            return allow;
+        }
+        public DataTable getStaff(string Email , string Password) {
+            string command = "SELECT * FROM dbo.Staff WHERE Email=@Email and Password=@Password";
+            SqlParameter[] param = new SqlParameter[2];
+            param[0] = new SqlParameter("@Email", Email);
+            param[1] = new SqlParameter("@Password", Password);
+            return da.FetchByParameter(param, command);
+        }
         public DataTable geAllStaff() {
             string command = "SELECT * FROM dbo.Staff Order By StaffID DESC";
             return da.FetchAll(command);

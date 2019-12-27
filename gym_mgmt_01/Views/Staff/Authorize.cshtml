@@ -11,8 +11,15 @@
         <!-- Column -->
         <div class="row rolebtns2">
             <div class="col-lg-6 col-xlg-6 col-md-6">
-               
-                <button type="submit" class="btn btn-info btnad drole" onclick="getCheckBoxList()" data-toggle="modal" data-target="#addcat" data-whatever="">Save</button>
+                @if (Model.Count > 0)
+                {
+                    <button type="submit" class="btn btn-info btnad drole" onclick="getCheckBoxList()" data-toggle="modal" data-target="#addcat" data-whatever="">Save</button>
+                }
+                else
+                {
+                    <button type="submit" disabled class="btn btn-info btnad drole" onclick="getCheckBoxList()" data-toggle="modal" data-target="#addcat" data-whatever="">Save</button>
+                }
+
                 <div class="input-group" style="display:none;">
                     <input type="text" class="form-control" placeholder="Type the product type.." aria-label="">
                     <div class="input-group-append">
@@ -21,7 +28,7 @@
                 </div>
             </div>
             <div class="col-lg-6 col-xlg-6 col-md-6">
-                
+           
             </div>
         </div>
         <div class="addrolestab">
@@ -33,18 +40,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (int i = 0; i < Model.Count; i++)
+                    @if (Model.Count > 0)
                     {
+                        for (int i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.HiddenFor(m => m[i].Module)
+                                    @Html.DisplayFor(m => m[i].Module)
+                                </td>
+                                <td>
+                                    @Html.CheckBoxFor(m => m[i].isSelected, new { @type = "checkbox", @class = "js-switch" })
+                                </td>
+                            </tr>
+
+                        }
+
+                    }
+                    else {
                         <tr>
-                            <td>
-                                @Html.HiddenFor(m => m[i].Module)
-                                @Html.DisplayFor(m => m[i].Module)
-                            </td>
-                            <td>
-                                @Html.CheckBoxFor(m => m[i].isSelected, new { @type = "checkbox", @class = "js-switch" })
+                            <td colspan="2" style="text-align:center;">
+                                <b>No Module Found to Authorize</b>
                             </td>
                         </tr>
-
                     }
                 </tbody>
             </table>

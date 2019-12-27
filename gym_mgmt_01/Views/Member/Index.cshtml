@@ -185,7 +185,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Cell<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43", @placeholder = "Ex. +971509090900 " } })
+                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43", @placeholder = " Enter Cell Number " } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Cell, "", new { @class = "text-danger" })
@@ -196,7 +196,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Home</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43", @placeholder = "Ex. +971509090900" } })
+                                                        @Html.EditorFor(model => model.contact.Home, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43", @placeholder = " Enter Home Number " } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Home, "", new { @class = "text-danger" })
@@ -207,7 +207,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Work</label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Work, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43", @placeholder = "Ex. +971509090900" } })
+                                                        @Html.EditorFor(model => model.contact.Work, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43", @placeholder = " Enter Work Number " } })
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Work, "", new { @class = "text-danger" })
                                                         </div>

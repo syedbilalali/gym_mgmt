@@ -385,62 +385,109 @@
                         <li class="user-pro">
                             <a class=" waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><img src="@Session["ImageURL"]" alt="user-img" class="img-circle"><span class="hide-menu">@Session["FirstName"]</span></a>
                         </li>
-                        <li>
-                            <a class=" waves-effect waves-dark" href="@Url.Action("Index", "Home")" aria-expanded="false"><i class="icon-speedometer"></i><span class="hide-menu"> Dashboard </span></a>
-                        </li>
-                        <li>
-                            <a class="waves-effect waves-dark" href="@Url.Action("Index" , "Member")" aria-expanded="false"><i class="ti-user"></i><span class="hide-menu">Member</span></a>
-                        </li>
-                        <li>
-                            <a class="waves-effect waves-dark" href="@Url.Action("FindMember", "Member")" aria-expanded="false"><i class="ti-id-badge"></i><span class="hide-menu">Find Member</span></a>
-                        </li>
-                        <li>
-                            <a class="has-arrow waves-effect waves-dark" href="@Url.Action("Index", "Staff")" aria-expanded="false"><i class="ti-agenda"></i><span class="hide-menu">Staff</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="@Url.Action("Index", "Staff")">Add Staff</a></li>
-                                <li><a href="@Url.Action("FindStaff", "Staff")">Find Staff</a></li>
-                                <li style="display:none;"><a href="@Url.Action("Authorize", "Staff")">Authorize</a></li>
+                        <!---- Menu Section ---->
+                        @if (Session["user"].ToString() == "Admin")
+                        {
+                            <li>
+                                <a class=" waves-effect waves-dark" href="@Url.Action("Index", "Home")" aria-expanded="false"><i class="icon-speedometer"></i><span class="hide-menu"> Dashboard </span></a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="@Url.Action("Index", "Member")" aria-expanded="false"><i class="ti-user"></i><span class="hide-menu">Member</span></a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="@Url.Action("FindMember", "Member")" aria-expanded="false"><i class="ti-id-badge"></i><span class="hide-menu">Find Member</span></a>
+                            </li>
+                            <li>
+                                <a class="has-arrow waves-effect waves-dark" href="@Url.Action("Index", "Staff")" aria-expanded="false"><i class="ti-agenda"></i><span class="hide-menu">Staff</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="@Url.Action("Index", "Staff")">Add Staff</a></li>
+                                    <li><a href="@Url.Action("FindStaff", "Staff")">Find Staff</a></li>
+                                    <li style="display:none;"><a href="@Url.Action("Authorize", "Staff")">Authorize</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-dark" href="@Url.Action("Index", "Role")" aria-expanded="false"><i class="ti-clipboard"></i><span class="hide-menu">Roles</span></a>
+                            </li>
+                            <li>
+                                <a class="has-arrow waves-effect waves-dark" href="@Url.Action("Index", "POS")" aria-expanded="false"><i class="ti-layout-grid3-alt"></i><span class="hide-menu">Point of Sale</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="@Url.Action("Index", "Category")">Category</a></li>
+                                    <li><a href="@Url.Action("Index", "Product")">Product</a></li>
+                                    <li><a href="@Url.Action("Index", "Stock")">Stock</a></li>
+                                    <li><a href="@Url.Action("Index", "POS")">Terminal</a></li>
+                                    <li style="display:none;"><a href="@Url.Action("SalesLedger", "POS")">Sales invoice list</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow waves-effect waves-dark" href="@Url.Action("ViewMemberships", "Membership")" aria-expanded="false"><i class="ti-world"></i><span class="hide-menu">Membership</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="@Url.Action("Index", "Membership")">Add Membership</a></li>
+                                    <li><a href="@Url.Action("ViewMemberships", "Membership")">View Memberships</a></li>
+                                    <li><a href="@Url.Action("Subscriptions", "Membership")">Subscriptions</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-receipt"></i><span class="hide-menu">Training Schedule</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="@Url.Action("Index", "Training")">Add Training Class</a></li>
+                                    <li><a href="@Url.Action("AssignClass", "Training")">Assign Training Class</a></li>
+                                    @*<li><a href="@Url.Action("AddReminder", "Training")">Set Reminder</a></li>*@
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-bar-chart"></i><span class="hide-menu">Reports</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="@Url.Action("AllPayments", "Report")">All Payments</a></li>
+                                    <li><a href="@Url.Action("AllBills", "Report")">All Bills </a></li>
+                                    <li><a href="@Url.Action("AllSubscriptions", "Report")">All Subscription</a></li>
+                                    @*<li><a href="@Url.Action("AllVisitor", "Report")">All Visitors Information</a></li>*@
+                                </ul>
+                            </li>
+                            <!---- Menu Section End ---->
+                        }
+                        else
+                        {
+                            <li>
+                                <a class=" waves-effect waves-dark" href="@Url.Action("Index", "Home")" aria-expanded="false"><i class="icon-speedometer"></i><span class="hide-menu"> Dashboard </span></a>
+                            </li>
+                            if (Session["modules"] != null)
+                            {
+                                foreach (var data in Session["modules"] as List<gym_mgmt_01.Models.ModuleDetails>)
+                                {
+                                    switch (@data.Module)
+                                    {
+                                        case "Staff":
+                                            <li>
+                                                <a class="has-arrow waves-effect waves-dark" href="@Url.Action("Index", "Staff")" aria-expanded="false"><i class="ti-agenda"></i><span class="hide-menu">Staff</span></a>
+                                                <ul aria-expanded="false" class="collapse">
+                                                    <li><a href="@Url.Action("Index", "Staff")">Add Staff</a></li>
+                                                    <li><a href="@Url.Action("FindStaff", "Staff")">Find Staff</a></li>
+                                                    <li style="display:none;"><a href="@Url.Action("Authorize", "Staff")">Authorize</a></li>
+                                                </ul>
+                                            </li>
+                                            break;
+                                        case "Member":
+                                            <li>
+                                                <a class="waves-effect waves-dark" href="@Url.Action("Index", "Member")" aria-expanded="false"><i class="ti-user"></i><span class="hide-menu">Member</span></a>
+                                            </li>
+                                            break;
+                                        case "Find Member":
+                                            <li>
+                                                <a class="waves-effect waves-dark" href="@Url.Action("FindMember", "Member")" aria-expanded="false"><i class="ti-id-badge"></i><span class="hide-menu">Find Member</span></a>
+                                            </li>
+                                            break;
 
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="waves-effect waves-dark" href="@Url.Action("Index", "Role")" aria-expanded="false"><i class="ti-clipboard"></i><span class="hide-menu">Roles</span></a>
-                        </li>
-                        <li>
-                            <a class="has-arrow waves-effect waves-dark" href="@Url.Action("Index", "POS")" aria-expanded="false"><i class="ti-layout-grid3-alt"></i><span class="hide-menu">Point of Sale</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="@Url.Action("Index", "Category")">Category</a></li>
-                                <li><a href="@Url.Action("Index", "Product")">Product</a></li>
-                                <li><a href="@Url.Action("Index", "Stock")">Stock</a></li>
-                                <li><a href="@Url.Action("Index", "POS")">Terminal</a></li>
-                                <li style="display:none;"><a href="@Url.Action("SalesLedger", "POS")">Sales invoice list</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow waves-effect waves-dark" href="@Url.Action("ViewMemberships", "Membership")" aria-expanded="false"><i class="ti-world"></i><span class="hide-menu">Membership</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="@Url.Action("Index", "Membership")">Add Membership</a></li>
-                                <li><a href="@Url.Action("ViewMemberships", "Membership")">View Memberships</a></li>
-                                <li><a href="@Url.Action("Subscriptions", "Membership")">Subscriptions</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-receipt"></i><span class="hide-menu">Training Schedule</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="@Url.Action("Index", "Training")">Add Training Class</a></li>
-                                <li><a href="@Url.Action("AssignClass", "Training")">Assign Training Class</a></li>
-                                @*<li><a href="@Url.Action("AddReminder", "Training")">Set Reminder</a></li>*@
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-bar-chart"></i><span class="hide-menu">Reports</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="@Url.Action("AllPayments", "Report")">All Payments</a></li>
-                                <li><a href="@Url.Action("AllBills", "Report")">All Bills </a></li>
-                                <li><a href="@Url.Action("AllSubscriptions", "Report")">All Subscription</a></li>
-                                @*<li><a href="@Url.Action("AllVisitor", "Report")">All Visitors Information</a></li>*@
-                            </ul>
-                        </li>
+
+
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+
+                            }
+                        }
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -516,23 +563,23 @@
             // Switchery
             var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
             $('.js-switch').each(function () {
-                new Switchery($(this)[0], $(this).data());
-            });
+                            new Switchery($(this)[0], $(this).data());
+                        });
             // For select 2
             $(".select2").select2();
             $('.selectpicker').selectpicker();
             //Bootstrap-TouchSpin
             $(".vertical-spin").TouchSpin({
-                verticalbuttons: true
+                        verticalbuttons: true
             });
             var vspinTrue = $(".vertical-spin").TouchSpin({
-                verticalbuttons: true
+                        verticalbuttons: true
             });
             if (vspinTrue) {
                 $('.vertical-spin').prev('.bootstrap-touchspin-prefix').remove();
             }
             $("input[name='tch1']").TouchSpin({
-                min: 0,
+                        min: 0,
                 max: 100,
                 step: 0.1,
                 decimals: 2,
@@ -541,7 +588,7 @@
                 postfix: '%'
             });
             $("input[name='tch2']").TouchSpin({
-                min: -1000000000,
+                        min: -1000000000,
                 max: 1000000000,
                 stepinterval: 50,
                 maxboostedstep: 10000000,
@@ -549,67 +596,67 @@
             });
             $("input[name='tch3']").TouchSpin();
             $("input[name='tch3_22']").TouchSpin({
-                initval: 40
+                        initval: 40
             });
             $("input[name='tch5']").TouchSpin({
-                prefix: "pre",
+                        prefix: "pre",
                 postfix: "post"
             });
             // For multiselect
             $('#pre-selected-options').multiSelect();
             $('#optgroup').multiSelect({
-                selectableOptgroup: true
+                        selectableOptgroup: true
             });
             $('#public-methods').multiSelect();
             $('#select-all').click(function () {
                 $('#public-methods').multiSelect('select_all');
-                return false;
-            });
+                            return false;
+                        });
             $('#deselect-all').click(function () {
                 $('#public-methods').multiSelect('deselect_all');
-                return false;
-            });
+                            return false;
+                        });
             $('#refresh').on('click', function () {
                 $('#public-methods').multiSelect('refresh');
-                return false;
-            });
+                            return false;
+                        });
             $('#add-option').on('click', function () {
                 $('#public-methods').multiSelect('addOption', {
-                    value: 42,
+                            value: 42,
                     text: 'test 42',
                     index: 0
                 });
-                return false;
-            });
+                            return false;
+                        });
             $(".ajax").select2({
-                ajax: {
-                    url: "https://api.github.com/search/repositories",
+                        ajax: {
+                            url: "https://api.github.com/search/repositories",
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
-                        return {
-                            q: params.term, // search term
+                                    return {
+                                    q: params.term, // search term
                             page: params.page
-                        };
-                    },
+                                    };
+                                },
                     processResults: function (data, params) {
                         // parse the results into the format expected by Select2
                         // since we are using custom formatting functions we do not need to
                         // alter the remote JSON data, except to indicate that infinite
                         // scrolling can be used
                         params.page = params.page || 1;
-                        return {
-                            results: data.items,
+                                    return {
+                                    results: data.items,
                             pagination: {
-                                more: (params.page * 30) < data.total_count
+                                        more: (params.page * 30) < data.total_count
                             }
-                        };
-                    },
+                                    };
+                                },
                     cache: true
-                },
+                        },
                 escapeMarkup: function (markup) {
-                    return markup;
-                }, // let our custom formatter work
+                                return markup;
+                            }, // let our custom formatter work
                 minimumInputLength: 1,
                 //templateResult: formatRepo, // omitted for brevity, see the source of this page
                 //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page

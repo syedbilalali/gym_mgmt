@@ -165,7 +165,7 @@
     <Compile Include="BAL\Master\ClassesOpt.cs" />
     <Compile Include="BAL\Master\ContactOpration.cs" />
     <Compile Include="BAL\Master\EmergencyContactOpt.cs" />
-    <Compile Include="BAL\Master\MasterLogin.cs" />
+    <Compile Include="BAL\Master\MasterOperation.cs" />
     <Compile Include="BAL\Master\MemberOperation.cs" />
     <Compile Include="BAL\Master\MembershipOpt.cs" />
     <Compile Include="BAL\Master\ProductOperation.cs" />
