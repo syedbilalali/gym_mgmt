@@ -23,7 +23,23 @@
             </form>
         </div>
         <div class="col-lg-6 col-xlg-6 col-md-6">
-            <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" onclick="location.href='@Url.Action("", "Staff")'" data-whatever=""> Add Staff</button>
+            @if (Session["user"].ToString() == "Admin")
+            {
+                <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" onclick="location.href='@Url.Action("", "Staff")'" data-whatever=""> Add Staff</button>
+            }
+            else
+            {
+                if (ViewBag.Create != false)
+                {
+                    <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" onclick="location.href='@Url.Action("", "Staff")'" data-whatever=""> Add Staff</button>
+                }
+                else
+                {
+                    <button type="button" disabled class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" onclick="location.href='@Url.Action("", "Staff")'" data-whatever=""> Add Staff</button>
+                }
+
+            }
+
         </div>
     </div>
     <div class="addrolestab">
@@ -50,9 +66,32 @@
                             <td>@staff.Designation</td>
                             <td>@staff.Email</td>
                             <td>
-                                <button type="button" class="btn btn-info editbtn1" onclick="location.href='@Url.Action("Authorize", "Staff", new { id = staff.StaffID })'">Authorize</button>
-                                <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@staff.StaffID)">Edit</button>
-                                <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteStaff", "Staff", new { id = staff.StaffID })'">Delete</button>
+                                @if (Session["user"].ToString() == "Admin")
+                                {
+                                    <button type="button" class="btn btn-info editbtn1" onclick="location.href='@Url.Action("Authorize", "Staff", new { id = staff.StaffID })'">Authorize</button>
+                                    <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@staff.StaffID)">Edit</button>
+                                    <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteStaff", "Staff", new { id = staff.StaffID })'">Delete</button>
+                                }
+                                else
+                                {
+                                    if (ViewBag.Edit != false)
+                                    {
+
+                                        <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@staff.StaffID)">Edit</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" disabled class="btn btn-info editbtn1" onclick="GetDetails(@staff.StaffID)">Edit</button>
+                                    }
+                                    if (ViewBag.Delete != false)
+                                    {
+                                        <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteStaff", "Staff", new { id = staff.StaffID })'">Delete</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" disabled class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteStaff", "Staff", new { id = staff.StaffID })'">Delete</button>
+                                    }
+                                }
                             </td>
                         </tr>
                     }

@@ -39,7 +39,8 @@ namespace gym_mgmt_01.Controllers
             ViewBag.Title = "Invoice ID : " + lastInvoiceID;
             model.SellOrderItems = soiOp.getAlSellsOrderItemsByID(lastInvoiceID);
             model.SellOrder = soOp.getAlSellsOrderByID(lastInvoiceID);
-            return new PdfResult(model,"Index");
+            // return new PdfResult(model,"Index");
+            return new RazorPDF.PdfResult(model , "Index");
         }
         public ActionResult PdfModel() {
             int lastInvoiceID = getLastInvoiceID();

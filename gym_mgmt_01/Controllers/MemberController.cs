@@ -26,11 +26,17 @@ namespace gym_mgmt_01.Controllers
         {
             if (id == null)
             {
+                if (Session["modules"] != null) {
+                    List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
+                    ModuleDetails  md1 =  md.Find(x => x.Module.Equals("Member"));
+                    ViewBag.Create = md1.Create;
+                    ViewBag.Edit = md1.Edit;
+                    ViewBag.Delete = md1.Delete;
+                }
                 ViewBag.ID = mo.getMemberID();
                 MemberRegistration mr = new MemberRegistration();
                 mr.member = new Member();
                 mr.contact = new Contact() { Id = int.Parse(mo.getMemberID()) };
-                
                 ViewBag.Alert = "none";
                 ViewBag.Message = "";
                 return View(mr);
@@ -226,6 +232,7 @@ namespace gym_mgmt_01.Controllers
             {
                 ViewBag.ID = id;
                 ViewBag.Alert = "none";
+                ViewBag.Message = "";
                 return View();
             }
             else
@@ -239,6 +246,7 @@ namespace gym_mgmt_01.Controllers
                 MemberRegistration m = new MemberRegistration();
                 m.member = mem;
                 ViewBag.ID = mem.Id;
+                ViewBag.Message = "";
                 m.contact = cn;
                 return View(m);
             }
@@ -300,10 +308,10 @@ namespace gym_mgmt_01.Controllers
                 mr.contact.MemberID = mr.member.Id;
                 co.UpdateContact(mr.contact);
                 ViewBag.Message = "Successfully Update  Member !!!";
-              //  ModelState.Clear();
                 ViewBag.ID = mo.getMemberID();
             }
-            return View();
+            //  return RedirectToAction("Edit", new { id = mr.member.Id });
+            return View(mr);
         }
         [HttpPost]
         public ActionResult UpdateMembers(MemberRegistration mr) {

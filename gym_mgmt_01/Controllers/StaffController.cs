@@ -21,6 +21,14 @@ namespace gym_mgmt_01.Controllers
         // GET: Staff
         public ActionResult Index()
         {
+            if (Session["modules"] != null) {
+                List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
+                ModuleDetails md1 = md.Find(x => x.Module.Equals("Staff"));
+                ViewBag.Module = md1.Module;
+                ViewBag.Create = md1.Create;
+                ViewBag.Edit = md1.Edit;
+                ViewBag.Delete = md1.Delete;
+            }
             return View();
         }
         [HttpPost]
@@ -77,6 +85,15 @@ namespace gym_mgmt_01.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
          }
         public ActionResult FindStaff() {
+            if (Session["modules"] != null)
+            {
+                List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
+                ModuleDetails md1 = md.Find(x => x.Module.Equals("Staff"));
+                ViewBag.Module = md1.Module;
+                ViewBag.Create = md1.Create;
+                ViewBag.Edit = md1.Edit;
+                ViewBag.Delete = md1.Delete;
+            }
             DataTable dt = new DataTable();
             dt = so.geAllStaff();
             List<Staff> data = new List<Staff>();
@@ -158,10 +175,8 @@ namespace gym_mgmt_01.Controllers
                     {
 
                         string FileName = Path.GetFileNameWithoutExtension(file.FileName);
-
                         //To Get File Extension  
                         string FileExtension = Path.GetExtension(file.FileName);
-
                         //Add Current Date To Attached File Name  
                         FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName.Trim() + FileExtension;
 

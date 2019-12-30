@@ -35,10 +35,7 @@ namespace gym_mgmt_01.Controllers
                     Session["ImageURL"] = dt.Rows[0]["ImageURL"].ToString();
                     Session["FirstName"] = dt.Rows[0]["FirstName"].ToString();
                     Session["LastName"] = dt.Rows[0]["LastName"].ToString();
-
-                    //  Response.Write(" Image URL " + ViewBag.ImageURL);
                 }
-
             }
             else if (Session["Email"] != null && Session["Password"] != null && Session["user"].ToString() == "Staff") {
                 dt = so.getStaff(Session["Email"].ToString(), Session["Password"].ToString());

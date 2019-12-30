@@ -36,7 +36,8 @@
                 <thead>
                     <tr>
                         <th>Module Name</th>
-                        <th>Access Right</th>
+                        <th>Accesebility</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,6 +52,20 @@
                                 </td>
                                 <td>
                                     @Html.CheckBoxFor(m => m[i].isSelected, new { @type = "checkbox", @class = "js-switch" })
+                            
+                                </td>
+                                <td>
+                                    View
+                                    @Html.CheckBoxFor(m => m[i].View, new { @type = "checkbox", @class = "" })
+                                    &nbsp;
+                                    Edit
+                                    @Html.CheckBoxFor(m => m[i].Edit, new { @type = "checkbox", @class = "" })
+                                    &nbsp;
+                                    Create
+                                    @Html.CheckBoxFor(m => m[i].Create, new { @type = "checkbox", @class = "" })
+                                    &nbsp;
+                                    Delete
+                                    @Html.CheckBoxFor(m => m[i].Delete, new { @type = "checkbox", @class = "" })
                                 </td>
                             </tr>
 

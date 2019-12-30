@@ -24,7 +24,7 @@ namespace gym_mgmt_01.Controllers
 
         //    Membership mem = new Membership();
             if (ModelState.IsValid) {
-                 
+
                 int subtractingDays = int.Parse(mem.PreExpirationDays.ToString());
                 mem.ValidDays = subtractingDays;
                 mem.PreEndDate = mem.EndDate.Subtract(TimeSpan.FromDays(subtractingDays));

@@ -36,9 +36,27 @@
                         <!--    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6> -->
                         <div class="row text-center justify-content-md-center">
                             <div class="upload-btn-wrapper">
-                                <button class="btn upld">Upload Photo</button>
-                                @Html.TextBoxFor(m => m.PostedFile, new { type = "file", @id = "upldImage", @name = "ImageFile" })
-                                @Html.ValidationMessageFor(m => m.PostedFile, "", new { @class = "text-danger" })
+                                @if (Session["user"].ToString() == "Admin ")
+                                {
+
+                                    <button class="btn upld">Upload Photo</button>
+                                    @Html.TextBoxFor(m => m.PostedFile, new { type = "file", @id = "upldImage" , @name = "ImageFile" })
+                                    @Html.ValidationMessageFor(m => m.PostedFile, "", new { @class = "text-danger" })
+                                }
+                                else
+                                {
+                                    if (ViewBag.Create != false)
+                                    {
+                                        <button class="btn upld">Upload Photo</button>
+                                        @Html.TextBoxFor(m => m.PostedFile, new { type = "file", @id = "upldImage", @name = "ImageFile" })
+                                        @Html.ValidationMessageFor(m => m.PostedFile, "", new { @class = "text-danger" })
+                                    }
+                                    else
+                                    {
+                                        <button disabled class="btn upld">Upload Photo</button>
+                                    }
+
+                                }
                             </div>
                         </div>
                     </center>
@@ -119,7 +137,21 @@
                                                 @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary" type="submit">Add</button>
+                                        @if (Session["user"].ToString() == "Admin ")
+                                        {
+                                            <button class="btn btn-primary" type="submit">Add</button>
+                                        }
+                                        else {
+                                            if (ViewBag.Create != false)
+                                            {
+                                                <button class="btn btn-primary" type="submit">Add</button>
+                                            }
+                                            else {
+                                               <button disabled class="btn btn-primary" type="submit">Add</button>
+                                            }
+
+                                        }
+
                                     </div>
                                 </div>
                             </div>

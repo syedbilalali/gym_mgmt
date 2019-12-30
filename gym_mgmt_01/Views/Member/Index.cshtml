@@ -58,7 +58,15 @@
                 <h4>ID : #@ViewBag.ID </h4>
             </div>
             <div class="col-md-6">
-                <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                @if (ViewBag.Create != false)
+                { 
+                    <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                }
+                else
+                {
+                    <button id="addMemberShipA" disabled class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                }
+
             </div>
         </div>
         <div class="row">
@@ -755,7 +763,6 @@
         $(document).ready(function () {
             //initCrop();
         });
- 
         $("#hlcropImage").on("click", function (e) {
             alert(" On Cropping Image : ");
             /*
