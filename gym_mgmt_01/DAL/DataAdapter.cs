@@ -123,25 +123,34 @@ namespace gym_mgmt_01.DAL
         }
         public DataTable FetchByParameter(SqlParameter[] param, string command)
         {
-            using (SqlConnection con = new SqlConnection(connectionString.connect()))
+            DataTable dt = new System.Data.DataTable();
+            try
             {
-
-                using (SqlCommand cmd = new SqlCommand(command))
+               
+                using (SqlConnection con = new SqlConnection(connectionString.connect()))
                 {
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+
+                    using (SqlCommand cmd = new SqlCommand(command))
                     {
-                        cmd.Connection = con;
-                        da.SelectCommand = cmd;
-                        DataTable dt = new System.Data.DataTable();
-                        for (int i = 0; i < param.Length; i++)
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
-                            cmd.Parameters.Add(param[i]);
+                            cmd.Connection = con;
+                            da.SelectCommand = cmd;
+                            
+                            for (int i = 0; i < param.Length; i++)
+                            {
+                                cmd.Parameters.Add(param[i]);
+                            }
+                            da.Fill(dt);
                         }
-                        da.Fill(dt);
-                        return dt;
                     }
                 }
             }
+            catch (Exception e) {
+                //Exception Caught Here 
+
+            }
+            return dt;
         }
         public int getLastID(String columnName, String tableName)
         {

@@ -19,6 +19,14 @@ namespace gym_mgmt_01.Controllers
         dynamic model = new System.Dynamic.ExpandoObject();
         public ActionResult Index()
         {
+            if (Session["modules"] != null) {
+
+                List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
+                ModuleDetails md1 = md.Find(x => x.Module.Equals("Point of Sale"));
+                ViewBag.Create = md1.Create;
+                ViewBag.Edit = md1.Edit;
+                ViewBag.Delete = md1.Delete;
+            }
             List<Product> product = po.getAllProducts();
             List<ProductType> productType = po.getAllProductType();
             model.product = product;
@@ -30,7 +38,7 @@ namespace gym_mgmt_01.Controllers
         public ActionResult SaveProduct(FormCollection fc, HttpPostedFileBase prodImage)
         {
             if (ModelState.IsValid)
-            {
+            {   
                 string imagePath = uploadFile(prodImage);
                 po.AddProduct(fc["productname"].ToString(), int.Parse(fc["productType"].ToString()), int.Parse(fc["supplier"].ToString()), int.Parse(fc["posGroup"].ToString()), fc["barcode"].ToString(), fc["description"].ToString(), imagePath);
             }

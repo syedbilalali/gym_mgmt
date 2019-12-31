@@ -140,7 +140,6 @@ namespace gym_mgmt_01.Controllers
         public ActionResult getMember(int? id) {
             List<Member> mem = mo.getAllMembers();
             var member1 = mem.Find(x => x.Id.Equals(id));
-
             return Json(member1, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
@@ -227,7 +226,8 @@ namespace gym_mgmt_01.Controllers
             return filename1;
         }
         public ActionResult Edit(int? id) {
-            
+
+           
             if (id == null)
             {
                 ViewBag.ID = id;

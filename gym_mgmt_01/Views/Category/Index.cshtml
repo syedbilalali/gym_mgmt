@@ -19,7 +19,24 @@
             </form>
         </div>
         <div class="col-lg-6 col-xlg-6 col-md-6">
-            <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" data-whatever="">Add Product Type</button>
+            @if (Session["user"] != null)
+            {
+                if (Session["user"].ToString() == "Admin")
+                {
+                    <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" data-whatever="">Add Product Type</button>
+                }
+                else
+                {
+                    if (@ViewBag.Create != false)
+                    {
+                        <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" data-whatever="">Add Product Type</button>
+                    }
+                    else
+                    {
+                        <button type="button" disabled class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" data-whatever="">Add Product Type</button>
+                    }
+                }
+            }
         </div>
     </div>
     <div class="addrolestab">
@@ -55,8 +72,36 @@
                             <td>@productType.TaxRateName</td>
                             <td>@productType.SoldInClubs</td>
                             <td>
-                                <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@productType.Id)">Edit</button>
-                                <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProductType", "Category", new { id = productType.Id })'">Delete</button>
+                                @if (Session["user"] != null)
+                                {
+                                    if (Session["user"].ToString() == "Admin")
+                                    {
+                                        <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@productType.Id)">Edit</button>
+                                        <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProductType", "Category", new { id = productType.Id })'">Delete</button>
+                                    }
+                                    else
+                                    {
+                                        if (@ViewBag.Edit != false)
+                                        {
+                                            <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@productType.Id)">Edit</button>
+
+                                        }
+                                        else
+                                        {
+                                            <button type="button" disabled class="btn btn-info editbtn1" onclick="GetDetails(@productType.Id)">Edit</button>
+
+                                        }
+                                        if (@ViewBag.Delete != false)
+                                        {
+                                            <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProductType", "Category", new { id = productType.Id })'">Delete</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" disabled class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProductType", "Category", new { id = productType.Id })'">Delete</button>
+                                        }
+                                    }
+                                }
+
                             </td>
                         </tr>
 

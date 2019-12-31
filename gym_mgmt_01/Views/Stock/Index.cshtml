@@ -31,6 +31,7 @@
                     <th>Stock In</th>
                     <th>Stock Out</th>
                     <th>Current Stock</th>
+                    <th>Total Price</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -48,6 +49,7 @@
                             <td>@stocks.stockin</td>
                             <td>@stocks.stockout</td>
                             <td>@stocks.current_stock</td>
+                            <td>@(stocks.current_stock * stocks.get_price)</td>
                             <td>
                                 <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@stocks.Id)">Edit</button>
                                 <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteStocks", "Stock", new { id = stocks.Id })'">Delete</button>
@@ -155,8 +157,6 @@
                    // alert(" SucessFull Get the Value " + JSON.stringify(response));
                     $('#stockID').val(response.Id);
                     $('#Id').val(response.Id);
-                  //  $('#prodID').val(response.Id);
-                  //  $('#productName').val(response.product_Id);
                     $('#get_price').val(response.get_price);
                     $('#sell_price').val(response.sell_price);
                     $('#current_stock').val(response.current_stock);

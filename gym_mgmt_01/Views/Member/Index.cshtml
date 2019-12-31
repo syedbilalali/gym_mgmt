@@ -58,13 +58,23 @@
                 <h4>ID : #@ViewBag.ID </h4>
             </div>
             <div class="col-md-6">
-                @if (ViewBag.Create != false)
-                { 
-                    <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
-                }
-                else
+                @if (Session["user"] != null)
                 {
-                    <button id="addMemberShipA" disabled class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                    if (Session["user"].ToString() == "Admin")
+                    {
+                        <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                    }
+                    else
+                    {
+                        if (@ViewBag.Create != false)
+                        {
+                            <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                        }
+                        else
+                        {
+                            <button id="addMemberShipA" disabled class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                        }
+                    }
                 }
 
             </div>
@@ -79,20 +89,49 @@
                             <input type="hidden" name="avatarCropped" id="avatarCropped">
                             <h4 class="card-title m-t-10"></h4>
                             <!--    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6> -->
-                            <div class="row text-center justify-content-md-center">
-                                @*<div class="profileupload"><input type="file" class="link btnprofile" name="my_file" id="my_file"></div>*@
-                                @*<div class="profileupload"><a href="javascript:void(0)" id="uploadPhoto" class="link btnprofile"><i class="mdi mdi-cloud-upload"></i>&nbsp;Upload Photo</a></div>*@
-                                @*<div class="profileupload"><a href="javascript:void(0)" class="link btnprofile"><i class="mdi mdi-camera"></i> &nbsp;Take Photo</a></div>*@
+                            <div class="row text-center justify-content-md-center">               
                                 <div class="upload-btn-wrapper">
-                                    <button class="btn upld" id="upldFile">
-                                        @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
-                                    </button>
-                                    <br />
-                                    @Html.ValidationMessageFor(modal => modal.member.ImagePath, "", new { htmlAttributes = new { @class = "text-danger" } })
-                                    <input type="file" name="ImageFile" id="upldImage" />
-                                    @*@Html.EditorFor(model => model.member.ImageFile , new { @type="file" , @id="upldImage" });*@
-                                    @Html.HiddenFor(model => model.member.Id)
-                                    @Html.ValidationMessageFor(modal => modal.member.Id)
+                                    @if (Session["user"] != null)
+                                    {
+                                        if (Session["user"].ToString() == "Admin")
+                                        {
+                                            <button class="btn upld" id="upldFile">
+                                                @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
+                                            </button>
+                                            <br />
+                                            @Html.ValidationMessageFor(modal => modal.member.ImagePath, "", new { htmlAttributes = new { @class = "text-danger" } })
+                                            <input type="file" name="ImageFile" id="upldImage" />
+                                            @Html.HiddenFor(model => model.member.Id)
+                                            @Html.ValidationMessageFor(modal => modal.member.Id)
+                                        }
+                                        else
+                                        {
+                                            if (@ViewBag.Create != false)
+                                            {
+                                                <button class="btn upld" id="upldFile">
+                                                    @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
+                                                </button>
+                                                <br />
+                                                @Html.ValidationMessageFor(modal => modal.member.ImagePath, "", new { htmlAttributes = new { @class = "text-danger" } })
+                                                <input type="file" name="ImageFile" id="upldImage" />
+                                                @Html.HiddenFor(model => model.member.Id)
+                                                @Html.ValidationMessageFor(modal => modal.member.Id)
+                                            }
+                                            else
+                                            {
+                                                <button class="btn upld" disabled id="upldFile">
+                                                    @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
+                                                </button>
+                                                <br />
+                                                @Html.ValidationMessageFor(modal => modal.member.ImagePath, "", new { htmlAttributes = new { @class = "text-danger" } })
+                                                <input type="file" disabled name="ImageFile" id="upldImage" />
+                                                @Html.HiddenFor(model => model.member.Id)
+                                                @Html.ValidationMessageFor(modal => modal.member.Id)
+                                            }
+                                        }
+                                    }
+
+
                                 </div>
                             </div>
                             <div class="m-b-30 checkaddmember" style="display:none;">

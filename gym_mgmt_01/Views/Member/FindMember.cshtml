@@ -215,12 +215,11 @@
                         } else {
                              card += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/asterisk.png")" />';
                         }
-                        card += '</div><div class="specify2">';
+                        card += '</div>';
                         if (json[i].Name != "None") {
-                              card += '<button type="button" class="btn" data-toggle="modal" id="' + json[i].Id + '" onclick="modifyMembership(this)" data-whatever="">';
+                              card += '<div class="specify2"><button type="button" class="btn" data-toggle="modal" id="' + json[i].Id + '" onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button></div>';
                         }
-                        card += '<i class="ti-import importicon"></i></button>';
-                            card += '</div></div></div>';
+                        card += '</div></div>';
                        }
                       card += '</div>';
                       memberdata += card;

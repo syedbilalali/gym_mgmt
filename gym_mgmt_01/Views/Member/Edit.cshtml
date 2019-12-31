@@ -18,7 +18,7 @@
         <div class="row uppercontainer">
             <div class="col-md-12">
 
-                @if (ViewBag.Message != "")
+                @if (ViewBag.Message != "") 
                 {
                     <div class="alert alert-success" style="display:block;">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
@@ -34,7 +34,24 @@
                 </h4>
             </div>
             <div class="col-md-6">
+
                 <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                @*@if (Session["user"].ToString() == "Admin")
+        {
+            <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+        }
+        else
+        {
+            if (@ViewBag.Edit != false)
+            {
+                <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+            }
+            else
+            {
+                <button id="addMemberShipA" disabled class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+            }
+        }*@
+
             </div>
         </div>
         <div class="row">

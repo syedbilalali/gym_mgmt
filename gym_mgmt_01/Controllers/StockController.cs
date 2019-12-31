@@ -22,8 +22,7 @@ namespace gym_mgmt_01.Controllers
             List<Stocks> stocks = po.getAllStocks();
             List<Product> product = po.getAllProducts();
             model.products = product;
-            model.stocks = stocks;
-           
+            model.stocks = stocks;  
             return View(model);
         }
         [HttpPost]

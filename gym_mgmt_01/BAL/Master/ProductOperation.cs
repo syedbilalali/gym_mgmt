@@ -155,7 +155,7 @@ namespace gym_mgmt_01.BAL.Master
                               product_Id = int.Parse(dr["product_Id"].ToString()),
                               get_price = decimal.Parse(dr["get_price"].ToString()),
                               sell_price = decimal.Parse(dr["sell_price"].ToString()), 
-                                   stockin = int.Parse(dr["stock_in"].ToString()),
+                              stockin = int.Parse(dr["stock_in"].ToString()),
                               stockout = int.Parse(dr["stock_out"].ToString()),
                               current_stock = int.Parse(dr["current_stock"].ToString()),
                               product_name = dr["Name"].ToString()

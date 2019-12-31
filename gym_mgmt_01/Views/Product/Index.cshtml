@@ -20,7 +20,26 @@
             </form>
         </div>
         <div class="col-lg-6 col-xlg-6 col-md-6">
-            <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" data-whatever="">Add Products </button>
+            @if (Session["user"] != null)
+            {
+                if (Session["user"].ToString() == "Admin")
+                {
+                    <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" data-whatever="">Add Products </button>
+                }
+                else
+                {
+                    if (@ViewBag.Create != false)
+                    {
+                        <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" data-whatever="">Add Products </button>
+                    }
+                    else
+                    {
+                        <button type="button" disabled class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" data-whatever="">Add Products </button>
+                    }
+                }
+
+            }
+
         </div>
     </div>
     <div class="addrolestab">
@@ -53,8 +72,37 @@
                             <td>@product.Barcode</td>
                             <td>@product.Description</td>
                             <td>
-                                <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@product.Id)">Edit</button>
-                                <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProducts", "Product", new { id = product.Id })'">Delete</button>
+                                @if (Session["user"] != null)
+                                {
+                                    if (Session["user"].ToString() == "Admin")
+                                    {
+                                        <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@product.Id)">Edit</button>
+                                        <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProducts", "Product", new { id = product.Id })'">Delete</button>
+                                    }
+                                    else
+                                    {
+                                        if (@ViewBag.Edit != false)
+                                        {
+                                            <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@product.Id)">Edit</button>
+
+                                        }
+                                        else
+                                        {
+                                            <button type="button" disabled class="btn btn-info editbtn1" onclick="GetDetails(@product.Id)">Edit</button>
+
+                                        }
+                                        if (ViewBag.Delete != false)
+                                        {
+                                            <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProducts", "Product", new { id = product.Id })'">Delete</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" disabled class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteProducts", "Product", new { id = product.Id })'">Delete</button>
+                                        }
+                                    }
+
+                                }
+
                             </td>
                         </tr>
 

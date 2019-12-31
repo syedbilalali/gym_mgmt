@@ -126,6 +126,10 @@ namespace gym_mgmt_01.Controllers
         }
         public ActionResult EditStaff(Staff  st) {
 
+            if (Session["user"].ToString() == "Admin") {
+
+                
+            }
             if (ModelState.IsValid) {
                 if (st.PostedFile != null)
                 {
