@@ -9,6 +9,7 @@ using gym_mgmt_01.BAL.Master;
 using gym_mgmt_01.Models;
 using System.Configuration;
 using Newtonsoft.Json;
+using gym_mgmt_01.Helper_Code.Common;
 
 namespace gym_mgmt_01.Controllers
  {
@@ -34,15 +35,21 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(Staff st) {
-            if (ModelState.IsValid) {
-
-                string path = uploadFile(st.PostedFile);
-                st.ImgURL = path;
-                st.permission = getDefaultPermission();
-                so.AddStaff(st);
-                ViewBag.result = "yes";
-                ModelState.Clear();
-                ViewBag.Message = " Staff Member added successfully !!! ";
+            if(ViewBag.Create != false) {
+                if (ModelState.IsValid)
+                {
+                    string path = uploadFile(st.PostedFile);
+                    st.ImgURL = path;
+                    st.permission = getDefaultPermission();
+                    so.AddStaff(st);
+                    ViewBag.result = "yes";
+                    ModelState.Clear();
+                    ViewBag.Message = " Staff Member added successfully !!! ";
+                }
+            }
+            else
+            {
+                ViewBag.Message = "You are not authorise to add staff.";
             }
            return View();
         }

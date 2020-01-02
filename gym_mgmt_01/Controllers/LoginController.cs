@@ -13,8 +13,7 @@ namespace gym_mgmt_01.Controllers
         
         MasterOperation ml = new MasterOperation();
         StaffOperation so = new StaffOperation();
-        bool isValid;
-        bool isValid1;
+        bool isStaff , isAdmin;
         // GET: Login
         public ActionResult Index()
         {
@@ -24,12 +23,13 @@ namespace gym_mgmt_01.Controllers
         public ActionResult Index(FormCollection fc) {
 
             if (ModelState.IsValid) {
+
                 string Email = fc["Email"].ToString();
                 string Password = fc["Password"].ToString();
-                isValid = ml.Login(Email , Password);
-                isValid1 = so.Login(Email, Password);
+                isAdmin = ml.Login(Email , Password);
+                isStaff = so.Login(Email, Password);
 
-                if (!isValid && isValid1) {
+                if (!isAdmin && isStaff) {
 
                     FormsAuthentication.SetAuthCookie(Email, false);
                     Session["user"] = "Staff";
@@ -37,7 +37,7 @@ namespace gym_mgmt_01.Controllers
                     Session["Password"] = Password;
                     return RedirectToAction("Index", "Home");
                 }
-                if (isValid)
+                if (isAdmin)
                 {   
                     FormsAuthentication.SetAuthCookie(Email, false);
                     Session["user"] = "Admin";
@@ -53,6 +53,9 @@ namespace gym_mgmt_01.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
+        }
+        public ActionResult NoAccess() {
+            return View();
         }
     }
 }
