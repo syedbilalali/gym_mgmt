@@ -19,6 +19,14 @@ namespace gym_mgmt_01.Controllers
         // GET: Stock
         public ActionResult Index()
         {
+            if (Session["modules"] != null)
+            {
+                List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
+                ModuleDetails md1 = md.Find(x => x.Module.Equals("Point of Sale"));
+                ViewBag.Create = md1.Create;
+                ViewBag.Edit = md1.Edit;
+                ViewBag.Delete = md1.Delete;
+            }
             List<Stocks> stocks = po.getAllStocks();
             List<Product> product = po.getAllProducts();
             model.products = product;

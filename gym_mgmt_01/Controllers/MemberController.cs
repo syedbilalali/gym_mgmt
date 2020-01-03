@@ -40,8 +40,7 @@ namespace gym_mgmt_01.Controllers
                 ViewBag.Alert = "none";
                 ViewBag.Message = "";
                 return View(mr);
-            }
-            else {
+            } else {
             
                 Member mem = mo.getMember(id);
                 ViewBag.ID = mem.Id;
@@ -49,7 +48,6 @@ namespace gym_mgmt_01.Controllers
                 ViewBag.Alert = "none";
                 return View(mem);
             }
-
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -226,8 +224,12 @@ namespace gym_mgmt_01.Controllers
             return filename1;
         }
         public ActionResult Edit(int? id) {
-
-           
+            if (Session["modules"] != null)
+            {
+                List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
+                ModuleDetails md1 = md.Find(x => x.Module.Equals("Member"));
+                ViewBag.Edit = md1.Edit;
+            }
             if (id == null)
             {
                 ViewBag.ID = id;

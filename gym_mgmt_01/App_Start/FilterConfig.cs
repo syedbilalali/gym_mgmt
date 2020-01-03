@@ -9,7 +9,8 @@ namespace gym_mgmt_01
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            filters.Add(new AuthorizationPrivilegeFilter());
+           // filters.Add(new AuthorizationPrivilegeFilter());
+        
         }
     }
 }

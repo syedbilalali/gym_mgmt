@@ -34,24 +34,24 @@
                 </h4>
             </div>
             <div class="col-md-6">
-
-                <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
-                @*@if (Session["user"].ToString() == "Admin")
-        {
-            <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
-        }
-        else
-        {
-            if (@ViewBag.Edit != false)
-            {
-                <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
-            }
-            else
-            {
-                <button id="addMemberShipA" disabled class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
-            }
-        }*@
-
+                @if (Session["user"] != null)
+                {
+                    if (Session["user"].ToString() == "Admin")
+                    {
+                        <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                    }
+                    else
+                    {
+                        if (@ViewBag.Edit != false)
+                        {
+                            <button id="addMemberShipA" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                        }
+                        else
+                        {
+                            <button id="addMemberShipA" disabled class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                        }
+                    }
+                }
             </div>
         </div>
         <div class="row">
@@ -64,17 +64,46 @@
                             <h4 class="card-title m-t-10"></h4>
                             <!--    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6> -->
                             <div class="row text-center justify-content-md-center">
-                                @*<div class="profileupload"><input type="file" class="link btnprofile" name="my_file" id="my_file"></div>*@
-                                @*<div class="profileupload"><a href="javascript:void(0)" id="uploadPhoto" class="link btnprofile"><i class="mdi mdi-cloud-upload"></i>&nbsp;Upload Photo</a></div>*@
-                                @*<div class="profileupload"><a href="javascript:void(0)" class="link btnprofile"><i class="mdi mdi-camera"></i> &nbsp;Take Photo</a></div>*@
                                 <div class="upload-btn-wrapper">
-                                    <button class="btn upld">
-                                        @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
-                                    </button>
-                                    <input type="file" name="ImageFile" id="upldImage" />
-                                    @*@Html.EditorFor(model => model.member.ImageFile , new { @type="file" , @id="upldImage" });*@
-                                    @Html.HiddenFor(model => model.member.Id)
-                                    @Html.ValidationMessageFor(modal => modal.member.Id)
+                                    @if (Session["user"] != null)
+                                    {
+                                        if (Session["user"].ToString() == "Admin")
+                                        {
+                                            <button class="btn upld" id="upldFile">
+                                                @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
+                                            </button>
+                                            <br />
+                                            @Html.ValidationMessageFor(modal => modal.member.ImagePath, "", new { htmlAttributes = new { @class = "text-danger" } })
+                                            <input type="file" name="ImageFile" id="upldImage" />
+                                            @Html.HiddenFor(model => model.member.Id)
+                                            @Html.ValidationMessageFor(modal => modal.member.Id)
+                                        }
+                                        else
+                                        {
+                                            if (@ViewBag.Edit != false)
+                                            {
+                                                <button class="btn upld" id="upldFile">
+                                                    @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
+                                                </button>
+                                                <br />
+                                                @Html.ValidationMessageFor(modal => modal.member.ImagePath, "", new { htmlAttributes = new { @class = "text-danger" } })
+                                                <input type="file" name="ImageFile" id="upldImage" />
+                                                @Html.HiddenFor(model => model.member.Id)
+                                                @Html.ValidationMessageFor(modal => modal.member.Id)
+                                            }
+                                            else
+                                            {
+                                                <button class="btn upld" disabled id="upldFile">
+                                                    @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
+                                                </button>
+                                                <br />
+                                                @Html.ValidationMessageFor(modal => modal.member.ImagePath, "", new { htmlAttributes = new { @class = "text-danger" } })
+                                                <input type="file" disabled name="ImageFile" id="upldImage" />
+                                                @Html.HiddenFor(model => model.member.Id)
+                                                @Html.ValidationMessageFor(modal => modal.member.Id)
+                                            }
+                                        }
+                                    }
 
                                 </div>
                             </div>
@@ -183,7 +212,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Cell<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", data_val = "false",@type = "text", @placeholder = "Ex. +971509090900 " } })
+                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", data_val = "false", @type = "text", @placeholder = "Ex. +971509090900 " } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Cell, "", new { @class = "text-danger" })
@@ -508,7 +537,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <button id="addMemberShipB" class="btn btn-success btn-save btn-member-save savemember">Save and Add Membership</button>
+                            @if (Session["user"] != null)
+                            {
+                                if (Session["user"].ToString() == "Admin")
+                                {
+                                    <button id="addMemberShipB" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                                }
+                                else
+                                {
+                                    if (@ViewBag.Edit != false)
+                                    {
+                                        <button id="addMemberShipB" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                                    }
+                                    else
+                                    {
+                                        <button id="addMemberShipB" disabled class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                                    }
+                                }
+                            }
                         </div>
                         <div class="tab-pane" id="membership" role="tabpanel">
                             <div class="row">

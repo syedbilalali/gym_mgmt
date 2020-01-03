@@ -17,6 +17,15 @@ namespace gym_mgmt_01.Controllers
         // GET: Training
         public ActionResult Index()
         {
+            if (Session["modules"] != null)
+            {
+                List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
+                ModuleDetails md1 = md.Find(x => x.Module.Equals("Training Schedule"));
+                ViewBag.Module = md1.Module;
+                ViewBag.Create = md1.Create;
+                ViewBag.Edit = md1.Edit;
+                ViewBag.Delete = md1.Delete;
+            }
             List<Classes> cl = classOpt.getAllClasses();
             List<Staff> st = staffOp.getAllStaff();
             model.classes = cl;
@@ -42,7 +51,16 @@ namespace gym_mgmt_01.Controllers
             return RedirectToAction("Index");
         }
         public ActionResult AssignClass() {
-            
+
+            if (Session["modules"] != null)
+            {
+                List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
+                ModuleDetails md1 = md.Find(x => x.Module.Equals("Training Schedule"));
+                ViewBag.Module = md1.Module;
+                ViewBag.Create = md1.Create;
+                ViewBag.Edit = md1.Edit;
+                ViewBag.Delete = md1.Delete;
+            }
             List<ClassSubscriptions> list = classOpt.getAllClassSubs();
             List<Member> memlist = memOpt.getAllMembers();
             List<Classes> classlist = classOpt.getAllClasses();

@@ -17,12 +17,17 @@ namespace gym_mgmt_01.Controllers
         dynamic model = new System.Dynamic.ExpandoObject();
         public ActionResult Index()
         {
+            if (Session["modules"] != null)
+            {
+                List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
+                ModuleDetails md1 = md.Find(x => x.Module.Equals("Membership"));
+                ViewBag.Create = md1.Create;
+            }
             return View();
         }
         [HttpPost]
         public ActionResult Index(Membership mem) {
 
-        //    Membership mem = new Membership();
             if (ModelState.IsValid) {
 
                 int subtractingDays = int.Parse(mem.PreExpirationDays.ToString());
@@ -42,6 +47,14 @@ namespace gym_mgmt_01.Controllers
         }
         public ActionResult ViewMemberships()
         {
+            if (Session["modules"] != null)
+            {
+                List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
+                ModuleDetails md1 = md.Find(x => x.Module.Equals("Membership"));
+                ViewBag.Create = md1.Create;
+                ViewBag.Edit = md1.Edit;
+                ViewBag.Delete = md1.Delete;
+            }
             List<Membership> data = memOpt.getAllMembership();
             model.membership = data;
             return View(model);
@@ -61,7 +74,6 @@ namespace gym_mgmt_01.Controllers
                     ViewBag.Message = "Unsucessfull";
                     ModelState.Clear();
                 }
-
                 return RedirectToAction("ViewMemberships");
             }
             catch
@@ -70,7 +82,16 @@ namespace gym_mgmt_01.Controllers
             }
         }
         public ActionResult Subscriptions() {
-          
+
+
+            if (Session["modules"] != null)
+            {
+                List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
+                ModuleDetails md1 = md.Find(x => x.Module.Equals("Membership"));
+                ViewBag.Create = md1.Create;
+                ViewBag.Edit = md1.Edit;
+                ViewBag.Delete = md1.Delete;
+            }
             List<Member> memdata = mOpt.getAllMembers();
             List<Membership> mshOpt = memOpt.getAllMembership();
             List<Subscriptions> sub1 = subs.getAllSubscriptions();
@@ -101,7 +122,6 @@ namespace gym_mgmt_01.Controllers
         }
         public JsonResult getSubscription(int id) {
 
-         //   List<Membership> mshOpt = memOpt.getAllMembership();
             List<Subscriptions> sb = subs.getAllSubscriptions();
             var prod = sb.Find(x => x.Id.Equals(id));
             return Json(prod, JsonRequestBehavior.AllowGet);

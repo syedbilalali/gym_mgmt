@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data;
 using System.IO;
+using System.Reflection;
 using gym_mgmt_01.BAL.Master;
 using gym_mgmt_01.Models;
 using System.Configuration;
@@ -133,10 +134,6 @@ namespace gym_mgmt_01.Controllers
         }
         public ActionResult EditStaff(Staff  st) {
 
-            if (Session["user"].ToString() == "Admin") {
-
-                
-            }
             if (ModelState.IsValid) {
                 if (st.PostedFile != null)
                 {
@@ -148,9 +145,9 @@ namespace gym_mgmt_01.Controllers
                 }
               
             }
-          //  return View("FindStaff");
-           return RedirectToAction("FindStaff");
+            return RedirectToAction("FindStaff");
         }
+        [AuthorizationPrivilegeFilter]
         public ActionResult DeleteStaff(int id)
         {
             try

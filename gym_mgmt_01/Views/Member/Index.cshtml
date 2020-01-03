@@ -96,7 +96,7 @@
                                         if (Session["user"].ToString() == "Admin")
                                         {
                                             <button class="btn upld" id="upldFile">
-                                                @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
+                                             @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
                                             </button>
                                             <br />
                                             @Html.ValidationMessageFor(modal => modal.member.ImagePath, "", new { htmlAttributes = new { @class = "text-danger" } })
@@ -130,8 +130,6 @@
                                             }
                                         }
                                     }
-
-
                                 </div>
                             </div>
                             <div class="m-b-30 checkaddmember" style="display:none;">
@@ -554,7 +552,25 @@
                                     </div>
                                 </div>
                             </div>
-                            <button id="addMemberShipB" class="btn btn-success btn-save btn-member-save savemember">Save and Add Membership</button>
+                            @if (Session["user"] != null)
+                            {
+                                if (Session["user"].ToString() == "Admin")
+                                {
+                                    <button id="addMemberShipB" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                                }
+                                else
+                                {
+                                    if (@ViewBag.Create != false)
+                                    {
+                                        <button id="addMemberShipB" class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                                    }
+                                    else
+                                    {
+                                        <button id="addMemberShipB" disabled class=" btn btn-success btn-save btn-member-save addsavemember">Save and Add Membership</button>
+                                    }
+                                }
+                            }
+                           
                         </div>
                         <div class="tab-pane" id="membership" role="tabpanel">
                             <div class="row">
@@ -627,42 +643,6 @@
 <!-- End PAge Content -->
 <!-- ============================================================== -->
 <!-- ============================================================== -->
-<!-- Right sidebar -->
-<!-- ============================================================== -->
-<!-- .right-sidebar -->
-<div class="right-sidebar">
-    <div class="slimscrollright">
-        <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
-        <div class="r-panel-body">
-            <ul class="m-t-20">
-
-                <li><a href="#">Advanced Configuration</a></li>
-
-                <li><a href="#">Booking and Classes</a></li>
-
-                <li><a href="#">Club Details</a></li>
-
-                <li><a href="#">CSV Upload</a></li>
-
-                <li><a href="#">Custom Fields</a></li>
-
-                <li><a href="#">Door Readers</a></li>
-
-                <li><a href="#">Forms and Waivers</a></li>
-
-                <li><a href="#">Integrations</a></li>
-                <li><a href="#">Measurement Configuration</a></li>
-                <li><a href="#">Member Portal</a></li>
-                <li><a href="#">Membership Types</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Roster and Open Hours</a></li>
-                <li><a href="#">Task Setup</a></li>
-                <li><a href="#">User Administration</a></li>
-                <li><a href="#">Workout Configuration</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
 @section scripts {
     <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>

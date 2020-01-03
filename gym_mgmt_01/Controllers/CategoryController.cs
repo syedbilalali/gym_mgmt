@@ -18,6 +18,15 @@ namespace gym_mgmt_01.Controllers
         // GET: Category
         public ActionResult Index()
         {
+            if (Session["modules"] != null)
+            {
+                List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
+                ModuleDetails md1 = md.Find(x => x.Module.Equals("Point of Sale"));
+                ViewBag.Create = md1.Create;
+                ViewBag.Edit = md1.Edit;
+                ViewBag.Delete = md1.Delete;
+            }
+
             List<ProductType> productTypes = po.getAllProductType();
             model.prodTypeList = productTypes;
             model.ProductType = new ProductType();
@@ -31,8 +40,7 @@ namespace gym_mgmt_01.Controllers
             // pt.TaxRateName = fc["taxrate"].ToString();
             // pt.SoldInClubs = fc["associatedclub"].ToString();
             po.AddProductType(fc["typename"].ToString(), fc["taxrate"].ToString(), fc["associatedclub"].ToString());
-            ///  Response.Write("Hello  World");
-            return                               RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult EditProductType(FormCollection fc)

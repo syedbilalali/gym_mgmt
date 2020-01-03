@@ -54,6 +54,8 @@ namespace gym_mgmt_01.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
+
+        [AllowAnonymous]
         public ActionResult NoAccess() {
             return View();
         }
