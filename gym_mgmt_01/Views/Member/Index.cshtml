@@ -11,29 +11,7 @@
 }   
     
     <style>
-        .imgmodel img {
-         
-    
-            object-fit: scale-down;
-            max-height: 500px;
-        }
-     
-
-        .jcrop-tracker{
-            width: 100%!important;
-            height: 500px!important;
-             object-fit: fill;
-        }
-        .jcrop-holder{
-             width: 100%!important;
-             height: 500px!important;
-             object-fit: fill;
-             background-color: transparent!important;
-        }
-
-        .imgmodel .modal-body{
-            max-height: 500px;
-        }
+      
     </style>
 
 @model gym_mgmt_01.Models.MemberRegistration
@@ -626,9 +604,8 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <img id="modalImg" src="https://cdn.pixabay.com/photo/2019/12/15/18/24/winter-4697776_960_720.jpg"  />
+                <img id="modalImg" src="https://cdn.pixabay.com/photo/2019/12/15/18/24/winter-4697776_960_720.jpg"   />
                 <canvas id="canvas" height="5" width="5" style="vertical-align:top; display:none;"></canvas> 
-             
             </div>
             <div class="modal-footer">
                 <button type="button" id="hlcropImage" class="btn btn-primary">Crop</button>
@@ -637,7 +614,6 @@
         </div>
     </div>
 </div>
-
 <!-- Row -->
 <!-- ============================================================== -->
 <!-- End PAge Content -->
@@ -789,18 +765,17 @@
             an element from happening. For example: Prevent a submit button
             from submitting a form. Prevent a link from following the URL
             */
- 
             e.preventDefault();
             cropImage();
         });
-        function initCrop() {
+    function initCrop() {
+
             $('#modalImg').Jcrop({
                 onChange: setCoordsAndImgSize,
                 aspectRatio: 0, // 1 means will be same for height and weight
                 onSelect: setCoordsAndImgSize
             }, function () { jcropApi = this });
         }
- 
         function showCoordinate() {
             $("#lblWidth").text(imageCropWidth + "px");
             $("#lblHeight").text(imageCropHeight + "px");
@@ -812,7 +787,7 @@
  
             cropPointX = e.x;
             cropPointY = e.y;
- 
+
             $("#lblWidth").text(imageCropWidth + "px");
             $("#lblHeight").text(imageCropHeight + "px");
         }
@@ -823,7 +798,6 @@
                 return;
             }
             var img = $("#modalImg").attr("src");
- 
             /*Show cropped image*/
             showCroppedImage();
         }
@@ -831,7 +805,6 @@
         function showCroppedImage() {
             var x1 = cropPointX;
             var y1 = cropPointY;
- 
             var width = imageCropWidth;
             var height = imageCropHeight;
             var canvas = $("#canvas")[0];
@@ -840,6 +813,7 @@
             img.onload = function () {
                 canvas.height = height;
                 canvas.width = width;
+                alert(" x1 : " + x1 + " y1 : " + y1 + " Width : " + width + " Height : " + height);
                 context.drawImage(img, x1, y1, width, height, 0, 0, width, height);
                 $('#avatarCropped').val(canvas.toDataURL());
              //   $('#profImg').val(canvas.toDataURL());
@@ -859,8 +833,8 @@
                     jcropApi.destroy();
                 }
                 reader.onload = function (e) {
-                    alert(" Setting the Imaeg On the Modal ");
-                    $('#modalImg').attr('src', "");
+                    //alert(" Setting the Imaeg On the Modal ");
+                   $('#modalImg').attr('src', "");
                     var img = $('#modalImg').attr('src', e.target.result);
  
                     /*Current uploaded image size*/
@@ -868,8 +842,9 @@
                     var height = img[0].width;
                     $("#lblWidth").text(width + "px");
                     $("#lblHeight").text(height + "px");
-
-                    alert(" Intialise then CROP iMAGE");
+                    alert("Width : " + width);
+                    alert("Height  : " + height);
+                    //alert(" Intialise then CROP iMAGE");
                     //InitCrop must call here otherwise it will not work
                     initCrop();
                 }
@@ -877,6 +852,7 @@
             }
         }
         $('#upldImage').change(function () {
+            alert(" Before Reading the File ");
             readFile(this);
             //initCrop();
         });

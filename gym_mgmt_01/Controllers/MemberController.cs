@@ -7,9 +7,9 @@ using System.IO;
 using System.Web.Mvc;
 using gym_mgmt_01.BAL.Master;
 using gym_mgmt_01.Models;
-
 using System.Data;
 using System.Reflection;
+using gym_mgmt_01.Helper_Code.Common;
 
 namespace gym_mgmt_01.Controllers
 {
@@ -22,6 +22,9 @@ namespace gym_mgmt_01.Controllers
         MembershipOpt memOpt = new MembershipOpt();
         DataTable dt = new DataTable();
         dynamic model = new System.Dynamic.ExpandoObject();
+
+
+        [AuthorizationPrivilegeFilter("Member", "View")]
         public ActionResult Index(int? id)
         {
             if (id == null)
@@ -51,6 +54,7 @@ namespace gym_mgmt_01.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizationPrivilegeFilter("Member", "Create")]
         public ActionResult Index([Bind(Exclude = "Id")] MemberRegistration mr) {
             var validImageTypes = new string[]
             {
@@ -282,6 +286,7 @@ namespace gym_mgmt_01.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizationPrivilegeFilter("Member", "Edit")]
         public ActionResult Edit(MemberRegistration mr) {
             ModelState.Remove("Email");
             ModelState.Remove("Cell");

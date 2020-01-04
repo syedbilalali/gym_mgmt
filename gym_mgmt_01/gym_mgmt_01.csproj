@@ -3656,7 +3656,6 @@
     <Content Include="Views\Membership\_EditMembership.cshtml" />
     <Content Include="Views\Home\AdminAccess.cshtml" />
     <Content Include="Views\Home\NoAccess.cshtml" />
-    <Content Include="Views\Login\NoAccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
