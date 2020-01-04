@@ -1,8 +1,32 @@
 ﻿
 @{
-    ViewBag.Title = "NoAccess";
+    ViewBag.Title = "Unauthorise Access";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <div class="row p-25">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4><b>Access Denied</b> </h4>
+                </div>
+                <div class="card-body">
+                    <p>
+                        You do not have permission to access this page. <br />
+                        Please contact your Site Administrator(s) to request access. 
+                    </p>
+                    <input type="button" class="btn btn-danger" onclick="goBack()" value="Go Back" />
+                </div>
+            </div>
+        </div>
+    </div>
+@section  scripts {
+    <script type="text/javascript"> 
 
-<h2> You are not authorised to access this. </h2>
+        //For Going Back Page.
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+}
+
 

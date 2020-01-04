@@ -35,6 +35,7 @@ namespace gym_mgmt_01.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizationPrivilegeFilter("Staff" , "Create")]
         public ActionResult Index(Staff st) {
             if(ViewBag.Create != false) {
                 if (ModelState.IsValid)
@@ -92,6 +93,7 @@ namespace gym_mgmt_01.Controllers
                     }).ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
          }
+        [AuthorizationPrivilegeFilter("Staff" ,"View" )]
         public ActionResult FindStaff() {
             if (Session["modules"] != null)
             {
@@ -126,12 +128,14 @@ namespace gym_mgmt_01.Controllers
             so.updatePermission(JsonConvert.SerializeObject(md), Id);
             return RedirectToAction("Authorize", new { id = Id });
         }
+        
         public JsonResult StaffEdit(int id) {
             
             List<Staff> staff = so.getAllStaff();
             var st = staff.Find(x => x.StaffID.Equals(id.ToString()));
             return Json(st, JsonRequestBehavior.AllowGet);
         }
+        [AuthorizationPrivilegeFilter("Staff", "Edit")]
         public ActionResult EditStaff(Staff  st) {
 
             if (ModelState.IsValid) {
@@ -147,7 +151,7 @@ namespace gym_mgmt_01.Controllers
             }
             return RedirectToAction("FindStaff");
         }
-        [AuthorizationPrivilegeFilter]
+        [AuthorizationPrivilegeFilter("Staff" , "Delete")]
         public ActionResult DeleteStaff(int id)
         {
             try

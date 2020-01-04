@@ -534,6 +534,7 @@
     <Content Include="assets\images\alert\model3.png" />
     <Content Include="assets\images\background\active-bg.png" />
     <Content Include="assets\images\background\error-bg.jpg" />
+    <Content Include="assets\images\background\gym.jpg" />
     <Content Include="assets\images\background\login-register.jpg" />
     <Content Include="assets\images\background\megamenubg.jpg" />
     <Content Include="assets\images\background\nyan-cat.gif" />

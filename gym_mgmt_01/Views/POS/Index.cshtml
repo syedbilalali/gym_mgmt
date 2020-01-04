@@ -412,12 +412,12 @@
                 //alert("Table " + priceTable.rows.length);
                 for (var i = 1; i < priceTable.rows.length; i++) {
                     var col = priceTable.rows[i].cells[5].innerHTML;
-                    alert("Column Value : [" + col + "]" + " ID Value : " + data.id);
+                   // alert("Column Value : [" + col + "]" + " ID Value : " + data.id);
                     if (data[0].ItemID == col) {
                         //alert(" Updating the Value : ");
                         var get_qty = priceTable.rows[i].cells[1].innerHTML;
                         var get_price = priceTable.rows[i].cells[2].innerHTML;
-                        alert(" Data Qty : " + data[0].Qty + "  Get Qty : " + get_qty );
+                       // alert(" Data Qty : " + data[0].Qty + "  Get Qty : " + get_qty );
                         if (data[0].Qty != get_qty) {
                             //alert(" Get Price :" + get_price);
                             var cur_qty = (parseInt(get_qty) + parseInt(1));
@@ -499,7 +499,9 @@
             var cat = document.querySelector('#category');
             var prod = document.querySelector('#product');
             var menubtn = document.querySelector('#menubtn');
-            
+            $(function () {
+                $(".preloader").fadeIn();
+                });
             menubtn.innerHTML = resp.name;
             $.ajax({
                 type: "POST",
@@ -520,6 +522,9 @@
                         }
                         var back = '<div class="childpospart"><button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="back()"><i class="ti-back-left iconpt"></i><div class="poschild5">Back</div></button></div>';
                         prod_contain.innerHTML = final_list + back;
+                         $(function () {
+                                $(".preloader").fadeOut();
+                         });
                     } else {
                         alert("Something went wrong");
                     }
@@ -631,7 +636,7 @@
             total.innerHTML = "$0.00";
             due.innerHTML = "$0.00";
             getCategory();
-            alert("Panel Reseted... ");
+           // alert("Panel Reseted... ");
         }
         var count = 0;
         function cashPay() {
@@ -743,7 +748,7 @@
         }
         function makePayment() {
             //alert(" O Cash ");
-            alert("Making the Payment ... ");
+        //    alert("Making the Payment ... ");
             var total_amount = document.querySelector('#lbltotal');
             var due_amount = document.querySelector('#lblDue');
             var extact_Data = document.getElementById('extData');
