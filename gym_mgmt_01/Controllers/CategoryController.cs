@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using System.Data;
+using gym_mgmt_01.Helper_Code.Common;
 
 namespace gym_mgmt_01.Controllers
 {
@@ -16,6 +17,8 @@ namespace gym_mgmt_01.Controllers
         ProductOperation po = new ProductOperation();
         dynamic model = new System.Dynamic.ExpandoObject();
         // GET: Category
+
+        [AuthorizationPrivilegeFilter("Point of Sale" , "View")]
         public ActionResult Index()
         {
             if (Session["modules"] != null)
@@ -35,14 +38,11 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         public ActionResult SaveProductType(FormCollection fc)
         {
-            // ProductType pt = new ProductType();
-            // pt.TypeName = fc["typename"].ToString();
-            // pt.TaxRateName = fc["taxrate"].ToString();
-            // pt.SoldInClubs = fc["associatedclub"].ToString();
             po.AddProductType(fc["typename"].ToString(), fc["taxrate"].ToString(), fc["associatedclub"].ToString());
             return RedirectToAction("Index");
         }
         [HttpPost]
+        [AuthorizationPrivilegeFilter("Point of Sale", "Edit")]
         public ActionResult EditProductType(FormCollection fc)
         {
             if (ModelState.IsValid)
@@ -51,12 +51,14 @@ namespace gym_mgmt_01.Controllers
             }
             return RedirectToAction("Index");
         }
+
         public JsonResult ProductTypeEdit(int? id)
         {
             List<ProductType> productTypes = po.getAllProductType();
             var prod = productTypes.Find(x => x.Id.Equals(id));
             return Json(prod, JsonRequestBehavior.AllowGet);
         }
+        [AuthorizationPrivilegeFilter("Point of Sale", "Delete")]
         public ActionResult DeleteProductType(int id)
         {
             try

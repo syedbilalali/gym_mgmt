@@ -11,14 +11,14 @@ namespace gym_mgmt_01.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = " First Name Required. ")]
-        [RegularExpression(@"^(?!\d+$)(?![_\s]+$)[A-Za-z0-9\s_]+$", ErrorMessage = " Please enter valid name. ")]
+        [Required(ErrorMessage = " Name is required. ")]
+        [RegularExpression(@"^(?!\d+$)(?![_\s]+$)[A-Za-z0-9\s_]+$", ErrorMessage = "Please enter valid name.")]
         public string Name { get; set; }
         public string Description { get; set; }
         public int ValidDays {get; set; }
 
         [Required]
-        [RegularExpression(@"^[0-9]\d{0,9}(\.\d{1,3})?%?$", ErrorMessage = " Please enter valid amount. ")]
+        [RegularExpression(@"^[0-9]\d{0,9}(\.\d{1,3})?%?$", ErrorMessage = "Please enter valid amount.")]
         public decimal Amount { get; set;  }
 
         [Required(ErrorMessage ="Start Date is required. ")]
@@ -27,7 +27,6 @@ namespace gym_mgmt_01.Models
         public DateTime StartDate { get; set;  }
 
         public string sStartDate { get; set;  }
-
 
         [Required(ErrorMessage = "End Date is required. ")]
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]

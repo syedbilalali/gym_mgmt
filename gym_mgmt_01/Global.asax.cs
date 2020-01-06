@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using gym_mgmt_01.Helper_Code.Common;
 
 namespace gym_mgmt_01
 {

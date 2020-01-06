@@ -9,7 +9,6 @@
 @model dynamic 
     <div class="searchinput">
         <input type="text" id="srch" name="search" onkeyup="btnsearch()" class="search1" placeholder="Search Member..">
-       
     </div>
     <div class="btnscontrol">
         <a class="buttoncol" data-rel="#rowvalue" href="#"><i class="ti-menu gridpart"></i></a>
@@ -64,7 +63,7 @@
                         <input type="text" readonly placeholder="Member ID" value="12" class="form-control label2" id="modalmemberID" />
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="control-label label1">Modify Membership:</label>
+                        <label for="message-text" class="control-label label1 ">Modify Membership:</label>
                         <select class="form-control label2" id="modalMembership">
                             <option value="">--SELECT Membership--</option>
                             @if (Model.memshp.Count > 0) {
@@ -87,17 +86,18 @@
 @section scripts{
     <script type="text/javascript">
         $(function () {
-             var searchtxt = document.querySelector("#srch");
-            searchtxt.addEventListener("keyup" , search);
-        }
-        );
+           var searchtxt = document.querySelector("#srch");
+           searchtxt.addEventListener("keyup" , search);
+        });
         $('.buttoncol').click(function (e) {
             e.preventDefault();
             setContent($(this));
         });
+
         // set content on load
         $('.buttoncol.active').length && setContent($('.buttoncol.active'));
         function setContent($el) {
+
             $('.buttoncol').removeClass('active');
             $('.container1').hide();
 
@@ -134,33 +134,20 @@
         }
         function btnsearch() {
            var input, filter, ul, li, a, i, txtValue;
-            //Taking Input fromm Search
-           input = document.getElementById("srch");
-            //alert(" Input : " + input);
-            // Make Upper Case
+            input = document.getElementById("srch");
             filter = input.value.toUpperCase();
-           // alert(" Filter Value : " + filter);
-            //Get External Div
             var divs = document.getElementById('colvalue');
-            //Get List LI frm UL
-           // alert(" DIv " + divs);
             var divlist = document.querySelectorAll('#cont');
-          //  alert(" Data : " + divlist);
-          //  alert(" Div Length :" + divlist.length);
+
             for (var i = 0; i < divlist.length; i++) {
                 var card = divlist[i].querySelectorAll('#cd1');
                 for (var j = 0; j < card.length; j++) {
-                  
+
                     var h4 = card[j].getElementsByTagName("h4")[0];
                     txtValue = h4.textContent.toUpperCase() || h4.innerText.toUpperCase();
-               
                     if (txtValue.indexOf(filter) > -1) {
-                       // alert(" Gone Show ");
-                        console.log("   Show all things ");
                         card[j].style.display = "";
                     } else {
-                    //    alert(" Gone HIde");
-                        console.log(" Hide all things  ");
                         card[j].style.display = "none";
                     }
                 }
@@ -286,8 +273,6 @@
         });
         });
         function modifyMembership(data) {
-       //  alert("Modify Membership : " + JSON.stringify(data.Id));
-           // alert(" Modify Membership" + data.id);
             var modalmembrname = document.getElementById('modalmemberName');
             var modalmembrID = document.getElementById('modalmemberID');
             var modalMembership = document.getElementById('#modalMembership');
@@ -322,36 +307,5 @@
                 }
             });
         } 
-        $(function () {
-            $("#btnPost").click(function() {
-                var employee = new Object();
-                    employee.Name = "Bilal";
-                    employee.Designation = "Software Developer";
-                    employee.Location = "Noida";
-
-            if (employee != null) {
-                $.ajax({
-                type: "POST",
-                url: "/Member/AjaxPostCall",
-                data: JSON.stringify(employee),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function(response) {
-                    if (response != null) {
-                        alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
-                    } else {
-                        alert("Something went wrong");
-                    }
-                },
-                failure: function(response) {
-                    alert(response.responseText);
-                },
-                error: function(response) {
-                    alert(response.responseText);
-                }
-            });
-        }
-        });
-    });
     </script>
 }

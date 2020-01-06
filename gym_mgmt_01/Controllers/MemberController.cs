@@ -317,18 +317,7 @@ namespace gym_mgmt_01.Controllers
                 ViewBag.Message = "Successfully Update  Member !!!";
                 ViewBag.ID = mo.getMemberID();
             }
-            //  return RedirectToAction("Edit", new { id = mr.member.Id });
             return View(mr);
-        }
-        [HttpPost]
-        public ActionResult UpdateMembers(MemberRegistration mr) {
-
-            return View();
-        }
-        [HttpPost]
-        public ActionResult UpdateMembership(int MemberID , int MembershipID) {
-
-            return View();
         }
         [HttpPost]
         public JsonResult IsAlreadyEmail(MemberRegistration mr)

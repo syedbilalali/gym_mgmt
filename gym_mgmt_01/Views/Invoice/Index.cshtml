@@ -82,26 +82,26 @@
                                 <td>@sellOrderItems.ProductName</td>
                                 <td>@sellOrderItems.quantity</td>
                                 <td>@sellOrderItems.discount_price</td>
-                                <td>$@sellOrderItems.unit_price </td>
-                                <td>$@sellOrderItems.total_price</td>
+                                <td>@sellOrderItems.unit_price OMR</td>
+                                <td>@sellOrderItems.total_price OMR</td>
                             </tr>
                         }
                     }
                     <tr>
                         <td colspan="5" class="subclass1">Subtotal</td>
-                        <td class="bold">$@Model.SellOrder.Subtotal </td>
+                        <td class="bold">@Model.SellOrder.Subtotal OMR</td>
                     </tr>
                     <tr>
                         <td colspan="5" class="subclass1">Sales Tax</td>
-                        <td class="bold">$@Model.SellOrder.Sales_Tax</td>
+                        <td class="bold">@Model.SellOrder.Sales_Tax OMR</td>
                     </tr>
                     <tr>
                         <td colspan="5" class="subclass1">Total</td>
-                        <td class="bold">$@Model.SellOrder.Total_Amount</td>
+                        <td class="bold">@Model.SellOrder.Total_Amount OMR</td>
                     </tr>
                     <tr>
                         <td colspan="2" class="bold">To Pay</td>
-                        <td colspan="2" class="bold">$@Model.SellOrder.Total_Pay</td>
+                        <td colspan="2" class="bold">@Model.SellOrder.Total_Pay OMR</td>
                         <td colspan="2" class="bold">Status : @Model.SellOrder.Paid_Status</td>
                     </tr>
                 </tbody>

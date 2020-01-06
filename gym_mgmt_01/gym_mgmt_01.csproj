@@ -195,6 +195,7 @@
     </Compile>
     <Compile Include="Helper_Code\Common\AllowFileSizeAttribute.cs" />
     <Compile Include="Helper_Code\Common\AuthorizationPrivilegeFilter.cs" />
+    <Compile Include="Helper_Code\Common\UniqueRoute.cs" />
     <Compile Include="Models\AdditionalDetails.cs" />
     <Compile Include="Models\Classes.cs" />
     <Compile Include="Models\ClassSubscriptions.cs" />
