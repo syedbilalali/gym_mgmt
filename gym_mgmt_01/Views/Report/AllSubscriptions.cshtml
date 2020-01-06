@@ -34,7 +34,6 @@
             <button type="button" style="display:none;" class="btn btn-info">Reset Filters</button>
             @using (Html.BeginForm("SubscriptionExport", "Report", FormMethod.Post, new { @style = "display:contents;" }))
             {
-
                 <button type="submit" class="btn btn-info">Export to CSV</button>
             }
             @using (Html.BeginForm("SubscriptionsPrint", "Report", FormMethod.Post, new { @style = "display:contents;" }))
@@ -65,7 +64,7 @@
                         <tr>
                             <td>@rpt.Id</td>
                             <td>@rpt.MembershipName</td>
-                            <td>$@rpt.Amount</td>
+                            <td>@rpt.Amount &nbsp; OMR</td>
                             <td>@rpt.ExpiryDate</td>
                             <td>@rpt.Capacity</td>
                             <td>@rpt.MemberName</td>

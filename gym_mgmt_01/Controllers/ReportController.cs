@@ -7,6 +7,7 @@ using gym_mgmt_01.Models;
 using gym_mgmt_01.BAL.Master;
 using System.Text;
 using Rotativa.MVC;
+using gym_mgmt_01.Helper_Code.Common;
 
 namespace gym_mgmt_01.Controllers
 {
@@ -19,13 +20,13 @@ namespace gym_mgmt_01.Controllers
         {
             return View();
         }
+        [AuthorizationPrivilegeFilter("Reports" , "View")]
         public ActionResult AllSubscriptions()
         {
             //Subscriptions Reports :
             List<SubscriptionReport> sbr = ro.getAllSubscriptionReport();
             model.subsReport = sbr;
             return View(model);
-
         }
         [HttpPost]
         public ActionResult AllSubscriptions(DateTime? fromdate, DateTime? todate)
@@ -70,6 +71,7 @@ namespace gym_mgmt_01.Controllers
             return new Rotativa.MVC.ActionAsPdf("AllSubscriptions")
             { FileName = "Subscriptions.pdf" };
         }
+        [AuthorizationPrivilegeFilter("Reports", "View")]
         public ActionResult AllPayments()
         {
             List<SellsOrder> so = ro.getAlSellsOrder();
@@ -116,6 +118,7 @@ namespace gym_mgmt_01.Controllers
 
             return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "PaymentsRpt_" + current_date + ".csv");
         }
+        [AuthorizationPrivilegeFilter("Reports", "View")]
         public ActionResult AllBills()
         {
             // All Invoice Report 

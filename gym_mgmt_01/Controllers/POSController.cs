@@ -9,6 +9,7 @@ using System.Configuration;
 using System.IO;
 using System.Data;
 using Rotativa.MVC;
+using gym_mgmt_01.Helper_Code.Common;
 
 namespace gym_mgmt_01.Controllers
 {
@@ -20,6 +21,8 @@ namespace gym_mgmt_01.Controllers
         SellsOrderOpt soAdd = new SellsOrderOpt();
         MemberOperation memOpt = new MemberOperation();
         dynamic model = new System.Dynamic.ExpandoObject();
+
+        [AuthorizationPrivilegeFilter("Point of Sale", "View")]
         public ActionResult Index()
         {
             //ViewBag.Data = "Data";

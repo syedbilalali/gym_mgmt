@@ -8,6 +8,7 @@ using gym_mgmt_01.Models;
 using System.Configuration;
 using System.IO;
 using System.Data;
+using gym_mgmt_01.Helper_Code.Common;
 
 
 namespace gym_mgmt_01.Controllers
@@ -17,6 +18,7 @@ namespace gym_mgmt_01.Controllers
         // GET: Product
         ProductOperation po = new ProductOperation();
         dynamic model = new System.Dynamic.ExpandoObject();
+        [AuthorizationPrivilegeFilter("Point of Sale", "View")]
         public ActionResult Index()
         {
             if (Session["modules"] != null) {
@@ -35,6 +37,7 @@ namespace gym_mgmt_01.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizationPrivilegeFilter("Point of Sale", "Create")]
         public ActionResult SaveProduct(FormCollection fc, HttpPostedFileBase prodImage)
         {
             if (ModelState.IsValid)
@@ -45,6 +48,7 @@ namespace gym_mgmt_01.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
+        [AuthorizationPrivilegeFilter("Point of Sale", "Edit")]
         public ActionResult EditProduct(FormCollection fc, HttpPostedFileBase prodImage)
         {
             if (ModelState.IsValid)
@@ -62,6 +66,7 @@ namespace gym_mgmt_01.Controllers
             }
             return RedirectToAction("Index");
         }
+        [AuthorizationPrivilegeFilter("Point of Sale", "Edit")]
         public JsonResult ProductEdit(int? id)
         {
             List<Product> productTypes = po.getAllProducts();
@@ -115,6 +120,7 @@ namespace gym_mgmt_01.Controllers
             }
             return relativePath;
         }
+        [AuthorizationPrivilegeFilter("Point of Sale", "Delete")]
         public ActionResult DeleteProducts(int id)
         {
             try

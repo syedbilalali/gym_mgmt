@@ -85,11 +85,11 @@
                                             }
                                             if (@ViewBag.Delete != false)
                                             {
-                                                <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("", "Training", new { id = sb.Id })'">Delete</button>
+                                                <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteClasses", "Training", new { id = sb.Id })'">Delete</button>
                                             }
                                             else
                                             {
-                                                <button type="button" disabled class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("", "Training", new { id = sb.Id })'">Delete</button>
+                                                <button type="button" disabled class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteClasses", "Training", new { id = sb.Id })'">Delete</button>
                                             }
                                         }
 
@@ -207,7 +207,7 @@
                                 {
                                     <option value="0">NONE</option>
                                 }
-                            </select>
+                            </select>z
                             <div class="help-block" style=" padding-left:30%;"></div>
                         </div>
                     </div>
@@ -267,7 +267,6 @@
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
                success: function (response) {
-                   // alert(JSON.stringify(response));
                    $('#subsMembers').val(response.MemberID).trigger('change').attr("selected", "selected");
                    $('#subsclass').val(response.ClassID).trigger('change');
                    $('#Id').val(response.Id);

@@ -20,7 +20,12 @@ namespace gym_mgmt_01.Controllers
         StaffOperation so = new StaffOperation();
         RoleOperation ro = new RoleOperation();
         dynamic model = new System.Dynamic.ExpandoObject();
+
+
+
+
         // GET: Staff
+        [AuthorizationPrivilegeFilter("Staff", "Create")]
         public ActionResult Index()
         {
             if (Session["modules"] != null) {
@@ -33,9 +38,10 @@ namespace gym_mgmt_01.Controllers
             }
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizationPrivilegeFilter("Staff" , "Create")]
+        [AuthorizationPrivilegeFilter("Staff" , "View")]
         public ActionResult Index(Staff st) {
             if(ViewBag.Create != false) {
                 if (ModelState.IsValid)

@@ -789,7 +789,6 @@
         }
         function addSellsOrder(Invoice_number, member_name, subtotal, SalesTax, Total_Amount, Paid_Status, Total_Pay, Discount_price, Remain_price) {
             //Add Sells Order Here To the Server
-       //    alert(" Total PAy :" + Total_Pay);
             var so = new Object();
             so.Invoice_number = Invoice_number;
             so.Member_Name = member_name;
@@ -800,7 +799,6 @@
             so.Total_Pay = Total_Pay;
             so.Discount_price = Discount_price;
             so.Remain_price = Remain_price;
-            //alert(" SellsOrder : " + JSON.stringify(so));
             $.ajax({
                 type: "POST",
                 url: "/POS/addSellsOrder",
@@ -808,10 +806,8 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    if (response != null) {
-                        // alert("Sells Order Reponse: " + response);
+                    if (response != null) {  
                     } else {
-                    //    alert("");
                     }
                 },
                failure: function (response) {
@@ -823,7 +819,6 @@
             });
         }
         function addSellsOrderItems(invoice_Id, product_Id, quantity, unit_price,  discount_price, total_price) {
-            //Add Sells Orde Items
             var soi = new Object();
             soi.invoice_Id = invoice_Id;
             soi.Invoice_number = invoice_Id;
@@ -832,7 +827,6 @@
             soi.unit_price = unit_price;
             soi.discount_price = discount_price;
             soi.total_price = total_price;
-            //alert(" SellsOrderITems : " + JSON.stringify(soi));
             $.ajax({
                 type: "POST",
                 url: "/POS/addSellsOrderItems",
@@ -841,7 +835,7 @@
                 dataType: "json",
                 success: function (response) {
                     if (response != null) {
-                        //  alert(" Data : " + response);
+                        //alert(" Data : " + response);
                     } else {
                         alert("");
                     }
@@ -863,22 +857,17 @@
                     dataType: "json",
                     success: function (response) {
                         if (response != null) {
-                            //alert("Name : " + JSON.stringify(response));
                             var data = JSON.parse(JSON.stringify(response));
-                            //alert("GET Invoice ID  : " + JSON.stringify(data));
                             document.querySelector('#InvoiceID').value = response;
-                            // alert(document.querySelector('#InvoiceID').value);
                             resolve(response);
                         } else {
                             reject(response.responseText);
                         }
                     },
                     failure: function (response) {
-                        //alert(response.responseText);
                         reject(response.responseText);
                     },
                     error: function (response) {
-                        //alert(response.responseText);
                         reject(response.responseText);
                     }
                 });

@@ -8,6 +8,7 @@ using gym_mgmt_01.Models;
 using System.Configuration;
 using System.IO;
 using System.Data;
+using gym_mgmt_01.Helper_Code.Common;
 
 
 namespace gym_mgmt_01.Controllers
@@ -17,6 +18,8 @@ namespace gym_mgmt_01.Controllers
         ProductOperation po = new ProductOperation();
         dynamic model = new System.Dynamic.ExpandoObject();
         // GET: Stock
+
+        [AuthorizationPrivilegeFilter("Point of Sale", "View")]
         public ActionResult Index()
         {
             if (Session["modules"] != null)
@@ -34,6 +37,7 @@ namespace gym_mgmt_01.Controllers
             return View(model);
         }
         [HttpPost]
+        [AuthorizationPrivilegeFilter("Point of Sale", "Create")]
         public ActionResult SaveStock(FormCollection fc)
         {
             if (ModelState.IsValid) {
@@ -52,6 +56,7 @@ namespace gym_mgmt_01.Controllers
             model.products = product;
             return PartialView("_EditStock", model);
         }
+        [AuthorizationPrivilegeFilter("Point of Sale", "Edit")]
         public ActionResult EditStock(Stocks fc)
         {
             if (ModelState.IsValid) {
@@ -60,6 +65,7 @@ namespace gym_mgmt_01.Controllers
             }
             return RedirectToAction("Index");
         }
+        [AuthorizationPrivilegeFilter("Point of Sale", "Delete")]
         public ActionResult DeleteStocks(int id)
         {
             try
@@ -83,6 +89,7 @@ namespace gym_mgmt_01.Controllers
                 throw;
             }
         }
+        [AuthorizationPrivilegeFilter("Point of Sale", "Edit")]
         public JsonResult StockEdit(int? id)
         {
             List<Stocks> stocks = po.getAllStocks();

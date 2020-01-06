@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using gym_mgmt_01.Models;
 using gym_mgmt_01.BAL.Master;
+using gym_mgmt_01.Helper_Code.Common;
 
 namespace gym_mgmt_01.Controllers
 {
@@ -15,6 +16,8 @@ namespace gym_mgmt_01.Controllers
         MemberOperation mOpt = new MemberOperation();
         SubscriptionOpt subs = new SubscriptionOpt();
         dynamic model = new System.Dynamic.ExpandoObject();
+
+        [AuthorizationPrivilegeFilter("Membership" , "View")]
         public ActionResult Index()
         {
             if (Session["modules"] != null)
@@ -26,6 +29,7 @@ namespace gym_mgmt_01.Controllers
             return View();
         }
         [HttpPost]
+        [AuthorizationPrivilegeFilter("Membership", "Create")]
         public ActionResult Index(Membership mem) {
 
             if (ModelState.IsValid) {
@@ -45,6 +49,7 @@ namespace gym_mgmt_01.Controllers
             }
             return View();
         }
+        [AuthorizationPrivilegeFilter("Membership", "View")]
         public ActionResult ViewMemberships()
         {
             if (Session["modules"] != null)
@@ -59,6 +64,7 @@ namespace gym_mgmt_01.Controllers
             model.membership = data;
             return View(model);
         }
+        [AuthorizationPrivilegeFilter("Membership", "Delete")]
         public ActionResult DeleteMembership(int id)
         {
             try
@@ -81,6 +87,7 @@ namespace gym_mgmt_01.Controllers
                 throw;
             }
         }
+        [AuthorizationPrivilegeFilter("Membership", "View")]
         public ActionResult Subscriptions() {
 
 
@@ -100,6 +107,7 @@ namespace gym_mgmt_01.Controllers
             model.subscription = sub1; 
             return View(model);
         }
+        [AuthorizationPrivilegeFilter("Membership", "Create")]
         public ActionResult addSubscriptions(FormCollection fc) {
             
             if (ModelState.IsValid) {
@@ -126,9 +134,9 @@ namespace gym_mgmt_01.Controllers
             var prod = sb.Find(x => x.Id.Equals(id));
             return Json(prod, JsonRequestBehavior.AllowGet);
         }
+        [AuthorizationPrivilegeFilter("Membership", "Edit")]
         public ActionResult editSubscription(FormCollection fc) {
 
-            //  string memberID = fc["member"].ToString();
             int Id = int.Parse(fc["subID"].ToString());
             int membershipID = int.Parse(fc["membership"]);
             Subscriptions sb = new Subscriptions();
@@ -144,6 +152,7 @@ namespace gym_mgmt_01.Controllers
             }
             return RedirectToAction("Subscriptions");
         }
+        [AuthorizationPrivilegeFilter("Membership", "Delete")]
         public ActionResult deleteSubscriptions(int id)
         {
             try
@@ -167,6 +176,7 @@ namespace gym_mgmt_01.Controllers
             }
         }
         [HttpPost]
+        [AuthorizationPrivilegeFilter("Membership", "Edit")]
         public ActionResult editMembership(Membership mem)
         {
             if (ModelState.IsValid)

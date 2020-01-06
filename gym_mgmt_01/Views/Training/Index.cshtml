@@ -314,16 +314,13 @@
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
                  success: function (response) {
-                     alert(" SucessFull Get the Value " + JSON.stringify(response));
+                     
                      $('#className').val(response.ClassName);
-
                      var from = new Date( parseInt(response.From.replace(/(^.*\()|([+-].*$)/g, '')) );
                      var to = new Date(parseInt(response.To.replace(/(^.*\()|([+-].*$)/g, '')));
                      var repeatsEnd = new Date(parseInt(response.RepeatsEnd.replace(/(^.*\()|([+-].*$)/g, '')));
 
-                   //  alert(" Actual From Date : " + from);
-                    // alert(" Actual To Date  : " + to);
-                   //  alert(" Actual Repeats End : " + repeatsEnd);
+               
 
                      var hour = from.getHours();
                      var min = from.getMinutes();
@@ -338,14 +335,11 @@
                      var year = repeatsEnd.getFullYear();
 
                      var date =  minTwoDigits(year) + '-' +minTwoDigits(month+1 ) + '-' + minTwoDigits(day);
-                     // alert(" Date : " + date);
+                     
 
                      var from = minTwoDigits(hour) + ':' + minTwoDigits(min) + ':' + minTwoDigits(sec);
                      var to1 = minTwoDigits(hour1) + ':' + minTwoDigits(min1) + ':' + minTwoDigits(sec1);
                 
-                    // alert("From Time :" + from);
-                   //  alert(" To Time : " + to1);
-               
                      $("#classID").val(response.Id);
                      $('#timeFrom').val(from);
                      $('#timeTo').val(to1);

@@ -203,7 +203,7 @@
 <!-------Modal For Updat Product Type ---------------->
 <div class="modal" id="updateProd" tabindex="-1" role="dialog" aria-labelledby="addcatlabel">
     @using (Html.BeginForm("EditProduct", "Product", FormMethod.Post ,  new { enctype = "multipart/form-data" }))
-    {
+    {    
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -300,22 +300,19 @@
         function GetDetails(id) {
             $.ajax({
                 url: "/Product/ProductEdit/" + id,
-                typr: "GET",
+                type: "GET",
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
                 success: function (response) {
-                 //  alert(" SucessFull Get the Value " + JSON.stringify(response));
+                    //  alert(" SucessFull Get the Value " + JSON.stringify(response));
                     $('#prodID').val(response.Id);
                     $('#productType').val(response.Type_Id);
                     $('#productname1').val(response.Name);
                     $('#barcode').val(response.Barcode);
                     $('#description').val(response.Description);
-                   
-                 //   $('#associatedclub').val(response.SoldInClubs);
                     $('#prodprof').attr("src", response.ImageURL);
                     $('#prodImg1').attr("value", response.ImageURL);
-
-                     $('#prodprof1').attr("src", response.ImageURL);
+                    $('#prodprof1').attr("src", response.ImageURL);
                     $('#updateProd').modal('show');
             },
             error: function (response) {
@@ -326,7 +323,7 @@
         }
         $("#product").on("keyup", function () {
                 var value = $(this).val().toUpperCase();
-                     $("#products tr").filter(function() {
+                    $("#products tr").filter(function() {
                     $(this).toggle($(this).text().toUpperCase().indexOf(value) > -1)
                  });
         });

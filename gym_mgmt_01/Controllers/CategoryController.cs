@@ -36,6 +36,7 @@ namespace gym_mgmt_01.Controllers
             return View(model);
         }
         [HttpPost]
+        [AuthorizationPrivilegeFilter("Point of Sale", "Create")]
         public ActionResult SaveProductType(FormCollection fc)
         {
             po.AddProductType(fc["typename"].ToString(), fc["taxrate"].ToString(), fc["associatedclub"].ToString());
@@ -51,7 +52,7 @@ namespace gym_mgmt_01.Controllers
             }
             return RedirectToAction("Index");
         }
-
+        [AuthorizationPrivilegeFilter("Point of Sale", "Edit")]
         public JsonResult ProductTypeEdit(int? id)
         {
             List<ProductType> productTypes = po.getAllProductType();

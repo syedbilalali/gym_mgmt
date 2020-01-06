@@ -24,7 +24,7 @@ namespace gym_mgmt_01.Controllers
         dynamic model = new System.Dynamic.ExpandoObject();
 
 
-        [AuthorizationPrivilegeFilter("Member", "View")]
+        [AuthorizationPrivilegeFilter("Find Member", "View")]
         public ActionResult Index(int? id)
         {
             if (id == null)
@@ -71,15 +71,13 @@ namespace gym_mgmt_01.Controllers
             {
               //  ModelState.AddModelError("ImageUpload", "Please choose either a GIF, JPG or PNG image.");
             }
-            //  mr.member.ImagePath = uploadFile(mr.ImageFile);
+            //  mr.member.ImagePath = uploadFile(mr.ImageFile);x
             mr.member.ImagePath = SaveSnap(Request.Form["avatarCropped"]);
             if (ModelState.IsValid)
             {
                 mr.member.MemberType = "member";
                 mr.contact.Subscribed = "";
-              
                 mo.AddMemeber(mr.member);
-              
                 int a = int.Parse(mo.getMemberID()) - 1;
                 if (mr.member.note != null && mr.member.note != "") {
                     mr.member.note = mr.member.note.Trim();
@@ -150,6 +148,7 @@ namespace gym_mgmt_01.Controllers
             //   List<Membership> memshp = memOpt.getAllMembership();
             return View();
         }
+        [AuthorizationPrivilegeFilter("Find Member", "View")]
         public ActionResult FindMember(int? id)
         {
             // Response.Write(" ID -: " + id);
@@ -227,6 +226,7 @@ namespace gym_mgmt_01.Controllers
            
             return filename1;
         }
+        [AuthorizationPrivilegeFilter("Member", "Edit")]
         public ActionResult Edit(int? id) {
             if (Session["modules"] != null)
             {

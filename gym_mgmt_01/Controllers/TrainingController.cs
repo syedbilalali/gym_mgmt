@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using gym_mgmt_01.BAL.Master;
 using gym_mgmt_01.Models;
+using gym_mgmt_01.Helper_Code.Common;
 
 namespace gym_mgmt_01.Controllers
 {
@@ -14,7 +15,9 @@ namespace gym_mgmt_01.Controllers
         MemberOperation memOpt = new MemberOperation();
         StaffOperation staffOp = new StaffOperation();
         dynamic model = new System.Dynamic.ExpandoObject();
+
         // GET: Training
+        [AuthorizationPrivilegeFilter("Training Schedule" , "View")]
         public ActionResult Index()
         {
             if (Session["modules"] != null)
@@ -33,6 +36,7 @@ namespace gym_mgmt_01.Controllers
             return View(model);
         }
         [HttpPost]
+        [AuthorizationPrivilegeFilter("Training Schedule", "Create")]
         public ActionResult Index(FormCollection fc)
         {   
             Classes cl = new Classes();
@@ -50,6 +54,8 @@ namespace gym_mgmt_01.Controllers
             classOpt.AddClasses(cl);
             return RedirectToAction("Index");
         }
+
+        [AuthorizationPrivilegeFilter("Training Schedule", "View")]
         public ActionResult AssignClass() {
 
             if (Session["modules"] != null)
@@ -69,6 +75,7 @@ namespace gym_mgmt_01.Controllers
             model.classlist = classlist;
             return View(model);
         }
+       
         public JsonResult getSubscriptionByID(int? id)
         {
             List<ClassSubscriptions> list = classOpt.getAllClassSubs();
@@ -76,6 +83,7 @@ namespace gym_mgmt_01.Controllers
             return Json(cls, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
+        [AuthorizationPrivilegeFilter("Training Schedule", "Edit")]
         public ActionResult updateSubscription(FormCollection fc) {
             int subsCriptionID = int.Parse(fc["Id"].ToString());
             int classID = int.Parse(fc["classudt"].ToString());
@@ -92,6 +100,9 @@ namespace gym_mgmt_01.Controllers
         public ActionResult AddReminder() {
             return View();
         }
+
+
+        [AuthorizationPrivilegeFilter("Training Schedule", "Delete")]
         public ActionResult DeleteClasses(int id)
         {
             try
@@ -114,6 +125,9 @@ namespace gym_mgmt_01.Controllers
                 throw;
             }
         }
+
+
+        [AuthorizationPrivilegeFilter("Training Schedule", "Create")]
         public ActionResult addClassSubscriptions(FormCollection fc) {
             
             if (ModelState.IsValid) {
@@ -128,6 +142,8 @@ namespace gym_mgmt_01.Controllers
             }
             return RedirectToAction("AssignClass");
         }
+
+        [AuthorizationPrivilegeFilter("Training Schedule", "Edit")]
         public ActionResult EditClass(FormCollection fc) {
 
             Classes cl = new Classes();
