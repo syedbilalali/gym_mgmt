@@ -338,7 +338,6 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown mega-dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" style="display:none;" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ti-layout-width-default"></i></a>
-
                         </li>
                         <!-- ============================================================== -->
                         <!-- End mega menu -->
@@ -350,13 +349,14 @@
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="@Session["ImageURL"]" alt="user" class=""> <span class="hidden-md-down">@Session["FirstName"] &nbsp;<i class="fa fa-angle-down"></i></span> </a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
 
-                                <a href="javascript:void(0)" class="dropdown-item">Account Details</a>
+                                @*<a href="javascript:void(0)" class="dropdown-item">Account Details</a>*@
+                                @*<a href="javascript:void(0)" class="dropdown-item">Settings</a>*@
 
-                                <a href="javascript:void(0)" class="dropdown-item">Change Club</a>
+                                @*<a href="javascript:void(0)" class="dropdown-item">Change Club</a>*@
 
-                                <a href="javascript:void(0)" class="dropdown-item">Clock in</a>
+                                @*<a href="javascript:void(0)" class="dropdown-item">Clock in</a>*@
 
-                                <a href="javascript:void(0)" class="dropdown-item">My Timesheet</a>
+                                @*<a href="javascript:void(0)" class="dropdown-item">My Timesheet</a>*@
 
                                 <a href="@Url.Action("Logout", "Login")" class="dropdown-item">Logout</a>
                                 <!-- text-->
@@ -365,7 +365,7 @@
                         <!-- ============================================================== -->
                         <!-- End User Profile -->
                         <!-- ============================================================== -->
-                        <li class="nav-item right-side-toggle"> <a class="nav-link  waves-effect waves-light" style="" href="javascript:void(0)"><i class="ti-settings"></i></a></li>
+                        @*<li class="nav-item right-side-toggle"> <a class="nav-link  waves-effect waves-light" style="" href="javascript:void(0)"><i class="ti-settings"></i></a></li>*@
                     </ul>
                 </div>
             </nav>

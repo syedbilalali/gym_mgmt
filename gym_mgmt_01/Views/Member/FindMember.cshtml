@@ -97,7 +97,6 @@
         // set content on load
         $('.buttoncol.active').length && setContent($('.buttoncol.active'));
         function setContent($el) {
-
             $('.buttoncol').removeClass('active');
             $('.container1').hide();
 
@@ -105,7 +104,6 @@
             $($el.data('rel')).show();
         }
         function updateMembership() {
-            //alert(" Update Membership.. ");
             $.ajax({
                 type: "POST",
                 url: "/Member/UpdateMembership",
@@ -114,7 +112,6 @@
                 dataType: "json",
                 success: function(response) {
                     if (response != null) {
-                       // alert(JSON.stringify(response));
                         var membername = response.FirstName + ' ' + response.LastName;
                         modalmembrID = response.Id;
                         modalmembrname.value = membername;
@@ -173,7 +170,6 @@
                     var rows = parseInt(data.length / 3);
                     var left = data.length % 3;
                     var json = JSON.parse(JSON.stringify(data));
-                   
                     var table = document.querySelector('#memberData1');
                     var card;
                     var count_rows = table.rows.count;
@@ -181,7 +177,7 @@
                     let count = 0;  
                     card = '<div class="row" id="cont">';
                     for (var i = 0; i < json.length; ++i) {
-                   
+
                             var mrow = table.insertRow(count_rows);
                             var cell1 = mrow.insertCell(0);
                             var cell2 = mrow.insertCell(1);
@@ -189,28 +185,27 @@
                             var cell4 = mrow.insertCell(3);
                             var cell5 = mrow.insertCell(4);
                             cell1.innerHTML = '<a href="/Member/Edit/' + json[i].Id + '"> #' + i + '</a>';
-                            // alert(count + " i -: " + i +" j -: " + j);
                             cell2.innerHTML = json[i].FirstName;
                             cell3.innerHTML = json[i].LastName;
                             cell4.innerHTML = "No Owe";
                             cell5.innerHTML = "Check In";
                             card += '<a href="/Member/Edit/' + json[i].Id + '"> <div id="cd1" class="col33 memberwrapper">' + ' <div class="col40">' + '   <img class="userimg" src="' + json[i].ImagePath + '" /></div>';
                             card += ' <div class="col60"> <h4>' + json[i].FirstName + ' ' + json[i].LastName + '</h4>' + '<hr>' + ' <h5>User ID ' + json[i].Id + ' </h5>';
-                        card += ' <p> Membership : <b>' + json[i].Name + '</b></p></a>';
-                        if (json[i].Name != "None") {
-                             card += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
-                        } else {
-                             card += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/asterisk.png")" />';
-                        }
-                        card += '</div>';
-                        if (json[i].Name != "None") {
-                              card += '<div class="specify2"><button type="button" class="btn" data-toggle="modal" id="' + json[i].Id + '" onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button></div>';
-                        }
-                        card += '</div></div>';
-                       }
-                      card += '</div>';
-                      memberdata += card;
-                     $('#colvalue').html(memberdata);
+                            card += ' <p> Membership : <b>' + json[i].Name + '</b></p></a>';
+                            if (json[i].Name != "None") {
+                                     card += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/check.png")" />';
+                            } else {
+                                     card += '<div class="specify1"><img class="imgspecify" src="@Url.Content("~/assets/images/specification/asterisk.png")" />';
+                            }
+                            card += '</div>';
+                            if (json[i].Name != "None") {
+                                    card += '<div class="specify2"><button type="button" class="btn" data-toggle="modal" id="' + json[i].Id + '" onclick="modifyMembership(this)" data-whatever=""><i class="ti-import importicon"></i></button></div>';
+                            }
+                            card += '</div></div>';
+                    }
+                    card += '</div>';
+                    memberdata += card;
+                    $('#colvalue').html(memberdata);
 
                 } else {
                    alert("Something went wrong");
@@ -235,8 +230,6 @@
                 if (response != null) {
                     var data = response;
                     var memberdata = '';
-                 //   alert(" Data Length " + data.length);
-                 //   alert(" Data " +JSON.stringify( data));
                     var rows = data.length / 3;                                        
                     var left = data.length % 3;
                     var json = JSON.parse(JSON.stringify(data));
@@ -285,14 +278,14 @@
                 success: function(response) {
                     if (response != null) {
                       alert(JSON.stringify(response));
-                    var membername = response.FirstName + ' ' + response.LastName;
+                      var membername = response.FirstName + ' ' + response.LastName;
                         modalmembrID = response.Id;
                         modalmembrname.value = membername;
-                        alert(" MemShp L: " + response.MId);
+                    //    alert(" MemShp L: " + response.MId);
                         if (response.MId == "0") {
                             $('#modalMembership').val("");
                         } else {
-                              $('#modalMembership').val(response.MId);
+                            $('#modalMembership').val(response.MId);
                         }
                         $('#exampleModal').modal('show');
                     } else {
@@ -303,7 +296,7 @@
                    alert(" Fail " + response.responseText);
                 },
                 error: function(response) {
-                    alert(" Error" + response.responseText);
+                   alert(" Error" + response.responseText);
                 }
             });
         } 

@@ -57,6 +57,9 @@ namespace gym_mgmt_01.Controllers
             }
             return View();
         }
+        public ActionResult Settings() {
+            return View();
+        }
         public ActionResult AdminAccess() {
             return View();
         }
