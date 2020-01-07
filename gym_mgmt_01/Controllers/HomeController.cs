@@ -57,6 +57,16 @@ namespace gym_mgmt_01.Controllers
             }
             return View();
         }
+        public ActionResult SalesTax() {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SalesTax(SalesTax sales) {
+            
+            if (ModelState.IsValid) { 
+            }
+            return View("SalesTax");
+        }
         public ActionResult Settings() {
             return View();
         }

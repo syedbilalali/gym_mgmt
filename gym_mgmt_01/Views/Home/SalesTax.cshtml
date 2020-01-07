@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "SalesTax";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model gym_mgmt_01.Models.SalesTax
+@using (Html.BeginForm("SalesTax","Home", FormMethod.Post))
+{
+    <div class="row p-t-15">
+        <div class="col-md-12 col-sm-10">
+            <div class="card-group">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Sales Tax</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="control-label ">Sales Tax Name</label>
+                            @Html.EditorFor(model => model.SalesTaxName , new { htmlAttributes = new { @type="text" ,@class="form-control"  , @placeholder="Ex Tax1" , @maxlength="15" } })
+                            @Html.ValidationMessageFor(model=>model.SalesTaxName , "" , new { @class="text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Sales Tax Value</label>
+                            @Html.EditorFor(model => model.SalesTaxName, new { htmlAttributes = new { @type = "number", @min="0.00" , @max="9999.00" ,  @class = "form-control"  , @placeholder="Ex 0.00" ,  @maxlength="5" } })
+                            @Html.ValidationMessageFor(model => model.SalesTaxName, "", new { @class = "text-danger" })
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

@@ -215,6 +215,7 @@
     <Compile Include="Models\Prospectus.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\RoleGroup.cs" />
+    <Compile Include="Models\SalesTax.cs" />
     <Compile Include="Models\SellsOrder.cs" />
     <Compile Include="Models\SellsOrderItems.cs" />
     <Compile Include="Models\Staff.cs" />
@@ -3658,6 +3659,7 @@
     <Content Include="Views\Home\AdminAccess.cshtml" />
     <Content Include="Views\Home\NoAccess.cshtml" />
     <Content Include="Views\Home\Settings.cshtml" />
+    <Content Include="Views\Home\SalesTax.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -27,10 +27,9 @@ namespace gym_mgmt_01.Models
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = " Please enter valid name. ")]
         public string LastName { get; set; }
 
-        [DateMinimumAge(18, ErrorMessage = "{0} must be someone at least {1} years of age")]
         [DisplayName("Date of Birth")]
-        [DateRange(ErrorMessage ="Not in Valid Date Range ")]
         [Required(ErrorMessage = " Please enter Date of Birth. ")]
+        [DateMinimumAge(18, ErrorMessage = "{0} must be someone at least {1} years of age")]
         public string DOB { get; set; }
 
         [DisplayName("Gender")]
@@ -56,7 +55,6 @@ namespace gym_mgmt_01.Models
             MinimumAge = minimumAge;
             ErrorMessage = "{0} must be someone at least {1} years of age";
         }
-
         public override bool IsValid(object value)
         {
             DateTime date;
@@ -64,15 +62,12 @@ namespace gym_mgmt_01.Models
             {
                 return date.AddYears(MinimumAge) < DateTime.Now;
             }
-
             return false;
         }
-
         public override string FormatErrorMessage(string name)
         {
             return string.Format(ErrorMessageString, name, MinimumAge);
         }
-
         public int MinimumAge { get; }
     }
     public class DateRange : ValidationAttribute

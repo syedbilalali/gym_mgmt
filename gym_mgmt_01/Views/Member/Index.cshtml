@@ -8,29 +8,31 @@
     Genderlist.Add(new SelectListItem() { Text = "Male", Value = "Male" });
     Genderlist.Add(new SelectListItem() { Text = "Female", Value = "Female" });
     Genderlist.Add(new SelectListItem() { Text = "Other", Value = "Other" });
-}   
-    
-    <style>
-       .imgmodel img {
-            object-fit: scale-down;
-            max-height: 500px;
-        }
-        .jcrop-tracker{
-            width: 100%!important;
-            height: 500px!important;
-             object-fit: fill;
-        }
-        .jcrop-holder{
+}
 
-             width: 100%!important;
-             height: 500px!important;
-             object-fit: fill;
-             background-color: transparent!important;
-        }
-        .imgmodel .modal-body{
-            max-height: 500px;
-        }
-    </style>
+<style>
+    .imgmodel img {
+        object-fit: scale-down;
+        max-height: 500px;
+    }
+
+    .jcrop-tracker {
+        width: 100% !important;
+        height: 500px !important;
+        object-fit: fill;
+    }
+
+    .jcrop-holder {
+        width: 100% !important;
+        height: 500px !important;
+        object-fit: fill;
+        background-color: transparent !important;
+    }
+
+    .imgmodel .modal-body {
+        max-height: 500px;
+    }
+</style>
 
 @model gym_mgmt_01.Models.MemberRegistration
 @using (Html.BeginForm("Index", "Member", FormMethod.Post, new { enctype = "multipart/form-data", id = "memreg", @class = "needs-validation", @novalidate = "" }))
@@ -85,14 +87,14 @@
                             <input type="hidden" name="avatarCropped" id="avatarCropped">
                             <h4 class="card-title m-t-10"></h4>
                             <!--    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6> -->
-                            <div class="row text-center justify-content-md-center">               
+                            <div class="row text-center justify-content-md-center">
                                 <div class="upload-btn-wrapper">
                                     @if (Session["user"] != null)
                                     {
                                         if (Session["user"].ToString() == "Admin")
                                         {
                                             <button class="btn upld" id="upldFile">
-                                             @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
+                                                @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
                                             </button>
                                             <br />
                                             @Html.ValidationMessageFor(modal => modal.member.ImagePath, "", new { htmlAttributes = new { @class = "text-danger" } })
@@ -178,7 +180,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Date of Birth<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "dob", @placeholder = " Enter Date of Birth ", @min = "1900-01-01", @max = "2050-12-31", @required = "" } })
+                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control mydatepicker", @type = "text", @name = "dob", @placeholder = " Enter Date of Birth ", @required = "" } })
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.DOB, "", new { @class = "text-danger" })
                                                         </div>
@@ -566,7 +568,7 @@
                                     }
                                 }
                             }
-                           
+
                         </div>
                         <div class="tab-pane" id="membership" role="tabpanel">
                             <div class="row">
@@ -622,8 +624,8 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <img id="modalImg" src="https://cdn.pixabay.com/photo/2019/12/15/18/24/winter-4697776_960_720.jpg"   />
-                <canvas id="canvas" height="5" width="5" style="vertical-align:top; display:none;"></canvas> 
+                <img id="modalImg" src="https://cdn.pixabay.com/photo/2019/12/15/18/24/winter-4697776_960_720.jpg" />
+                <canvas id="canvas" height="5" width="5" style="vertical-align:top; display:none;"></canvas>
             </div>
             <div class="modal-footer">
                 <button type="button" id="hlcropImage" class="btn btn-primary">Crop</button>
@@ -638,141 +640,138 @@
 <!-- ============================================================== -->
 <!-- ============================================================== -->
 @section scripts {
-    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/jquery.Jcrop.js"></script>
-<script type="text/javascript">
-    $(function () {
-        var MemberType = "";
-        var addMemberShipA = document.querySelector('#addMemberShipA');
-        var addMemberShipB = document.querySelector('#addMemberShipB');
-        var prospectusDetails = document.querySelector('#prospectusDetails');
-        var emergencyContact = document.querySelector('#emergencyContact');
-        var memberType = document.querySelector('#memberType');
-        if (memberType.checked) {
+    <script type="text/javascript">
+        $(function () {
+            var MemberType = "";
+            var addMemberShipA = document.querySelector('#addMemberShipA');
+            var addMemberShipB = document.querySelector('#addMemberShipB');
+            var prospectusDetails = document.querySelector('#prospectusDetails');
+            var emergencyContact = document.querySelector('#emergencyContact');
+            var memberType = document.querySelector('#memberType');
+            if (memberType.checked) {
 
-            MemberType = "Prospectus";
-            //  prospectusDetails.style.display = "block";
-            // emergencyContact.style.display = "none";
-            addMemberShipA.innerHTML = "Save";
-            addMemberShipB.innerHTML = "Save";
-        } else {
-
-            MemberType = "Member";
-            addMemberShipA.innerHTML = "Add and Save Membership ";
-            addMemberShipB.innerHTML = "Add and Save Membership ";
-            //   prospectusDetails.style.display = "none";
-            // emergencyContact.style.display = "block";
-        }
-        memberType.addEventListener('change', (event) => {
-            if (event.target.checked) {
                 MemberType = "Prospectus";
-                prospectusDetails.style.display = "block";
-                emergencyContact.style.display = "none";
+                //  prospectusDetails.style.display = "block";
+                // emergencyContact.style.display = "none";
                 addMemberShipA.innerHTML = "Save";
                 addMemberShipB.innerHTML = "Save";
-                //  alert('checked');
             } else {
-                MemberType = "Prospectus";
-                prospectusDetails.style.display = "none";
-                emergencyContact.style.display = "block";
+
+                MemberType = "Member";
                 addMemberShipA.innerHTML = "Add and Save Membership ";
                 addMemberShipB.innerHTML = "Add and Save Membership ";
-                // alert('not checked');
+                //   prospectusDetails.style.display = "none";
+                // emergencyContact.style.display = "block";
             }
-        })
-        "use strict";
-        $(".tst1").click(function () {
-            $.toast({
-                heading: 'Welcome to Material Pro admin',
-                text: 'Use the predefined ones, or specify a custom position object.',
-                position: 'top-right',
-                loaderBg: '#ff6849',
-                icon: 'info',
-                hideAfter: 3000,
-                stack: 6
-            });
-
-        });
-        $('#upldFile').on("click", function () {
-          //   $('#modelimg').modal('show');
-        })
-        $('#upldImage').change(function () {
-            alert("Image Change : ");
-               $('#modelimg').modal('show');
-            readURL(this);
-        //    alert("After Selecting ");
-           
-        });
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    var form = document.querySelector('#memreg');
-                    var bool = Validate(form);
-                    if (!bool) {
-                     //   $('#profImg').attr('src', '/assets/images/users/deafult.png');
-                    } else {
-                     /// //  $('#profImg').attr('src', e.target.result);
-                     //   $('#modalImg').attr('src', e.target.result);
-                    }
+            memberType.addEventListener('change', (event) => {
+                if (event.target.checked) {
+                    MemberType = "Prospectus";
+                    prospectusDetails.style.display = "block";
+                    emergencyContact.style.display = "none";
+                    addMemberShipA.innerHTML = "Save";
+                    addMemberShipB.innerHTML = "Save";
+                    //  alert('checked');
+                } else {
+                    MemberType = "Prospectus";
+                    prospectusDetails.style.display = "none";
+                    emergencyContact.style.display = "block";
+                    addMemberShipA.innerHTML = "Add and Save Membership ";
+                    addMemberShipB.innerHTML = "Add and Save Membership ";
+                    // alert('not checked');
                 }
-                reader.readAsDataURL(input.files[0]);
+            })
+            "use strict";
+            $(".tst1").click(function () {
+                $.toast({
+                    heading: 'Welcome to Material Pro admin',
+                    text: 'Use the predefined ones, or specify a custom position object.',
+                    position: 'top-right',
+                    loaderBg: '#ff6849',
+                    icon: 'info',
+                    hideAfter: 3000,
+                    stack: 6
+                });
+
+            });
+            $('#upldFile').on("click", function () {
+                //   $('#modelimg').modal('show');
+            })
+            $('#upldImage').change(function () {
+             //   $('#modelimg').modal('show');
+                readURL(this);
+            });
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var form = document.querySelector('#memreg');
+                        var bool = Validate(form);
+                        if (!bool) {
+                              $('#profImg').attr('src', '/assets/images/users/deafult.png');
+                        } else {
+                             $('#profImg').attr('src', e.target.result);
+                        }
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
-        }
-        var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
-        function Validate(oForm) {
-            var arrInputs = oForm.getElementsByTagName("input");
-            for (var i = 0; i < arrInputs.length; i++) {
-                var oInput = arrInputs[i];
-                if (oInput.type == "file") {
-                    var sFileName = oInput.value;
-                    if (sFileName.length > 0) {
-                        var blnValid = false;
-                        for (var j = 0; j < _validFileExtensions.length; j++) {
-                            var sCurExtension = _validFileExtensions[j];
-                            if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
-                                blnValid = true;
-                                break;
+            var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
+            function Validate(oForm) {
+                var arrInputs = oForm.getElementsByTagName("input");
+                for (var i = 0; i < arrInputs.length; i++) {
+                    var oInput = arrInputs[i];
+                    if (oInput.type == "file") {
+                        var sFileName = oInput.value;
+                        if (sFileName.length > 0) {
+                            var blnValid = false;
+                            for (var j = 0; j < _validFileExtensions.length; j++) {
+                                var sCurExtension = _validFileExtensions[j];
+                                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                                    blnValid = true;
+                                    break;
+                                }
+                            }
+                            if (!blnValid) {
+                                alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                                return false;
                             }
                         }
-                        if (!blnValid) {
-                            alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
-                            return false;
-                        }
                     }
                 }
+                return true;
             }
-            return true;
-        }
-    });
-    (function () {
-        'use strict';
-        window.addEventListener('load', function () {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-    var imageCropWidth = 0;
-    var imageCropHeight = 0;
+        });
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+        var imageCropWidth = 0;
+        var imageCropHeight = 0;
         var cropPointX = 0;
         var cropPointY = 0;
         var jcropApi;
- 
+
         $(document).ready(function () {
             //initCrop();
         });
@@ -786,7 +785,7 @@
             e.preventDefault();
             cropImage();
         });
-    function initCrop() {
+        function initCrop() {
             $('#modalImg').Jcrop({
                 onChange: setCoordsAndImgSize,
                 aspectRatio: 0, // 1 means will be same for height and weight
@@ -798,7 +797,7 @@
             $("#lblHeight").text(imageCropHeight + "px");
         }
         function setCoordsAndImgSize(e) {
- 
+
             imageCropWidth = e.w;
             imageCropHeight = e.h;
 
@@ -808,8 +807,7 @@
             $("#lblWidth").text(imageCropWidth + "px");
             $("#lblHeight").text(imageCropHeight + "px");
         }
-    function cropImage() {
-
+        function cropImage() {
             alert(" Cropping Image : ");
             if (imageCropWidth == 0 && imageCropHeight == 0) {
                 alert("Please select crop area.");
@@ -820,7 +818,6 @@
             showCroppedImage();
         }
         function showCroppedImage() {
-
             var x1 = cropPointX;
             var y1 = cropPointY;
             var width = imageCropWidth;
@@ -844,17 +841,17 @@
             img.src = $('#modalImg').attr("src");
         }
         function readFile(input) {
- 
+
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
- 
+
                 /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
                 if (jcropApi != null) {
                     jcropApi.destroy();
                 }
                 reader.onload = function (e) {
                     //alert(" Setting the Imaeg On the Modal ");
-                   $('#modalImg').attr('src', "");
+                    $('#modalImg').attr('src', "");
                     var img = $('#modalImg').attr('src', e.target.result);
 
                     /*Current uploaded image size*/
@@ -862,8 +859,8 @@
                     var height = img[0].width;
                     $("#lblWidth").text(width + "px");
                     $("#lblHeight").text(height + "px");
-                  //  alert("Width : " + width);
-                  //  alert("Height  : " + height);
+                    //  alert("Width : " + width);
+                    //  alert("Height  : " + height);
                     //alert(" Intialise then CROP iMAGE");
                     //InitCrop must call here otherwise it will not work
                     initCrop();
@@ -872,11 +869,190 @@
             }
         }
         $('#upldImage').change(function () {
-            alert(" Before Reading the File ");
+          //  alert(" Before Reading the File ");
             readFile(this);
             //initCrop();
         });
-</script>
+       //-------------------------------------------------------------
+         // MAterial Date picker    
+    $('#mdate').bootstrapMaterialDatePicker({ weekStart: 0, time: false });
+    $('#timepicker').bootstrapMaterialDatePicker({ format: 'HH:mm', time: true, date: false });
+    $('#date-format').bootstrapMaterialDatePicker({ format: 'dddd DD MMMM YYYY - HH:mm' });
+
+    $('#min-date').bootstrapMaterialDatePicker({ format: 'DD/MM/YYYY HH:mm', minDate: new Date() });
+    // Clock pickers
+    $('#single-input').clockpicker({
+        placement: 'bottom',
+        align: 'left',
+        autoclose: true,
+        'default': 'now'
+    });
+    $('.clockpicker').clockpicker({
+        donetext: 'Done',
+    }).find('input').change(function() {
+        console.log(this.value);
+    });
+    $('#check-minutes').click(function(e) {
+        // Have to stop propagation here
+        e.stopPropagation();
+        input.clockpicker('show').clockpicker('toggleView', 'minutes');
+    });
+    if (/mobile/i.test(navigator.userAgent)) {
+        $('input').prop('readOnly', true);
+    }
+    // Colorpicker
+    $(".colorpicker").asColorPicker();
+    $(".complex-colorpicker").asColorPicker({
+        mode: 'complex'
+    });
+    $(".gradient-colorpicker").asColorPicker({
+        mode: 'gradient'
+    });
+    // Date Picker
+    jQuery('.mydatepicker, #datepicker').datepicker();
+    jQuery('#datepicker-autoclose').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
+    jQuery('#date-range').datepicker({
+        toggleActive: true
+    });
+    jQuery('#datepicker-inline').datepicker({
+        todayHighlight: true
+    });
+    // -------------------------------
+	// Start Date Range Picker
+	// -------------------------------
+
+    // Basic Date Range Picker
+    $('.daterange').daterangepicker();
+
+    // Date & Time
+    $('.datetime').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'MM/DD/YYYY h:mm A'
+        }
+    });
+
+    //Calendars are not linked
+    $('.timeseconds').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        timePicker24Hour: true,
+        timePickerSeconds: true,
+        locale: {
+            format: 'MM-DD-YYYY h:mm:ss'
+        }
+    });
+
+    // Single Date Range Picker
+    $('.singledate').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true
+    });
+
+    // Auto Apply Date Range
+    $('.autoapply').daterangepicker({
+        autoApply: true,
+    });
+
+    // Calendars are not linked
+    $('.linkedCalendars').daterangepicker({
+        linkedCalendars: false,
+    });
+
+    // Date Limit
+    $('.dateLimit').daterangepicker({
+        dateLimit: {
+            days: 7
+        },
+    });
+
+    // Show Dropdowns
+    $('.showdropdowns').daterangepicker({
+        showDropdowns: true,
+    });
+
+    // Show Week Numbers
+    $('.showweeknumbers').daterangepicker({
+        showWeekNumbers: true,
+    });
+
+     $('.dateranges').daterangepicker({
+        ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    });
+
+    // Always Show Calendar on Ranges
+    $('.shawCalRanges').daterangepicker({
+        ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        alwaysShowCalendars: true,
+    });
+
+    // Top of the form-control open alignment
+    $('.drops').daterangepicker({
+        drops: "up" // up/down
+    });
+
+    // Custom button options
+    $('.buttonClass').daterangepicker({
+        drops: "up",
+        buttonClasses: "btn",
+        applyClass: "btn-info",
+        cancelClass: "btn-danger"
+    });
+
+	jQuery('#date-range').datepicker({
+        toggleActive: true
+    });
+    jQuery('#datepicker-inline').datepicker({
+        todayHighlight: true
+    });
+
+    // Daterange picker
+    $('.input-daterange-datepicker').daterangepicker({
+        buttonClasses: ['btn', 'btn-sm'],
+        applyClass: 'btn-danger',
+        cancelClass: 'btn-inverse'
+    });
+    $('.input-daterange-timepicker').daterangepicker({
+        timePicker: true,
+        format: 'MM/DD/YYYY h:mm A',
+        timePickerIncrement: 30,
+        timePicker12Hour: true,
+        timePickerSeconds: false,
+        buttonClasses: ['btn', 'btn-sm'],
+        applyClass: 'btn-danger',
+        cancelClass: 'btn-inverse'
+    });
+    $('.input-limit-datepicker').daterangepicker({
+        format: 'MM/DD/YYYY',
+        minDate: '06/01/2015',
+        maxDate: '06/30/2015',
+        buttonClasses: ['btn', 'btn-sm'],
+        applyClass: 'btn-danger',
+        cancelClass: 'btn-inverse',
+        dateLimit: {
+            days: 6
+        }
+    });
+      //-------------------------------------------------------------
+    </script>
 }
 <!-- ============================================================== -->
 <!-- End Right sidebar -->

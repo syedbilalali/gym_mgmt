@@ -93,13 +93,11 @@
             e.preventDefault();
             setContent($(this));
         });
-
         // set content on load
         $('.buttoncol.active').length && setContent($('.buttoncol.active'));
         function setContent($el) {
             $('.buttoncol').removeClass('active');
             $('.container1').hide();
-
             $el.addClass('active');
             $($el.data('rel')).show();
         }
@@ -206,7 +204,6 @@
                     card += '</div>';
                     memberdata += card;
                     $('#colvalue').html(memberdata);
-
                 } else {
                    alert("Something went wrong");
                 }

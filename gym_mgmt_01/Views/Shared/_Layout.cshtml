@@ -14,14 +14,24 @@
     <!-- This page CSS -->
     <!-- chartist CSS -->
     <link href="@Url.Content("~/assets/node_modules/morrisjs/morris.css")" rel="stylesheet">
-  
+
     <!-- Custom CSS -->
     <link href="@Url.Content("~/dist/css/style.min.css")" rel="stylesheet">
     <link href="@Url.Content("~/assets/node_modules/switchery/dist/switchery.min.css")" rel="stylesheet" />
     <!-- Dashboard 1 Page CSS -->
     <link href="@Url.Content("~/dist/css/pages/dashboard1.css")" rel="stylesheet">
     <link href="@Url.Content("~/Content/style.css")" rel="stylesheet">
-    <link href="@Url.Content("~/Content/jquery.Jcrop.min.css")"  rel="stylesheet" />
+    <link href="@Url.Content("~/Content/jquery.Jcrop.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/assets/node_modules/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css")" rel="stylesheet">
+    <!-- Page plugins css -->
+    <link href="@Url.Content("~/assets/node_modules/clockpicker/dist/jquery-clockpicker.min.css")" rel="stylesheet">
+    <!-- Color picker plugins css -->
+    <link href="@Url.Content("~/assets/node_modules/jquery-asColorPicker-master/dist/css/asColorPicker.css")" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="@Url.Content("~/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.css")" rel="stylesheet" type="text/css" />
+    <!-- Daterange picker plugins css -->
+    <link href="@Url.Content("~/assets/node_modules/timepicker/bootstrap-timepicker.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/assets/node_modules/bootstrap-daterangepicker/daterangepicker.css")" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -350,6 +360,7 @@
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
 
                                 @*<a href="javascript:void(0)" class="dropdown-item">Account Details</a>*@
+                                <a href="javascript:void(0)" class="dropdown-item">Sales Tax</a>
                                 @*<a href="javascript:void(0)" class="dropdown-item">Settings</a>*@
 
                                 @*<a href="javascript:void(0)" class="dropdown-item">Change Club</a>*@
@@ -605,7 +616,20 @@
     <script src="@Url.Content("~/assets/node_modules/toast-master/js/jquery.toast.js")"></script>
     <script src="@Url.Content("~/assets/node_modules/switchery/dist/switchery.min.js")"></script>
     <script src="@Url.Content("~/dist/js/pages/validation.js")"></script>
-    
+
+    <script src="@Url.Content("~/assets/node_modules/moment/moment.js")"></script>
+    <script src="@Url.Content("~/assets/node_modules/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js")"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="@Url.Content("~/assets/node_modules/clockpicker/dist/jquery-clockpicker.min.js")"></script>
+    <!-- Color Picker Plugin JavaScript -->
+    <script src="@Url.Content("~/assets/node_modules/jquery-asColor/dist/jquery-asColor.js")"></script>
+    <script src="@Url.Content("~/assets/node_modules/jquery-asGradient/dist/jquery-asGradient.js")"></script>
+    <script src="@Url.Content("~/assets/node_modules/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js")"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="@Url.Content("~/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.js")"></script>
+    <!-- Date range Plugin JavaScript -->
+    <script src="@Url.Content("~/assets/node_modules/timepicker/bootstrap-timepicker.min.js")"></script>
+    <script src="@Url.Content("~/assets/node_modules/bootstrap-daterangepicker/daterangepicker.js")"></script>
 
     @RenderSection("scripts", required: false)
     <script>
@@ -613,23 +637,23 @@
             // Switchery
             var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
             $('.js-switch').each(function () {
-                                    new Switchery($(this)[0], $(this).data());
-                                });
+                new Switchery($(this)[0], $(this).data());
+            });
             // For select 2
             $(".select2").select2();
             $('.selectpicker').selectpicker();
             //Bootstrap-TouchSpin
             $(".vertical-spin").TouchSpin({
-                                verticalbuttons: true
+                verticalbuttons: true
             });
             var vspinTrue = $(".vertical-spin").TouchSpin({
-                                verticalbuttons: true
+                verticalbuttons: true
             });
             if (vspinTrue) {
                 $('.vertical-spin').prev('.bootstrap-touchspin-prefix').remove();
-                            }
+            }
             $("input[name='tch1']").TouchSpin({
-                            min: 0,
+                min: 0,
                 max: 100,
                 step: 0.1,
                 decimals: 2,
@@ -638,7 +662,7 @@
                 postfix: '%'
             });
             $("input[name='tch2']").TouchSpin({
-                            min: -1000000000,
+                min: -1000000000,
                 max: 1000000000,
                 stepinterval: 50,
                 maxboostedstep: 10000000,
@@ -646,67 +670,67 @@
             });
             $("input[name='tch3']").TouchSpin();
             $("input[name='tch3_22']").TouchSpin({
-                            initval: 40
+                initval: 40
             });
             $("input[name='tch5']").TouchSpin({
-                            prefix: "pre",
+                prefix: "pre",
                 postfix: "post"
             });
             // For multiselect
             $('#pre-selected-options').multiSelect();
             $('#optgroup').multiSelect({
-                            selectableOptgroup: true
+                selectableOptgroup: true
             });
             $('#public-methods').multiSelect();
             $('#select-all').click(function () {
                 $('#public-methods').multiSelect('select_all');
-                                return false;
-                            });
+                return false;
+            });
             $('#deselect-all').click(function () {
                 $('#public-methods').multiSelect('deselect_all');
-                                return false;
-                            });
+                return false;
+            });
             $('#refresh').on('click', function () {
                 $('#public-methods').multiSelect('refresh');
-                                return false;
-                            });
+                return false;
+            });
             $('#add-option').on('click', function () {
                 $('#public-methods').multiSelect('addOption', {
-                                value: 42,
+                    value: 42,
                     text: 'test 42',
                     index: 0
                 });
-                                return false;
-                            });
+                return false;
+            });
             $(".ajax").select2({
-                            ajax: {
-                                url: "https://api.github.com/search/repositories",
+                ajax: {
+                    url: "https://api.github.com/search/repositories",
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
-                                        return {
-                                        q: params.term, // search term
+                        return {
+                            q: params.term, // search term
                             page: params.page
-                                        };
-                                    },
+                        };
+                    },
                     processResults: function (data, params) {
                         // parse the results into the format expected by Select2
                         // since we are using custom formatting functions we do not need to
                         // alter the remote JSON data, except to indicate that infinite
                         // scrolling can be used
                         params.page = params.page || 1;
-                                        return {
-                                        results: data.items,
+                        return {
+                            results: data.items,
                             pagination: {
-                                            more: (params.page * 30) < data.total_count
+                                more: (params.page * 30) < data.total_count
                             }
-                                        };
-                                    },
+                        };
+                    },
                     cache: true
-                            },
+                },
                 escapeMarkup: function (markup) {
-                                    return markup;
-                                }, // let our custom formatter work
+                    return markup;
+                }, // let our custom formatter work
                 minimumInputLength: 1,
                 //templateResult: formatRepo, // omitted for brevity, see the source of this page
                 //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page

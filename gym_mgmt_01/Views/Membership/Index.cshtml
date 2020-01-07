@@ -41,8 +41,6 @@
                                                 <label for="validationDefault01" class="mb30">Name</label>
                                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control mb70", @type = "text", @name = "name", @placeholder = " Enter Name of Membership. ", @required = "" } })
                                                 @Html.ValidationMessageFor(modal => modal.Name, "", new { @class = "text-danger" })
-                                                
-
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -50,8 +48,6 @@
                                                 <label for="validationDefault01" class="mb30">Description</label>
                                                 @Html.TextAreaFor(model => model.Description, new { @class = "form-control mb70", @type = "text", @name = "Description", @placeholder = " Enter Description Here. " })
                                                 @Html.ValidationMessageFor(modal => modal.Description, "", new { @class = "text-danger" })
-                                                
-
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -140,7 +136,7 @@
     <script type="text/javascript">
         $(function () {
             'use strict';
-            window.addEventListener('load', function () {
+                window.addEventListener('load', function () {
                 // Fetch all the forms we want to apply custom Bootstrap validation styles to
                 var forms = document.getElementsByClassName('needs-validation');
                 // Loop over them and prevent submission
@@ -178,6 +174,5 @@
 
             }
         }
-
     </script>
 }

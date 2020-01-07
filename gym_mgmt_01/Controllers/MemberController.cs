@@ -71,8 +71,8 @@ namespace gym_mgmt_01.Controllers
             {
               //  ModelState.AddModelError("ImageUpload", "Please choose either a GIF, JPG or PNG image.");
             }
-            //  mr.member.ImagePath = uploadFile(mr.ImageFile);x
-            mr.member.ImagePath = SaveSnap(Request.Form["avatarCropped"]);
+            mr.member.ImagePath = uploadFile(mr.ImageFile);
+            //mr.member.ImagePath = SaveSnap(Request.Form["avatarCropped"]);
             if (ModelState.IsValid)
             {
                 mr.member.MemberType = "member";
