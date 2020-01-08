@@ -16,6 +16,7 @@ namespace gym_mgmt_01.Models
         public string Barcode { get; set;  }
         public string Description { get; set;  }
         public string ImageURL { get; set;  }
+        public string CurrentStock { get; set; }
         public DateTime CreatedAt { get; set;  }
     }
 }

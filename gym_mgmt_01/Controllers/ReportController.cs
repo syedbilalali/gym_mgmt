@@ -139,16 +139,15 @@ namespace gym_mgmt_01.Controllers
             List<SellsOrder> sells = ro.getAlSellsOrder();
             List<object> so = (from sell in sells.ToList()
                                select new[] { sell.Invoice_number.ToString(),
-                                                            sell.Member_Name.ToString(),
-                                                            sell.Subtotal.ToString(),
-                                                            sell.Sales_Tax.ToString(),
-                                                            sell.Total_Amount.ToString(),
-                                                            sell.Paid_Status.ToString(),
+                                              sell.Member_Name.ToString(),
+                                              sell.Subtotal.ToString(),
+                                              sell.Sales_Tax.ToString(),
+                                              sell.Total_Amount.ToString(),
+                                                    sell.Paid_Status.ToString(),
                                                             sell.Total_Pay.ToString(),
                                                             sell.Discount_Price.ToString(),
                                                             sell.Remain_price.ToString(),
                                                             sell.CreatedAt.ToString("dd-mm-yyyy")
-
                                 }).ToList<object>();
             so.Insert(0, new string[10] { " Invoice No. ", "Member_Name", "Subtotal ", "Sales_Tax", " Total_Amount ", " Paid_Status ", " Total_Pay ", " Discount_Price", "Remain_price", "CreatedAt" });
             StringBuilder sb = new StringBuilder();

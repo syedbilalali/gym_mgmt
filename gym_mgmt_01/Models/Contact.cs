@@ -25,14 +25,14 @@ namespace gym_mgmt_01.Models
         [Remote("IsAlreadyCell", "Member", HttpMethod = "POST", ErrorMessage = "Cell already exists.")]
         [Required(ErrorMessage = "Cell is required.")]
         [DataType(DataType.PhoneNumber)]
-       // [RegularExpression(@"(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Mobile Number !!!")]
+        [RegularExpression(@"^([0|\+[0-9]{1,4})?([0-9]{8})$", ErrorMessage = " Invalid Mobile Number !!!")]
         public string Cell { get; set; }
 
-      //  [RegularExpression(@"(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$", ErrorMessage = " Invalid Cell Number !!!")]
+        [RegularExpression(@"^([0|\+[0-9]{1,4})?([0-9]{8})$", ErrorMessage = " Invalid Cell Number !!!")]
         [DataType(DataType.PhoneNumber)]
         public string Home { get; set; }
 
-      //  [RegularExpression(@"(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}", ErrorMessage = " Invalid Home Number !!!")]
+        [RegularExpression(@"^([0|\+[0-9]{1,4})?([0-9]{8})$", ErrorMessage = " Invalid Home Number !!!")]
         [DataType(DataType.PhoneNumber)]
         public string Work { get; set; }
 

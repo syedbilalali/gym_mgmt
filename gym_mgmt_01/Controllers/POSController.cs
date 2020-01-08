@@ -105,7 +105,7 @@ namespace gym_mgmt_01.Controllers
            //Adding the SellsOrderItems
            soiAdd.addSellsOrderItems(soi);
            var response = " Sucessfully Save SellsOrderItems No : " + soi.Invoice_Id;
-            return Json( response, JsonRequestBehavior.AllowGet);
+           return Json( response, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult addSellsOrder(SellsOrder so) {

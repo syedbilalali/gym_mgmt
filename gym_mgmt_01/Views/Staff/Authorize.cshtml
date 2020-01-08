@@ -45,29 +45,49 @@
                     {
                         for (int i = 0; i < Model.Count; i++)
                         {
-                            <tr>
-                                <td>
-                                    @Html.HiddenFor(m => m[i].Module)
-                                    @Html.DisplayFor(m => m[i].Module)
-                                </td>
-                                <td>
-                                    @Html.CheckBoxFor(m => m[i].isSelected, new { @type = "checkbox", @class = "js-switch" })
-                            
-                                </td>
-                                <td>
-                                    View
-                                    @Html.CheckBoxFor(m => m[i].View, new { @type = "checkbox", @class = "" })
-                                    &nbsp;
-                                    Edit
-                                    @Html.CheckBoxFor(m => m[i].Edit, new { @type = "checkbox", @class = "" })
-                                    &nbsp;
-                                    Create
-                                    @Html.CheckBoxFor(m => m[i].Create, new { @type = "checkbox", @class = "" })
-                                    &nbsp;
-                                    Delete
-                                    @Html.CheckBoxFor(m => m[i].Delete, new { @type = "checkbox", @class = "" })
-                                </td>
-                            </tr>
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(m => m[i].Module)
+                            @Html.DisplayFor(m => m[i].Module)
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(m => m[i].isSelected, new { @type = "checkbox", @class = "js-switch" , @Id="accessswitch" })
+                        </td>
+                        @if (Model[i].isSelected != false)
+                        {
+                            <td>
+
+                                View
+                                @Html.CheckBoxFor(m => m[i].View, new { @type = "checkbox", @class = "" })
+                                &nbsp;
+                                Edit
+                                @Html.CheckBoxFor(m => m[i].Edit, new { @type = "checkbox", @class = "" })
+                                &nbsp;
+                                Create
+                                @Html.CheckBoxFor(m => m[i].Create, new { @type = "checkbox", @class = "" })
+                                &nbsp;
+                                Delete
+                                @Html.CheckBoxFor(m => m[i].Delete, new { @type = "checkbox", @class = "" })
+                            </td>
+                        }
+                        else {
+                    <td>
+
+                        View
+                        @Html.CheckBoxFor(m => m[i].View, new { @type = "checkbox", @class = "" , @disabled = true })
+                        &nbsp;
+                        Edit
+                        @Html.CheckBoxFor(m => m[i].Edit, new { @type = "checkbox", @class = "" , @disabled = true })
+                        &nbsp;
+                        Create
+                        @Html.CheckBoxFor(m => m[i].Create, new { @type = "checkbox", @class = "" , @disabled = true })
+                        &nbsp;
+                        Delete
+                        @Html.CheckBoxFor(m => m[i].Delete, new { @type = "checkbox", @class = "" , @disabled = true })
+                    </td>
+                        }
+
+                    </tr>
 
                         }
 
@@ -89,17 +109,50 @@
 @section scripts {
     <script type="text/javascript">
        
-        // loop over them all
-        //function getCheckBoxList() {
-        //    var checkboxlist = document.querySelectorAll('input[type=checkbox]:checked');
-        //    if (checkboxlist.length < 1) {
-        //        alert(" Please select at least one authorisation.. ");
-        //        $("#setauth").submit(function (e) { // note that it's better to use form Id to select form
-        //            e.preventDefault(); // here you stop submitting form
-        //        });
-
-        //    }
-        //}
+        $('.js-switch').on('change', function (e) {
+            var d = e.target.name;
+            if (e.target.checked == true) {
+        
+                $(e.target.name).attr('checked', false);
+                var f = d.substr(0, d.indexOf('.'));
+                var eEdit = f + ".Edit";
+                var eCreate = f + ".Create"
+                var eView = f + ".View"
+                var eDelete = f + ".Delete"
+                var inpEdit = "input[name='" + eEdit + "']";
+                var inpCreate = "input[name='" + eCreate + "']";
+                var inpView = "input[name='" + eView + "']";
+                var inpDelete = "input[name='" + eDelete + "']";
+                $(inpEdit).attr("disabled", false);
+                $(inpCreate).attr("disabled", false);
+                $(inpView).attr("disabled", false);
+                $(inpDelete).attr("disabled", false);
+              
+            } else {
+             
+                $(e.target.name).attr('checked', true);
+                var f = d.substr(0, d.indexOf('.'));
+                var eEdit = f + ".Edit";
+                var eCreate = f + ".Create"
+                var eView = f + ".View"
+                var eDelete = f + ".Delete"
+             
+                var inpEdit = "input[name='" + eEdit + "']";
+                var inpCreate = "input[name='" + eCreate + "']";
+                var inpView = "input[name='" + eView + "']";
+                var inpDelete = "input[name='" + eDelete + "']";
+               
+                $(inpEdit).attr("disabled", true);
+                $(inpCreate).attr("disabled",true);
+                $(inpView).attr("disabled", true);
+                $(inpDelete).attr("disabled", true);
+                $(inpEdit).attr("checked", false);
+                $(inpCreate).attr("checked", false);
+                $(inpView).attr("checked", false);
+                $(inpDelete).attr("checked", false);
+            }
+        });
     </script>
+
 }
 

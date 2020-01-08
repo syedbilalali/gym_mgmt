@@ -180,7 +180,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Date of Birth<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control mydatepicker", @type = "text", @name = "dob", @placeholder = " Enter Date of Birth ", @required = "" } })
+                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control mydatepicker", @type = "text", @name = "dob", @maxlength="10", @placeholder = " Enter Date of Birth ", @required = "" } })
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.DOB, "", new { @class = "text-danger" })
                                                         </div>

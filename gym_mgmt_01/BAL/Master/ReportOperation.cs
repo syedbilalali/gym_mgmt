@@ -84,7 +84,7 @@ namespace gym_mgmt_01.BAL.Master
         {
             DataTable dt = new DataTable();
             string fromdatest = String.Format("{0:yyyy-MM-dd}", fromdate) + " 00:00:00";
-            string todatest = String.Format("{0:yyyy-MM-dd}", todate) + " 00:00:00"; 
+            string todatest = String.Format("{0:yyyy-MM-dd}", todate) + " 23:59:59"; 
 
             string command = "SELECT * FROM dbo.SellsOrder so WHERE so.CreatedAt BETWEEN '" + fromdatest + "' AND '" + todatest + "'";
             List<SellsOrder> sellsOrder = new List<SellsOrder>();

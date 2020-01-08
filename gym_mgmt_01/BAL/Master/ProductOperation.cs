@@ -78,7 +78,8 @@ namespace gym_mgmt_01.BAL.Master
                                select new Product()
                                {
                                    Id = int.Parse(dr["Id"].ToString()),
-                                   Name = dr["Name"].ToString()
+                                   Name = dr["Name"].ToString(),
+                                   CurrentStock = dr["current_stock"].ToString()
                                }).ToList();
             }
             return product;

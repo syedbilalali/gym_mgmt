@@ -319,7 +319,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                
                     <div class="form-group ">
                         <div class="" style="display:block;" id="findMemPnl">
                             <label for="exampleInputuname" class="st">Find Member</label>
@@ -398,7 +397,8 @@
             showHidePanel(prod, cat);
         }
         //For Adding the Product Details in Cart
-        function addProduct(data) {
+        function addProduct(data, data1) {
+            console.log(" Data From addProduct : " + data1);
             var prodadd = false;
             var priceTable = document.querySelector('#invoicePanel');
             if (priceTable.rows.length > 1) {
@@ -413,7 +413,10 @@
                             priceTable.rows[i].cells[1].innerHTML = cur_qty;
                             priceTable.rows[i].cells[2].innerHTML = cur_price;
                         } else {
-                           alert(" Sorry Stock not available. ");
+                            alert(" Sorry Stock not available. ");
+                            console.log(data1);
+                            //data1.disabled = true;
+                            
                         }
                         prodadd = false;
                         break;
@@ -454,7 +457,6 @@
         function addTableRow(values) {
             var priceTable = document.querySelector('#invoicePanel');
         }
-        
         function removeProduct(data) {
             var priceTable = document.querySelector('#invoicePanel');
             var rowcount = priceTable.rows.length;
@@ -463,7 +465,7 @@
                     if (data.id == col) {
                         priceTable.deleteRow(i);
                     }
-                }
+            }
             updatePayDetails();
         }
         function showHidePanel(hide, show) {
@@ -488,14 +490,17 @@
                 dataType: "json",
                 success: function (response) {
                     if (response != null) {
-
+                 
                         var prodlist = JSON.parse(JSON.stringify(response));
                         var prod_contain = document.querySelector("#product");
                         var final_list = "";
                         for (var i = 0; i < prodlist.length; i++) {
-                            var list = '<div class="childpospart"><button type="button" class="btn ptp5" id=' + prodlist[i].Id + ' name=' + prodlist[i].Name + ' data-toggle="modal" data-target="#" data-whatever="" onclick="addProduct1(this)">'
-                            list += '<i class=" iconpt"></i><div class="poschild5">' + prodlist[i].Name + '</div></button></div>';
-                            final_list += list;
+                            if (prodlist[i].CurrentStock > 0) {
+                                 var list = '<div class="childpospart"><button type="button" class="btn ptp5" id=' + prodlist[i].Id + ' name=' + prodlist[i].Name + ' data-toggle="modal" data-target="#" data-whatever="" onclick="addProduct1(this)">'
+                                list += '<i class=" iconpt"></i><div class="poschild5">' + prodlist[i].Name  + '</div></button></div>';
+                                final_list += list;
+                            }
+     
                         }
                         var back = '<div class="childpospart"><button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="back()"><i class="ti-back-left iconpt"></i><div class="poschild5">Back</div></button></div>';
                         prod_contain.innerHTML = final_list + back;
@@ -513,9 +518,12 @@
             });
             showHidePanel(cat, prod);
         }
-        function addProduct1(data) {
-            getItems(data.id).then(function (data) {
-                addProduct(data);
+        function addProduct1(data1) {
+            //alert(" Data : " + JSON.stringify(data));
+            console.log(data1);
+            getItems(data1.id).then(function (data) {
+               
+                addProduct(data , data1);
             }
             ).catch(function (error) {
                alert(" Errors  : "  + error);
@@ -564,6 +572,8 @@
                 lbltax.innerHTML = "0.00";
                 lblTotal.innerHTML = "0.00";
                 lblDue.innerHTML = "0.00";
+                $('#cashrow').remove();
+
             }
             console.log("------------- End Fill Payments --------------------");
         }
@@ -585,7 +595,7 @@
             });
         }
         function resetPanel() {
-
+               alert("Reseting Panel");
             var subtotal = document.querySelector('#lblSubtotal');
             var salestax = document.querySelector('#lblSalesTax');
             var total = document.querySelector('#lbltotal');
@@ -595,10 +605,13 @@
             for (var i = 1; i < length-1; i++) {
                 table1.deleteRow(i);
             }
+             jQuery(this).children('#cashrow').remove();
+         //  
             subtotal.innerHTML = "0.00 OMR";
             salestax.innerHTML = "0.00 OMR";
             total.innerHTML = "0.00 OMR";
             due.innerHTML = "0.00 OMR";
+         
             getCategory();
         }
         var count = 0;
@@ -606,7 +619,7 @@
             var paymentPanel = document.querySelector('#paymentPanel');
             var amountPay = document.querySelector("#extData");
             var cashPay1 = document.querySelector('#cashType');
-            var str = '<div class="row stt"><div class="col-md-6">Cash</div><div class="col-md-6"><label id="lblPay">' + amountPay.value + '</label>OMR</div></div>';
+            var str = '<div class="row stt" id="cashrow"><div class="col-md-6">Cash</div><div class="col-md-6"><label id="lblPay">' + amountPay.value + '</label>&nbsp;OMR</div></div>';
             var table1 = document.querySelector('#invoicePanel');
             var length = table1.rows.length;
             if (length > 1) {
@@ -789,6 +802,7 @@
         }
         function addSellsOrder(Invoice_number, member_name, subtotal, SalesTax, Total_Amount, Paid_Status, Total_Pay, Discount_price, Remain_price) {
             //Add Sells Order Here To the Server
+            alert(" Sells Order Item Added");
             var so = new Object();
             so.Invoice_number = Invoice_number;
             so.Member_Name = member_name;
