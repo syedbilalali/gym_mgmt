@@ -47,6 +47,7 @@
                     <div class="alert alert-success" style="display:block;">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                         @ViewBag.Message
+                        @Html.ValidationSummary()
                     </div>
                 }
             </div>
@@ -94,7 +95,7 @@
                                         if (Session["user"].ToString() == "Admin")
                                         {
                                             <button class="btn upld" id="upldFile">
-                                                @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
+                                            @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
                                             </button>
                                             <br />
                                             @Html.ValidationMessageFor(modal => modal.member.ImagePath, "", new { htmlAttributes = new { @class = "text-danger" } })
@@ -118,7 +119,7 @@
                                             else
                                             {
                                                 <button class="btn upld" disabled id="upldFile">
-                                                    @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
+                                                @Html.LabelFor(model => model.member.ImagePath, htmlAttributes: new { @class = "" })
                                                 </button>
                                                 <br />
                                                 @Html.ValidationMessageFor(modal => modal.member.ImagePath, "", new { htmlAttributes = new { @class = "text-danger" } })
@@ -218,7 +219,6 @@
                                                     <label for="exampleInputEmail1">Email address<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
                                                         @Html.EditorFor(model => model.contact.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = " Enter Email Address" } })
-
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Email, "", new { @class = "text-danger" })
                                                         </div>
@@ -229,7 +229,6 @@
                                                     <label for="exampleInputuname">Cell<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
                                                         @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43", @placeholder = " Enter Cell Number " } })
-
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Cell, "", new { @class = "text-danger" })
                                                         </div>

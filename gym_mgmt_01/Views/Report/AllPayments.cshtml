@@ -30,7 +30,6 @@
                 </div>
             }
         </div>
-
         <div class="col-lg-6 col-xlg-6 col-md-6 btnsection">
             <button type="button" style="display:none;" class="btn btn-info">Reset Filters</button>
             @using (Html.BeginForm("PaymentsExport", "Report", FormMethod.Post, new { @style = "display:contents;" }))
@@ -47,6 +46,7 @@
             }
             @using (Html.BeginForm("AllPaymentPrint", "Report", FormMethod.Post, new { @style = "display:contents;" }))
             {
+
                 if (Model.sellsReport.Count > 0)
                 {
                     <button type="submit" class="btn btn-info">Print</button>

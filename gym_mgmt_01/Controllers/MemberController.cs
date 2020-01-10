@@ -193,7 +193,7 @@ namespace gym_mgmt_01.Controllers
                         file.SaveAs(fullPath);
                     }
                     else {
-                        ModelState.AddModelError("member.ImagePath", "Please upload image less then 102400 ");
+                        ModelState.AddModelError("member.ImagePath", "Please upload image less then 100 MB");
                         ViewBag.Message = "";
                     }
                 }
@@ -292,27 +292,28 @@ namespace gym_mgmt_01.Controllers
         public ActionResult Edit(MemberRegistration mr) {
             ModelState.Remove("Email");
             ModelState.Remove("Cell");
-            if (ModelState.IsValid)
-            {
-                var validImageTypes = new string[]
-                    {
+            var validImageTypes = new string[]
+                   {
                     "image/gif",
                     "image/jpeg",
                     "image/pjpeg",
                     "image/png"
-                };
-                if (mr.ImageFile == null || mr.ImageFile.ContentLength == 0)
-                {
-                    //   ModelState.AddModelError("ImageUpload", "This field is required");
-                }
-                else if (!validImageTypes.Contains(mr.ImageFile.ContentType))
-                {
-                    // ModelState.AddModelError("ImageUpload", "Please choose either a GIF, JPG or PNG image.");
-                }
+               };
+            if (mr.ImageFile == null || mr.ImageFile.ContentLength == 0)
+            {
+                //   ModelState.AddModelError("ImageUpload", "This field is required");
+            }
+            else if (!validImageTypes.Contains(mr.ImageFile.ContentType))
+            {
+                // ModelState.AddModelError("ImageUpload", "Please choose either a GIF, JPG or PNG image.");
+            }
+            mr.member.ImagePath = uploadFile(mr.ImageFile);
+            if (ModelState.IsValid)
+            {
+               
                 mr.member.MemberType = "member";
                 mr.contact.Subscribed = "";
-                string img = uploadFile(mr.ImageFile);
-                mr.member.ImagePath = img;
+
                 mo.UpdateMember(mr.member);
                 mr.contact.MemberID = mr.member.Id;
                 co.UpdateContact(mr.contact);

@@ -8,6 +8,7 @@ using gym_mgmt_01.BAL.Master;
 using System.Text;
 using Rotativa.MVC;
 using gym_mgmt_01.Helper_Code.Common;
+using RazorPDF;
 
 namespace gym_mgmt_01.Controllers
 {
@@ -79,10 +80,9 @@ namespace gym_mgmt_01.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult AllPaymentPrint(string Invoice_number)
+        public ActionResult AllPaymentPrint()
         {
-            return new Rotativa.MVC.ActionAsPdf("AllPayments", new { Invoice_number = Invoice_number })
-            { FileName = "Payment.pdf" };
+            return new ActionAsPdf("AllPaymentsPdf");
         }
         [HttpPost]
         public ActionResult PaymentsExport()
@@ -114,8 +114,6 @@ namespace gym_mgmt_01.Controllers
 
             }
             string current_date = DateTime.Now.ToShortDateString();
-
-
             return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "PaymentsRpt_" + current_date + ".csv");
         }
         [AuthorizationPrivilegeFilter("Reports", "View")]
@@ -143,11 +141,11 @@ namespace gym_mgmt_01.Controllers
                                               sell.Subtotal.ToString(),
                                               sell.Sales_Tax.ToString(),
                                               sell.Total_Amount.ToString(),
-                                                    sell.Paid_Status.ToString(),
-                                                            sell.Total_Pay.ToString(),
-                                                            sell.Discount_Price.ToString(),
-                                                            sell.Remain_price.ToString(),
-                                                            sell.CreatedAt.ToString("dd-mm-yyyy")
+                                              sell.Paid_Status.ToString(),
+                                              sell.Total_Pay.ToString(),
+                                              sell.Discount_Price.ToString(),
+                                              sell.Remain_price.ToString(),
+                                              sell.CreatedAt.ToString("dd-mm-yyyy")
                                 }).ToList<object>();
             so.Insert(0, new string[10] { " Invoice No. ", "Member_Name", "Subtotal ", "Sales_Tax", " Total_Amount ", " Paid_Status ", " Total_Pay ", " Discount_Price", "Remain_price", "CreatedAt" });
             StringBuilder sb = new StringBuilder();
@@ -166,14 +164,23 @@ namespace gym_mgmt_01.Controllers
             string current_date = DateTime.Now.ToShortDateString();
             return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "BillDated" + current_date + ".csv");
         }
-        public ActionResult AllBillsPrint(string Invoice_number)
+        public ActionResult AllBillsPrint()
         {
-            return new Rotativa.MVC.ActionAsPdf("AllBills", new { Invoice_number = Invoice_number })
-            { FileName = "Bill.pdf" };
+            return new ActionAsPdf("AllBillsPdf");
         }
         public ActionResult AllVisitor()
         {
-            return View();
+            return View("AllBills");
+        }
+        public ActionResult AllBillsPdf() {
+            List<SellsOrder> so = ro.getAlSellsOrder();
+            model.sellsReport = so;
+            return View(model);
+        }
+        public ActionResult AllPaymentsPdf() {
+            List<SellsOrder> so = ro.getAlSellsOrder();
+            model.sellsReport = so;
+            return View(model);
         }
 
     }

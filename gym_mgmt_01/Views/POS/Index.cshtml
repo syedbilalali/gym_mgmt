@@ -8,7 +8,7 @@
 }
 @model dynamic
 <div class="row upp2">
-    <!-- Column --> 
+    <!-- Column -->
     <!-- Column -->
     <div class="col-lg-8 col-xlg-8 col-md-8">
         <input type="hidden" id="InvoiceID" name="InvoiceID">
@@ -101,23 +101,23 @@
             <button class="btnpos cancelpos ptp" type="button" data-toggle="modal" data-target="#cancel" data-whatever="">Cancel</button>
             <button class="btnpos completesale ptp" id="btnCompeleteSale" disabled type="button" data-toggle="modal" data-target="#" data-whatever="">Complete Sale</button>
             <div class="memberselected" id="memberselected" style="display:none;">
-                    <div class="form-group" style=" display:none;">
-                        <label for="message-text" class="control-label label1">Staff:</label>
-                        <select class="form-control label2">
-                            <option value="0">YG staff</option>
-                            <option value="1">second</option>
+                <div class="form-group" style=" display:none;">
+                    <label for="message-text" class="control-label label1">Staff:</label>
+                    <select class="form-control label2">
+                        <option value="0">YG staff</option>
+                        <option value="1">second</option>
 
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <div class="row memberassigned">
-                            <div class="col-md-3"><img src="assets/images/users/user1.png" id="memberimage" /></div>
-                            <div class="col-md-7">
-                                <label id="membername">Username</label>
-                            </div>
-                            <div class="col-md-2" id="removeSelectedMem"  onclick="removeSelectedMembers()"><button>x</button></div>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="row memberassigned">
+                        <div class="col-md-3"><img src="assets/images/users/user1.png" id="memberimage" /></div>
+                        <div class="col-md-7">
+                            <label id="membername">Username</label>
                         </div>
+                        <div class="col-md-2" id="removeSelectedMem" onclick="removeSelectedMembers()"><button>x</button></div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -299,7 +299,7 @@
                                 Are you sure you want to cancel the sale?
                             </p>
                         </div>
-                    </div>  
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -319,37 +319,37 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                    <div class="form-group ">
-                        <div class="" style="display:block;" id="findMemPnl">
-                            <label for="exampleInputuname" class="st">Find Member</label>
-                            <div class="input-group mb-3 st70">
-                                <input type="search" id="findMember" class="form-control" placeholder="" aria-label="" />
-                                <div class="input-group-append">
-                                    <span class=""><button class="btn btnexact">Search</button></span>
-                                </div>
-                            </div>
-                            <div class="input-group mb-3 membernamecl" style=" max-height:350px; overflow-y:auto; display:none;" id="membercontainer">
+                <div class="form-group ">
+                    <div class="" style="display:block;" id="findMemPnl">
+                        <label for="exampleInputuname" class="st">Find Member</label>
+                        <div class="input-group mb-3 st70">
+                            <input type="search" id="findMember" class="form-control" placeholder="" aria-label="" />
+                            <div class="input-group-append">
+                                <span class=""><button class="btn btnexact">Search</button></span>
                             </div>
                         </div>
-                        <div class="" style="display:none;" id="SelectMemPnl">
-                            <label for="exampleInputuname" class="st">Sold to</label>
-                            <div class="input-group mb-3 membernamecl st70">
-                                <div class="row">
-                                    <div class="st20"><img src="assets/images/users/1.jpg" id="selImage" alt="user" class="stimg"></div>
-                                    <div class="st70 sh">
-                                        <h4><label id="selName"></label> </h4>
-                                        <h4><label id="selID"></label></h4>
-                                        <h4><label id="selDate"></label></h4>
-                                    </div>
-                                    <button type="button" class="close st10" data-dismiss="alert" aria-label="Close" onclick="closeSelectMembers()" > <span aria-hidden="true">×</span> </button>
-                                </div>
-                                
-                            </div>
+                        <div class="input-group mb-3 membernamecl" style=" max-height:350px; overflow-y:auto; display:none;" id="membercontainer">
                         </div>
                     </div>
+                    <div class="" style="display:none;" id="SelectMemPnl">
+                        <label for="exampleInputuname" class="st">Sold to</label>
+                        <div class="input-group mb-3 membernamecl st70">
+                            <div class="row">
+                                <div class="st20"><img src="assets/images/users/1.jpg" id="selImage" alt="user" class="stimg"></div>
+                                <div class="st70 sh">
+                                    <h4><label id="selName"></label> </h4>
+                                    <h4><label id="selID"></label></h4>
+                                    <h4><label id="selDate"></label></h4>
+                                </div>
+                                <button type="button" class="close st10" data-dismiss="alert" aria-label="Close" onclick="closeSelectMembers()"> <span aria-hidden="true">×</span> </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" data-dismiss="modal"  class="btn btn-info">Save</button>
+                <button type="submit" data-dismiss="modal" class="btn btn-info">Save</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -357,6 +357,7 @@
 </div>
 <!---Modal 6-->
 @section scripts{
+    <script src="../assets/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
         $(function () {
             var catName = "Main Menu";
@@ -364,7 +365,7 @@
             var menubtn = document.querySelector('#menubtn');
             menubtn.innerHTML = " Main Menu ";
             init();
-            getCategory();  
+            getCategory();
         });
         //Get Category List to show on the Panel.
         function getCategory() {
@@ -398,7 +399,6 @@
         }
         //For Adding the Product Details in Cart
         function addProduct(data, data1) {
-            console.log(" Data From addProduct : " + data1);
             var prodadd = false;
             var priceTable = document.querySelector('#invoicePanel');
             if (priceTable.rows.length > 1) {
@@ -413,10 +413,7 @@
                             priceTable.rows[i].cells[1].innerHTML = cur_qty;
                             priceTable.rows[i].cells[2].innerHTML = cur_price;
                         } else {
-                            alert(" Sorry Stock not available. ");
-                            console.log(data1);
-                            //data1.disabled = true;
-                            
+                             Swal.fire(" Out of Stock ");
                         }
                         prodadd = false;
                         break;
@@ -458,13 +455,14 @@
             var priceTable = document.querySelector('#invoicePanel');
         }
         function removeProduct(data) {
+            alert("Removing Product");
             var priceTable = document.querySelector('#invoicePanel');
             var rowcount = priceTable.rows.length;
-                for (var i = 1; i < priceTable.rows.length; i++) {
-                    var col = priceTable.rows[i].cells[5].innerHTML;
-                    if (data.id == col) {
-                        priceTable.deleteRow(i);
-                    }
+            for (var i = 1; i < priceTable.rows.length; i++) {
+                var col = priceTable.rows[i].cells[5].innerHTML;
+                if (data.id == col) {
+                    priceTable.deleteRow(i);
+                }
             }
             updatePayDetails();
         }
@@ -490,17 +488,17 @@
                 dataType: "json",
                 success: function (response) {
                     if (response != null) {
-                 
+
                         var prodlist = JSON.parse(JSON.stringify(response));
                         var prod_contain = document.querySelector("#product");
                         var final_list = "";
                         for (var i = 0; i < prodlist.length; i++) {
                             if (prodlist[i].CurrentStock > 0) {
-                                 var list = '<div class="childpospart"><button type="button" class="btn ptp5" id=' + prodlist[i].Id + ' name=' + prodlist[i].Name + ' data-toggle="modal" data-target="#" data-whatever="" onclick="addProduct1(this)">'
-                                list += '<i class=" iconpt"></i><div class="poschild5">' + prodlist[i].Name  + '</div></button></div>';
+                                var list = '<div class="childpospart"><button type="button" class="btn ptp5" id=' + prodlist[i].Id + ' name=' + prodlist[i].Name + ' data-toggle="modal" data-target="#" data-whatever="" onclick="addProduct1(this)">'
+                                list += '<i class=" iconpt"></i><div class="poschild5">' + prodlist[i].Name + '</div></button></div>';
                                 final_list += list;
                             }
-     
+
                         }
                         var back = '<div class="childpospart"><button type="button" class="btn ptp5" data-toggle="modal" data-target="#" data-whatever="" onclick="back()"><i class="ti-back-left iconpt"></i><div class="poschild5">Back</div></button></div>';
                         prod_contain.innerHTML = final_list + back;
@@ -522,11 +520,11 @@
             //alert(" Data : " + JSON.stringify(data));
             console.log(data1);
             getItems(data1.id).then(function (data) {
-               
-                addProduct(data , data1);
+
+                addProduct(data, data1);
             }
             ).catch(function (error) {
-               alert(" Errors  : "  + error);
+                alert(" Errors  : " + error);
             });
         }
         function back() {
@@ -545,25 +543,29 @@
             var lblTotal = document.querySelector('#lbltotal');
             var lbltax = document.querySelector('#lblSalesTax');
             var lblDue = document.querySelector('#lblDue');
+            var lblPay = document.querySelector('#lblPay');
             var lasttotal = 0.00, totaltax = 0.00, lastDiscount = 0.00, lasttax = 0.00;
             var table1 = document.querySelector('#invoicePanel');
             var length = table1.rows.length;
-                console.log("----------- FOR LOOP START  --------------------");
-                for (var i = 1; i < length; i++) {
-              
-                    var qty = table1.rows[i].cells[1].innerHTML;
-                    var price = table1.rows[i].cells[2].innerHTML;
+            console.log("----------- FOR LOOP START  --------------------");
+            for (var i = 1; i < length; i++) {
 
-                    lasttotal = parseFloat(price, 10) + lasttotal;
-                    lastQty += parseInt(qty);
+                var qty = table1.rows[i].cells[1].innerHTML;
+                var price = table1.rows[i].cells[2].innerHTML;
 
-                    var add_tax = parseFloat(defaulttax) * parseFloat(lastQty);
-                    totaltax += add_tax;
+                lasttotal = parseFloat(price, 10) + lasttotal;
+                lastQty += parseInt(qty);
 
-                    //Display to screen
-                    lblSubTotal.innerHTML = lasttotal.toFixed(2);
-                    lbltax.innerHTML = totaltax;
-                    lblTotal.innerHTML = parseFloat(totaltax) + parseFloat(lasttotal);
+                var add_tax = parseFloat(defaulttax) * parseFloat(lastQty);
+                totaltax += add_tax;
+
+                //Display to screen
+                lblSubTotal.innerHTML = lasttotal.toFixed(2);
+                lbltax.innerHTML = totaltax;
+                lblTotal.innerHTML = parseFloat(totaltax) + parseFloat(lasttotal);
+                if (lblPay != null) {
+                    lblPay.innerHTML = parseFloat(totaltax) + parseFloat(lasttotal);
+                }
             }
             console.log(" __________ END OF FOR LOOP _______________");
             if (length === 1) {
@@ -573,7 +575,7 @@
                 lblTotal.innerHTML = "0.00";
                 lblDue.innerHTML = "0.00";
                 $('#cashrow').remove();
-
+                cashType.disabled = false;
             }
             console.log("------------- End Fill Payments --------------------");
         }
@@ -586,7 +588,7 @@
             var completeSaleEvt = document.querySelector('#btnCompeleteSale');
             var makepymnt = document.querySelector('#makepaymnt');
             var findMember = document.querySelector('#findMember');
-            findMember.addEventListener("keyup" , showlist);
+            findMember.addEventListener("keyup", showlist);
             makepymnt.addEventListener("click", makePayment);
             cashPay1.addEventListener("click", cashPay);
             completeSaleEvt.addEventListener("click", completeSale);
@@ -595,23 +597,24 @@
             });
         }
         function resetPanel() {
-               alert("Reseting Panel");
+            //alert("Reseting Panel");
             var subtotal = document.querySelector('#lblSubtotal');
             var salestax = document.querySelector('#lblSalesTax');
             var total = document.querySelector('#lbltotal');
+            var cashType = document.querySelector('#cashType');
             var due = document.querySelector('#lblDue');
+
             var table1 = document.querySelector('#invoicePanel');
             var length = table1.rows.length;
-            for (var i = 1; i < length-1; i++) {
+            for (var i = 1; i < length - 1; i++) {
                 table1.deleteRow(i);
             }
-             jQuery(this).children('#cashrow').remove();
-         //  
+            jQuery(this).children('#cashrow').remove();
+            cashType.disabled = false;
             subtotal.innerHTML = "0.00 OMR";
             salestax.innerHTML = "0.00 OMR";
             total.innerHTML = "0.00 OMR";
             due.innerHTML = "0.00 OMR";
-         
             getCategory();
         }
         var count = 0;
@@ -634,11 +637,11 @@
         }
         var objs;
         function showlist() {
-           var suggestion = document.querySelector('#findMember');
-           $.ajax({
+            var suggestion = document.querySelector('#findMember');
+            $.ajax({
                 type: "POST",
-               url: "/POS/getMembers",
-               data: JSON.stringify({ 'name': suggestion.value }),
+                url: "/POS/getMembers",
+                data: JSON.stringify({ 'name': suggestion.value }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -648,8 +651,8 @@
                         var masterdata = "";
                         var data = "";
                         if (dataObj.length > 0) {
-                             var membercontain = document.querySelector('#membercontainer');
-                             membercontain.style.display = "";
+                            var membercontain = document.querySelector('#membercontainer');
+                            membercontain.style.display = "";
                             for (var i = 0; i < dataObj.length; i++) {
                                 data += '<div class="row">';
                                 data += '<div class="st20"><img src="' + dataObj[i].ImagePath + '" alt="user" class="stimg"></div>';
@@ -680,29 +683,29 @@
         function selectMembers(mem) {
             var table1 = document.querySelector("#invoicePanel");
             if (table1.rows.length > 1) {
-                    var findMemPnl = document.querySelector('#findMemPnl');
-                    findMemPnl.style.display = "none";
-                    var selectPnl = document.querySelector('#SelectMemPnl');
-                    selectPnl.style.display = "";
-                    var selobj = objs.filter(function (obj) {
-                        return obj.Id == mem.id;
-                    });
-                    var showselectedmembers = document.querySelector("#memberselected");
-                    var membername = document.querySelector("#membername");
+                var findMemPnl = document.querySelector('#findMemPnl');
+                findMemPnl.style.display = "none";
+                var selectPnl = document.querySelector('#SelectMemPnl');
+                selectPnl.style.display = "";
+                var selobj = objs.filter(function (obj) {
+                    return obj.Id == mem.id;
+                });
+                var showselectedmembers = document.querySelector("#memberselected");
+                var membername = document.querySelector("#membername");
 
-                    var memberimage = document.querySelector("#memberimage");
-                    var selImage = document.querySelector('#selImage');
-                    var selName = document.querySelector('#selName');
-                    var selID = document.querySelector('#selID');
-                    var selDate = document.querySelector('#selDate');
-                    membername.innerText = selobj[0].FirstName + " " + selobj[0].LastName;
-                    memberimage.src = selobj[0].ImagePath;
-                    selImage.src = selobj[0].ImagePath;
-                    selID.innerText = selobj[0].Id;
-                    selName.innerText = selobj[0].FirstName + " " + selobj[0].LastName;
-                    selectedMember = selobj[0].FirstName + " " + selobj[0].LastName;
-                    selDate.innerText = selobj[0].DOB;
-                    showselectedmembers.style.display = "block";
+                var memberimage = document.querySelector("#memberimage");
+                var selImage = document.querySelector('#selImage');
+                var selName = document.querySelector('#selName');
+                var selID = document.querySelector('#selID');
+                var selDate = document.querySelector('#selDate');
+                membername.innerText = selobj[0].FirstName + " " + selobj[0].LastName;
+                memberimage.src = selobj[0].ImagePath;
+                selImage.src = selobj[0].ImagePath;
+                selID.innerText = selobj[0].Id;
+                selName.innerText = selobj[0].FirstName + " " + selobj[0].LastName;
+                selectedMember = selobj[0].FirstName + " " + selobj[0].LastName;
+                selDate.innerText = selobj[0].DOB;
+                showselectedmembers.style.display = "block";
             } else {
                 alert(" Please add product first. ");
             }
@@ -739,14 +742,14 @@
                 var totalprice = parseFloat(col1) * parseFloat(col4);
                 addSellsOrderItems(invoiceID.value, col3, col1, col4, 0, col2);
             }
-            addSellsOrder(invoiceID.value, selectedMember , subtotal.innerHTML, salestax.innerHTML, totalammount.innerHTML, "PAID", totalPay.innerHTML, 0, remianPrice.innerHTML);
+            addSellsOrder(invoiceID.value, selectedMember, subtotal.innerHTML, salestax.innerHTML, totalammount.innerHTML, "PAID", totalPay.innerHTML, 0, remianPrice.innerHTML);
             resetPanel();
             window.open('/invoice/get_last_Invoice', '_blank');
-            window.location.reload();  
+            window.location.reload();
         }
         function removeSelectedMembers() {
 
-          //  alert(" Removing Selected Members : ");
+            //  alert(" Removing Selected Members : ");
             var selectedmember = document.getElementById("memberselected");
             selectedmember.style.display = "none";
 
@@ -754,7 +757,7 @@
             findMemPnl.style.display = "";
             var selectPnl = document.querySelector('#SelectMemPnl');
             selectPnl.style.display = "none";
-           
+
         }
         function addItems(ProductID, StockID, Name, SoldPrice, Stock) {
             window.Item.push({ ProductID: ProductID, StockID: StockID, Name: Name, SoldPrice: SoldPrice, Stock: Stock });
@@ -820,11 +823,11 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    if (response != null) {  
+                    if (response != null) {
                     } else {
                     }
                 },
-               failure: function (response) {
+                failure: function (response) {
                     alert(response.responseText);
                 },
                 error: function (response) {
@@ -832,7 +835,7 @@
                 }
             });
         }
-        function addSellsOrderItems(invoice_Id, product_Id, quantity, unit_price,  discount_price, total_price) {
+        function addSellsOrderItems(invoice_Id, product_Id, quantity, unit_price, discount_price, total_price) {
             var soi = new Object();
             soi.invoice_Id = invoice_Id;
             soi.Invoice_number = invoice_Id;
@@ -887,6 +890,6 @@
                 });
             });
         }
-     
+
     </script>
 }

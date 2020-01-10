@@ -45,7 +45,7 @@
                 <tr>
                     <th>S.No.</th>
                     <th>Product Type</th>
-                    <th>Tax Rate Name</th>
+                    @*<th>Tax Rate Name</th>*@
                     <th>Sold in Clubs</th>
                     <th>Action</th>
                 </tr>
@@ -69,7 +69,7 @@
                                     @productType.TypeName
                                 }
                             </td>
-                            <td>@productType.TaxRateName</td>
+                            @*<td>@productType.TaxRateName</td>*@
                             <td>@productType.SoldInClubs</td>
                             <td>
                                 @if (Session["user"] != null)
@@ -134,7 +134,7 @@
                             <label for="" class="control-label label1"> Name :</label>
                             <input type="text" maxlength="20" name="typename" class="form-control label2" id="" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display:none;">
                             <label for="" class="control-label label1">Tax Rate :</label>
                             <input type="text" maxlength="10" name="taxrate" class="form-control label2" id="" />
                         </div>
@@ -172,7 +172,7 @@
                             <label for="" class="control-label label1">Name :</label>
                             <input type="text" maxlength="20" id="typename" name="typename" class="form-control label2" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display:none;">
                             <label for="" class="control-label label1">Tax Rate :</label>
                             <input type="text" maxlength="10" id="taxrate" name="taxrate" class="form-control label2" />
                         </div>
@@ -214,9 +214,9 @@
             return false;
         }
          $("#search").on("keyup", function () {
-                var value = $(this).val().toUpperCase();
-                     $("#productType tr").filter(function() {
-                    $(this).toggle($(this).text().toUpperCase().indexOf(value) > -1)
+            var value = $(this).val().toUpperCase();
+            $("#productType tr").filter(function() {
+            $(this).toggle($(this).text().toUpperCase().indexOf(value) > -1)
                  });
          });
     </script>

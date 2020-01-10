@@ -3660,6 +3660,8 @@
     <Content Include="Views\Home\NoAccess.cshtml" />
     <Content Include="Views\Home\Settings.cshtml" />
     <Content Include="Views\Home\SalesTax.cshtml" />
+    <Content Include="Views\Report\AllBillsPdf.cshtml" />
+    <Content Include="Views\Report\AllPaymentsPdf.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

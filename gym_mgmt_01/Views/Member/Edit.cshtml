@@ -8,6 +8,7 @@
     Genderlist.Add(new SelectListItem() { Text = "Male", Value = "Male" });
     Genderlist.Add(new SelectListItem() { Text = "Female", Value = "Female" });
     Genderlist.Add(new SelectListItem() { Text = "Other", Value = "Other" });
+
 }
 
 @model gym_mgmt_01.Models.MemberRegistration
@@ -60,7 +61,7 @@
                 <div class="card">
                     <div class="card-body profilecard">
                         <center class="m-t-30">
-                            <img src="@Url.Content(@Model.member.ImagePath)" alt="" width="150px" height="150px" id="profImg" class="img-circle" />
+                            <img src="@Html.DisplayFor(model => model.member.ImagePath)" alt="" width="150px" height="150px" id="profImg" class="img-circle" />
                             <h4 class="card-title m-t-10"></h4>
                             <!--    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6> -->
                             <div class="row text-center justify-content-md-center">
@@ -158,7 +159,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Date of Birth<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "dob", @placeholder = " Enter Date of Birth ", @required = "" } })
+                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control mydatepicker", @type = "text", @maxlength="10", @name = "dob", @placeholder = " Enter Date of Birth ", @required = "" } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.DOB, "", new { @class = "text-danger" })
@@ -725,6 +726,185 @@
                 });
             }, false);
         })();
+        //-------------------------------------------------------------
+         // MAterial Date picker    
+    $('#mdate').bootstrapMaterialDatePicker({ weekStart: 0, time: false });
+    $('#timepicker').bootstrapMaterialDatePicker({ format: 'HH:mm', time: true, date: false });
+    $('#date-format').bootstrapMaterialDatePicker({ format: 'dddd DD MMMM YYYY - HH:mm' });
+
+    $('#min-date').bootstrapMaterialDatePicker({ format: 'DD/MM/YYYY HH:mm', minDate: new Date() });
+    // Clock pickers
+    $('#single-input').clockpicker({
+        placement: 'bottom',
+        align: 'left',
+        autoclose: true,
+        'default': 'now'
+    });
+    $('.clockpicker').clockpicker({
+        donetext: 'Done',
+    }).find('input').change(function() {
+        console.log(this.value);
+    });
+    $('#check-minutes').click(function(e) {
+        // Have to stop propagation here
+        e.stopPropagation();
+        input.clockpicker('show').clockpicker('toggleView', 'minutes');
+    });
+    if (/mobile/i.test(navigator.userAgent)) {
+        $('input').prop('readOnly', true);
+    }
+    // Colorpicker
+    $(".colorpicker").asColorPicker();
+    $(".complex-colorpicker").asColorPicker({
+        mode: 'complex'
+    });
+    $(".gradient-colorpicker").asColorPicker({
+        mode: 'gradient'
+    });
+    // Date Picker
+    jQuery('.mydatepicker, #datepicker').datepicker();
+    jQuery('#datepicker-autoclose').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
+    jQuery('#date-range').datepicker({
+        toggleActive: true
+    });
+    jQuery('#datepicker-inline').datepicker({
+        todayHighlight: true
+    });
+    // -------------------------------
+	// Start Date Range Picker
+	// -------------------------------
+
+    // Basic Date Range Picker
+    $('.daterange').daterangepicker();
+
+    // Date & Time
+    $('.datetime').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'MM/DD/YYYY h:mm A'
+        }
+    });
+
+    //Calendars are not linked
+    $('.timeseconds').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        timePicker24Hour: true,
+        timePickerSeconds: true,
+        locale: {
+            format: 'MM-DD-YYYY h:mm:ss'
+        }
+    });
+
+    // Single Date Range Picker
+    $('.singledate').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true
+    });
+
+    // Auto Apply Date Range
+    $('.autoapply').daterangepicker({
+        autoApply: true,
+    });
+
+    // Calendars are not linked
+    $('.linkedCalendars').daterangepicker({
+        linkedCalendars: false,
+    });
+
+    // Date Limit
+    $('.dateLimit').daterangepicker({
+        dateLimit: {
+            days: 7
+        },
+    });
+
+    // Show Dropdowns
+    $('.showdropdowns').daterangepicker({
+        showDropdowns: true,
+    });
+
+    // Show Week Numbers
+    $('.showweeknumbers').daterangepicker({
+        showWeekNumbers: true,
+    });
+
+     $('.dateranges').daterangepicker({
+        ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    });
+
+    // Always Show Calendar on Ranges
+    $('.shawCalRanges').daterangepicker({
+        ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        alwaysShowCalendars: true,
+    });
+
+    // Top of the form-control open alignment
+    $('.drops').daterangepicker({
+        drops: "up" // up/down
+    });
+
+    // Custom button options
+    $('.buttonClass').daterangepicker({
+        drops: "up",
+        buttonClasses: "btn",
+        applyClass: "btn-info",
+        cancelClass: "btn-danger"
+    });
+
+	jQuery('#date-range').datepicker({
+        toggleActive: true
+    });
+    jQuery('#datepicker-inline').datepicker({
+        todayHighlight: true
+    });
+
+    // Daterange picker
+    $('.input-daterange-datepicker').daterangepicker({
+        buttonClasses: ['btn', 'btn-sm'],
+        applyClass: 'btn-danger',
+        cancelClass: 'btn-inverse'
+    });
+    $('.input-daterange-timepicker').daterangepicker({
+        timePicker: true,
+        format: 'MM/DD/YYYY h:mm A',
+        timePickerIncrement: 30,
+        timePicker12Hour: true,
+        timePickerSeconds: false,
+        buttonClasses: ['btn', 'btn-sm'],
+        applyClass: 'btn-danger',
+        cancelClass: 'btn-inverse'
+    });
+    $('.input-limit-datepicker').daterangepicker({
+        format: 'MM/DD/YYYY',
+        minDate: '06/01/2015',
+        maxDate: '06/30/2015',
+        buttonClasses: ['btn', 'btn-sm'],
+        applyClass: 'btn-danger',
+        cancelClass: 'btn-inverse',
+        dateLimit: {
+            days: 6
+        }
+    });
+      //-------------------------------------------------------------
     </script>
 }
 <!-- ============================================================== -->

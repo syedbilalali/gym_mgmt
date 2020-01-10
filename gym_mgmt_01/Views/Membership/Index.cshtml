@@ -62,7 +62,7 @@
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-6 mb-3" id="date-range">
                                                 <label for="" class="mb30">Start Date</label>
                                                 @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control mb70", @type = "date", @min = "1900-01-01", @max = "9999-12-31" } })
                                                 @Html.ValidationMessageFor(modal => modal.StartDate, "", new { @class = "text-danger" })
@@ -75,19 +75,6 @@
                                                 @Html.ValidationMessageFor(modal => modal.EndDate, "", new { @class = "text-danger" })
 
                                                 <div class="invalid-tooltip"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="example">
-                                                <h5 class="box-title m-t-30">Date Range picker</h5>
-                                                <p class="text-muted m-b-20">just add id <code>#date-range</code> to create it.</p>
-                                                <div class="input-daterange input-group" id="date-range">
-                                                    <input type="text" class="form-control" name="start" />
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text bg-info b-0 text-white">TO</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" name="end" />
-                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -108,6 +95,7 @@
 
                                             </div>
                                         </div>
+                                        
                                         @if (Session["user"] != null)
                                         {
                                             if (Session["user"].ToString() == "Admin")
@@ -146,45 +134,22 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script type="text/javascript">
-        $(function () {
-            'use strict';
-                window.addEventListener('load', function () {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-        $(function () {
-            //Validate the Pre Expiray day
-            var startDate = document.querySelector('#startDate');
-            var endDate = document.querySelector('#endDate');
-            console.log(" Date Diff : " + startDate + " " + endDate);
-        });
-        function getDate() {
-
-            var startDate1 = document.querySelector('#startDate').value;
-            var endDate1 = document.querySelector('#endDate').value;
-            var predays = document.querySelector('#PreExpDays');
-            // alert(" Date Diff : " + startDate + " " + endDate);
-            var startDate = new Date(startDate1);
-            var endDate = new Date(endDate1);x
-            var DiffrenceTime = startDate.getTime() - endDate.getTime();
-            var Difference_In_Days = DiffrenceTime / (1000 * 3600 * 24);
-            //   alert(" Diffrence Days : " + Difference_In_Days);
-            if (predays.value >= Difference_In_Days) {
-                //    alert(" Pre Reminder Days Exceed Limit !!! ");
-            } else {
-
-            }
-        }
+        //$(function () {
+        //    'use strict';
+        //        window.addEventListener('load', function () {
+        //        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        //        var forms = document.getElementsByClassName('needs-validation');
+        //        // Loop over them and prevent submission
+        //        var validation = Array.prototype.filter.call(forms, function (form) {
+        //            form.addEventListener('submit', function (event) {
+        //                if (form.checkValidity() === false) {
+        //                    event.preventDefault();
+        //                    event.stopPropagation();
+        //                }
+        //                form.classList.add('was-validated');
+        //            }, false);
+        //        });
+        //    }, false);
+        //})();
     </script>
 }

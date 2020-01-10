@@ -27,24 +27,11 @@
                     <div class="input-group form-group">
                         <button type="submit" class="btn btn-info">Submit</button>
                     </div>
-
-                <div class="example">
-                    <h5 class="box-title m-t-30">Date Range picker</h5>
-                    <p class="text-muted m-b-20">just add id <code>#date-range</code> to create it.</p>
-                    <div class="input-daterange input-group" id="date-range">
-                        <input type="text" class="form-control" name="start" />
-                     
-                        <div class="input-group-append">
-                            <span class="input-group-text bg-info b-0 text-white">TO</span>
-                        </div>
-                        <input type="text" class="form-control" name="end" />
-                    </div>
-                </div>
                 }
             </div>
             <div class="col-lg-6 col-xlg-6 col-md-6 btnsection">
                 <button type="button" style="display:none;" class="btn btn-info">Reset Filters</button>
-                @using (Html.BeginForm("AllBillsExport", "Report", FormMethod.Post, new { @style = "display:contents;" }))
+                @using (Html.BeginForm("AllBillsExport", "Report", new { @style = "display:contents;" }))
                 {
                     if (Model.sellsReport.Count > 0)
                     {
@@ -54,20 +41,18 @@
                     {
                         <button type="submit" disabled class="btn btn-info">Export to CSV</button>
                     }
-
-
                 }
-                @using (Html.BeginForm("AllBillsPrint", "Report", FormMethod.Post, new { @style = "display:contents;" }))
-                {
-                    if (Model.sellsReport.Count > 0)
+                @*@using (Html.BeginForm("AllBillsPrint", "Report", new { @style = "display:contents;" }))
+                {*@
+                    @if (Model.sellsReport.Count > 0)
                     {
-                        <button type="submit" class="btn btn-info">Print</button>
+                        <button type="submit" class="btn btn-info" onclick="location.href='@Url.Action("AllBillsPrint", "Report")'">Print</button>
                     }
                     else
                     {
                         <button type="submit" disabled class="btn btn-info">Print</button>
                     }
-                }
+                @*}*@
             </div>
         </div>
         <div class="addrolestab scrolltab">

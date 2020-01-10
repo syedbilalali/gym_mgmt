@@ -397,7 +397,7 @@
                             <a class=" waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><img src="@Session["ImageURL"]" alt="user-img" class="img-circle"><span class="hide-menu">@Session["FirstName"]</span></a>
                         </li>
                         <!---- Menu Section ---->
-                        @if (Session["user"].ToString() == "Admin")
+                        @if (HttpContext.Current.Session["user"].ToString() == "Admin")
                         {
                             <li>
                                 <a class=" waves-effect waves-dark" href="@Url.Action("Index", "Home")" aria-expanded="false"><i class="icon-speedometer"></i><span class="hide-menu"> Dashboard </span></a>
@@ -549,6 +549,7 @@
 
                             }
                         }
+                        
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

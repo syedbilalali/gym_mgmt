@@ -30,6 +30,7 @@
     <table id="memberData" class="table table-hover table-responsive">
         <thead>
             <tr>
+                <th>S No.</th>
                 <th>Member ID</th>
                 <th>Name</th>
                 <th>Membership Type</th>
@@ -128,12 +129,12 @@
 
         }
         function btnsearch() {
+
            var input, filter, ul, li, a, i, txtValue;
             input = document.getElementById("srch");
             filter = input.value.toUpperCase();
             var divs = document.getElementById('colvalue');
             var divlist = document.querySelectorAll('#cont');
-
             for (var i = 0; i < divlist.length; i++) {
                 var card = divlist[i].querySelectorAll('#cd1');
                 for (var j = 0; j < card.length; j++) {
@@ -175,14 +176,15 @@
                     let count = 0;  
                     card = '<div class="row" id="cont">';
                     for (var i = 0; i < json.length; ++i) {
-
-                            var mrow = table.insertRow(count_rows);
-                            var cell1 = mrow.insertCell(0);
-                            var cell2 = mrow.insertCell(1);
-                            var cell3 = mrow.insertCell(2);
-                            var cell4 = mrow.insertCell(3);
-                            var cell5 = mrow.insertCell(4);
-                            cell1.innerHTML = '<a href="/Member/Edit/' + json[i].Id + '"> #' + i + '</a>';
+                        var mrow = table.insertRow(count_rows);
+                            var cell0 = mrow.insertCell(0)
+                            var cell1 = mrow.insertCell(1);
+                            var cell2 = mrow.insertCell(2);
+                            var cell3 = mrow.insertCell(3);
+                            var cell4 = mrow.insertCell(4);
+                        var cell5 = mrow.insertCell(5);
+                            cell0.innerHTML =  i+1; 
+                            cell1.innerHTML = '<a href="/Member/Edit/' + json[i].Id + '"> #' + json[i].Id + '</a>';
                             cell2.innerHTML = json[i].FirstName;
                             cell3.innerHTML = json[i].LastName;
                             cell4.innerHTML = "No Owe";
@@ -278,7 +280,6 @@
                       var membername = response.FirstName + ' ' + response.LastName;
                         modalmembrID = response.Id;
                         modalmembrname.value = membername;
-                    //    alert(" MemShp L: " + response.MId);
                         if (response.MId == "0") {
                             $('#modalMembership').val("");
                         } else {

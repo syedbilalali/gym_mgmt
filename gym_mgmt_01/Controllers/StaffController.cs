@@ -43,10 +43,11 @@ namespace gym_mgmt_01.Controllers
         [ValidateAntiForgeryToken]
         [AuthorizationPrivilegeFilter("Staff" , "View")]
         public ActionResult Index(Staff st) {
+
             if(ViewBag.Create != false) {
+                string path = uploadFile(st.PostedFile);
                 if (ModelState.IsValid)
                 {
-                    string path = uploadFile(st.PostedFile);
                     st.ImgURL = path;
                     st.permission = getDefaultPermission();
                     so.AddStaff(st);
@@ -187,7 +188,7 @@ namespace gym_mgmt_01.Controllers
             string trailingPath;
             if (file != null)
             {
-                if (file.ContentType == "image/jpeg")
+                if (file.ContentType == "image/jpeg" || file.ContentType == "image/gif" || file.ContentType == "image/png")
                 {
                     if (file.ContentLength < 102400)
                     {
@@ -195,6 +196,7 @@ namespace gym_mgmt_01.Controllers
                         string FileName = Path.GetFileNameWithoutExtension(file.FileName);
                         //To Get File Extension  
                         string FileExtension = Path.GetExtension(file.FileName);
+
                         //Add Current Date To Attached File Name  
                         FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName.Trim() + FileExtension;
 
@@ -209,13 +211,21 @@ namespace gym_mgmt_01.Controllers
                         //To copy and save file into server.  
                         file.SaveAs(fullPath);
                     }
+                    else
+                    {
+                        ModelState.AddModelError("m.PostedFile", "Please upload image less then 100 MB ");
+                       ViewBag.Message = "";
+                    }
                 }
-
+                else
+                {
+                    ModelState.AddModelError("m.PostedFile", " Image formate not supportted ");
+                   ViewBag.Message = "";
+                }
             }
             else
             {
-                relativePath = "/assets/images/users/user4.png";
-
+                relativePath = "/assets/images/users/deafult.png";
             }
             return relativePath;
         }

@@ -279,11 +279,11 @@
     <script type="text/javascript">
         $(function () {
             $('#prodImage').change(function () {
-                console.log(" On file Choose ");
+              //  console.log(" On file Choose ");
                 readURL(this);
             });
             $('#prodImage1').change(function () {
-                console.log(" On file Choose ");
+             //   console.log(" On file Choose ");
                 readURL(this);
             });
             function readURL(input) {
@@ -301,8 +301,8 @@
             $.ajax({
                 url: "/Product/ProductEdit/" + id,
                 type: "GET",
-                    contentType: "application/json;charset=UTF-8",
-                    dataType: "json",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
                 success: function (response) {
                     //  alert(" SucessFull Get the Value " + JSON.stringify(response));
                     $('#prodID').val(response.Id);

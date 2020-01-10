@@ -36,7 +36,7 @@ namespace gym_mgmt_01.BAL.Master
 
             DataTable dt = new DataTable();
             string fromdatest = String.Format("{0:yyyy-MM-dd}", fromdate) + " 00:00:00";
-            string todatest = String.Format("{0:yyyy-MM-dd}", todate) + " 00:00:00";
+            string todatest = String.Format("{0:yyyy-MM-dd}", todate) + " 23:59:59";
             List<SubscriptionReport> subs = new List<SubscriptionReport>();
             string command = "SELECT subs.Id , mem.Name , mem.Amount , mem.EndDate  , mem.Capacity , m.FirstName ";
             command += " FROM Subscriptions subs INNER JOIN dbo.Membership mem ON subs.MembershipID = mem.Id ";

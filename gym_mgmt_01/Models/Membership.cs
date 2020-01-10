@@ -22,15 +22,15 @@ namespace gym_mgmt_01.Models
         public decimal Amount { get; set;  }
 
         [Required(ErrorMessage ="Start Date is required. ")]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
-        [Remote("CheckStartDate", "Membership", HttpMethod = "POST", ErrorMessage = "Start Date must be lesser then end date.")]
+      //  [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+      //  [Remote("CheckStartDate", "Membership", HttpMethod = "POST", ErrorMessage = "Start Date must be lesser then end date.")]
         public DateTime StartDate { get; set;  }
 
         public string sStartDate { get; set;  }
 
         [Required(ErrorMessage = "End Date is required. ")]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
-        [Remote("CheckEndDate", "Membership", HttpMethod = "POST", ErrorMessage = "End Date must be greater then start date.")]
+     //   [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+      //  [Remote("CheckEndDate", "Membership", HttpMethod = "POST", ErrorMessage = "End Date must be greater then start date.")]
         public DateTime EndDate { get; set; }
         public string sEndDate { get; set;  }
 
@@ -46,9 +46,10 @@ namespace gym_mgmt_01.Models
 
         IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            if (EndDate > StartDate)
+            if (EndDate < StartDate)
             {
-                yield return new ValidationResult("endDate must be greater than start date");
+                yield return new ValidationResult(" EndDate must be greater then StartDate " , new List<string> { "StartDate" });
+                
             }
         }
     }
