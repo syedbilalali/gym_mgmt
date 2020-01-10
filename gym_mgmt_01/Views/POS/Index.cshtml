@@ -12,6 +12,7 @@
     <!-- Column -->
     <div class="col-lg-8 col-xlg-8 col-md-8">
         <input type="hidden" id="InvoiceID" name="InvoiceID">
+        <input type="hidden" id="SalesTax" name="SalesTax">
         <div class="alert alert-info" style="display:none">
             <i class="ti-user"></i> The Sale is empty.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
@@ -365,6 +366,7 @@
             var menubtn = document.querySelector('#menubtn');
             menubtn.innerHTML = " Main Menu ";
             init();
+            getSalesTax();
             getCategory();
         });
         //Get Category List to show on the Panel.
@@ -538,7 +540,10 @@
             console.log("-------------Fill Payments --------------------");
             var totalItems = 0;
             var lastQty = 0;
-            var defaulttax = 0.44;
+            //    alert(" Default Sales Tax : " + document.querySelector("#SalesTax").value);
+            var defaulttax = document.querySelector("#SalesTax").value;
+   
+           // var defaulttax = 0.44;
             var lblSubTotal = document.querySelector('#lblSubtotal');
             var lblTotal = document.querySelector('#lbltotal');
             var lbltax = document.querySelector('#lblSalesTax');
@@ -876,6 +881,33 @@
                         if (response != null) {
                             var data = JSON.parse(JSON.stringify(response));
                             document.querySelector('#InvoiceID').value = response;
+                            resolve(response);
+                        } else {
+                            reject(response.responseText);
+                        }
+                    },
+                    failure: function (response) {
+                        reject(response.responseText);
+                    },
+                    error: function (response) {
+                        reject(response.responseText);
+                    }
+                });
+            });
+        }
+        function getSalesTax() {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    type: "GET",
+                    url: "/POS/getSalesTax",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response != null) {
+                            var data = JSON.parse(JSON.stringify(response));
+                            alert(" Data Response : " + JSON.stringify(response));
+                            alert("Tax Value :" + response.SalesTaxValue);
+                            document.querySelector('#SalesTax').value = response.SalesTaxValue; 
                             resolve(response);
                         } else {
                             reject(response.responseText);

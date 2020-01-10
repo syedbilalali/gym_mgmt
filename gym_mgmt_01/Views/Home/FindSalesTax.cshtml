@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "FindSalesTax";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model dynamic
+<div class="row upp2">
+    <!-- Column -->
+    <div class="row rolebtns2">
+        <div class="card-header">
+            <h3>Set Sales Tax Value</h3>
+        </div>
+
+    </div>
+    <div class="addrolestab">
+        <table class="table table-hover table-responsive">
+            <thead>
+                <tr>
+                    <td>Current Tax Value</td>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var tax in Model.salestax as List<gym_mgmt_01.Models.SalesTax>)
+                {
+                    <tr>
+
+                        <td>@tax.SalesTaxValue</td>
+
+                        <td>               </td>
+
+                        <td>
+
+                            <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@tax.Id)">Change</button>
+
+
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+    <!-- Column -->
+</div>
+<!-------Modal For Updat Product Type ---------------->
+@Html.Partial("_EditSalesTax", new gym_mgmt_01.Models.SalesTax())
+@section scripts {
+    <script type="text/javascript">
+        function GetDetails(id) {
+            $.ajax({
+                url: "/Home/SalesTaxEdit/" + 1,
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (response) {
+
+                    var data = JSON.parse(JSON.stringify(response));
+
+
+                    $('#Id').val(response.Id);
+                     $('#SalesTaxName').val(response.SalesTaxName);
+                    $('#SalesTaxValue').val(response.SalesTaxValue);
+                    $('#updatetax').modal('show');
+                },
+                error: function (response) {
+                    alert("Error : " + response.responseText);
+                }
+            });
+            return false;
+        }
+
+    </script>
+}

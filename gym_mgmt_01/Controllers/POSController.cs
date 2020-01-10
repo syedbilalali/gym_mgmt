@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Configuration;
 using System.IO;
 using System.Data;
+using gym_mgmt_01.Models;
 using Rotativa.MVC;
 using gym_mgmt_01.Helper_Code.Common;
 
@@ -20,6 +21,7 @@ namespace gym_mgmt_01.Controllers
         SellsOrderItemsOpt soiAdd = new SellsOrderItemsOpt();
         SellsOrderOpt soAdd = new SellsOrderOpt();
         MemberOperation memOpt = new MemberOperation();
+        SalesTaxOperations sto = new SalesTaxOperations();
         dynamic model = new System.Dynamic.ExpandoObject();
 
         [AuthorizationPrivilegeFilter("Point of Sale", "View")]
@@ -129,6 +131,10 @@ namespace gym_mgmt_01.Controllers
                            }).ToList();
             }
           return Json(memList, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult getSalesTax() {
+            SalesTax st = sto.getSalesTaxByIdObj(1);
+            return Json(st, JsonRequestBehavior.AllowGet);
         }
         public ActionResult printInvoice() {
             var data = new ActionAsPdf("Index");

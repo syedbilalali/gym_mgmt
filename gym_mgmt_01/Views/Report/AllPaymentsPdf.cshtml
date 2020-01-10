@@ -30,9 +30,12 @@
     <div class="invoice">
         <h2>PHYSIOFIT CLUB</h2>
         <h3>Payment Report</h3>
-        <div class="invoicetable">
+        <div class="invoicetable row">
             <table class="table table-bordered">
                 <thead>
+                 
+                </thead>
+                <tbody>
                     <tr>
                         <th>Invoice No.</th>
                         <th>Member Name</th>
@@ -43,8 +46,7 @@
                         <th>Remain Price</th>
                         <th>Paid Status</th>
                     </tr>
-                </thead>
-                <tbody>
+
                     @if (Model.sellsReport.Count > 0)
                     {
                         foreach (var sells in Model.sellsReport)

@@ -19,7 +19,9 @@ namespace gym_mgmt_01.Controllers
         MasterLogin mo = new MasterLogin();
         MasterOperation ml = new MasterOperation();
         StaffOperation so = new StaffOperation();
+        SalesTaxOperations taxOperations = new SalesTaxOperations();
         DataTable dt = new DataTable();
+        dynamic model = new System.Dynamic.ExpandoObject();
         [Authorize]
         public ActionResult Index()
         {   
@@ -61,19 +63,96 @@ namespace gym_mgmt_01.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SalesTax(SalesTax sales) {
-            
-            if (ModelState.IsValid) { 
+        public ActionResult SalesTax(SalesTax sales)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (sales != null)
+                {
+                    taxOperations.AddSalesTax(sales);
+                    ModelState.Clear();
+                    ViewBag.Message = " Sales Tax Updated successfully !!! ";
+                }
             }
-            return View("SalesTax");
+            return View(sales);
         }
-        public ActionResult Settings() {
+        public ActionResult FindSalesTax()
+        {
+            if (Session["modules"] != null)
+            {
+                List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
+                ModuleDetails md1 = md.Find(x => x.Module.Equals("SalesTax"));
+                ViewBag.Module = md1.Module;
+                ViewBag.Create = md1.Create;
+                ViewBag.Edit = md1.Edit;
+                ViewBag.Delete = md1.Delete;
+            }
+
+            List<SalesTax> data = new List<SalesTax>();
+
+            var dt = taxOperations.getAllSalesTax();
+            data = dt.ToList();
+            model.salestax = data;
+            return View(model);
+        }
+        public JsonResult SalesTaxEdit(int id)
+        {
+
+            List<SalesTax> taxes = taxOperations.getAllSalesTax();
+            var st = taxes.Find(x => x.Id.Equals(id));
+            return Json(st, JsonRequestBehavior.AllowGet);
+        }
+        //[HttpPost]
+        public ActionResult EditSalesTax(SalesTax st)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (st != null)
+                {
+                    taxOperations.updateSalesTax(st);
+                    ModelState.Clear();
+                    ViewBag.Message = " Sales Tax Updated successfully !!! ";
+                }
+
+            }
+            return RedirectToAction("FindSalesTax");
+        }
+
+
+        public ActionResult DeleteSalesTax(int id)
+        {
+            try
+            {
+                bool result = taxOperations.deleteSalesTaxById(id);
+                if (result == true)
+                {
+                    ViewBag.Message = "Sales Tax Value Deleted Successfully";
+                    ModelState.Clear();
+                }
+                else
+                {
+                    ViewBag.Message = " Sorry Something went Wrong !!! ";
+                    ModelState.Clear();
+                }
+                return RedirectToAction("FindSalesTax");
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public ActionResult Settings()
+        {
             return View();
         }
-        public ActionResult AdminAccess() {
+        public ActionResult AdminAccess()
+        {
             return View();
         }
-        public ActionResult NoAccess() {
+        public ActionResult NoAccess()
+        {
             return View();
         }
     }

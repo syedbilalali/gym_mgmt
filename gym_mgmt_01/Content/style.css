@@ -632,7 +632,7 @@
 }
 
 .invoice {
-	padding: 50px 100px;
+	padding: 50px 15px;
 	margin: 20px 0px;
 }
 
@@ -673,13 +673,15 @@
 
 	.invoicetable .table th, .invoicetable .table td {
 		border: 1px solid #afafaf;
-		font-size: 17px;
+		font-size: 15px;
 	}
 
-	.invoicetable .table th {
-		background-color: #dfdfdf;
-		font-weight: 600;
-	}
+    .invoicetable .table th {
+        background-color: #dfdfdf;
+        font-weight: 600;
+        font-size: 12px;
+        padding:  .8rem .5rem;
+    }
 
 .btninvoice {
 	float: right;

@@ -22,7 +22,7 @@ namespace gym_mgmt_01.Models
         public string Email { get; set; }
 
 
-        [Remote("IsAlreadyCell", "Member", HttpMethod = "POST", ErrorMessage = "Cell already exists.")]
+        [Remote("IsAlreadyCell", "Member",AdditionalFields ="Id", HttpMethod = "POST", ErrorMessage = "Cell already exists.")]
         [Required(ErrorMessage = "Cell is required.")]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^([0|\+[0-9]{1,4})?([0-9]{8})$", ErrorMessage = " Invalid Mobile Number !!!")]

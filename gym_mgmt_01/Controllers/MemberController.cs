@@ -290,8 +290,8 @@ namespace gym_mgmt_01.Controllers
         [ValidateAntiForgeryToken]
         [AuthorizationPrivilegeFilter("Member", "Edit")]
         public ActionResult Edit(MemberRegistration mr) {
-            ModelState.Remove("Email");
-            ModelState.Remove("Cell");
+         ////   ModelState.Remove("Email");
+         //   ModelState.Remove("Cell");
             var validImageTypes = new string[]
                    {
                     "image/gif",
@@ -323,9 +323,16 @@ namespace gym_mgmt_01.Controllers
             return View(mr);
         }
         [HttpPost]
-        public JsonResult IsAlreadyEmail(MemberRegistration mr)
+        public JsonResult IsAlreadyEmail(MemberRegistration mr , int? Id)
         {
-            string mode = "E";
+            String mode = "";
+            if (Id == null)
+            {
+                mode = "C";
+            }
+            else {
+                mode = "E";
+            }
             return Json(IsEmailAvailable(mr.contact.Email , mode));
         }
         public bool IsEmailAvailable(string email , string mode)
