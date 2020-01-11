@@ -276,7 +276,6 @@
                 dataType: "json",
                 success: function(response) {
                     if (response != null) {
-                      alert(JSON.stringify(response));
                       var membername = response.FirstName + ' ' + response.LastName;
                         modalmembrID = response.Id;
                         modalmembrname.value = membername;

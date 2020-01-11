@@ -124,7 +124,7 @@
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
                 success: function (response) {
-                 //  alert(" SucessFull Get the Value " + JSON.stringify(response));
+              //    alert(" SucessFull Get the Value " + JSON.stringify(response));
                     $('#StaffID').val(response.StaffID);
                     $('#FirstName').val(response.FirstName);
                     $('#LastName').val(response.LastName);
@@ -132,9 +132,13 @@
                     $('#Designation').val(response.Designation);
                     $('#Gender').val(response.Gender);
                     $('#Password').val(response.Password);
+                    $('#ConfirmPassword').val(response.Password);
                     $('#updateProd').modal('show');
                     $('#prodprof1').attr("src", response.ImgURL);
-                    $('#staffImg').attr("value",response.ImgURL );
+                    $('#staffImg').attr("value", response.ImgURL);
+                    $('#permission').val(response.permission);
+                   
+
                 },
                 error: function (response) {
                     alert(response.responseText);

@@ -218,7 +218,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Email address<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = " Enter Email Address" } })
+                                                        @Html.EditorFor(model => model.contact.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = " Enter Email Address", @required = "" } })
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Email, "", new { @class = "text-danger" })
                                                         </div>
@@ -228,7 +228,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Cell<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43", @placeholder = " Enter Cell Number " } })
+                                                        @Html.EditorFor(model => model.contact.Cell, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43", @placeholder = " Enter Cell Number " , @required = "" } })
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.contact.Cell, "", new { @class = "text-danger" })
                                                         </div>
@@ -908,7 +908,7 @@
         mode: 'gradient'
     });
     // Date Picker
-    jQuery('.mydatepicker, #datepicker').datepicker();
+  //  jQuery('.mydatepicker, #datepicker').datepicker();
     jQuery('#datepicker-autoclose').datepicker({
         autoclose: true,
         todayHighlight: true
@@ -1049,6 +1049,24 @@
         dateLimit: {
             days: 6
         }
+    });
+        $(document).ready(function () {
+        var today = new Date();
+        $('.mydatepicker').datepicker({
+            format: 'mm-dd-yyyy',
+            autoclose:true,
+            endDate: "today",
+            maxDate: today
+        }).on('changeDate', function (ev) {
+                $(this).datepicker('hide');
+            });
+
+
+        $('.mydatepicker').keyup(function () {
+            if (this.value.match(/[^0-9]/g)) {
+                this.value = this.value.replace(/[^0-9^-]/g, '');
+            }
+        });
     });
       //-------------------------------------------------------------
     </script>

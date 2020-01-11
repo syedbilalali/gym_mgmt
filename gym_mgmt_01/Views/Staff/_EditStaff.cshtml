@@ -7,7 +7,7 @@
 }
 @model gym_mgmt_01.Models.Staff
 <div class="modal" id="updateProd" tabindex="-1" role="dialog" aria-labelledby="addcatlabel">
-    @using (Html.BeginForm("EditStaff", "Staff", FormMethod.Post, new { enctype = "multipart/form-data" , @Id="memreg" }))
+    @using (Html.BeginForm("_EditStaff", "Staff", FormMethod.Post, new { enctype = "multipart/form-data" , @Id="memreg" }))
     {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -19,6 +19,8 @@
                     <form>
                         <input type="hidden" name="id" id="prodID" />
                         @Html.HiddenFor(model => model.StaffID)
+                        @Html.HiddenFor(model => model.permission)
+                        @Html.HiddenFor(model => model.ConfirmPassword);
                         <div class="form-group">
                             <label for="" class="control-label label1"> First Name :</label>
                             @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control label2", @placeholder = "First Name", @required = "" } })

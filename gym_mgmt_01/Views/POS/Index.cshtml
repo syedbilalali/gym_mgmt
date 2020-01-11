@@ -810,7 +810,6 @@
         }
         function addSellsOrder(Invoice_number, member_name, subtotal, SalesTax, Total_Amount, Paid_Status, Total_Pay, Discount_price, Remain_price) {
             //Add Sells Order Here To the Server
-            alert(" Sells Order Item Added");
             var so = new Object();
             so.Invoice_number = Invoice_number;
             so.Member_Name = member_name;
@@ -905,8 +904,7 @@
                     success: function (response) {
                         if (response != null) {
                             var data = JSON.parse(JSON.stringify(response));
-                            alert(" Data Response : " + JSON.stringify(response));
-                            alert("Tax Value :" + response.SalesTaxValue);
+                       
                             document.querySelector('#SalesTax').value = response.SalesTaxValue; 
                             resolve(response);
                         } else {

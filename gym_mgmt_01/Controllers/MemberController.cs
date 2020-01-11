@@ -310,7 +310,7 @@ namespace gym_mgmt_01.Controllers
             mr.member.ImagePath = uploadFile(mr.ImageFile);
             if (ModelState.IsValid)
             {
-               
+
                 mr.member.MemberType = "member";
                 mr.contact.Subscribed = "";
 
@@ -319,6 +319,10 @@ namespace gym_mgmt_01.Controllers
                 co.UpdateContact(mr.contact);
                 ViewBag.Message = "Successfully Update  Member !!!";
                 ViewBag.ID = mo.getMemberID();
+            }
+            else {
+                ViewBag.ID = mo.getMemberID();
+                mr.member.ImagePath = "/assets/images/users/deafult.png";
             }
             return View(mr);
         }

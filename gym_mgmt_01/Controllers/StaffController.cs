@@ -143,7 +143,7 @@ namespace gym_mgmt_01.Controllers
             return Json(st, JsonRequestBehavior.AllowGet);
         }
         [AuthorizationPrivilegeFilter("Staff", "Edit")]
-        public ActionResult EditStaff(Staff  st) {
+        public ActionResult _EditStaff(Staff  st) {
 
             if (ModelState.IsValid) {
                 if (st.PostedFile != null)
@@ -156,7 +156,7 @@ namespace gym_mgmt_01.Controllers
                 }
               
             }
-            return RedirectToAction("FindStaff");
+           return RedirectToAction("FindStaff");
         }
         [AuthorizationPrivilegeFilter("Staff" , "Delete")]
         public ActionResult DeleteStaff(int id)
