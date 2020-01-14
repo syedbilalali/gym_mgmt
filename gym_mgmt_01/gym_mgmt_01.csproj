@@ -196,6 +196,9 @@
     </Compile>
     <Compile Include="Helper_Code\Common\AllowFileSizeAttribute.cs" />
     <Compile Include="Helper_Code\Common\AuthorizationPrivilegeFilter.cs" />
+    <Compile Include="Helper_Code\Common\DateGreaterThanAttribute.cs" />
+    <Compile Include="Helper_Code\Common\MyDateAttribute.cs" />
+    <Compile Include="Helper_Code\Common\RemoteClientServer.cs" />
     <Compile Include="Helper_Code\Common\UniqueRoute.cs" />
     <Compile Include="Models\AdditionalDetails.cs" />
     <Compile Include="Models\Classes.cs" />
@@ -3665,6 +3668,8 @@
     <Content Include="Views\Report\AllPaymentsPdf.cshtml" />
     <Content Include="Views\Home\FindSalesTax.cshtml" />
     <Content Include="Views\Home\_EditSalesTax.cshtml" />
+    <Content Include="Views\Training\_EditClass.cshtml" />
+    <Content Include="Views\Training\_EditClass1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

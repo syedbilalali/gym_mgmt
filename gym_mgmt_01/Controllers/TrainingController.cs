@@ -33,6 +33,7 @@ namespace gym_mgmt_01.Controllers
             List<Staff> st = staffOp.getAllStaff();
             model.classes = cl;
             model.staff = st;
+            TempData["stafflist"] = getList(st);
             return View(model);
         }
         [HttpPost]
@@ -93,14 +94,13 @@ namespace gym_mgmt_01.Controllers
         public JsonResult getClasses(int id) {
             List<Classes> classes = classOpt.getAllClasses();
             var data = classes.Find(x => x.Id.Equals(id));
-            data.From = DateTime.Parse(data.From.ToString("hh:mm tt"));
-            data.To = DateTime.Parse(data.To.ToString("hh:mm tt"));
+            //     data.From = DateTime.Parse(data.From.ToString("hh:mm tt"));
+            //    data.To = DateTime.Parse(data.To.ToString("hh:mm tt"));
             return Json(data , JsonRequestBehavior.AllowGet);
         }
         public ActionResult AddReminder() {
             return View();
         }
-
 
         [AuthorizationPrivilegeFilter("Training Schedule", "Delete")]
         public ActionResult DeleteClasses(int id)
@@ -125,8 +125,6 @@ namespace gym_mgmt_01.Controllers
                 throw;
             }
         }
-
-
         [AuthorizationPrivilegeFilter("Training Schedule", "Create")]
         public ActionResult addClassSubscriptions(FormCollection fc) {
             
@@ -144,20 +142,51 @@ namespace gym_mgmt_01.Controllers
         }
 
         [AuthorizationPrivilegeFilter("Training Schedule", "Edit")]
-        public ActionResult EditClass(FormCollection fc) {
-
-            Classes cl = new Classes();
-            cl.Id = int.Parse(fc["classID"].ToString());
-            cl.ClassName = fc["className"].ToString();
-            cl.From = DateTime.Parse(fc["From"].ToString());
-            cl.To = DateTime.Parse(fc["To"].ToString());
-            cl.Note = fc["Note"].ToString();
-            cl.Repeats = fc["Repeats"].ToString();
-            cl.RepeatsEnd = DateTime.Parse(fc["RepeatsEnd"].ToString());
-            cl.Resource = fc["Resource"].ToString();
-            cl.StaffID = int.Parse(fc["StaffID"].ToString());
-            classOpt.UpdateClass(cl);
+        public ActionResult EditClass1(FormCollection fc) {
+            if (ModelState.IsValid) {
+                Classes cl = new Classes();
+                cl.Id = int.Parse(fc["classID"].ToString());
+                cl.ClassName = fc["className"].ToString();
+                cl.From = DateTime.Parse(fc["From"].ToString());
+                cl.To = DateTime.Parse(fc["To"].ToString());
+                cl.Note = fc["Note"].ToString();
+                cl.Repeats = fc["Repeats"].ToString();
+                cl.RepeatsEnd = DateTime.Parse(fc["RepeatsEnd"].ToString());
+                cl.Resource = fc["Resource"].ToString();
+                cl.StaffID = int.Parse(fc["ClassName"].ToString());
+                classOpt.UpdateClass(cl);
+                
+            }
             return RedirectToAction("Index");
+        }
+        [AuthorizationPrivilegeFilter("Training Schedule", "Edit")]
+        public ActionResult _EditClass1(Classes cl) {
+            if (ModelState.IsValid) {
+                classOpt.UpdateClass(cl);
+            }
+            List<Staff> st = staffOp.getAllStaff();
+            TempData["stafflist"] = getList(st);
+            return RedirectToAction("Index");
+          //  return PartialView(new gym_mgmt_01.Models.Classes());
+        }
+        public List<SelectListItem> getList(List<Staff> st) {
+            List<SelectListItem> staff = new List<SelectListItem>();
+            staff.Add(new SelectListItem() { Text="--SELECT STAFF--" , Value=""});
+            foreach (var s in st) {
+                staff.Add(new SelectListItem()
+                {
+                    Text = s.FirstName,
+                    Value = s.StaffID
+                });
+            }
+            return staff;
+        }
+        [HttpPost]
+        public JsonResult checkdata(Classes cl)
+        {
+            
+            return Json(false);
+
         }
     }
 }

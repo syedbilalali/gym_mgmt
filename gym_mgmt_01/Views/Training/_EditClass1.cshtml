@@ -1,0 +1,69 @@
+﻿@{
+    List<SelectListItem> data = TempData["stafflist"] as List<SelectListItem>;
+
+    List<SelectListItem> repeats = new List<SelectListItem>();
+    repeats.Add(new SelectListItem() { Text = "N/A (Single Appointment)", Value = "0" });
+    repeats.Add(new SelectListItem() { Text = "Weekly", Value = "7 days" });
+    repeats.Add(new SelectListItem() { Text = "Fortnightly", Value = "14 days" });
+    repeats.Add(new SelectListItem() { Text = "3 Weeks", Value = "21 days" });
+    repeats.Add(new SelectListItem() { Text = "4 Weeks", Value = "28 days" });
+    repeats.Add(new SelectListItem() { Text = "6 Weeks", Value = "42 days" });
+    repeats.Add(new SelectListItem() { Text = "8 Weeks", Value = "56 days" });
+    repeats.Add(new SelectListItem() { Text = "Monthly", Value = "1 mon" });
+    repeats.Add(new SelectListItem() { Text = "Daily", Value = "1 day" });
+
+    List<SelectListItem> resource = new List<SelectListItem>();
+    resource.Add(new SelectListItem() { Text = "--SELECT Resource--", Value = "0" });
+    resource.Add(new SelectListItem() { Text = "Studio", Value = "1" });
+}
+@model gym_mgmt_01.Models.Classes
+<form id="addClass" method="post">
+    @Html.HiddenFor(model => model.Id)
+    <div class="form-group">
+        <label for="" class="control-label label1">Class:</label>
+
+        @Html.EditorFor(model => model.ClassName, new { htmlAttributes = new { @id = "Class", @class = "form-control label2", @placeholder = " Enter Class Name ", @required = "" } })
+        @Html.ValidationMessageFor(model => model.ClassName, "", new { htmlAttributes = new { @class = "text-danger" } })
+    </div>
+    <div class="form-group">
+        <label for="" class="control-label label1">From:</label>
+        @Html.EditorFor(model => model.From, new { htmlAttributes = new { @type = "time", @min = "00:00", @max = "23:59", @name = "From", @required = "", @onblur = "", @class = "form-control label2", @id = "timeFrom" } })
+        @Html.ValidationMessageFor(model => model.From, "", new { @class = "text-danger" })
+
+    </div>
+    <div class="form-group">
+        <label for="" class="control-label label1">To:</label>
+        @Html.EditorFor(model => model.To, new { htmlAttributes = new { @type = "time", @min = "00:00", @max = "23:", @name = "To", @required = "", @class = "form-control label2", @onblur = "", @id = "timeTo" } })
+        @Html.ValidationMessageFor(model => model.To, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label for="" class="control-label label1">Repeats:</label>
+        <div class="controls">
+            @Html.DropDownListFor(model => model.Repeats, repeats, new { @class = " custom-select label2", @placeholder = " Select Gender ", @required = "" })
+            @Html.ValidationMessageFor(model => model.Repeats, "", new { @class = "text-danger" })
+
+            <div class="help-block" style="padding-left:30%;"></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="" class="control-label label1">Repeat Ends:</label>
+        @Html.EditorFor(model => model.RepeatsEnd, new { htmlAttributes = new { @type = "date", @name = "RepeatsEnd", @class = "form-control label2", @required = "", @id = "RepeatsEnds" } })
+        @Html.ValidationMessageFor(model => model.RepeatsEnd, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label for="" class="control-label label1">Resource:</label>
+        @Html.DropDownListFor(model => model.Resource, resource, new { @class = " custom-select label2", @placeholder = " Select Gender ", @required = "" })
+        @Html.ValidationMessageFor(model => model.Resource, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label for="" class="control-label label1">Teacher/ Instructor:</label>
+        @Html.DropDownListFor(model => model.StaffID, data, new { @class = " custom-select label2", @placeholder = " Select Gender ", @required = "" })
+        @Html.ValidationMessageFor(model => model.StaffID, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label for="" class="control-label label1">Note:</label>
+        @Html.TextAreaFor(model => model.Note, new { @class = "form-control label2" })
+        @Html.ValidationMessageFor(model => model.Note, "", new { htmlAttributes = new { @class = "text-danger" } })
+    </div>
+</form>
+
