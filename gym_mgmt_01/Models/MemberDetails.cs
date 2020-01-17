@@ -16,6 +16,7 @@ namespace gym_mgmt_01.Models
         public int MId { get; set; }
         public string Name { get; set; }
         public decimal Amount { get; set;  }
+        public int SId { get; set; }
 
     }
 }

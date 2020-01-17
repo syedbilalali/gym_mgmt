@@ -20,6 +20,7 @@ namespace gym_mgmt_01.Controllers
         MemberOperation mo = new MemberOperation();
         ContactOpration co = new ContactOpration();
         MembershipOpt memOpt = new MembershipOpt();
+        SubscriptionOpt so = new SubscriptionOpt();
         DataTable dt = new DataTable();
         dynamic model = new System.Dynamic.ExpandoObject();
 
@@ -171,7 +172,7 @@ namespace gym_mgmt_01.Controllers
             {
                 if (file.ContentType == "image/jpeg" || file.ContentType == "image/gif" || file.ContentType == "image/png")
                 {
-                    if (file.ContentLength < 102400)
+                    if (file.ContentLength < 1 * 1024 * 1024) 
                     {
 
                         string FileName = Path.GetFileNameWithoutExtension(file.FileName);
@@ -193,7 +194,7 @@ namespace gym_mgmt_01.Controllers
                         file.SaveAs(fullPath);
                     }
                     else {
-                        ModelState.AddModelError("member.ImagePath", "Please upload image less then 100 MB");
+                        ModelState.AddModelError("member.ImagePath", "Please upload image less then 1 MB");
                         ViewBag.Message = "";
                     }
                 }
@@ -261,7 +262,8 @@ namespace gym_mgmt_01.Controllers
         }
         private static List<T> ConvertDataTable<T>(DataTable dt)
         {
-            List<T> data = new List<T>();
+            List
+                <T> data = new List<T>();
             foreach (DataRow row in dt.Rows)
             {
                 T item = GetItem<T>(row);
@@ -290,15 +292,14 @@ namespace gym_mgmt_01.Controllers
         [ValidateAntiForgeryToken]
         [AuthorizationPrivilegeFilter("Member", "Edit")]
         public ActionResult Edit(MemberRegistration mr) {
-         ////   ModelState.Remove("Email");
-         //   ModelState.Remove("Cell");
+
             var validImageTypes = new string[]
-                   {
+            {
                     "image/gif",
                     "image/jpeg",
                     "image/pjpeg",
                     "image/png"
-               };
+            };
             if (mr.ImageFile == null || mr.ImageFile.ContentLength == 0)
             {
                 //   ModelState.AddModelError("ImageUpload", "This field is required");
@@ -310,10 +311,8 @@ namespace gym_mgmt_01.Controllers
             mr.member.ImagePath = uploadFile(mr.ImageFile);
             if (ModelState.IsValid)
             {
-
                 mr.member.MemberType = "member";
                 mr.contact.Subscribed = "";
-
                 mo.UpdateMember(mr.member);
                 mr.contact.MemberID = mr.member.Id;
                 co.UpdateContact(mr.contact);
@@ -377,6 +376,21 @@ namespace gym_mgmt_01.Controllers
                 status = true;
             }
             return status;
+        }
+        [HttpPost]
+        public JsonResult updateMembership(int SubscriptionID, int MembershipID) {
+
+            //Update the Membership Subscriptions.
+            Subscriptions sub = new Subscriptions()
+            {
+                Id = SubscriptionID,
+                MembershipID = MembershipID
+            };
+            bool result = so.UpdateSubscriptions(sub);
+            if (result) {
+                return Json(result);
+            }
+            return Json(result); 
         }
     }
 }

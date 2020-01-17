@@ -16,13 +16,13 @@ namespace gym_mgmt_01.Models
         public int? MemberID { get; set; }
 
         [Display(Name = "Email Address")]
-        [Remote("IsAlreadyEmail", "Member", HttpMethod = "POST", ErrorMessage = "Email already exists.")]
+        [Remote("IsAlreadyEmail", "Member", HttpMethod = "POST" , ErrorMessage = "Email already exists.")]
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid Email Address.")]
         public string Email { get; set; }
 
 
-        [Remote("IsAlreadyCell", "Member",AdditionalFields ="Id", HttpMethod = "POST", ErrorMessage = "Cell already exists.")]
+        [Remote("IsAlreadyCell", "Member", HttpMethod = "POST", ErrorMessage = "Cell already exists.")]
         [Required(ErrorMessage = "Cell is required.")]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^([0|\+[0-9]{1,4})?([0-9]{8})$", ErrorMessage = " Invalid Mobile Number !!!")]

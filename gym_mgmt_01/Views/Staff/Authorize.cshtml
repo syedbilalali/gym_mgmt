@@ -6,7 +6,20 @@
 }
 @model List<gym_mgmt_01.Models.ModuleDetails>
 @using (Html.BeginForm("SetAuth", "Staff", FormMethod.Post , new { @id="setauth"}))
-{
+{  
+    <div class="row upp2">
+        <div class="col-md-12">
+            @if (ViewBag.Message != "")
+            {
+            <div class="alert alert-success" style="display:block;">
+                <i class="fa fa-exclamation-triangle text-warning"></i>&nbsp;
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                @Html.Raw(ViewBag.Message)
+
+            </div>
+            }
+        </div>
+    </div>
     <div class="row upp2">
         <!-- Column -->
         <div class="row rolebtns2">

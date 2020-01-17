@@ -6,14 +6,14 @@
     int count = 0;
     int id = 0;
 }
-@model dynamic 
-    <div class="searchinput">
-        <input type="text" id="srch" name="search" onkeyup="btnsearch()" class="search1" placeholder="Search Member..">
-    </div>
-    <div class="btnscontrol">
-        <a class="buttoncol" data-rel="#rowvalue" href="#"><i class="ti-menu gridpart"></i></a>
-        <a class="buttoncol active" data-rel="#colvalue" href="#"><i class="ti-layout-grid2-alt gridpart"></i></a>
-    </div>
+@model dynamic
+<div class="searchinput">
+    <input type="text" id="srch" name="search" onkeyup="btnsearch()" class="search1" placeholder="Search Member..">
+</div>
+<div class="btnscontrol">
+    <a class="buttoncol" data-rel="#rowvalue" href="#"><i class="ti-menu gridpart"></i></a>
+    <a class="buttoncol" data-rel="#colvalue" href="#"><i class="ti-layout-grid2-alt gridpart"></i></a>
+</div>
 <div class="radiobtns" style="display:none;">
     <input type="radio" name="memberFilter" value="everyone" checked> Everyone
     <input type="radio" name="memberFilter" value="currentmembers"> Current Members
@@ -21,7 +21,7 @@
     <input type="radio" name="memberFilter" value="expiredmembers"> Expired Members
     @*<input type="radio" name="memberFilter" value="prospects"> Prospects*@
 </div>
-<div class="container1" id="colvalue" style="display:none;"> 
+<div class="container1" id="colvalue" style="display:none;">
 </div>
 <div class="container2" id="colvalue" style="display:none">
     <div class="centered">No Result Found. </div>
@@ -67,13 +67,16 @@
                         <label for="message-text" class="control-label label1 ">Modify Membership:</label>
                         <select class="form-control label2" id="modalMembership">
                             <option value="">--SELECT Membership--</option>
-                            @if (Model.memshp.Count > 0) {
-                                foreach (var mem in Model.memshp) {
+                            @if (Model.memshp.Count > 0)
+                            {
+                                foreach (var mem in Model.memshp)
+                                {
                                     <option value="@mem.Id">@mem.Name</option>
                                 }
                             }
                         </select>
                     </div>
+                    <input type="hidden" id="subsId" name="subsId" value="0">
                 </form>
             </div>
             <div class="modal-footer">
@@ -85,36 +88,62 @@
 </div>
 <!-- /.modal -->
 @section scripts{
+    <script src="../assets/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
         $(function () {
            var searchtxt = document.querySelector("#srch");
-           searchtxt.addEventListener("keyup" , search);
+            searchtxt.addEventListener("keyup", search);
+            
+        });
+        $(function () {
+            var st = localStorage.getItem('view_state');
+            alert(" View_State Status : " + st);
+            if (st != null && st != 'undefined') {
+                //Getting  the Local Storage Item and Set the View
+                $('#colvalue').addClass('active');
+                var vt = localStorage.getItem('view_state');
+                $('.buttoncol.active').length && setContent($('.buttoncol.active'));
+                alert("oN GET" + vt);
+              
+            } else {
+                $('#colvalue').addClass('active');
+                localStorage.setItem('view_state', $(this).data('rel'));
+                $('.buttoncol.active').length && setContent($('.buttoncol.active'));
+                alert(" On Setting the ENV ");
+            }
         });
         $('.buttoncol').click(function (e) {
+            alert("On  CLick");
             e.preventDefault();
             setContent($(this));
         });
-        // set content on load
-        $('.buttoncol.active').length && setContent($('.buttoncol.active'));
         function setContent($el) {
             $('.buttoncol').removeClass('active');
             $('.container1').hide();
+            //  $($el.data('rel')).show();
+            localStorage.setItem('view_state', $el.data('rel'));
             $el.addClass('active');
-            $($el.data('rel')).show();
+            $(localStorage.getItem('view_state')).show();
         }
         function updateMembership() {
+            var subsID = document.querySelector('#subsId');
+            var membershipID = document.querySelector('#modalMembership');
+         // alert(" Updating the Membership !!! " + subsID.value + " Membership ID " + membershipID.value);
             $.ajax({
                 type: "POST",
-                url: "/Member/UpdateMembership",
-                data: '{"MemberID":"' + data.id + '" }',
+                url: "/Member/updateMembership",
+                data: '{"SubscriptionID":"' + subsID.value + '" , "MembershipID":"' + membershipID.value + '" }',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function(response) {
                     if (response != null) {
-                        var membername = response.FirstName + ' ' + response.LastName;
-                        modalmembrID = response.Id;
-                        modalmembrname.value = membername;
-                        $('#exampleModal').modal('show');
+                      //  alert(JSON.stringify(response));
+                        if (response == true) {
+                           // alert(" Successfully Modify Membership. ");
+                           Swal.fire(" Successfully Modify Membership !!! ");
+                        } else {
+                             Swal.fire(" Sorry for Inconvenience ?");
+                        }
                     } else {
                         alert("Something went wrong");
                     }
@@ -129,7 +158,6 @@
 
         }
         function btnsearch() {
-
            var input, filter, ul, li, a, i, txtValue;
             input = document.getElementById("srch");
             filter = input.value.toUpperCase();
@@ -173,17 +201,17 @@
                     var card;
                     var count_rows = table.rows.count;
                     var div = 0;
-                    let count = 0;  
+                    let count = 0;
                     card = '<div class="row" id="cont">';
                     for (var i = 0; i < json.length; ++i) {
-                        var mrow = table.insertRow(count_rows);
+                            var mrow = table.insertRow(count_rows);
                             var cell0 = mrow.insertCell(0)
                             var cell1 = mrow.insertCell(1);
                             var cell2 = mrow.insertCell(2);
                             var cell3 = mrow.insertCell(3);
                             var cell4 = mrow.insertCell(4);
-                        var cell5 = mrow.insertCell(5);
-                            cell0.innerHTML =  i+1; 
+                            var cell5 = mrow.insertCell(5);
+                            cell0.innerHTML =  i+1;
                             cell1.innerHTML = '<a href="/Member/Edit/' + json[i].Id + '"> #' + json[i].Id + '</a>';
                             cell2.innerHTML = json[i].FirstName;
                             cell3.innerHTML = json[i].LastName;
@@ -229,7 +257,7 @@
                 if (response != null) {
                     var data = response;
                     var memberdata = '';
-                    var rows = data.length / 3;                                        
+                    var rows = data.length / 3;
                     var left = data.length % 3;
                     var json = JSON.parse(JSON.stringify(data));
                     console.log(json);
@@ -250,7 +278,7 @@
                         data += '</div>';
                         memberdata += data;
                     }
-                    $('#colvalue').html(memberdata);                                   
+                    $('#colvalue').html(memberdata);
                 } else {
                     alert(" Something went wrong !!! ");
                 }
@@ -268,6 +296,7 @@
             var modalmembrname = document.getElementById('modalmemberName');
             var modalmembrID = document.getElementById('modalmemberID');
             var modalMembership = document.getElementById('#modalMembership');
+            var subsID = document.querySelector('#subsId');
             $.ajax({
                 type: "POST",
                 url: "/Member/getMembershipWithMember",
@@ -276,9 +305,12 @@
                 dataType: "json",
                 success: function(response) {
                     if (response != null) {
-                      var membername = response.FirstName + ' ' + response.LastName;
+                      //  alert(JSON.stringify(response));
+                        var membername = response.FirstName + ' ' + response.LastName;
                         modalmembrID = response.Id;
                         modalmembrname.value = membername;
+                        subsID.value = response.SId;
+                      //  alert(" Member ID : " + modalmembrID + " Member Value : " + membername + " Membership ID : " + response.MId + " Subscript Value : " + subsID.value);
                         if (response.MId == "0") {
                             $('#modalMembership').val("");
                         } else {
@@ -296,6 +328,6 @@
                    alert(" Error" + response.responseText);
                 }
             });
-        } 
+        }
     </script>
 }

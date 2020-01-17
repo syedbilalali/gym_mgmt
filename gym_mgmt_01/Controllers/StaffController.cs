@@ -21,9 +21,6 @@ namespace gym_mgmt_01.Controllers
         RoleOperation ro = new RoleOperation();
         dynamic model = new System.Dynamic.ExpandoObject();
 
-
-
-
         // GET: Staff
         [AuthorizationPrivilegeFilter("Staff", "Create")]
         public ActionResult Index()
@@ -131,11 +128,31 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         public ActionResult SetAuth(List<ModuleDetails> md)
         {
-            string Id = TempData["id"].ToString();
-            so.updatePermission(JsonConvert.SerializeObject(md), Id);
-            return RedirectToAction("Authorize", new { id = Id });
+            string message = "<span class='text-danger'>Action is required for Module :  &nbsp;</span>";
+            bool update = true;
+            foreach(var perm in md ) {
+                if (perm.isSelected == true) {
+                    if (perm.View != true && perm.Create  !=true &&  perm.Delete != true && perm.Edit != true) {
+                        message += "<b>&nbsp;<span class='label label-danger'>" + perm.Module + " ";
+                        update = false;
+                    }
+                    message += "</span>&nbsp;</b>";
+                }
+            }
+            string Id = TempData["id"].ToString();   
+            List<Staff> staffs = so.getAllStaff();
+            TempData["Id"] = Id;
+            Staff st = staffs.Find(x => x.StaffID.Contains(Id.ToString()));
+            List<ModuleDetails> md1 = JsonConvert.DeserializeObject<List<ModuleDetails>>(st.permission);
+            ViewBag.Message = message;
+            if (update == true)
+            {
+                ViewBag.Message = message = "";
+            }
+            string permit = JsonConvert.SerializeObject(md);
+            so.updatePermission(permit, Id);
+            return View("Authorize", md1);
         }
-        
         public JsonResult StaffEdit(int id) {
             
             List<Staff> staff = so.getAllStaff();
@@ -190,7 +207,7 @@ namespace gym_mgmt_01.Controllers
             {
                 if (file.ContentType == "image/jpeg" || file.ContentType == "image/gif" || file.ContentType == "image/png")
                 {
-                    if (file.ContentLength < 102400)
+                    if (file.ContentLength < 1 * 1024 * 1024)
                     {
 
                         string FileName = Path.GetFileNameWithoutExtension(file.FileName);
@@ -213,7 +230,7 @@ namespace gym_mgmt_01.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("m.PostedFile", "Please upload image less then 100 MB ");
+                        ModelState.AddModelError("m.PostedFile", "Please upload image less then 1 MB ");
                        ViewBag.Message = "";
                     }
                 }

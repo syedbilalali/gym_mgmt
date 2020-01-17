@@ -173,11 +173,13 @@ namespace gym_mgmt_01.Controllers
             return View("AllBills");
         }
         public ActionResult AllBillsPdf() {
+
             List<SellsOrder> so = ro.getAlSellsOrder();
             model.sellsReport = so;
             return View(model);
         }
         public ActionResult AllPaymentsPdf() {
+
             List<SellsOrder> so = ro.getAlSellsOrder();
             model.sellsReport = so;
             return View(model);

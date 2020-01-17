@@ -59,24 +59,26 @@ namespace gym_mgmt_01.BAL.Master
         }
         public List<MemberDetails> getMemberWithMembershipAll() {
             DataTable dt = new DataTable();
-            string command = "SELECT mr.Id,mr.FirstName ,mr.LastName , mr.Gender , mr.DOB  , mr.ImgURL , ISNULL(mbr.Id, 0) as MId,ISNULL(mbr.Name,'None') as Name ,ISNULL(mbr.Amount, 0.00) as Amount  FROM Member mr  LEFT JOIN Subscriptions sbs ON mr.Id = sbs.MemberID LEFT JOIN Membership mbr ON mbr.Id = sbs.MembershipID ORDER BY Id DESC";
+            string command = "SELECT mr.Id,mr.FirstName ,mr.LastName , mr.Gender , mr.DOB  , mr.ImgURL , ISNULL(mbr.Id, 0) as MId,ISNULL(mbr.Name,'None') as Name , ISNULL(mbr.Amount, 0.00) as Amount , ISNULL(sbs.Id , 0) As SubscriptionsID  FROM Member mr  LEFT JOIN Subscriptions sbs ON mr.Id = sbs.MemberID LEFT JOIN Membership mbr ON mbr.Id = sbs.MembershipID ORDER BY Id DESC";
             dt = da.FetchAll(command);
             List<MemberDetails> md = new List<MemberDetails>();
             if (dt.Rows.Count > 0) {
-              md  = (from DataRow dr in dt.Rows
-                   select new MemberDetails()
-                   {
-                       Id = int.Parse(dr["Id"].ToString()),
-                       FirstName = dr["FirstName"].ToString(),
-                       LastName = dr["LastName"].ToString(),
-                       Gender = dr["Gender"].ToString(),
-                       DOB = dr["DOB"].ToString(),
-                       ImagePath = dr["ImgURL"].ToString(),
-                       MId = int.Parse(dr["MId"].ToString()),
-                       Name = dr["Name"].ToString(),
-                       Amount = decimal.Parse(dr["Amount"].ToString())
-                   }
-                ).ToList();
+                md = (from DataRow dr in dt.Rows
+                      select new MemberDetails()
+                      {
+                          Id = int.Parse(dr["Id"].ToString()),
+                          FirstName = dr["FirstName"].ToString(),
+                          LastName = dr["LastName"].ToString(),
+                          Gender = dr["Gender"].ToString(),
+                          DOB = dr["DOB"].ToString(),
+                          ImagePath = dr["ImgURL"].ToString(),
+                          MId = int.Parse(dr["MId"].ToString()),
+                          Name = dr["Name"].ToString(),
+                          SId = int.Parse(dr["SubscriptionsID"].ToString()),
+                          Amount = decimal.Parse(dr["Amount"].ToString())
+
+                      }
+                  ).ToList();
             }
             return md;
         }
