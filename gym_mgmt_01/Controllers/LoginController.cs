@@ -30,7 +30,6 @@ namespace gym_mgmt_01.Controllers
                 isStaff = so.Login(Email, Password);
 
                 if (!isAdmin && isStaff) {
-
                     FormsAuthentication.SetAuthCookie(Email, false);
                     Session["user"] = "Staff";
                     Session["Email"] = Email;
@@ -52,6 +51,7 @@ namespace gym_mgmt_01.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            Session.Abandon();
             return RedirectToAction("Login");
         }
 

@@ -184,9 +184,7 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         public JsonResult checkdata(Classes cl)
         {
-            
             return Json(false);
-
         }
     }
 }

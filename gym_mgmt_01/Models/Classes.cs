@@ -38,6 +38,7 @@ namespace gym_mgmt_01.Models
         public DateTime RepeatsEnd { get; set; }
         public string Resource { get; set; }
         public int StaffID { get; set;  }
+        public string StaffName { get; set;  }
         public string Note { get; set;  }
         public DateTime CreatedAt { get; set;  }
     }

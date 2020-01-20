@@ -71,10 +71,11 @@
 }
 
 .userimg {
-	width: 85%;
-	margin-right: 15%;
-	max-height: 200px;
-	max-width: 85%;
+    width: 85%;
+    margin-right: 15%;
+    max-height: 200px;
+    max-width: 85%;
+   
 }
 
 .col50 {
@@ -89,12 +90,12 @@
 }
 
 .memberwrapper {
-	border: 1px solid #cfcfcf;
-	box-shadow: 1px 2px 5px .6px #cfcfcf;
-	padding: 10px;
-	background-color: #fafafa;
-	width: 28%;
-	margin: 10px 2.5%;
+    border: 1px solid #cfcfcf;
+    box-shadow: 1px 2px 5px .6px #cfcfcf;
+    padding: 10px;
+    background-color: #fafafa;
+    width: 28%;
+    margin: 10px 2.5%;
 }
 
 	.memberwrapper:hover {
@@ -112,11 +113,11 @@
 		font-weight: 600;
 	}
 
-	.memberwrapper h5 {
-		margin-top: 20px;
-		font-size: 15px;
-		color: #9f9f9f;
-	}
+    .memberwrapper h5 {
+        margin-top: 20px;
+        font-size: 15px;
+        color: #222;
+    }
 
 .radiobtns {
 	display: inline;

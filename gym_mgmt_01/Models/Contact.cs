@@ -16,7 +16,7 @@ namespace gym_mgmt_01.Models
         public int? MemberID { get; set; }
 
         [Display(Name = "Email Address")]
-        [Remote("IsAlreadyEmail", "Member", HttpMethod = "POST" , ErrorMessage = "Email already exists.")]
+        [Remote("IsAlreadyEmail", "Member", HttpMethod = "POST", AdditionalFields = "initEmail", ErrorMessage = "Email already exists.")]
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid Email Address.")]
         public string Email { get; set; }
@@ -51,6 +51,7 @@ namespace gym_mgmt_01.Models
         public string Zipcode { get; set; }
 
         public string Subscribed { get; set; }
+        public string initEmail { get; set; }
 
     }
 }

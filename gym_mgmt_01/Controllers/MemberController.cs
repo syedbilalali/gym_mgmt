@@ -262,8 +262,7 @@ namespace gym_mgmt_01.Controllers
         }
         private static List<T> ConvertDataTable<T>(DataTable dt)
         {
-            List
-                <T> data = new List<T>();
+            List<T> data = new List<T>();
             foreach (DataRow row in dt.Rows)
             {
                 T item = GetItem<T>(row);

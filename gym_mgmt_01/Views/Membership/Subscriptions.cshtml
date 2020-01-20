@@ -166,21 +166,6 @@
                                 <div class="help-block" style=" padding-left:30%;"></div>
                             </div>
                         </div>
-                        <div class="form-group" style="display:none;">
-                            <label for="" class="control-label label1"> Payment Status :</label>
-                            <div class="controls">
-                                <select class="form-control label2" data-validation-required-message=" Please select payment status first." required="" aria-invalid="false">
-                                    <option value="Paid">Paid</option>
-                                    <option value="Unpaid">Unpaid</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group" style="display:none;">
-                            <label for="" class="control-label label1"> Amount Pay :</label>
-                            <div class="controls">
-                                <input type="text" class="form-control label2" />
-                            </div>
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -297,7 +282,7 @@
                     dataType: "json",
                  success: function (response) {
                     //alert(JSON.stringify(response));
-                     //alert(" SucessFull Get the Value " + JSON.stringify(response));
+                   //alert(" SucessFull Get the Value " + JSON.stringify(response));
                      $('#subID').val(response.Id);
                      $('#member').val(response.MemberID);
                      $('#membership').val(response.MembershipID);

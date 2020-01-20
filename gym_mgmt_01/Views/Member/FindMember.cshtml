@@ -12,7 +12,7 @@
 </div>
 <div class="btnscontrol">
     <a class="buttoncol" data-rel="#rowvalue" href="#"><i class="ti-menu gridpart"></i></a>
-    <a class="buttoncol" data-rel="#colvalue" href="#"><i class="ti-layout-grid2-alt gridpart"></i></a>
+    <a class="buttoncol active" data-rel="#colvalue" href="#"><i class="ti-layout-grid2-alt gridpart"></i></a>
 </div>
 <div class="radiobtns" style="display:none;">
     <input type="radio" name="memberFilter" value="everyone" checked> Everyone
@@ -93,37 +93,38 @@
         $(function () {
            var searchtxt = document.querySelector("#srch");
             searchtxt.addEventListener("keyup", search);
-            
         });
-        $(function () {
-            var st = localStorage.getItem('view_state');
-            alert(" View_State Status : " + st);
-            if (st != null && st != 'undefined') {
-                //Getting  the Local Storage Item and Set the View
-                $('#colvalue').addClass('active');
-                var vt = localStorage.getItem('view_state');
-                $('.buttoncol.active').length && setContent($('.buttoncol.active'));
-                alert("oN GET" + vt);
+        //$(function () {
+        //    var st = localStorage.getItem('view_state');
+        //    alert(" View_State Status : " + st);
+        //    if (st != null && st != 'undefined') {
+        //        //Getting  the Local Storage Item and Set the View
+        //        $('#colvalue').addClass('active');
+        //        var vt = localStorage.getItem('view_state');
+        //        $('.buttoncol.active').length && setContent($('.buttoncol.active'));
+        //        alert("oN GET" + vt);
               
-            } else {
-                $('#colvalue').addClass('active');
-                localStorage.setItem('view_state', $(this).data('rel'));
-                $('.buttoncol.active').length && setContent($('.buttoncol.active'));
-                alert(" On Setting the ENV ");
-            }
-        });
+        //    } else {
+        //        $('#colvalue').addClass('active');
+        //        localStorage.setItem('view_state', $(this).data('rel'));
+        //        $('.buttoncol.active').length && setContent($('.buttoncol.active'));
+        //        //alert(" On Setting the ENV ");
+        //    }
+        //});
         $('.buttoncol').click(function (e) {
-            alert("On  CLick");
+            //alert("On  CLick");
             e.preventDefault();
             setContent($(this));
         });
+        $('.buttoncol.active').length && setContent($('.buttoncol.active'));
         function setContent($el) {
             $('.buttoncol').removeClass('active');
             $('.container1').hide();
             //  $($el.data('rel')).show();
-            localStorage.setItem('view_state', $el.data('rel'));
+           // localStorage.setItem('view_state', $el.data('rel'));
             $el.addClass('active');
-            $(localStorage.getItem('view_state')).show();
+            $($el.data('rel')).show();
+          //  $(localStorage.getItem('view_state')).show();
         }
         function updateMembership() {
             var subsID = document.querySelector('#subsId');

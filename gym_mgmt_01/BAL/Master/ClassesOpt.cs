@@ -41,7 +41,7 @@ namespace gym_mgmt_01.BAL.Master
             da.InsertSP(param, command);
         }
         public List<Classes> getAllClasses() {
-            string command = "SELECT * from dbo.Classes";
+            string command = "SELECT cls.*  , (st.FirstName +' '+ st.LastName) as Name  from dbo.Classes cls INNER JOIN Staff st ON  cls.StaffID = st.StaffID;";
             List<Classes> classes = new List<Classes>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)
@@ -59,6 +59,7 @@ namespace gym_mgmt_01.BAL.Master
                                RepeatsEnd = DateTime.Parse(dr["RepeatsEnd"].ToString()),
                                Resource = dr["Resource"].ToString(),
                                StaffID = int.Parse(dr["StaffID"].ToString()),
+                               StaffName = dr["Name"].ToString(),
                                Note = dr["Note"].ToString(),
                                CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString())
                            }).ToList();
