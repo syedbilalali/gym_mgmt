@@ -111,12 +111,13 @@
         //        //alert(" On Setting the ENV ");
         //    }
         //});
+        $('.buttoncol.active').length && setContent($('.buttoncol.active'));
         $('.buttoncol').click(function (e) {
             //alert("On  CLick");
             e.preventDefault();
             setContent($(this));
         });
-        $('.buttoncol.active').length && setContent($('.buttoncol.active'));
+       
         function setContent($el) {
             $('.buttoncol').removeClass('active');
             $('.container1').hide();

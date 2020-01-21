@@ -18,5 +18,13 @@ namespace gym_mgmt_01
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(" Session Start !!! " + DateTime.Now.ToShortTimeString());
+        }
+        protected void Session_End(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(" Session Goes End !!! " + DateTime.Now.ToShortTimeString());
+        }
     }
 }

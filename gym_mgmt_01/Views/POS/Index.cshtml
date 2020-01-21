@@ -80,7 +80,7 @@
                     <div class="col-md-6 font-bold">Gross-Total</div>
                     <div class="col-md-6 text-dark"><label id="lblSubtotal">0.00</label>&nbsp;OMR</div>
                 </div>
-                <div class="row stt">
+                <div class="row stt" style="display:none;">
                     <div class="col-md-6 font-bold">Sales Tax</div>
                     <div class="col-md-6 text-dark"><label id="lblSalesTax">0.00</label>&nbsp;OMR</div>
                 </div>
@@ -362,11 +362,9 @@
     <script type="text/javascript">
         $(function () {
             var catName = "Main Menu";
-            var defaultSalesTax = 0.44;
             var menubtn = document.querySelector('#menubtn');
             menubtn.innerHTML = " Main Menu ";
             init();
-            getSalesTax();
             getCategory();
         });
         //Get Category List to show on the Panel.
@@ -562,14 +560,12 @@
                 lastQty += parseInt(qty);
 
                 var add_tax = parseFloat(defaulttax) * parseFloat(lastQty);
-                totaltax += add_tax;
-
+        
                 //Display to screen
                 lblSubTotal.innerHTML = lasttotal.toFixed(2);
-                lbltax.innerHTML = totaltax;
-                lblTotal.innerHTML = parseFloat(totaltax) + parseFloat(lasttotal);
+                lblTotal.innerHTML =  parseFloat(lasttotal);
                 if (lblPay != null) {
-                    lblPay.innerHTML = parseFloat(totaltax) + parseFloat(lasttotal);
+                    lblPay.innerHTML =  parseFloat(lasttotal);
                 }
             }
             console.log(" __________ END OF FOR LOOP _______________");
@@ -757,7 +753,6 @@
             //  alert(" Removing Selected Members : ");
             var selectedmember = document.getElementById("memberselected");
             selectedmember.style.display = "none";
-
             var findMemPnl = document.querySelector('#findMemPnl');
             findMemPnl.style.display = "";
             var selectPnl = document.querySelector('#SelectMemPnl');

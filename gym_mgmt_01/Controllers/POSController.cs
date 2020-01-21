@@ -11,6 +11,11 @@ using System.Data;
 using gym_mgmt_01.Models;
 using Rotativa.MVC;
 using gym_mgmt_01.Helper_Code.Common;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.tool.xml;
+
 
 namespace gym_mgmt_01.Controllers
 {
@@ -139,6 +144,21 @@ namespace gym_mgmt_01.Controllers
         public ActionResult printInvoice() {
             var data = new ActionAsPdf("Index");
             return data;
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public FileResult Export(string GridHtml)
+        {
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader sr = new StringReader(GridHtml);
+                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+                iTextSharp.text.pdf.PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                pdfDoc.Close();
+                return File(stream.ToArray(), "application/pdf", "Grid.pdf");
+            }
         }
     }
 

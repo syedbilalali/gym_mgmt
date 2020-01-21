@@ -201,7 +201,7 @@
                                             <h4 class="card-title"><i class="ti-agenda"></i>&nbsp;&nbsp;Contact</h4>
                                             <div class="form p-t-20">
                                                 <div class="form-group">
-                                                    @Html.HiddenFor(model => model.contact.initEmail);
+                                                    @Html.HiddenFor(model => model.contact.initEmail)
                                                     <label for="exampleInputEmail1">Email address<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
                                                         @Html.EditorFor(model => model.contact.Email, new { htmlAttributes = new { @class = "form-control", data_val = "false", @type = "email", @placeholder = " Enter Email Address" } })
