@@ -231,6 +231,24 @@ namespace gym_mgmt_01.Controllers
             }
             return status;
         }
-        
+        public ActionResult _AddSubscriptions() {
+            List<Member> memdata = mOpt.getAllMembers();
+            List<Membership> mshOpt = memOpt.getAllMembership();
+            memdata.Select(i => new SelectListItem()
+                           {
+                             Text = i.FirstName,
+                             Value = i.Id.ToString()
+            });
+            mshOpt.Select(i => new SelectListItem()
+            {
+                Text = i.Name,
+                Value = i.Id.ToString() 
+            }) ;
+            ViewBag.Member = memdata;
+            ViewBag.Membership = mshOpt;
+           return View();
+        }
+
+
     }
 }

@@ -127,7 +127,8 @@ namespace gym_mgmt_01.Controllers
         }
         [HttpPost]
         public ActionResult SetAuth(List<ModuleDetails> md)
-        {
+        {   
+
             string message = "<span class='text-danger'>Action is required for Module :  &nbsp;</span>";
             bool update = true;
             foreach(var perm in md ) {
@@ -147,7 +148,8 @@ namespace gym_mgmt_01.Controllers
             ViewBag.Message = message;
             if (update == true)
             {
-                ViewBag.Message = message = "";
+                ViewBag.Message = message = "Successfully Authorisation updated !!!";
+               
             }
             string permit = JsonConvert.SerializeObject(md);
             so.updatePermission(permit, Id);

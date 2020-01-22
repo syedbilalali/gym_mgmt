@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "_AddSubscriptions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> member = ViewBag.Member as List<SelectListItem> ;
+    List<SelectListItem> membership = ViewBag.Membership as List<SelectListItem>;
+
+
+}
+@model gym_mgmt_01.Models.Subscriptions
+@using (Html.BeginForm("addSubscriptions", "Membership", new { @class = "needs-validation", @novalidate = "" })) {
+}
+<div class="row pt-5">
+    @Html.AntiForgeryToken();
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <h4>Add Subscriptions</h4>  
+                </div>
+                <form class="mt-4">
+                    <div class="form-group">
+                        <label>Choose Membership </label>
+                            @Html.DropDownListFor(model => model.MembershipID, membership, new { @class="form-control" } );
+                    </div>
+                    <div class="form-group">
+                        <label>Choose Member </label>
+                        @Html.DropDownListFor(model=>model.MemberID ,member , new { @class="form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Total Paid Amount : </label>
+                        <input type="text" class="form-control" value="1230.00" disabled />
+                        @Html.EditorFor(model => model.Total_Amount , new {  htmlAttributes = new { type="text" ,  @class="form-control",  @value="1230.00" ,  @disabled="" } });
+                    </div>
+                    <div class="form-group">
+                        <label>Paid Amount : </label>
+                        <input type="text" class="form-control" />
+                        @Html.EditorFor(model => model.Paid_Amount , new {  htmlAttributes = new { @type="text" ,  @class="form-control" } });
+                    </div>
+                    <div class="form-group">
+                        <label>Due Amount : </label>
+                        <input type="text" class="form-control" />
+                        @Html.EditorFor(model=>model.Due_Amount , new { htmlAttributes = new { @type="text" ,  @class="form-control" } });
+                    </div>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Save Subscription</button>
+                    <button type="submit" class="btn btn-dark">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

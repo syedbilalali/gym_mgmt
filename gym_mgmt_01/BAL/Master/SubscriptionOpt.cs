@@ -14,10 +14,15 @@ namespace gym_mgmt_01.BAL.Master
         DataAdapter da = new DataAdapter();
         public void AddSubscriptions(Subscriptions so) {
 
-            string command = "INSERT INTO dbo.Subscriptions(MembershipID, MemberID , CreatedAt)  VALUES (@MembershipID, @MemberID , CURRENT_TIMESTAMP)";
-            SqlParameter[] param = new SqlParameter[2];
+            string command = "INSERT INTO dbo.Subscriptions(MembershipID, MemberID, Total_Amount,Paid_Amount,Due_Amount,Paid_Status,Status, CreatedAt)  VALUES (@MembershipID, @MemberID , @Total_Amount,@Paid_Amount,@Due_Amount,@Paid_Status,@Status, , CURRENT_TIMESTAMP)";
+            SqlParameter[] param = new SqlParameter[7];
             param[0] = new SqlParameter("@MembershipID" , so.MembershipID);
             param[1] = new SqlParameter("@MemberID" ,so.MemberID);
+            param[2] = new SqlParameter("@Total_Amount" ,so.Total_Amount);
+            param[3] = new SqlParameter("@Paid_Amount" ,so.Paid_Amount);
+            param[4] = new SqlParameter("@Due_Amount" ,so.Due_Amount);
+            param[5] = new SqlParameter("@Paid_Status" ,so.Paid_Status);
+            param[6] = new SqlParameter("@Status" ,so.Status);
             da.Insert(param, command);
         }
         public bool DeleteSubscriptions(int Id) {
@@ -54,8 +59,5 @@ namespace gym_mgmt_01.BAL.Master
             }
             return data;
         }
-        //public List<Subscriptions> getAllSubscriptions(DateTime from , DateTime to) {
-            
-        //}
     }
 }

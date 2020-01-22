@@ -21,5 +21,15 @@ namespace gym_mgmt_01.Models
         public decimal Ammount { get; set; }
         public DateTime ExpirayDate { get; set; }
         public string MemberName { get; set; }
+
+        public decimal Total_Amount { get; set; }
+        public decimal Paid_Amount { get; set;  }
+
+        public decimal Due_Amount { get; set;  }
+
+        public string Paid_Status { get; set;  }
+
+        public string Status { get; set;  }
+
     }
 }

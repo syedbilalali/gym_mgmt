@@ -3673,7 +3673,7 @@
     <Content Include="Views\Home\_EditSalesTax.cshtml" />
     <Content Include="Views\Training\_EditClass.cshtml" />
     <Content Include="Views\Training\_EditClass1.cshtml" />
-    <Content Include="Views\Membership\_AddSubscription.cshtml" />
+    <Content Include="Views\Membership\_AddSubscriptions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

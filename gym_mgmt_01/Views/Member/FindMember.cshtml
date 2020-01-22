@@ -160,7 +160,7 @@
 
         }
         function btnsearch() {
-           var input, filter, ul, li, a, i, txtValue;
+           var input, filter, ul, li, a, i, txtValue , srcValue;
             input = document.getElementById("srch");
             filter = input.value.toUpperCase();
             var divs = document.getElementById('colvalue');
@@ -180,8 +180,10 @@
             }
             $("#srch").on("keyup", function () {
                 var value = $(this).val();
-                     $("#memberData1 tr").filter(function() {
-                    $(this).toggle($(this).text().indexOf(value) > -1)
+                $("#memberData1 tr").filter(function () {
+                    console.log($(this));
+                    srcValue = $(this).text();
+                    $(this).toggle(srcValue.indexOf(value) > -1)
                  });
             });
         }
