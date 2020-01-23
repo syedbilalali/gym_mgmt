@@ -1,0 +1,42 @@
+﻿@{ 
+    List<SelectListItem> status = new List<SelectListItem>();
+    status.Add( new SelectListItem() { Value="" , Text="--SELECT STATUS--" });
+    status.Add( new SelectListItem() { Value="Paid" , Text="Paid" });
+    status.Add( new SelectListItem() { Value="Unpaid" , Text="Unpaid" });
+    status.Add( new SelectListItem() { Value="Partial Payment" , Text="Partial Payments" });
+    status.Add( new SelectListItem() { Value="Full Payment" , Text="Full Payments" });
+}
+@model gym_mgmt_01.Models.Subscriptions
+<div class="card-body">
+    <div class="card-title">
+        <h4>Subscriptions Payment </h4>
+        <form class="mt-4">
+            <div class="form-group">
+                <label> Start Date  : </label>
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { type = "text", @class = "form-control", @value = "1230.00", @disabled = "" } })
+            </div>
+            <div class="form-group">
+                <label> End Date : </label>
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { type = "text", @class = "form-control", @value = "1230.00", @disabled = "" } })
+            </div>
+            <div class="form-group">
+                <label>Total Paid Amount : </label>
+                @Html.EditorFor(model => model.Total_Amount, new { htmlAttributes = new { type = "text", @class = "form-control", @value = "1230.00", @disabled = "" } })
+            </div>
+            <div class="form-group">
+                <label>Paid Amount : </label>
+                @Html.EditorFor(model => model.Paid_Amount, new { htmlAttributes = new { @type = "text", @class = "form-control" } })
+            </div>
+            <div class="form-group">
+                <label>Due Amount : </label>
+                @Html.EditorFor(model => model.Due_Amount, new { htmlAttributes = new { @type = "text", @class = "form-control" , @disabled = "" } })
+            </div>
+            <div class="form-group">
+                <label>Payment Status : </label>
+                @Html.DropDownListFor(model => model.Paid_Status ,status , new { @class="form-control" } )
+            </div>
+            <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Save Subscriptions</button>
+            <button type="submit" class="btn btn-dark">Cancel</button>
+        </form>
+    </div>
+</div>

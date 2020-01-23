@@ -232,23 +232,34 @@ namespace gym_mgmt_01.Controllers
             return status;
         }
         public ActionResult _AddSubscriptions() {
+
             List<Member> memdata = mOpt.getAllMembers();
             List<Membership> mshOpt = memOpt.getAllMembership();
-            memdata.Select(i => new SelectListItem()
+            List<SelectListItem> membr =  memdata.Select(i => new SelectListItem()
                            {
-                             Text = i.FirstName,
-                             Value = i.Id.ToString()
-            });
-            mshOpt.Select(i => new SelectListItem()
+                    Text = i.FirstName,
+                    Value = i.Id.ToString()
+            }).ToList();
+            List<SelectListItem> msh =  mshOpt.Select(i => new SelectListItem()
             {
                 Text = i.Name,
                 Value = i.Id.ToString() 
-            }) ;
-            ViewBag.Member = memdata;
-            ViewBag.Membership = mshOpt;
-           return View();
+            }).ToList();
+            TempData["member"] = membr;
+            TempData["membership"] = msh;
+            return View();
         }
-
-
+        [HttpGet]
+        public ActionResult ViewSubscriptions(int selectedItem) {
+            List<Membership> mshOpt = memOpt.getAllMembership();
+            Membership mem = mshOpt.First(i => i.Id == selectedItem);
+            Subscriptions sbs = new Subscriptions()
+            {
+                Total_Amount = mem.Amount,
+                StartDate = mem.StartDate,
+                EndDate = mem.EndDate
+            };
+            return PartialView("_PaySusbscriptions" , sbs);
+        }
     }
 }

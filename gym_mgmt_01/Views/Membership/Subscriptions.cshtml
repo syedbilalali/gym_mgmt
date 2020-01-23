@@ -25,7 +25,8 @@
                 {
                     if (Session["user"].ToString() == "Admin")
                     {
-                        <button type="button" class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" onclick="" data-whatever="">Add Subscription</button>
+                       
+                        <button type="button" class="btn btn-info btnaddrole"  onclick="window.location.href='@Url.Action("_AddSubscriptions", "Membership")'" >Add Subscription</button>
                     }
                     else
                     {
@@ -35,7 +36,7 @@
                         }
                         else
                         {
-                            <button type="button" disabled  class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" onclick="" data-whatever="">Add Subscription</button>
+                            <button type="button" disabled class="btn btn-info btnaddrole" data-toggle="modal" data-target="#addcat" onclick="" data-whatever="">Add Subscription</button>
                         }
                     }
 

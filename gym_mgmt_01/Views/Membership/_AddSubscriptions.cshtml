@@ -2,51 +2,57 @@
 @{
     ViewBag.Title = "_AddSubscriptions";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<SelectListItem> member = ViewBag.Member as List<SelectListItem> ;
-    List<SelectListItem> membership = ViewBag.Membership as List<SelectListItem>;
-
-
+    List<SelectListItem> member = TempData["member"] as List<SelectListItem>;
+    List<SelectListItem> membership = TempData["membership"] as List<SelectListItem>;
 }
 @model gym_mgmt_01.Models.Subscriptions
-@using (Html.BeginForm("addSubscriptions", "Membership", new { @class = "needs-validation", @novalidate = "" })) {
-}
 <div class="row pt-5">
-    @Html.AntiForgeryToken();
+    @Html.AntiForgeryToken()
     <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <div class="card-title">
-                    <h4>Add Subscriptions</h4>  
+                    <h4>Add Subscriptions</h4>
                 </div>
-                <form class="mt-4">
-                    <div class="form-group">
-                        <label>Choose Membership </label>
-                            @Html.DropDownListFor(model => model.MembershipID, membership, new { @class="form-control" } );
-                    </div>
-                    <div class="form-group">
-                        <label>Choose Member </label>
-                        @Html.DropDownListFor(model=>model.MemberID ,member , new { @class="form-control" })
-                    </div>
-                    <div class="form-group">
-                        <label>Total Paid Amount : </label>
-                        <input type="text" class="form-control" value="1230.00" disabled />
-                        @Html.EditorFor(model => model.Total_Amount , new {  htmlAttributes = new { type="text" ,  @class="form-control",  @value="1230.00" ,  @disabled="" } });
-                    </div>
-                    <div class="form-group">
-                        <label>Paid Amount : </label>
-                        <input type="text" class="form-control" />
-                        @Html.EditorFor(model => model.Paid_Amount , new {  htmlAttributes = new { @type="text" ,  @class="form-control" } });
-                    </div>
-                    <div class="form-group">
-                        <label>Due Amount : </label>
-                        <input type="text" class="form-control" />
-                        @Html.EditorFor(model=>model.Due_Amount , new { htmlAttributes = new { @type="text" ,  @class="form-control" } });
-                    </div>
-                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Save Subscription</button>
-                    <button type="submit" class="btn btn-dark">Cancel</button>
-                </form>
+                @using (Html.BeginForm("ViewSubscriptions", "Membership",FormMethod.Post, new { @class = "needs-validation",@Id="form1" ,  @novalidate = "" }))
+                {
+                    <form class="mt-4">
+                        <div class="form-group">
+                            <label>Choose Member </label>
+                            @Html.DropDownListFor(model => model.MemberID, member, "--SELECT Member--", new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label>Choose Membership </label>
+                            @Html.DropDownListFor(model => model.MembershipID, membership, "--SELECT Membership--", new { @class = "form-control" , @id="mshchng" })
+                        </div>
+
+                    </form>
+                }
+
             </div>
+        </div>
+        <div class="card"  id="mypartial">
+
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+        $('#mshchng').on("change", function () {
+            var route = '@Url.Action("ViewSubscriptions", "Membership")'  + "?selectedItem="  + $(this).val();;
+           // alert(" Add Subscriptions ");
+            $.get(route, function (data) {
+             //   alert(" Data : " + data);
+                $('#mypartial').html(data)
+            })
+  
+        });
+        $('#Paid_Amount').change(function () {
+            console.log(" Changes in Input");
+          
+        });
+    </script>
+    
+}
 
