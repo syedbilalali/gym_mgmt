@@ -14,7 +14,7 @@ namespace gym_mgmt_01.BAL.Master
         DataAdapter da = new DataAdapter();
         public void AddSubscriptions(Subscriptions so) {
 
-            string command = "INSERT INTO dbo.Subscriptions(MembershipID, MemberID, Total_Amount,Paid_Amount,Due_Amount,Paid_Status,Status, CreatedAt)  VALUES (@MembershipID, @MemberID , @Total_Amount,@Paid_Amount,@Due_Amount,@Paid_Status,@Status, , CURRENT_TIMESTAMP)";
+            string command = "INSERT INTO dbo.Subscriptions(MembershipID, MemberID, Total_Amount,Paid_Amount,Due_Amount,Paid_Status,Status, CreatedAt)  VALUES (@MembershipID, @MemberID , @Total_Amount,@Paid_Amount,@Due_Amount,@Paid_Status,@Status,CURRENT_TIMESTAMP)";
             SqlParameter[] param = new SqlParameter[7];
             param[0] = new SqlParameter("@MembershipID" , so.MembershipID);
             param[1] = new SqlParameter("@MemberID" ,so.MemberID);

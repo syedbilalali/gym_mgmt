@@ -1,57 +1,40 @@
 ﻿
-@{
-    ViewBag.Title = "_AddSubscriptions";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    List<SelectListItem> member = TempData["member"] as List<SelectListItem>;
-    List<SelectListItem> membership = TempData["membership"] as List<SelectListItem>;
-}
-@model gym_mgmt_01.Models.Subscriptions
+
+
 <div class="row pt-5">
-    @Html.AntiForgeryToken()
     <div class="col-12">
+    @using (Html.BeginForm("addSubscriptions1", "Membership", FormMethod.Post, new { @class = "needs-validation", @Id = "form12", @novalidate = "" })) 
+    {
         <div class="card">
             <div class="card-body">
                 <div class="card-title">
                     <h4>Add Subscriptions</h4>
                 </div>
-                @using (Html.BeginForm("ViewSubscriptions", "Membership",FormMethod.Post, new { @class = "needs-validation",@Id="form1" ,  @novalidate = "" }))
-                {
-                    <form class="mt-4">
-                        <div class="form-group">
-                            <label>Choose Member </label>
-                            @Html.DropDownListFor(model => model.MemberID, member, "--SELECT Member--", new { @class = "form-control" })
-                        </div>
-                        <div class="form-group">
-                            <label>Choose Membership </label>
-                            @Html.DropDownListFor(model => model.MembershipID, membership, "--SELECT Membership--", new { @class = "form-control" , @id="mshchng" })
-                        </div>
-
-                    </form>
-                }
-
+                @Html.Partial("_SelectMembership")
             </div>
         </div>
-        <div class="card"  id="mypartial">
-
-        </div>
+        <div class="card"  id="mypartial"></div>
+     }
     </div>
 </div>
-
 @section scripts{
     <script type="text/javascript">
+        //Scripts Of the Add Subscriptionsd 
         $('#mshchng').on("change", function () {
-            var route = '@Url.Action("ViewSubscriptions", "Membership")'  + "?selectedItem="  + $(this).val();;
-           // alert(" Add Subscriptions ");
+            var memberID = document.querySelector('#MemberID');
+            console.log(memberID);
+            var route = '@Url.Action("ViewSubscriptions", "Membership")' + "?membershipID=" + $(this).val() + "&memberID=" + 121 ;
             $.get(route, function (data) {
-             //   alert(" Data : " + data);
-                $('#mypartial').html(data)
+                console.log(data);
+                $('#mypartial').html(data);
+                var paid = document.querySelectorAll('#Paid_Amount');
+                    if (paid != null) {
+                        console.log(" Element Not Found ");
+                        console.log(paid);
+                }
             })
-  
         });
-        $('#Paid_Amount').change(function () {
-            console.log(" Changes in Input");
-          
-        });
+       
     </script>
     
 }

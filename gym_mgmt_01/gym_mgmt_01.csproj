@@ -3675,6 +3675,8 @@
     <Content Include="Views\Training\_EditClass1.cshtml" />
     <Content Include="Views\Membership\_AddSubscriptions.cshtml" />
     <Content Include="Views\Membership\_PaySusbscriptions.cshtml" />
+    <Content Include="Views\Membership\_SelectMembership.cshtml" />
+    <Content Include="Views\Membership\_AlreadyExistMembership.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

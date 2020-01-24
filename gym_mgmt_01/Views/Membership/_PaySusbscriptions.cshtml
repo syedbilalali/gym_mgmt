@@ -1,42 +1,58 @@
-﻿@{ 
+﻿@{
     List<SelectListItem> status = new List<SelectListItem>();
-    status.Add( new SelectListItem() { Value="" , Text="--SELECT STATUS--" });
-    status.Add( new SelectListItem() { Value="Paid" , Text="Paid" });
-    status.Add( new SelectListItem() { Value="Unpaid" , Text="Unpaid" });
-    status.Add( new SelectListItem() { Value="Partial Payment" , Text="Partial Payments" });
-    status.Add( new SelectListItem() { Value="Full Payment" , Text="Full Payments" });
+    status.Add(new SelectListItem() { Value = "", Text = "--SELECT STATUS--" });
+    status.Add(new SelectListItem() { Value = "Paid", Text = "Paid" });
+    status.Add(new SelectListItem() { Value = "Unpaid", Text = "Unpaid" });
+    status.Add(new SelectListItem() { Value = "Partial Payment", Text = "Partial Payments" });
+    status.Add(new SelectListItem() { Value = "Full Payment", Text = "Full Payments" });
 }
 @model gym_mgmt_01.Models.Subscriptions
 <div class="card-body">
     <div class="card-title">
         <h4>Subscriptions Payment </h4>
-        <form class="mt-4">
+        <div class="mt-4">
             <div class="form-group">
                 <label> Start Date  : </label>
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { type = "text", @class = "form-control", @value = "1230.00", @disabled = "" } })
+                @Html.TextBoxFor(model => model.StartDate,  new { type = "text", @class = "form-control", @value = "1230.00", @readonly="" } )
             </div>
             <div class="form-group">
                 <label> End Date : </label>
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { type = "text", @class = "form-control", @value = "1230.00", @disabled = "" } })
+                @Html.TextBoxFor(model => model.EndDate,  new { type = "text", @class = "form-control", @value = "1230.00", @readonly="" } )
             </div>
             <div class="form-group">
-                <label>Total Paid Amount : </label>
-                @Html.EditorFor(model => model.Total_Amount, new { htmlAttributes = new { type = "text", @class = "form-control", @value = "1230.00", @disabled = "" } })
+                <label>Subscription Cost : </label>
+                @Html.TextBoxFor(model => model.Total_Amount, new { type = "text", @class = "form-control", @value = "1230.00", @readonly=""  })
             </div>
             <div class="form-group">
                 <label>Paid Amount : </label>
-                @Html.EditorFor(model => model.Paid_Amount, new { htmlAttributes = new { @type = "text", @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Paid_Amount, new  { @type = "text", @class = "form-control", @id = "Paid_Amount" } )
             </div>
             <div class="form-group">
                 <label>Due Amount : </label>
-                @Html.EditorFor(model => model.Due_Amount, new { htmlAttributes = new { @type = "text", @class = "form-control" , @disabled = "" } })
+                @Html.TextBoxFor(model => model.Due_Amount, new  { @type = "text", @class = "form-control", @readonly="" } )
             </div>
             <div class="form-group">
                 <label>Payment Status : </label>
-                @Html.DropDownListFor(model => model.Paid_Status ,status , new { @class="form-control" } )
+                @Html.DropDownListFor(model => model.Paid_Status, status, new { @class = "form-control" })
             </div>
-            <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Save Subscriptions</button>
+            <button type="submit" id="btnSubmit" class="btn btn-success"><i class="fa fa-check"></i>Save Subscriptions</button>
             <button type="submit" class="btn btn-dark">Cancel</button>
-        </form>
+        </div>
+        <script type="text/javascript">
+            //Script of the  Pay Subscriptions
+            var TotalAmount = document.querySelector('#Total_Amount');
+            var Due_Ammount = document.querySelector('#Due_Amount');
+            $('#Paid_Amount').on("keyup", function () {
+                var v = this.value;
+                var remain = parseFloat(TotalAmount.value) - parseFloat(this.value);  
+                console.log(" Paying Amount " + v);
+                console.log(" Total Amount : " + TotalAmount.value);
+                console.log(" Due Amount : " + remain);
+                Due_Ammount.value = remain;
+            });
+            $('#btnSubmit').on("click", function () {
+                $('#form12').submit();
+            });
+        </script>
     </div>
 </div>

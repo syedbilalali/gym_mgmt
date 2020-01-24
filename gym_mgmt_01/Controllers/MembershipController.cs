@@ -250,9 +250,12 @@ namespace gym_mgmt_01.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult ViewSubscriptions(int selectedItem) {
+        public ActionResult ViewSubscriptions(int membershipID , int memberID) {
+
             List<Membership> mshOpt = memOpt.getAllMembership();
-            Membership mem = mshOpt.First(i => i.Id == selectedItem);
+            List<Subscriptions> sps = subs.getAllSubscriptions();
+            Membership mem = mshOpt.First(i => i.Id == membershipID);
+            //Subscriptions sc = sps.First(i => i.MembershipID == selectedItem);
             Subscriptions sbs = new Subscriptions()
             {
                 Total_Amount = mem.Amount,
@@ -260,6 +263,13 @@ namespace gym_mgmt_01.Controllers
                 EndDate = mem.EndDate
             };
             return PartialView("_PaySusbscriptions" , sbs);
+        }
+        [HttpPost]
+        public ActionResult addSubscriptions1(Subscriptions sbs)
+        {
+            sbs.Status = "";
+            subs.AddSubscriptions(sbs);
+            return RedirectToAction("Index");
         }
     }
 }
