@@ -1,11 +1,10 @@
 ﻿@{
     List<SelectListItem> status = new List<SelectListItem>();
-    status.Add(new SelectListItem() { Value = "", Text = "--SELECT STATUS--" });
-    status.Add(new SelectListItem() { Value = "Paid", Text = "Paid" });
-    status.Add(new SelectListItem() { Value = "Unpaid", Text = "Unpaid" });
-    status.Add(new SelectListItem() { Value = "Partial Payment", Text = "Partial Payments" });
-    status.Add(new SelectListItem() { Value = "Full Payment", Text = "Full Payments" });
-}
+    status.Add(new SelectListItem() { Value = "NONE", Text = "--SELECT STATUS--" });
+    status.Add(new SelectListItem() { Value = "PAID", Text = "Paid" });
+    status.Add(new SelectListItem() { Value = "UNPAID", Text = "Unpaid" });
+    status.Add(new SelectListItem() { Value = "PARTIAL_PAYMENT", Text = "Partial Payment" });
+    
 @model gym_mgmt_01.Models.Subscriptions
 <div class="card-body">
     <div class="card-title">
@@ -13,28 +12,29 @@
         <div class="mt-4">
             <div class="form-group">
                 <label> Start Date  : </label>
-                @Html.TextBoxFor(model => model.StartDate,  new { type = "text", @class = "form-control", @value = "1230.00", @readonly="" } )
+                @Html.TextBoxFor(model => model.StartDate, new { type = "text", @class = "form-control", @value = "1230.00", @readonly = "" })
             </div>
             <div class="form-group">
                 <label> End Date : </label>
-                @Html.TextBoxFor(model => model.EndDate,  new { type = "text", @class = "form-control", @value = "1230.00", @readonly="" } )
+                @Html.TextBoxFor(model => model.EndDate, new { type = "text", @class = "form-control", @value = "1230.00", @readonly = "" })
             </div>
             <div class="form-group">
                 <label>Subscription Cost : </label>
-                @Html.TextBoxFor(model => model.Total_Amount, new { type = "text", @class = "form-control", @value = "1230.00", @readonly=""  })
+                @Html.TextBoxFor(model => model.Total_Amount, new { type = "text", @class = "form-control", @value = "1230.00", @readonly = "" })
             </div>
             <div class="form-group">
                 <label>Paid Amount : </label>
-                @Html.TextBoxFor(model => model.Paid_Amount, new  { @type = "text", @class = "form-control", @id = "Paid_Amount" } )
+                @Html.TextBoxFor(model => model.Paid_Amount, new { @type = "text", @class = "form-control", @id = "Paid_Amount" })
             </div>
             <div class="form-group">
                 <label>Due Amount : </label>
-                @Html.TextBoxFor(model => model.Due_Amount, new  { @type = "text", @class = "form-control", @readonly="" } )
+                @Html.TextBoxFor(model => model.Due_Amount, new { @type = "text", @class = "form-control", @readonly = "" })
             </div>
             <div class="form-group">
                 <label>Payment Status : </label>
                 @Html.DropDownListFor(model => model.Paid_Status, status, new { @class = "form-control" })
             </div>
+         
             <button type="submit" id="btnSubmit" class="btn btn-success"><i class="fa fa-check"></i>Save Subscriptions</button>
             <button type="submit" class="btn btn-dark">Cancel</button>
         </div>

@@ -51,6 +51,8 @@
                         <th>Amount</th>
                         <th>Expiry Date</th>
                         <th>Member Name</th>
+                        <th>Due Amount </th>
+                        <th>Paid Amount </th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -61,7 +63,7 @@
                         {
                             <tr>
                                 <td>@sub.MembershipName </td>
-                                <td><b>$</b>@sub.Ammount</td>
+                                <td>@sub.Ammount&nbsp;<span class="badge badge-success">OMR</span></td>
                                 <td>@sub.ExpirayDate.ToString("d")</td>
                                 <td>@sub.MemberName</td>
                                 <td>

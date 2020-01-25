@@ -22,10 +22,10 @@
         //Scripts Of the Add Subscriptionsd 
         $('#mshchng').on("change", function () {
             var memberID = document.querySelector('#MemberID');
-            console.log(memberID);
+            alert(" On the Fetching ");
             var route = '@Url.Action("ViewSubscriptions", "Membership")' + "?membershipID=" + $(this).val() + "&memberID=" + 121 ;
             $.get(route, function (data) {
-                console.log(data);
+               alert(data);
                 $('#mypartial').html(data);
                 var paid = document.querySelectorAll('#Paid_Amount');
                     if (paid != null) {
