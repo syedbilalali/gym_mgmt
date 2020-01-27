@@ -1,6 +1,4 @@
 ﻿
-
-
 <div class="row pt-5">
     <div class="col-12">
     @using (Html.BeginForm("addSubscriptions1", "Membership", FormMethod.Post, new { @class = "needs-validation", @Id = "form12", @novalidate = "" })) 
@@ -21,11 +19,19 @@
     <script type="text/javascript">
         //Scripts Of the Add Subscriptionsd 
         $('#mshchng').on("change", function () {
-            var memberID = document.querySelector('#MemberID');
-            alert(" On the Fetching ");
-            var route = '@Url.Action("ViewSubscriptions", "Membership")' + "?membershipID=" + $(this).val() + "&memberID=" + 121 ;
-            $.get(route, function (data) {
-               alert(data);
+           // var memberID = document.querySelector('#MemberID');
+            var memberID = $('#MemberID').children("option:selected").val();
+          //  alert(" MemberID " + memberID + " Membership ID " + $(this).val()  );
+            var _redirectUrl = '@Url.Action("Logout", "Login")';
+            var route = '@Url.Action("ViewSubscriptions", "Membership")' + "?membershipID=" + $(this).val() + "&memberID=" + memberID;
+            alert(" Route is " + route);
+            $.get(route, function (data, textStatus, jqXHR) {
+               console.log(JSON.stringify(jqXHR));
+               alert(" Text Status : " + textStatus + " XHR Status : " + jqXHR.status);
+             //  alert(data);
+                if (jqXHR.status == 401) {
+                    window.location.href = _redirectUrl;
+                }
                 $('#mypartial').html(data);
                 var paid = document.querySelectorAll('#Paid_Amount');
                     if (paid != null) {

@@ -51,10 +51,12 @@ namespace gym_mgmt_01.BAL.Master
                     Id = int.Parse(dr["Id"].ToString()),
                     MemberID = int.Parse(dr["MemberID"].ToString()),
                     MembershipID = int.Parse(dr["MembershipID"].ToString()),
-                    MemberName = dr["MembershipName"].ToString(),
+                    MemberName = dr["MemberName"].ToString(),
                     Ammount = decimal.Parse(dr["Ammount"].ToString()),
                     ExpirayDate = DateTime.Parse(dr["ExpirayDate"].ToString()),
-                    MembershipName = dr["MemberName"].ToString()
+                    Paid_Amount = decimal.Parse(dr["Paid_Amount"].ToString()),
+                    Paid_Status = dr["Paid_Status"].ToString(),
+                    MembershipName = dr["MembershipName"].ToString() 
                 }).ToList();
             }
             return data;

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace gym_mgmt_01.Models
 {
     public class Subscriptions
-    { 
+    {
         public int Id { get; set; }
 
         [Required, Display(Name = "Please select Membership ")]
@@ -23,19 +23,23 @@ namespace gym_mgmt_01.Models
         public string MemberName { get; set; }
 
         public decimal Total_Amount { get; set; }
-        public decimal Paid_Amount { get; set;  }
 
-        public decimal Due_Amount { get; set;  }
+        [Required , Display(Name="Please enter Paid Amount.")]
+        
+        public decimal Paid_Amount { get; set; }
 
-        public string Paid_Status { get; set;  }
+        public decimal Due_Amount { get; set; }
 
-        public string Status { get; set;  }
+        [Required , Display(Name ="Please select the Paid Status")]
+        public string Paid_Status { get; set; }
+
+        public string Status { get; set; }
 
         public DateTime StartDate { get; set; }
-        public string sStartDate { get; set;  }
-        public DateTime EndDate { get; set;  }
+        public string sStartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
-        public string sEndDate { get; set;  }
+        public string sEndDate { get; set; }
 
     }
 }

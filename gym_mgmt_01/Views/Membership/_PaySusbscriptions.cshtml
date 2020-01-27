@@ -1,10 +1,11 @@
 ﻿@{
     List<SelectListItem> status = new List<SelectListItem>();
-    status.Add(new SelectListItem() { Value = "NONE", Text = "--SELECT STATUS--" });
+ 
     status.Add(new SelectListItem() { Value = "PAID", Text = "Paid" });
     status.Add(new SelectListItem() { Value = "UNPAID", Text = "Unpaid" });
     status.Add(new SelectListItem() { Value = "PARTIAL_PAYMENT", Text = "Partial Payment" });
-    
+}
+
 @model gym_mgmt_01.Models.Subscriptions
 <div class="card-body">
     <div class="card-title">
@@ -25,6 +26,7 @@
             <div class="form-group">
                 <label>Paid Amount : </label>
                 @Html.TextBoxFor(model => model.Paid_Amount, new { @type = "text", @class = "form-control", @id = "Paid_Amount" })
+                @Html.ValidationMessageFor(model => model.Paid_Amount , "", new {  @class="text-danger" } )
             </div>
             <div class="form-group">
                 <label>Due Amount : </label>
@@ -32,27 +34,54 @@
             </div>
             <div class="form-group">
                 <label>Payment Status : </label>
-                @Html.DropDownListFor(model => model.Paid_Status, status, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Paid_Status, status ,"--SELECT STATUS--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Paid_Status,"", new { @class = "text-danger" })
             </div>
-         
-            <button type="submit" id="btnSubmit" class="btn btn-success"><i class="fa fa-check"></i>Save Subscriptions</button>
+
+            <button type="submit" id="btnSubmit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Save Subscriptions</button>
             <button type="submit" class="btn btn-dark">Cancel</button>
         </div>
+        <script src="@Url.Content("~/dist/js/pages/validation.js")"></script>
+        <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/modernizr-2.8.3.js"></script>
         <script type="text/javascript">
             //Script of the  Pay Subscriptions
             var TotalAmount = document.querySelector('#Total_Amount');
             var Due_Ammount = document.querySelector('#Due_Amount');
             $('#Paid_Amount').on("keyup", function () {
                 var v = this.value;
-                var remain = parseFloat(TotalAmount.value) - parseFloat(this.value);  
+                var remain = parseFloat(TotalAmount.value) - parseFloat(this.value);
                 console.log(" Paying Amount " + v);
                 console.log(" Total Amount : " + TotalAmount.value);
                 console.log(" Due Amount : " + remain);
                 Due_Ammount.value = remain;
             });
             $('#btnSubmit').on("click", function () {
-                $('#form12').submit();
+                // $('#form12').submit();
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $.validator.addMethod('PaidGreator', function (value) {
+
+                    return parseFloat(value) > 0;
+                }, 'Paid Amount has to be greater than 0');
+                $('#form1').validate({
+                    rules: {
+                        Paid_Amount: {
+                            PaidGreator: true
+                        }
+                    }
+                });
+
             });
         </script>
     </div>
 </div>
+@section scripts {
+
+}

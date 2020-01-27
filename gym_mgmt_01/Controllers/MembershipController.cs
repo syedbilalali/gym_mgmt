@@ -250,12 +250,16 @@ namespace gym_mgmt_01.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult ViewSubscriptions(int membershipID , int memberID) {
+        public ActionResult ViewSubscriptions(int membershipID ,int memberID) {
 
             List<Membership> mshOpt = memOpt.getAllMembership();
             List<Subscriptions> sps = subs.getAllSubscriptions();
             Membership mem = mshOpt.First(i => i.Id == membershipID);
-            //Subscriptions sc = sps.First(i => i.MembershipID == selectedItem);
+            var filteredList = sps.Where(c => (c.MemberID == memberID) && (c.MembershipID == membershipID)).ToList();
+ 
+            if (filteredList.Count >= 1) {
+                return PartialView("_AlreadyExistMembership");
+            }
             Subscriptions sbs = new Subscriptions()
             {
                 Total_Amount = mem.Amount,
@@ -267,9 +271,11 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         public ActionResult addSubscriptions1(Subscriptions sbs)
         {
-            sbs.Status = "";
-            subs.AddSubscriptions(sbs);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid) {
+                sbs.Status = "";
+                subs.AddSubscriptions(sbs);
+            }
+            return View("Index");
         }
     }
 }

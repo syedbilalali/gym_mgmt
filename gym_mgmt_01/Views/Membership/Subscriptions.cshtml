@@ -25,8 +25,8 @@
                 {
                     if (Session["user"].ToString() == "Admin")
                     {
-                       
-                        <button type="button" class="btn btn-info btnaddrole"  onclick="window.location.href='@Url.Action("_AddSubscriptions", "Membership")'" >Add Subscription</button>
+
+                        <button type="button" class="btn btn-info btnaddrole" onclick="window.location.href='@Url.Action("_AddSubscriptions", "Membership")'">Add Subscription</button>
                     }
                     else
                     {
@@ -47,12 +47,12 @@
             <table class="table table-hover table-responsive">
                 <thead>
                     <tr>
-                        <th>Membership Name</th>
+                        <th>Membership</th>
                         <th>Amount</th>
                         <th>Expiry Date</th>
                         <th>Member Name</th>
-                        <th>Due Amount </th>
                         <th>Paid Amount </th>
+                        <th>Paid Status </th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -66,6 +66,30 @@
                                 <td>@sub.Ammount&nbsp;<span class="badge badge-success">OMR</span></td>
                                 <td>@sub.ExpirayDate.ToString("d")</td>
                                 <td>@sub.MemberName</td>
+                                <td>@sub.Paid_Amount</td>
+                                <td>
+                                    @{
+                                        switch (sub.Paid_Status)
+                                        {
+                                            case "UNPAID":
+                                                <span class="badge badge-warning">
+                                                    @sub.Paid_Status
+                                                </span>
+                                                break;
+                                            case "PAID":
+                                                <span class="badge badge-primary">
+                                                    @sub.Paid_Status
+                                                </span>
+                                                break;
+                                            case "PARTIAL_PAYMENT":
+                                                <span class="badge badge-info">
+                                                    PARTIAL PAYEMENT
+                                                </span>
+                                                break;
+
+                                        }
+                                    }
+                                </td>
                                 <td>
 
                                     @if (Session["user"] != null)
@@ -93,6 +117,7 @@
                                             {
                                                 <button type="button" disabled class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("deleteSubscriptions", "Membership", new { id = sub.Id })'">Delete</button>
                                             }
+
                                         }
                                     }
                                 </td>
@@ -190,63 +215,63 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                        <input type="hidden" id="subID" name="subID" value="" />
-                        <div class="form-group" style="display:none;">
-                            
-                            <label for="" class="control-label label1">Choose Member :</label>
-                            <div class="controls">
-                                <select name="member" id="member" data-validation-required-message="Please select the member first" class="form-control label2" aria-invalid="false" required="">
-                                    @if (Model.member.Count > 0)
+                    <input type="hidden" id="subID" name="subID" value="" />
+                    <div class="form-group" style="display:none;">
+
+                        <label for="" class="control-label label1">Choose Member :</label>
+                        <div class="controls">
+                            <select name="member" id="member" data-validation-required-message="Please select the member first" class="form-control label2" aria-invalid="false" required="">
+                                @if (Model.member.Count > 0)
+                                {
+                                    <option value="">--SELECT OPTIONS--</option>
+                                    foreach (var mem in Model.member)
                                     {
-                                        <option value="">--SELECT OPTIONS--</option>
-                                        foreach (var mem in Model.member)
-                                        {
-                                            <option value="@mem.Id">@mem.FirstName</option>
-                                        }
+                                        <option value="@mem.Id">@mem.FirstName</option>
                                     }
-                                    else
+                                }
+                                else
+                                {
+                                    <option value="0">NONE</option>
+                                }
+                            </select>
+                            <div class="help-block" style=" padding-left:30%;"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label label1"> Choose Membership :</label>
+                        <div class="controls">
+                            <select name="membership" id="membership" class="form-control label2" data-validation-required-message=" Please select membership first." required="" aria-invalid="false">
+                                @if (Model.membrshp.Count > 0)
+                                {
+                                    <option value="">--SELECT OPTIONS--</option>
+                                    foreach (var mshp in Model.membrshp)
                                     {
-                                        <option value="0">NONE</option>
+                                        <option value="@mshp.Id">@mshp.Name</option>
                                     }
-                                </select>
-                                <div class="help-block" style=" padding-left:30%;"></div>
-                            </div>
+                                }
+                                else
+                                {
+                                    <option value="0">NONE</option>
+                                }
+                            </select>
+                            <div class="help-block" style=" padding-left:30%;"></div>
                         </div>
-                        <div class="form-group">
-                            <label for="" class="control-label label1"> Choose Membership :</label>
-                            <div class="controls">
-                                <select name="membership" id="membership" class="form-control label2" data-validation-required-message=" Please select membership first." required="" aria-invalid="false">
-                                    @if (Model.membrshp.Count > 0)
-                                    {
-                                        <option value="">--SELECT OPTIONS--</option>
-                                        foreach (var mshp in Model.membrshp)
-                                        {
-                                            <option value="@mshp.Id">@mshp.Name</option>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <option value="0">NONE</option>
-                                    }
-                                </select>
-                                <div class="help-block" style=" padding-left:30%;"></div>
-                            </div>
+                    </div>
+                    <div class="form-group" style="display:none;">
+                        <label for="" class="control-label label1"> Payment Status :</label>
+                        <div class="controls">
+                            <select class="form-control label2" data-validation-required-message=" Please select payment status first." required="" aria-invalid="false">
+                                <option value="Paid">Paid</option>
+                                <option value="Unpaid">Unpaid</option>
+                            </select>
                         </div>
-                        <div class="form-group" style="display:none;">
-                            <label for="" class="control-label label1"> Payment Status :</label>
-                            <div class="controls">
-                                <select class="form-control label2" data-validation-required-message=" Please select payment status first." required="" aria-invalid="false">
-                                    <option value="Paid">Paid</option>
-                                    <option value="Unpaid">Unpaid</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="form-group" style="display:none;">
+                        <label for="" class="control-label label1"> Amount Pay :</label>
+                        <div class="controls">
+                            <input type="text" class="form-control label2" />
                         </div>
-                        <div class="form-group" style="display:none;">
-                            <label for="" class="control-label label1"> Amount Pay :</label>
-                            <div class="controls">
-                                <input type="text" class="form-control label2" />
-                            </div>
-                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-default btn-info">Edit Subscription</button>
@@ -277,31 +302,31 @@
             }, false);
         })();
         function editSubscription(id) {
-        
-             $.ajax({
+
+            $.ajax({
                 url: "/Membership/getSubscription/" + id,
                 typr: "GET",
-                    contentType: "application/json;charset=UTF-8",
-                    dataType: "json",
-                 success: function (response) {
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (response) {
                     //alert(JSON.stringify(response));
-                   //alert(" SucessFull Get the Value " + JSON.stringify(response));
-                     $('#subID').val(response.Id);
-                     $('#member').val(response.MemberID);
-                     $('#membership').val(response.MembershipID);
+                    //alert(" SucessFull Get the Value " + JSON.stringify(response));
+                    $('#subID').val(response.Id);
+                    $('#member').val(response.MemberID);
+                    $('#membership').val(response.MembershipID);
                     $('#editSubscription').modal('show');
-            },
-            error: function (response) {
-                alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
                 }
             });
             return false;
         }
-         $("#searchsubscription").on("keyup", function () {
-             var value = $(this).val().toUpperCase();
-                 $("#subscription tr").filter(function() {
-                 $(this).toggle($(this).text().toUpperCase().indexOf(value) > -1)
+        $("#searchsubscription").on("keyup", function () {
+            var value = $(this).val().toUpperCase();
+            $("#subscription tr").filter(function () {
+                $(this).toggle($(this).text().toUpperCase().indexOf(value) > -1)
             });
-         });
+        });
     </script>
 }
