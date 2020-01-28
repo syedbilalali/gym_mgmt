@@ -107,6 +107,6 @@ namespace gym_mgmt_01.BAL.Master
             }
             return data;
         }
-        public 
+        
     }
 }
