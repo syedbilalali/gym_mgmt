@@ -123,9 +123,10 @@
                 <div class="card">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs profile-tab" role="tablist">
-                        <!--   <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Timeline</a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Profile</a> </li> -->
+
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab"> <i class="ti-user"></i>&nbsp;Details</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#membership" role="tab">Membership</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Trainings</a> </li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
@@ -159,7 +160,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputuname">Date of Birth<span class=" text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control mydatepicker", @type = "text", @maxlength="10", @name = "dob", @placeholder = " Enter Date of Birth ", @required = "" } })
+                                                        @Html.EditorFor(model => model.member.DOB, new { htmlAttributes = new { @class = "form-control mydatepicker", @type = "text", @maxlength = "10", @name = "dob", @placeholder = " Enter Date of Birth ", @required = "" } })
 
                                                         <div class="input-group">
                                                             @Html.ValidationMessageFor(modal => modal.member.DOB, "", new { @class = "text-danger" })
@@ -292,252 +293,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6" style="display:none">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title"><i class="ti-list"></i>&nbsp;&nbsp;Additional Details</h4>
-                                            <div class="form p-t-20">
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Club</label>
-                                                    <div class="input-group mb-3">
-                                                        <select class="form-control" name="Club">
-                                                            <option value="0">N/A</option>
-                                                            <option value="1">YG Club</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Trainer</label>
-                                                    <div class="input-group mb-3">
-                                                        <select class="form-control" name="TrainerID">
-                                                            <option value="0">N/A</option>
-                                                            <option value="1">Fred Dean</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Joining Date</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="date" class="form-control" name="JoiningDate" placeholder="" aria-label="" aria-describedby="basic-addon1" />
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text"><i class="ti-calendar"></i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Sales Rep</label>
-                                                    <div class="input-group mb-3">
-                                                        <select class="form-control" name="SalesRepresentID">
-                                                            <option value="0">N/A</option>
-                                                            <option value="1">All Stuff</option>
-                                                            <option value="2">YG Club</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Source Promotion</label>
-                                                    <div class="input-group mb-3">
-                                                        <select class="form-control" name="SourcePromotionID">
-                                                            <option value="0">Unknown</option>
-                                                            <option value="1">Marketing Agents</option>
-                                                            <option value="2">Summer 2018 mall promo</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Referred By Member</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="search" class="form-control" name="ReferredMemberBy" placeholder="" aria-label="" aria-describedby="basic-addon1">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text"><i class="ti-search"></i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Occupation</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="Occupation" placeholder="Student" aria-label="" aria-describedby="basic-addon1" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="pwd1">Organization</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name="Organisation" placeholder="A Company" aria-label="" aria-describedby="basic-addon1" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Involvement Type </label>
-                                                    <div class="input-group mb-3">
-                                                        <select class="form-control" name="InvolvementType">
-                                                            <option value="Sample Data">Sample Data</option>
-                                                            <option value="Member">Member</option>
-                                                            <option value="Staff">Staff</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="emergencyContact" class="col-lg-6" style="display:none">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title"><i class="ti-support"></i>&nbsp;&nbsp;Emergency Contact</h4>
-                                            <div class="form p-t-20">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">First Name</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="ecFirstName" placeholder="Name" aria-label="firstname">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Last Name</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="ecLastName" placeholder="Name" aria-label="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Relationship</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="ecRelationship" placeholder="Family Member" aria-label="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Email</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="email" class="form-control" name="ecEmail" placeholder="" aria-label="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Cell</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="tel" class="form-control" name="ecCell" placeholder="9803456789" aria-label="">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text"><i class="mdi mdi-cellphone-android"></i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Home</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="tel" class="form-control" name="ecHome" placeholder="423 334 5671" aria-label="">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text"><i class=" icons-Old-Telephone"></i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Works</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="tel" class="form-control" name="ecWorks" placeholder="" aria-label="">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text"><i class=" icons-Old-Telephone"></i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Medical Information(if applicable)</label>
-                                                    <div class="input-group mb-3">
-                                                        <textarea class="form-control" id="exampleTextarea" name="ecMedicalInfo" rows="5" placeholder="Enter any medical information here.."></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Age</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="ecAge" placeholder="" aria-label="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="prospectusDetails" class="col-lg-6" style="display:none">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title"><i class="ti-support"></i>&nbsp;&nbsp;Prospectus Details</h4>
-                                            <div class="form p-t-20">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Contact Method</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="pdContactMethods" placeholder="Name" aria-label="firstname">
-
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Fitness Goal</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="pdFitnessGoal" placeholder="Name" aria-label="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Previous Gym</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="pdPreviousGym" placeholder="Family Member" aria-label="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Lead Strength</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="email" class="form-control" name="pdLeadStrength" placeholder="" aria-label="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Created</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="tel" class="form-control" name="pdCreated" placeholder="9803456789" aria-label="">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text"><i class="mdi mdi-cellphone-android"></i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6" style="display:none">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title"><i class="ti-layers"></i>&nbsp;&nbsp; Custom Fields</h4>
-                                            <div class="form p-t-20">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Size</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="" aria-label="firstname">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputuname">Area</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="" aria-label="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6" style="display:none">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title"><i class="ti-layers"></i>&nbsp;&nbsp; Custom Lookups</h4>
-                                            <div class="form p-t-20">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Type</label>
-                                                    <div class="input-group mb-3">
-                                                        <select class="form-control">
-                                                            <option value="large">Large</option>
-                                                            <option value="medium">Medium</option>
-                                                            <option value="small">Small</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             @if (Session["user"] != null)
                             {
@@ -564,28 +320,20 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="card-title"><i class="ti-calendar"></i>&nbsp;&nbsp;Memberships</h4>
-                                            <div class="form p-t-20">
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Membership Name</th>
-                                                            <th>Expiray Date</th>
-                                                            <th>Amount</th>
-                                                            <th>Membership Types</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>3 Months</td>
-                                                            <td>12-03-2019</td>
-                                                            <td>1200</td>
-                                                            <td>None</td>
-                                                            <td>Ren</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+
+                                             @Html.Partial("_MembershipDetails" , Model.subs)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="profile" role="tabpanel">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><i class="ti-calendar"></i>&nbsp;&nbsp;Training Details</h4>
+                                             @Html.Partial("_TrainingDetails")
                                         </div>
                                     </div>
                                 </div>

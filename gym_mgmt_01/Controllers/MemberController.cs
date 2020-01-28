@@ -231,12 +231,14 @@ namespace gym_mgmt_01.Controllers
         }
         [AuthorizationPrivilegeFilter("Member", "Edit")]
         public ActionResult Edit(int? id) {
+
             if (Session["modules"] != null)
             {
                 List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
                 ModuleDetails md1 = md.Find(x => x.Module.Equals("Member"));
                 ViewBag.Edit = md1.Edit;
             }
+
             if (id == null)
             {
                 ViewBag.ID = id;
@@ -245,18 +247,17 @@ namespace gym_mgmt_01.Controllers
                 return View();
             }
             else
-            {   
-                dt = memOpt.getDTMembershipByID(id);
-                List<gym_mgmt_01.Models.Membership> memlist = new List<gym_mgmt_01.Models.Membership>();
-                memlist = ConvertDataTable<gym_mgmt_01.Models.Membership>(dt);
-                ViewData["membership"] = memlist;
+            {
+                SubscriptionOpt subs = new SubscriptionOpt();
                 Member mem = mo.getMember(id);
                 Contact cn = co.GetContact(mem.Id);
                 MemberRegistration m = new MemberRegistration();
+                List<Subscriptions> susbData = subs.getSubscriptionsByID(id);
                 m.member = mem;
                 ViewBag.ID = mem.Id;
                 ViewBag.Message = "";
                 m.contact = cn;
+                m.subs = susbData;
                 return View(m);
             }
         }

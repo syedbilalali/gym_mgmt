@@ -113,8 +113,7 @@ namespace gym_mgmt_01.BAL.Master
             param[0] = new SqlParameter("@Id", id);
             dt = da.FetchByParameter(param, command);
             return dt;
-        }
-        
+        } 
         public bool deleteMembership(int id) {
 
             string command = "dbo.spMembershipOpt";

@@ -1,0 +1,42 @@
+﻿<div class="form p-t-20">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Membership Name</th>
+                <th>Expiray Date</th>
+                <th>Amount</th>
+                <th>Paid Amount </th>
+                <th>Remaining Amount</th>
+                <th>Paid Status </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (var sb in Model)
+                {
+                    <tr>
+                        <td>@sb.MembershipName</td>
+                        <td>@sb.ExpirayDate.ToString("d")</td>
+                        <td>@sb.Ammount</td>
+                        <td>@sb.Paid_Amount</td>
+                        <td>@sb.Due_Amount</td>
+                        <td>@sb.Paid_Status </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("GetPayment", "Payment", new { id = sb.Id })'">Pay Due</button>
+
+                        </td>
+                    </tr>
+                }
+            }
+            else {
+                <tr>
+                    <td colspan="5">
+                        No Data Found !!!
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

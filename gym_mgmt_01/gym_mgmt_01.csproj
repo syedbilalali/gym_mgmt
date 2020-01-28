@@ -185,6 +185,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\MembershipController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\POSController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
@@ -3677,6 +3678,9 @@
     <Content Include="Views\Membership\_PaySusbscriptions.cshtml" />
     <Content Include="Views\Membership\_SelectMembership.cshtml" />
     <Content Include="Views\Membership\_AlreadyExistMembership.cshtml" />
+    <Content Include="Views\Member\_MembershipDetails.cshtml" />
+    <Content Include="Views\Member\_TrainingDetails.cshtml" />
+    <Content Include="Views\Payment\GetPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

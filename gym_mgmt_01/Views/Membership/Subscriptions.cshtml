@@ -96,6 +96,7 @@
                                     {
                                         if (Session["user"].ToString() == "Admin")
                                         {
+                                            @*<button type="button" class="btn btn-default" onclick="#">View Payment</button>*@
                                             <button type="button" class="btn btn-info editbtn1" onclick="editSubscription(@sub.Id)">Edit</button>
                                             <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("deleteSubscriptions", "Membership", new { id = sub.Id })'">Delete</button>
                                         }

@@ -1,0 +1,157 @@
+﻿@model dynamic 
+<div class="row p-t-20">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Subscriptions Details
+                </h5>
+                <div class=" mt-4">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>Member</th>
+                            <th>Membership</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Total Amount </th>
+                            <th>Subscription Status</th>
+                        </tr>
+                        <tr>
+                            <td>@Model.subs.MemberName</td>
+                            <td>@Model.subs.MembershipName</td>
+                            <td>@Model.subs.StartDate</td>
+                            <td>@Model.subs.EndDate</td>
+                            <td>@Model.subs.Ammount
+                            </td>
+                            <td>@Model.subs.Paid_Status</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+   <div class="row p-t-20">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Invoice Details
+                </h5>
+                <div class=" mt-4">
+                    <table class="table table-border">
+                        <thead>
+                            <tr>
+                                <th>Invoice ID</th>
+                                <th>Total Amount</th>
+                                <th>Paid Amount</th>
+                                <th>Payment Status</th>
+                                <th>Download</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>23121</td>
+                            <td>1234</td>
+                            <td>450</td>
+                            <td>PAID</td>
+                            <td>
+                                <button type="button" class="btn btn-primary">Download</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>23121</td>
+                            <td>1234</td>
+                            <td>450</td>
+                            <td>PAID</td>
+                            <td>
+                                <button type="button" class="btn btn-primary">Download</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>23121</td>
+                            <td>1234</td>
+                            <td>450</td>
+                            <td>PAID</td>
+                            <td>
+                                <button type="button" class="btn btn-primary">Download</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>23121</td>
+                            <td>1234</td>
+                            <td>450</td>
+                            <td>PAID</td>
+                            <td>
+                                <button type="button" class="btn btn-primary">Download</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>23121</td>
+                            <td>1234</td>
+                            <td>450</td>
+                            <td>PAID</td>
+                            <td>
+                                <button type="button" class="btn btn-primary">Download</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>23121</td>
+                            <td>1234</td>
+                            <td>450</td>
+                            <td>PAID</td>
+                            <td>
+                                <button type="button" class="btn btn-primary">Download</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>23121</td>
+                            <td>1234</td>
+                            <td>450</td>
+                            <td>PAID</td>
+                            <td>
+                                <button type="button" class="btn btn-primary">Download</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row p-t-20">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Payment Details
+                </h5>
+                <div class="mt-4">
+
+                    <div class="form-group">
+                        <label>Total Subscription Cost : </label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Left Subscription Cost : </label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Paid Amount : </label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Due Amount : </label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Status : </label>
+                        <input type="text" class="form-control" />
+                    </div>
+
+                    <button type="submit" id="btnSubmit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Pay </button>
+                    <button type="submit" class="btn btn-dark">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
