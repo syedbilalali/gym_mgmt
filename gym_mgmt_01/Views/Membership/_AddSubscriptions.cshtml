@@ -24,10 +24,10 @@
           //  alert(" MemberID " + memberID + " Membership ID " + $(this).val()  );
             var _redirectUrl = '@Url.Action("Logout", "Login")';
             var route = '@Url.Action("ViewSubscriptions", "Membership")' + "?membershipID=" + $(this).val() + "&memberID=" + memberID;
-            alert(" Route is " + route);
+           // alert(" Route is " + route);
             $.get(route, function (data, textStatus, jqXHR) {
-               console.log(JSON.stringify(jqXHR));
-               alert(" Text Status : " + textStatus + " XHR Status : " + jqXHR.status);
+               //console.log(JSON.stringify(jqXHR));
+              // alert(" Text Status : " + textStatus + " XHR Status : " + jqXHR.status);
              //  alert(data);
                 if (jqXHR.status == 401) {
                     window.location.href = _redirectUrl;

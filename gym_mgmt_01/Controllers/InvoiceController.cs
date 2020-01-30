@@ -21,10 +21,8 @@ namespace gym_mgmt_01.Controllers
         SellsOrderItemsOpt soiOp = new SellsOrderItemsOpt();
         SellsOrderOpt soOp = new SellsOrderOpt();
         dynamic model = new System.Dynamic.ExpandoObject();
-      //  private int invID = 0;
         public ActionResult Index()
         {
-            // this.invID = getLastInvoiceID();
             int lastInvoiceID = getLastInvoiceID();
             ViewBag.Title = "Invoice ID : " +  lastInvoiceID;
             model.SellOrderItems = soiOp.getAlSellsOrderItemsByID(lastInvoiceID);
@@ -35,23 +33,21 @@ namespace gym_mgmt_01.Controllers
             return new  ActionAsPdf("Index");
         }
         public ActionResult get_last_Inv() {
+
             int lastInvoiceID = getLastInvoiceID();
             ViewBag.Title = "Invoice ID : " + lastInvoiceID;
             model.SellOrderItems = soiOp.getAlSellsOrderItemsByID(lastInvoiceID);
             model.SellOrder = soOp.getAlSellsOrderByID(lastInvoiceID);
-            // return new PdfResult(model,"Index");
             return new RazorPDF.PdfResult(model , "Index");
         }
         public ActionResult PdfModel() {
+
             int lastInvoiceID = getLastInvoiceID();
             ViewBag.Title = "Invoice ID : " + lastInvoiceID;
             model.SellOrderItems = soiOp.getAlSellsOrderItemsByID(lastInvoiceID);
             model.SellOrder = soOp.getAlSellsOrderByID(lastInvoiceID);
             var pdf = new PdfResult(model, "PdfModel");
-            // Add to the view bag
-            //pdf.ViewBag.Title = " Invoice ";
             return pdf;
-            //return View(model);
         }
         public PdfResult Pdf()
         {

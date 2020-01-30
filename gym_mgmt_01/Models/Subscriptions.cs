@@ -8,6 +8,12 @@ namespace gym_mgmt_01.Models
 {
     public class Subscriptions
     {
+        public Subscriptions() { }
+        public Subscriptions(decimal TotalCost , decimal LeftCOst , int id) {
+            this.Total_Amount = TotalCost;
+            this.LeftSubscriptionCost = LeftCOst;
+            this.Id = id;
+        }
         public int Id { get; set; }
 
         [Required, Display(Name = "Please select Membership ")]
@@ -40,6 +46,8 @@ namespace gym_mgmt_01.Models
         public DateTime EndDate { get; set; }
 
         public string sEndDate { get; set; }
+
+        public decimal LeftSubscriptionCost { get; set;  }
 
     }
 }

@@ -16,21 +16,31 @@
             {
                 foreach (var sb in Model)
                 {
-                    <tr>
-                        <td>@sb.MembershipName</td>
-                        <td>@sb.ExpirayDate.ToString("d")</td>
-                        <td>@sb.Ammount</td>
-                        <td>@sb.Paid_Amount</td>
-                        <td>@sb.Due_Amount</td>
-                        <td>@sb.Paid_Status </td>
-                        <td>
-                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("GetPayment", "Payment", new { id = sb.Id })'">Pay Due</button>
+            <tr>
+                <td>@sb.MembershipName</td>
+                <td>@sb.ExpirayDate.ToString("d")</td>
+                <td>@sb.Ammount</td>
+                <td>@sb.Paid_Amount</td>
+                <td>@sb.Due_Amount</td>
+                <td>@sb.Paid_Status </td>
+                @if (@sb.Due_Amount != 0)
+                {
+                    <td>
+                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("GetPayment", "Payment", new { id = sb.Id })'">Pay Due</button>
 
-                        </td>
-                    </tr>
+                    </td>
+                }
+                else {
+                    <td>
+                        <span class="badge badge-info">Done</span>
+                    </td>
+                }
+
+            </tr>
                 }
             }
-            else {
+            else
+            {
                 <tr>
                     <td colspan="5">
                         No Data Found !!!

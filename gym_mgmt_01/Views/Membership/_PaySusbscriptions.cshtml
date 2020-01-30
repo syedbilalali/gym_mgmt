@@ -5,7 +5,6 @@
     status.Add(new SelectListItem() { Value = "UNPAID", Text = "Unpaid" });
     status.Add(new SelectListItem() { Value = "PARTIAL_PAYMENT", Text = "Partial Payment" });
 }
-
 @model gym_mgmt_01.Models.Subscriptions
 <div class="card-body">
     <div class="card-title">
@@ -25,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label>Paid Amount : </label>
-                @Html.TextBoxFor(model => model.Paid_Amount, new { @type = "text", @class = "form-control", @id = "Paid_Amount" })
+                @Html.TextBoxFor(model => model.Paid_Amount, new { @type = "number", @max=@Model.Total_Amount , @min="0" ,   @class = "form-control", @id = "Paid_Amount" })
                 @Html.ValidationMessageFor(model => model.Paid_Amount , "", new {  @class="text-danger" } )
             </div>
             <div class="form-group">

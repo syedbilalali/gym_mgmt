@@ -1,0 +1,53 @@
+﻿@{
+    List<SelectListItem> status = new List<SelectListItem>();
+
+    status.Add(new SelectListItem() { Value = "PAID", Text = "Paid" });
+    status.Add(new SelectListItem() { Value = "UNPAID", Text = "Unpaid" });
+    status.Add(new SelectListItem() { Value = "PARTIAL_PAYMENT", Text = "Partial Payment" });
+}
+@model gym_mgmt_01.Models.SusbscriptionInvoice
+<div class="row p-t-20">
+    <div class="col-12">
+        @using (@Html.BeginForm("addSubscription", "Payment", FormMethod.Post))
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Payment Details
+                    </h5>
+                    @Html.HiddenFor(model => model.SubscriptionID)
+                    <div class="mt-4">
+                        <div class="form-group">
+                            <label>Total Subscription Cost : </label>
+                            @Html.TextBoxFor(model => model.Total_Amount, new {@type="text" ,  @class = "form-control" , @readonly = "" })
+                        </div>
+                        <div class="form-group">
+                            <label>Left Subscription Cost : </label>
+                            @Html.TextBoxFor(model => model.LeftSubscriptionCost, new { @type = "text", @class = "form-control", @readonly = "" })
+                        </div>
+                        <div class="form-group">
+                            <label>Paid Amount : </label>
+                            
+                            @Html.TextBoxFor(model => model.Paid_Amount, new { @type="number" , @max=@Model.Total_Amount,  @min="0.00" ,   @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Paid_Amount ,"" , new {  @class="text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Due Amount : </label>
+              
+                            @Html.TextBoxFor(model => model.Due_Amount, new { @type="text" ,  @class = "form-control" , @readonly = "" })
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Status : </label>
+
+                            @Html.DropDownListFor(model => model.Paid_Status, status, "--SELECT STATUS--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Paid_Status, "", new { @class = "text-danger" })
+                        </div>
+                        <button type="submit" id="btnSubmit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Pay </button>
+                        <button type="submit" class="btn btn-dark">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

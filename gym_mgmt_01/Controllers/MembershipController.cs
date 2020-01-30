@@ -271,11 +271,18 @@ namespace gym_mgmt_01.Controllers
         [HttpPost]
         public ActionResult addSubscriptions1(Subscriptions sbs)
         {
+            SusbscriptionInvoice si = new SusbscriptionInvoice();
             if (ModelState.IsValid) {
                 sbs.Status = "";
+                si.Paid_Amount = sbs.Paid_Amount;
+                si.Due_Amount = sbs.Due_Amount;
+                si.Paid_Status = sbs.Paid_Status;
+                si.Total_Amount = sbs.Total_Amount;
                 subs.AddSubscriptions(sbs);
+                si.SubscriptionID = subs.getLastSubscriptionID(sbs.MembershipID, sbs.MemberID);
+                subs.AddSubscriptionsInvoice(si);
             }
-            return View("Index");
+            return View("Subscriptions");
         }
     }
 }

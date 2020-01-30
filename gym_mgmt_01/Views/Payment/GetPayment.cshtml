@@ -1,4 +1,7 @@
-﻿@model dynamic 
+﻿@model dynamic
+@{
+    var mdoel = new gym_mgmt_01.Models.SusbscriptionInvoice();
+}
 <div class="row p-t-20">
     <div class="col-12">
         <div class="card">
@@ -21,8 +24,7 @@
                             <td>@Model.subs.MembershipName</td>
                             <td>@Model.subs.StartDate</td>
                             <td>@Model.subs.EndDate</td>
-                            <td>@Model.subs.Ammount
-                            </td>
+                            <td>@Model.subs.Ammount</td>
                             <td>@Model.subs.Paid_Status</td>
                         </tr>
                     </table>
@@ -31,127 +33,74 @@
         </div>
     </div>
 </div>
-   <div class="row p-t-20">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">
-                    Invoice Details
-                </h5>
-                <div class=" mt-4">
-                    <table class="table table-border">
-                        <thead>
-                            <tr>
-                                <th>Invoice ID</th>
-                                <th>Total Amount</th>
-                                <th>Paid Amount</th>
-                                <th>Payment Status</th>
-                                <th>Download</th>
-                            </tr>
-                        </thead>
-                        <tr>
-                            <td>23121</td>
-                            <td>1234</td>
-                            <td>450</td>
-                            <td>PAID</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">Download</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>23121</td>
-                            <td>1234</td>
-                            <td>450</td>
-                            <td>PAID</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">Download</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>23121</td>
-                            <td>1234</td>
-                            <td>450</td>
-                            <td>PAID</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">Download</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>23121</td>
-                            <td>1234</td>
-                            <td>450</td>
-                            <td>PAID</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">Download</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>23121</td>
-                            <td>1234</td>
-                            <td>450</td>
-                            <td>PAID</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">Download</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>23121</td>
-                            <td>1234</td>
-                            <td>450</td>
-                            <td>PAID</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">Download</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>23121</td>
-                            <td>1234</td>
-                            <td>450</td>
-                            <td>PAID</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">Download</button>
-                            </td>
-                        </tr>
-                    </table>
+@if (Model.sbIn.Count > 0)
+{
+    <div class="row p-t-20">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Payment Details
+                    </h5>
+                    <div class=" mt-4">
+
+                        <table class="table table-border">
+                            <thead>
+                                <tr>
+                                    <th>Invoice ID</th>
+                                    <th>Total Amount</th>
+                                    <th>Paid Amount</th>
+                                    <th>Payment Status</th>
+                                </tr>
+                            </thead>
+                            @foreach (var sb in Model.sbIn)
+                            {
+                                <tr>
+                                    <td>@sb.Id</td>
+                                    <td>@sb.Total_Amount</td>
+                                    <td>@sb.Paid_Amount</td>
+                                    <td>@sb.Paid_Status
+                                    <td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row p-t-20">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">
-                    Payment Details
-                </h5>
-                <div class="mt-4">
+}
+@if (@Model.subs.Ammount != @Model.subs.Paid_Amount)
+{
+    @Html.Partial("SusbcriptionPayment", new gym_mgmt_01.Models.SusbscriptionInvoice(Model.subs.Ammount, Model.subs.Due_Amount, Model.subs.Id))
+}
 
-                    <div class="form-group">
-                        <label>Total Subscription Cost : </label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label>Left Subscription Cost : </label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label>Paid Amount : </label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label>Due Amount : </label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label>Payment Status : </label>
-                        <input type="text" class="form-control" />
-                    </div>
+@section scripts{
+    <script src="@Url.Content("~/dist/js/pages/validation.js")"></script>
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script type="text/javascript">
+        <script type="text/javascript">
+            //Script of the  Pay Subscriptions
+            var TotalAmount = document.querySelector('#LeftSubscriptionCost');
+            var Due_Ammount = document.querySelector('#Due_Amount');
+            $('#Paid_Amount').on("keyup", function () {
+                var v = this.value;
+            var remain = parseFloat(TotalAmount.value) - parseFloat(this.value);
+            console.log(" Paying Amount " + v);
+            console.log(" Total Amount : " + TotalAmount.value);
+            console.log(" Due Amount : " + remain);
+            Due_Ammount.value = remain;
+        });
+            $('#btnSubmit').on("click", function () {
+                // $('#form12').submit();
+            });
+    </script>
+}
 
-                    <button type="submit" id="btnSubmit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Pay </button>
-                    <button type="submit" class="btn btn-dark">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
