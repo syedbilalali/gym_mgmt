@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label>Paid Amount : </label>
                             
-                            @Html.TextBoxFor(model => model.Paid_Amount, new { @type="number" , @max=@Model.Total_Amount,  @min="0.00" ,   @class = "form-control" })
+                            @Html.TextBoxFor(model => model.Paid_Amount, new { @type="number" , @max=@Model.LeftSubscriptionCost,  @min="0.00" ,   @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Paid_Amount ,"" , new {  @class="text-danger" })
                         </div>
                         <div class="form-group">

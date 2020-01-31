@@ -12,15 +12,15 @@
         <div class="mt-4">
             <div class="form-group">
                 <label> Start Date  : </label>
-                @Html.TextBoxFor(model => model.StartDate, new { type = "text", @class = "form-control", @value = "1230.00", @readonly = "" })
+                @Html.TextBoxFor(model => model.StartDate,"{0:dd-MM-yyyy}" ,new { type = "text", @class = "form-control", @value = "", @readonly = "" })
             </div>
             <div class="form-group">
                 <label> End Date : </label>
-                @Html.TextBoxFor(model => model.EndDate, new { type = "text", @class = "form-control", @value = "1230.00", @readonly = "" })
+                @Html.TextBoxFor(model => model.EndDate,"{0:dd-MM-yyyy}", new { type = "text", @class = "form-control", @value = "", @readonly = "" })
             </div>
             <div class="form-group">
                 <label>Subscription Cost : </label>
-                @Html.TextBoxFor(model => model.Total_Amount, new { type = "text", @class = "form-control", @value = "1230.00", @readonly = "" })
+                @Html.TextBoxFor(model => model.Total_Amount, new { type = "text", @class = "form-control", @value = "", @readonly = "" })
             </div>
             <div class="form-group">
                 <label>Paid Amount : </label>
@@ -81,6 +81,3 @@
         </script>
     </div>
 </div>
-@section scripts {
-
-}

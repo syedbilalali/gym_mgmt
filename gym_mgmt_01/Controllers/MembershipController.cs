@@ -282,7 +282,7 @@ namespace gym_mgmt_01.Controllers
                 si.SubscriptionID = subs.getLastSubscriptionID(sbs.MembershipID, sbs.MemberID);
                 subs.AddSubscriptionsInvoice(si);
             }
-            return View("Subscriptions");
+            return RedirectToAction("Subscriptions");
         }
     }
 }

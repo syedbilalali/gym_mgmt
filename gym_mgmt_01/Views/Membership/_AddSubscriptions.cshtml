@@ -18,17 +18,15 @@
 @section scripts{
     <script type="text/javascript">
         //Scripts Of the Add Subscriptionsd 
+        $('#memchng').on("change", function () {
+            console.log(" Value : " + $(this).val());
+        });
         $('#mshchng').on("change", function () {
            // var memberID = document.querySelector('#MemberID');
-            var memberID = $('#MemberID').children("option:selected").val();
-          //  alert(" MemberID " + memberID + " Membership ID " + $(this).val()  );
+            var memberID = $('#memchng').children("option:selected").val();
             var _redirectUrl = '@Url.Action("Logout", "Login")';
             var route = '@Url.Action("ViewSubscriptions", "Membership")' + "?membershipID=" + $(this).val() + "&memberID=" + memberID;
-           // alert(" Route is " + route);
             $.get(route, function (data, textStatus, jqXHR) {
-               //console.log(JSON.stringify(jqXHR));
-              // alert(" Text Status : " + textStatus + " XHR Status : " + jqXHR.status);
-             //  alert(data);
                 if (jqXHR.status == 401) {
                     window.location.href = _redirectUrl;
                 }

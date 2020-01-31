@@ -40,8 +40,6 @@ namespace gym_mgmt_01.Controllers
                 subs.updateSubscription(subInv.SubscriptionID, Paid_Amount, Due_Amount, subInv.Paid_Status);
                 subs.AddSubscriptionsInvoice(subInv);
             }
-           
-         
             return RedirectToAction("Subscriptions", "Membership");
         }
     }
