@@ -1,6 +1,6 @@
 ﻿@{
     List<SelectListItem> status = new List<SelectListItem>();
- 
+
     status.Add(new SelectListItem() { Value = "PAID", Text = "Paid" });
     status.Add(new SelectListItem() { Value = "UNPAID", Text = "Unpaid" });
     status.Add(new SelectListItem() { Value = "PARTIAL_PAYMENT", Text = "Partial Payment" });
@@ -9,32 +9,36 @@
 <div class="card-body">
     <div class="card-title">
         <h4>Subscriptions Payment </h4>
-        <div class="mt-4">
+        <div class="mt-4" style="font-weight:100 !important;">
             <div class="form-group">
                 <label> Start Date  : </label>
-                @Html.TextBoxFor(model => model.StartDate,"{0:dd-MM-yyyy}" ,new { type = "text", @class = "form-control", @value = "", @readonly = "" })
+                @Html.TextBoxFor(model => model.StartDate, "{0:yyyy-MM-dd}", new { type = "date", @class = "form-control", @value = "", @readonly = "" })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <label> End Date : </label>
-                @Html.TextBoxFor(model => model.EndDate,"{0:dd-MM-yyyy}", new { type = "text", @class = "form-control", @value = "", @readonly = "" })
+                @Html.TextBoxFor(model => model.EndDate, "{0:yyyy-MM-dd}", new { type = "date", @class = "form-control", @value = "", @readonly = "" })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <label>Subscription Cost : </label>
                 @Html.TextBoxFor(model => model.Total_Amount, new { type = "text", @class = "form-control", @value = "", @readonly = "" })
+                @Html.ValidationMessageFor(model => model.Total_Amount, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <label>Paid Amount : </label>
-                @Html.TextBoxFor(model => model.Paid_Amount, new { @type = "number", @max=@Model.Total_Amount , @min="0" ,   @class = "form-control", @id = "Paid_Amount" })
-                @Html.ValidationMessageFor(model => model.Paid_Amount , "", new {  @class="text-danger" } )
+                @Html.TextBoxFor(model => model.Paid_Amount, new { @type = "number", @max = @Model.Total_Amount, @min = "0", @class = "form-control", @id = "Paid_Amount" })
+                @Html.ValidationMessageFor(model => model.Paid_Amount, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <label>Due Amount : </label>
                 @Html.TextBoxFor(model => model.Due_Amount, new { @type = "text", @class = "form-control", @readonly = "" })
+                @Html.ValidationMessageFor(model => model.Due_Amount, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <label>Payment Status : </label>
-                @Html.DropDownListFor(model => model.Paid_Status, status ,"--SELECT STATUS--", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Paid_Status,"", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Paid_Status, status, "--SELECT STATUS--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Paid_Status, "", new { @class = "text-danger" })
             </div>
 
             <button type="submit" id="btnSubmit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Save Subscriptions</button>
@@ -47,6 +51,7 @@
         <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
         <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
         <script src="~/Scripts/modernizr-2.8.3.js"></script>
+        <script src="~/Scripts/moment.js"></script>
         <script type="text/javascript">
             //Script of the  Pay Subscriptions
             var TotalAmount = document.querySelector('#Total_Amount');
@@ -64,6 +69,7 @@
             });
         </script>
         <script type="text/javascript">
+           
             $(function () {
                 $.validator.addMethod('PaidGreator', function (value) {
 

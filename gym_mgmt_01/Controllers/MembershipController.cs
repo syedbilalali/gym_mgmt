@@ -17,7 +17,7 @@ namespace gym_mgmt_01.Controllers
         SubscriptionOpt subs = new SubscriptionOpt();
         dynamic model = new System.Dynamic.ExpandoObject();
 
-        [AuthorizationPrivilegeFilter("Membership" , "View")]
+        [AuthorizationPrivilegeFilter("Membership", "View")]
         public ActionResult Index()
         {
             if (Session["modules"] != null)
@@ -30,20 +30,23 @@ namespace gym_mgmt_01.Controllers
         }
         [HttpPost]
         [AuthorizationPrivilegeFilter("Membership", "Create")]
-        public ActionResult Index(Membership mem) {
+        public ActionResult Index(Membership mem)
+        {
 
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
 
                 int subtractingDays = int.Parse(mem.PreExpirationDays.ToString());
                 mem.ValidDays = subtractingDays;
                 mem.PreEndDate = mem.EndDate.Subtract(TimeSpan.FromDays(subtractingDays));
-                bool flag =  memOpt.AddMembership(mem);
+                bool flag = memOpt.AddMembership(mem);
                 if (flag)
                 {
                     ViewBag.Message = " Successfully Add Membership !!! ";
                     ModelState.Clear();
                 }
-                else {
+                else
+                {
                     ViewBag.Message = " Something Went Wrong !!! ";
                 }
             }
@@ -69,7 +72,7 @@ namespace gym_mgmt_01.Controllers
         {
             try
             {
-                bool result = memOpt.deleteMembership(id) ;
+                bool result = memOpt.deleteMembership(id);
                 if (result == true)
                 {
                     ViewBag.Message = "Customer Deleted Successfully";
@@ -88,7 +91,8 @@ namespace gym_mgmt_01.Controllers
             }
         }
         [AuthorizationPrivilegeFilter("Membership", "View")]
-        public ActionResult Subscriptions() {
+        public ActionResult Subscriptions()
+        {
 
 
             if (Session["modules"] != null)
@@ -104,13 +108,15 @@ namespace gym_mgmt_01.Controllers
             List<Subscriptions> sub1 = subs.getAllSubscriptions();
             model.member = memdata;
             model.membrshp = mshOpt;
-            model.subscription = sub1; 
+            model.subscription = sub1;
             return View(model);
         }
         [AuthorizationPrivilegeFilter("Membership", "Create")]
-        public ActionResult addSubscriptions(FormCollection fc) {
-            
-            if (ModelState.IsValid) {
+        public ActionResult addSubscriptions(FormCollection fc)
+        {
+
+            if (ModelState.IsValid)
+            {
                 Subscriptions sop = new Subscriptions();
                 sop.MembershipID = int.Parse(fc["membershp"].ToString());
                 sop.MemberID = int.Parse(fc["member"].ToString());
@@ -128,14 +134,16 @@ namespace gym_mgmt_01.Controllers
             }
             return Json(prod, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult getSubscription(int id) {
+        public JsonResult getSubscription(int id)
+        {
 
             List<Subscriptions> sb = subs.getAllSubscriptions();
             var prod = sb.Find(x => x.Id.Equals(id));
             return Json(prod, JsonRequestBehavior.AllowGet);
         }
         [AuthorizationPrivilegeFilter("Membership", "Edit")]
-        public ActionResult editSubscription(FormCollection fc) {
+        public ActionResult editSubscription(FormCollection fc)
+        {
 
             int Id = int.Parse(fc["subID"].ToString());
             int membershipID = int.Parse(fc["membership"]);
@@ -147,7 +155,8 @@ namespace gym_mgmt_01.Controllers
             {
                 ViewBag.Message = "Membership Updated Successfully";
             }
-            else {
+            else
+            {
                 ViewBag.Message = "Something went wrong !!! ";
             }
             return RedirectToAction("Subscriptions");
@@ -205,7 +214,7 @@ namespace gym_mgmt_01.Controllers
         public bool IsStartDateAvailable(Membership mem)
         {
             bool status;
-            if (DateTime.Compare(mem.StartDate , mem.EndDate) < 0)
+            if (DateTime.Compare(mem.StartDate, mem.EndDate) < 0)
             {
                 status = false;
             }
@@ -216,10 +225,12 @@ namespace gym_mgmt_01.Controllers
             return status;
         }
         [HttpPost]
-        public JsonResult CheckEndDate(Membership mem) {
+        public JsonResult CheckEndDate(Membership mem)
+        {
             return Json(IsEndDateAvailable(mem));
         }
-        public bool IsEndDateAvailable(Membership mem) {
+        public bool IsEndDateAvailable(Membership mem)
+        {
             bool status;
             if (DateTime.Compare(mem.StartDate, mem.EndDate) > 1)
             {
@@ -231,33 +242,41 @@ namespace gym_mgmt_01.Controllers
             }
             return status;
         }
-        public ActionResult _AddSubscriptions() {
+        public ActionResult _AddSubscriptions()
+        {
 
             List<Member> memdata = mOpt.getAllMembers();
             List<Membership> mshOpt = memOpt.getAllMembership();
-            List<SelectListItem> membr =  memdata.Select(i => new SelectListItem()
-                           {
-                    Text = i.FirstName,
-                    Value = i.Id.ToString()
+            List<SelectListItem> membr = memdata.Select(i => new SelectListItem()
+            {
+                Text = i.FirstName,
+                Value = i.Id.ToString()
             }).ToList();
-            List<SelectListItem> msh =  mshOpt.Select(i => new SelectListItem()
+            List<SelectListItem> msh = mshOpt.Select(i => new SelectListItem()
             {
                 Text = i.Name,
-                Value = i.Id.ToString() 
+                Value = i.Id.ToString()
             }).ToList();
             TempData["member"] = membr;
             TempData["membership"] = msh;
             return View();
         }
         [HttpGet]
-        public ActionResult ViewSubscriptions(int membershipID ,int memberID) {
+        public ActionResult ViewSubscriptions(int membershipID, int memberID)
+        {
 
             List<Membership> mshOpt = memOpt.getAllMembership();
             List<Subscriptions> sps = subs.getAllSubscriptions();
             Membership mem = mshOpt.First(i => i.Id == membershipID);
             var filteredList = sps.Where(c => (c.MemberID == memberID) && (c.MembershipID == membershipID)).ToList();
- 
-            if (filteredList.Count >= 1) {
+
+
+            if (filteredList.Count >= 1)
+            {
+                if (filteredList.Count > mem.Capacity)
+                {
+                    return PartialView("_AlreadyExistMembership");
+                }
                 return PartialView("_AlreadyExistMembership");
             }
             Subscriptions sbs = new Subscriptions()
@@ -266,13 +285,14 @@ namespace gym_mgmt_01.Controllers
                 StartDate = mem.StartDate,
                 EndDate = mem.EndDate
             };
-            return PartialView("_PaySusbscriptions" , sbs);
+            return PartialView("_PaySusbscriptions", sbs);
         }
         [HttpPost]
         public ActionResult addSubscriptions1(Subscriptions sbs)
         {
             SusbscriptionInvoice si = new SusbscriptionInvoice();
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 sbs.Status = "";
                 si.Paid_Amount = sbs.Paid_Amount;
                 si.Due_Amount = sbs.Due_Amount;

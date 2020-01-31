@@ -44,6 +44,7 @@ namespace gym_mgmt_01.BAL.Master
                            Description = dr["Description"].ToString(),
                            ValidDays = int.Parse(dr["ValidDays"].ToString()),
                            Amount = decimal.Parse(dr["Amount"].ToString()),
+                           StartDate = DateTime.Parse(dr["StartDate"].ToString()),
                            EndDate = DateTime.Parse(dr["EndDate"].ToString()),
                            Capacity = int.Parse(dr["Capacity"].ToString()),
                        }).ToList();

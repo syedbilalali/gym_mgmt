@@ -14,6 +14,7 @@ namespace gym_mgmt_01.Models
         public string Capacity { get; set;  }
         public string MemberName { get; set;  }
         public string PaymentStatus { get; set;  }
+        public string Paid_Status { get; set;  }
         public decimal PaidAmount { get; set;  }
     }
 }

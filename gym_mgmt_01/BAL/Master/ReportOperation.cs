@@ -17,7 +17,7 @@ namespace gym_mgmt_01.BAL.Master
             
             DataTable dt = new DataTable();
             List<SubscriptionReport> subs = new List<SubscriptionReport>();
-            string command = "SELECT subs.Id , mem.Name , mem.Amount , mem.EndDate  , mem.Capacity , m.FirstName ";
+            string command = "SELECT subs.Id , mem.Name , mem.Amount , mem.EndDate  , mem.Capacity , m.FirstName  ,subs.Paid_Status , subs.Paid_Amount ";
             command += " FROM Subscriptions subs INNER JOIN dbo.Membership mem ON subs.MembershipID = mem.Id ";
             command += " INNER JOIN dbo.Member m ON subs.MemberID = m.Id ";
             dt = da.FetchAll(command);
@@ -27,7 +27,9 @@ namespace gym_mgmt_01.BAL.Master
                 Amount = decimal.Parse(dr["Amount"].ToString()),
                 ExpiryDate = DateTime.Parse(dr["EndDate"].ToString()),
                 Capacity =  dr["Capacity"].ToString(),
-                MemberName = dr["FirstName"].ToString()
+                MemberName = dr["FirstName"].ToString(),
+                PaidAmount = decimal.Parse(dr["Paid_Amount"].ToString()),
+                PaymentStatus = dr["Paid_Status"].ToString()
             }).ToList();
             return subs;
         }
@@ -38,7 +40,7 @@ namespace gym_mgmt_01.BAL.Master
             string fromdatest = String.Format("{0:yyyy-MM-dd}", fromdate) + " 00:00:00";
             string todatest = String.Format("{0:yyyy-MM-dd}", todate) + " 23:59:59";
             List<SubscriptionReport> subs = new List<SubscriptionReport>();
-            string command = "SELECT subs.Id , mem.Name , mem.Amount , mem.EndDate  , mem.Capacity , m.FirstName ";
+            string command = "SELECT subs.Id , mem.Name , mem.Amount , mem.EndDate  , mem.Capacity , m.FirstName ,subs.Paid_Status , subs.Paid_Amount ";
             command += " FROM Subscriptions subs INNER JOIN dbo.Membership mem ON subs.MembershipID = mem.Id ";
             command += " INNER JOIN dbo.Member m ON subs.MemberID = m.Id WHERE subs.CreatedAt BETWEEN '" +fromdatest+ "' AND '" +todatest+ "'";
             dt = da.FetchAll(command);
@@ -50,7 +52,10 @@ namespace gym_mgmt_01.BAL.Master
                         Amount = decimal.Parse(dr["Amount"].ToString()),
                         ExpiryDate = DateTime.Parse(dr["EndDate"].ToString()),
                         Capacity = dr["Capacity"].ToString(),
-                        MemberName = dr["FirstName"].ToString()
+                        MemberName = dr["FirstName"].ToString(),
+                        PaidAmount= decimal.Parse(dr["Paid_Amount"].ToString()), 
+                        PaymentStatus = dr["Paid_Status"].ToString()
+                        
                     }).ToList();
             return subs;
         }

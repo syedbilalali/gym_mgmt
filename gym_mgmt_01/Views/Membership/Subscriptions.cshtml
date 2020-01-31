@@ -69,24 +69,24 @@
                                 <td>@sub.Paid_Amount</td>
                                 <td>
                                     @{
-                                        switch (sub.Paid_Status)
+                                        
+                                        if (@sub.Paid_Status == "UNPAID")
                                         {
-                                            case "UNPAID":
-                                                <span class="badge badge-warning">
-                                                    @sub.Paid_Status
-                                                </span>
-                                                break;
-                                            case "PAID":
-                                                <span class="badge badge-primary">
-                                                    @sub.Paid_Status
-                                                </span>
-                                                break;
-                                            case "PARTIAL_PAYMENT":
-                                                <span class="badge badge-info">
-                                                    PARTIAL PAYEMENT
-                                                </span>
-                                                break;
-
+                                            <span class="badge badge-warning">
+                                                @sub.Paid_Status
+                                            </span>
+                                        }
+                                        else if (@sub.Paid_Status == "PAID")
+                                        {
+                                            <span class="badge badge-primary">
+                                                @sub.Paid_Status
+                                            </span>
+                                        }
+                                        else if (@sub.Paid_Status == "PARTIAL_PAYMENT")
+                                        {
+                                            <span class="badge badge-info">
+                                                PARTIAL PAYEMENT
+                                            </span>
                                         }
                                     }
                                 </td>

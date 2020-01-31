@@ -41,15 +41,15 @@ namespace gym_mgmt_01.Models
 
         public string Status { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
-        public DateTime StartDate { get; set; }
-        public string sStartDate { get; set; }
+      //  [DataType(DataType.Date)]
+      //  [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+          public DateTime StartDate { get; set; }
+         public string sStartDate { get; set; }
 
 
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+     //   [DataType(DataType.Date)]
+     //   [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
 
         public string sEndDate { get; set; }
