@@ -270,7 +270,6 @@ namespace gym_mgmt_01.Controllers
             Membership mem = mshOpt.First(i => i.Id == membershipID);
             var filteredList = sps.Where(c => (c.MemberID == memberID) && (c.MembershipID == membershipID)).ToList();
 
-
             if (filteredList.Count >= 1)
             {
                 if (filteredList.Count > mem.Capacity)
@@ -303,6 +302,10 @@ namespace gym_mgmt_01.Controllers
                 subs.AddSubscriptionsInvoice(si);
             }
             return RedirectToAction("Subscriptions");
+        }
+
+        public ActionResult PreExpiration() {
+            return View();
         }
     }
 }

@@ -3687,6 +3687,7 @@
     <Content Include="Views\Member\_TrainingDetails.cshtml" />
     <Content Include="Views\Payment\GetPayment.cshtml" />
     <Content Include="Views\Payment\SusbcriptionPayment.cshtml" />
+    <Content Include="Views\Membership\PreExpiration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
