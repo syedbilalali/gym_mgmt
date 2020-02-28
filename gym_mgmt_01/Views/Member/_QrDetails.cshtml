@@ -1,0 +1,31 @@
+﻿
+<div class="form p-t-20">
+    <div class="align-content-center">
+        @if (Model.member != null)
+        {
+            if (Model.member.QRUri != "" && !String.IsNullOrEmpty(Model.member.QRUri))
+            {
+                <img src="@Url.Content(Model.member.QRUri)" alt="Image" width="200" height="200" />
+            }
+            else
+            {
+
+                using (Html.BeginForm("Generate", "Member", FormMethod.Post))
+                {
+                    <div class="form-horizontal">
+                        <input type="hidden" name="QRURI" value="@Model.member.QRUri" />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Generate QR" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

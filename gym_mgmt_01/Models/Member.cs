@@ -46,6 +46,7 @@ namespace gym_mgmt_01.Models
         public string ImagePath { get; set; }
         public string ImageUri { get; set; }
         public HttpPostedFileBase ImageFile { get; set;}
+        public string QRUri { get; set; }
 
     }
     public class DateMinimumAgeAttribute : ValidationAttribute

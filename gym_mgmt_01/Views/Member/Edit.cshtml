@@ -10,7 +10,6 @@
     Genderlist.Add(new SelectListItem() { Text = "Other", Value = "Other" });
 
 }
-
 @model gym_mgmt_01.Models.MemberRegistration
 @using (Html.BeginForm("Edit", "Member", FormMethod.Post, new { enctype = "multipart/form-data", id = "memreg", @class = "needs-validation", @novalidate = "" }))
 {
@@ -63,7 +62,6 @@
                         <center class="m-t-30">
                             <img src="@Html.DisplayFor(model => model.member.ImagePath)" alt="" width="150px" height="150px" id="profImg" class="img-circle" />
                             <h4 class="card-title m-t-10"></h4>
-                            <!--    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6> -->
                             <div class="row text-center justify-content-md-center">
                                 <div class="upload-btn-wrapper">
                                     @if (Session["user"] != null)
@@ -126,6 +124,7 @@
 
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab"> <i class="ti-user"></i>&nbsp;Details</a> </li>
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#membership" role="tab">Membership</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#qrcode" role="tab">QR Code</a> </li>
                         @*<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Trainings</a> </li>*@
                     </ul>
                     <!-- Tab panes -->
@@ -320,7 +319,7 @@
                                         <div class="card-body">
                                             <h4 class="card-title"><i class="ti-calendar"></i>&nbsp;&nbsp;Memberships</h4>
 
-                                             @Html.Partial("_MembershipDetails" , Model.subs)
+                                            @Html.Partial("_MembershipDetails", Model.subs)
                                         </div>
                                     </div>
                                 </div>
@@ -332,7 +331,19 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="card-title"><i class="ti-calendar"></i>&nbsp;&nbsp;Training Details</h4>
-                                             @Html.Partial("_TrainingDetails")
+                                            @Html.Partial("_TrainingDetails")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="qrcode" role="tabpanel">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><i class="ti-calendar"></i>&nbsp;&nbsp;QR Code</h4>
+                                            @Html.Partial("_QrDetails" ,Model)
                                         </div>
                                     </div>
                                 </div>

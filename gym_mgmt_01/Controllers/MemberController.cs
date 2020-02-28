@@ -9,6 +9,10 @@ using gym_mgmt_01.BAL.Master;
 using gym_mgmt_01.Models;
 using System.Data;
 using System.Reflection;
+using ZXing;
+using System.Drawing;
+using System.Drawing.Imaging;
+using gym_mgmt_01.Models;
 using gym_mgmt_01.Helper_Code.Common;
 
 namespace gym_mgmt_01.Controllers
@@ -31,12 +35,14 @@ namespace gym_mgmt_01.Controllers
             if (id == null)
             {
                 if (Session["modules"] != null) {
+
                     List<ModuleDetails> md = Session["modules"] as List<ModuleDetails>;
                     ModuleDetails  md1 =  md.Find(x => x.Module.Equals("Member"));
                     ViewBag.Create = md1.Create;
                     ViewBag.Edit = md1.Edit;
                     ViewBag.Delete = md1.Delete;
                 }
+
                 ViewBag.ID = mo.getMemberID();
                 MemberRegistration mr = new MemberRegistration();
                 mr.member = new Member();
@@ -392,6 +398,46 @@ namespace gym_mgmt_01.Controllers
             }
             return Json(result); 
         }
-        
+        [HttpPost]
+        public ActionResult Generate(FormCollection fc)
+        {
+            try
+            {
+                string data = GenerateQRCode(fc["QRURI"].ToString()) ;
+                ViewBag.Message = "QR Code Created successfully";
+            }
+            catch (Exception ex)
+            {
+                //catch exception if there is any
+            }
+            return RedirectToAction("Edit", new { id="141"});
+        }
+        private string GenerateQRCode(string qrcodeText)
+        {
+            string folderPath = "~/Images/";
+            string imagePath = "~/Images/QrCode.jpg";
+            // If the directory doesn't exist then create it.
+            if (!Directory.Exists(Server.MapPath(folderPath)))
+            {
+                Directory.CreateDirectory(Server.MapPath(folderPath));
+            }
+
+            var barcodeWriter = new BarcodeWriter();
+            barcodeWriter.Format = BarcodeFormat.QR_CODE;
+            var result = barcodeWriter.Write(qrcodeText);
+
+            string barcodePath = Server.MapPath(imagePath);
+            var barcodeBitmap = new Bitmap(result);
+            using (MemoryStream memory = new MemoryStream())
+            {
+                using (FileStream fs = new FileStream(barcodePath, FileMode.Create, FileAccess.ReadWrite))
+                {
+                    barcodeBitmap.Save(memory, ImageFormat.Jpeg);
+                    byte[] bytes = memory.ToArray();
+                    fs.Write(bytes, 0, bytes.Length);
+                }
+            }
+            return imagePath;
+        }
     }
 }

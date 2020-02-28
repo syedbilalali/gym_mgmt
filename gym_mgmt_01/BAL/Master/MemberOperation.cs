@@ -138,6 +138,7 @@ namespace gym_mgmt_01.BAL.Master
                     note = dt.Rows[0]["Note"].ToString(),
                     MemberType = dt.Rows[0]["MemberType"].ToString(),
                     ImagePath = dt.Rows[0]["ImgURL"].ToString(),
+                    QRUri = dt.Rows[0]["QRURL"].ToString(),
                    
                 };
             }

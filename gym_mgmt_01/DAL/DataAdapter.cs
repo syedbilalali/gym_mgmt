@@ -126,10 +126,8 @@ namespace gym_mgmt_01.DAL
             DataTable dt = new System.Data.DataTable();
             try
             {
-               
                 using (SqlConnection con = new SqlConnection(connectionString.connect()))
                 {
-
                     using (SqlCommand cmd = new SqlCommand(command))
                     {
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -148,7 +146,7 @@ namespace gym_mgmt_01.DAL
             }
             catch (Exception e) {
                 //Exception Caught Here 
-
+                
             }
             return dt;
         }

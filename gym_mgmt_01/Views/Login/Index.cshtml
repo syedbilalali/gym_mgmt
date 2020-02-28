@@ -53,7 +53,7 @@
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <section id="wrapper">
-        <div class="login-register" style="background-image:url(@Url.Content("~/assets/images/background/gym.jpg"));">
+        <div class="login-register" style="background-image:url(@Url.Content("~/assets/images/background/gym.jpg"))">
             <div class="login-box card">
                 <div class="card-body">
                     @* @using (Html.BeginForm()) {
@@ -108,7 +108,7 @@
                         </div>*@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
-                                @Html.ValidationSummary();
+                                @Html.ValidationSummary()
                             </div>
                         </div>
                         
