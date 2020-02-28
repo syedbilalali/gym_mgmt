@@ -194,6 +194,7 @@
     <Compile Include="BAL\Master\SellsOrderOpt.cs" />
     <Compile Include="BAL\Master\StaffOperation.cs" />
     <Compile Include="BAL\Master\SubscriptionOpt.cs" />
+    <Compile Include="BAL\Master\VisitorOpration.cs" />
     <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Models\Subscriptions.cs" />
     <Compile Include="Models\SusbscriptionInvoice.cs" />
     <Compile Include="Models\UserRoles.cs" />
+    <Compile Include="Models\Visitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

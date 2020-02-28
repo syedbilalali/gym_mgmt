@@ -145,6 +145,16 @@ namespace gym_mgmt_01.BAL.Master
             return mem;
             
         }
+        public bool saveQRCode(int Id , string ImageURI) {
+
+            string command = "UPDATE dbo.Member SET QRURL=@QRURL WHERE Id=@Id";
+            SqlParameter[] param = new SqlParameter[2];
+            param[0] = new SqlParameter("@Id", Id);
+            param[1] = new SqlParameter("@QRURL" , ImageURI);
+          
+            return da.Insert(param, command);
+        }
+
 
     }
 }

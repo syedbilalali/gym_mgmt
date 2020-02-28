@@ -9,18 +9,7 @@
             }
             else
             {
-
-                using (Html.BeginForm("Generate", "Member", FormMethod.Post))
-                {
-                    <div class="form-horizontal">
-                        <input type="hidden" name="QRURI" value="@Model.member.QRUri" />
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Generate QR" class="btn btn-default" />
-                            </div>
-                        </div>
-                    </div>
-                }
+                 <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Generate", "Member", new { id = Model.member.Id })'">Generate QR Code</button>
             }
         }
     </div>

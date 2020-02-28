@@ -12,7 +12,6 @@ using System.Reflection;
 using ZXing;
 using System.Drawing;
 using System.Drawing.Imaging;
-using gym_mgmt_01.Models;
 using gym_mgmt_01.Helper_Code.Common;
 
 namespace gym_mgmt_01.Controllers
@@ -398,30 +397,35 @@ namespace gym_mgmt_01.Controllers
             }
             return Json(result); 
         }
-        [HttpPost]
-        public ActionResult Generate(FormCollection fc)
+        [HttpGet]
+        public ActionResult Generate(int id)
         {
             try
             {
-                string data = GenerateQRCode(fc["QRURI"].ToString()) ;
-                ViewBag.Message = "QR Code Created successfully";
+                string data = GenerateQRCode(id.ToString()) ;
+                bool flag = mo.saveQRCode(id, data);
+                if (flag) {
+                    ViewBag.Message = "QR Code Created successfully";
+                }
+               
             }
             catch (Exception ex)
             {
                 //catch exception if there is any
             }
-            return RedirectToAction("Edit", new { id="141"});
+            return RedirectToAction("Edit" , new { id = id});
         }
         private string GenerateQRCode(string qrcodeText)
         {
+
+            Random random = new Random();
             string folderPath = "~/Images/";
-            string imagePath = "~/Images/QrCode.jpg";
+            string imagePath = "~/Images/QrCode" + random.Next()  +".jpg";
             // If the directory doesn't exist then create it.
             if (!Directory.Exists(Server.MapPath(folderPath)))
             {
                 Directory.CreateDirectory(Server.MapPath(folderPath));
             }
-
             var barcodeWriter = new BarcodeWriter();
             barcodeWriter.Format = BarcodeFormat.QR_CODE;
             var result = barcodeWriter.Write(qrcodeText);
