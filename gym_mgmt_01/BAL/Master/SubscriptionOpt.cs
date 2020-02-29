@@ -197,6 +197,20 @@ namespace gym_mgmt_01.BAL.Master
             }
             return data;
         }
-        
+        public Subscriptions getSubscriptionByMemberID(int? id)
+        {
+            try
+            {
+
+                Subscriptions sbs = new Subscriptions();
+                sbs = this.getAllSubscriptions().First(i => i.MemberID == id);
+                return sbs;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
     }
 }

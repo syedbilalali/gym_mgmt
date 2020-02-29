@@ -182,6 +182,8 @@
     <Compile Include="BAL\Master\ClassesOpt.cs" />
     <Compile Include="BAL\Master\ContactOpration.cs" />
     <Compile Include="BAL\Master\EmergencyContactOpt.cs" />
+    <Compile Include="BAL\Master\LoginResponse.cs" />
+    <Compile Include="BAL\Master\LoginServices.cs" />
     <Compile Include="BAL\Master\MasterOperation.cs" />
     <Compile Include="BAL\Master\MemberOperation.cs" />
     <Compile Include="BAL\Master\MembershipOpt.cs" />
@@ -196,6 +198,7 @@
     <Compile Include="BAL\Master\SubscriptionOpt.cs" />
     <Compile Include="BAL\Master\VisitorOpration.cs" />
     <Compile Include="Controllers\APIController.cs" />
+    <Compile Include="Controllers\api\LoginController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -212,14 +215,16 @@
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Controllers\TrainingController.cs" />
-    <Compile Include="Controllers\VisitorController.cs" />
+    <Compile Include="Controllers\api\VisitorController.cs" />
     <Compile Include="DAL\ConnectionString.cs" />
     <Compile Include="DAL\DataAdapter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper_Code\Common\adminPrincipalProvider.cs" />
     <Compile Include="Helper_Code\Common\AllowFileSizeAttribute.cs" />
     <Compile Include="Helper_Code\Common\AuthorizationPrivilegeFilter.cs" />
+    <Compile Include="Helper_Code\Common\BasicAuthMessageHandler.cs" />
     <Compile Include="Helper_Code\Common\DateGreaterThanAttribute.cs" />
     <Compile Include="Helper_Code\Common\MyDateAttribute.cs" />
     <Compile Include="Helper_Code\Common\RemoteClientServer.cs" />

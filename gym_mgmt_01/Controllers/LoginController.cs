@@ -10,7 +10,6 @@ namespace gym_mgmt_01.Controllers
 {
     public class LoginController : Controller
     {
-        
         MasterOperation ml = new MasterOperation();
         StaffOperation so = new StaffOperation();
         bool isStaff , isAdmin;
@@ -23,7 +22,7 @@ namespace gym_mgmt_01.Controllers
         public ActionResult Index(FormCollection fc) {
 
             if (ModelState.IsValid) {
-
+                    
                 string Email = fc["Email"].ToString();
                 string Password = fc["Password"].ToString();
                 isAdmin = ml.Login(Email , Password);
@@ -58,6 +57,12 @@ namespace gym_mgmt_01.Controllers
         [AllowAnonymous]
         public ActionResult NoAccess() {
             return View();
+        }
+        [AllowAnonymous]
+        [Route("api/h")]
+        public JsonResult H() {
+     
+            return Json("Hello World");
         }
     }
 }

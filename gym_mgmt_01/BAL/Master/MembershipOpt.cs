@@ -71,11 +71,11 @@ namespace gym_mgmt_01.BAL.Master
                            EndDate = DateTime.Parse(dr["EndDate"].ToString()),
                            sStartDate = DateTime.Parse(dr["StartDate"].ToString()).ToString(),
                            sEndDate = DateTime.Parse(dr["EndDate"].ToString()).ToString(),
-                           //     PreEndDate = DateTime.Parse(dr["PreEndDate"].ToString()),
+                             PreEndDate = DateTime.Parse(dr["PreEndDate"].ToString()),
                            PreExpirationDays = (DateTime.Parse(dr["EndDate"].ToString()) - DateTime.Parse(dr["PreEndDate"].ToString())).Days,
                            Capacity = int.Parse(dr["Capacity"].ToString()),
-                           //    CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString()),
-                           //    UpdatedAt = DateTime.Parse(dr["UpdatedAt"].ToString())
+                              CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString()),
+                             UpdatedAt = DateTime.Parse(dr["UpdatedAt"].ToString())
                        }).ToList();
             }
             return mem;
@@ -96,12 +96,12 @@ namespace gym_mgmt_01.BAL.Master
                     Description = dt.Rows[0]["Description"].ToString(),
                     ValidDays = int.Parse(dt.Rows[0]["ValidDays"].ToString()),
                     Amount = decimal.Parse(dt.Rows[0]["Amount"].ToString()),
-                    StartDate = DateTime.Parse(dt.Rows[0]["StartDate"].ToString()),
-                    EndDate = DateTime.Parse(dt.Rows[0]["EndDate"].ToString()),
+                   StartDate = DateTime.Parse(dt.Rows[0]["StartDate"].ToString()),
+                   EndDate = DateTime.Parse(dt.Rows[0]["EndDate"].ToString()),
                     PreEndDate = DateTime.Parse(dt.Rows[0]["PreEndDate"].ToString()),
                     Capacity = int.Parse(dt.Rows[0]["Capacity"].ToString()),
                     CreatedAt = DateTime.Parse(dt.Rows[0]["CreatedAt"].ToString()),
-                    UpdatedAt = DateTime.Parse(dt.Rows[0]["UpdatedAt"].ToString())
+                 //  UpdatedAt = DateTime.Parse(dt.Rows[0]["UpdatedAt"].ToString())
                 };
             }
             return data;
