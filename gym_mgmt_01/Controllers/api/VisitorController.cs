@@ -101,7 +101,7 @@ namespace gym_mgmt_01.Controllers
     }
     public class MemberResponse {
 
-        public int? Id;
+       // public int? Id;
         public string Name;
         public string Membership;
         public string Phone;
@@ -110,7 +110,7 @@ namespace gym_mgmt_01.Controllers
         public string ProfileURI;
         public MemberResponse(int? Id ,string Name , string Phone ,string Membership ,  string JoinDate , string ExpiredDate, string ProfileURI ) {
             
-            this.Id = Id;
+          //  this.Id = Id;
             this.Name = Name;
             this.Phone = Phone;
             this.Membership = Membership;
