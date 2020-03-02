@@ -114,5 +114,37 @@ namespace gym_mgmt_01.BAL.Master
             }
             return sellsOrder;
         }
+        public List<Visitor> getAllVisitor()
+        {
+            DataTable dt = new DataTable();
+        //  string fromdatest = String.Format("{0:yyyy-MM-dd}", fromdate) + " 00:00:00";
+           // string todatest = String.Format("{0:yyyy-MM-dd}", todate) + " 23:59:59";
+           
+            string command = "SELECT DISTINCT UserID,(mem.FirstName + ' ' + mem.LastName) as VisitorName,  UserType ,[Date] ,";
+            command += "MIN(Clock) OVER(PARTITION BY UserID ) AS ClockIn,";
+            command += "MAX(Clock) OVER(PARTITION BY UserID) AS ClockOut ";
+            command += "FROM Visitors visit INNER JOIN Member mem on visit.UserID = mem.Id ";
+            command += "GROUP BY UserID ,mem.FirstName , mem.LastName, UserType ,[Date] , Clock ";
+            command += "ORDER BY UserID ";
+            //"WHERE so.CreatedAt BETWEEN '" + fromdatest + "' AND '" + todatest + "'";
+            List<Visitor> visitors = new List<Visitor>();
+            dt = da.FetchAll(command);
+            if (dt.Rows.Count > 0)
+            {
+                visitors = (from DataRow dr in dt.Rows
+                              select new Visitor()
+                              {
+                                 // VisitorID = int.Parse(dr["VisitorID"].ToString()),
+                                  UserID = int.Parse(dr["UserID"].ToString()),
+                                  VisitorName = dr["VisitorName"].ToString(),
+                                  UserType = dr["UserType"].ToString(),
+                                  Date = dr["Date"].ToString(),
+                                  ClockIn = DateTime.Parse(dr["ClockIn"].ToString()).ToString("HH:mm:ss"),
+                                  ClockOut = DateTime.Parse(dr["ClockOut"].ToString()).ToString("HH:mm:ss"),
+                               //   CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString())
+                              }).ToList();
+            }
+            return visitors;
+        }
     }
 }

@@ -2,57 +2,86 @@
 @{
     ViewBag.Title = "AllVisitor";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var fromDate = ViewBag.fromDate as DateTime?;
+    var toDate = ViewBag.toDate as DateTime?;
 }
-    <div class="row upp2">
-        <!-- Column -->
-        <div class="row rolebtns2">
-            <div class="col-lg-6 col-xlg-6 col-md-6">
-                <form action="#">
-                    <label class="mb100">Date Filter</label>
-                    <div class="input-group wid45">
-                        <input type="date" class="form-control" placeholder="" aria-label="">
-                    </div>
-                    <p class="wid10 form-control">to</p>
-                    <div class="input-group wid45">
-                        <input type="date" class="form-control" placeholder="" aria-label="">
-                    </div>
-                </form>
-            </div>
-
-            <div class="col-lg-6 col-xlg-6 col-md-6 btnsection">
-                <button type="button" class="btn btn-info">Reset Filters</button>
-                <button type="button" class="btn btn-info">Export to CSV</button>
-                <button type="button" class="btn btn-info">Print</button>
-            </div>
+@model dynamic
+<div class="row upp2">
+    <!-- Column -->
+    <div class="row rolebtns2">
+        <div class="col-lg-6 col-xlg-6 col-md-6">
+            @using (@Html.BeginForm("AllVisitor", "Report", FormMethod.Post))
+            {
+                <label class="mb100">Filter</label>
+                <div class="input-group wid45">
+                    @Html.TextBox("fromDate", string.Format("{0:dd-MM-yyyy}", fromDate), new { @class = "form-control", @type = "Date" })
+                </div>
+                <p class="wid10 form-control">to</p>
+                <div class="input-group wid45">
+                    @Html.TextBox("toDate", string.Format("{0:dd-MM-yyyy}", toDate), new { @class = "form-control", @type = "Date" })
+                </div>
+                <div class="input-group form-group" style="display:none;">
+                    <label class="mb100">Filter by status</label>
+                    <textarea type="text" class="form-control mb100" rows="2" placeholder="" aria-label=""></textarea>
+                </div>
+                <div class="input-group form-group">
+                    <button type="submit" class="btn btn-info">Submit</button>
+                </div>
+            }
         </div>
-
-        <div class="addrolestab scrolltab">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>S. No.</th>
-                        <th>Visitor ID</th>
-                        <th>Visitor Name</th>
-                        <th>Visitor Type</th>
-                        <th>Date</th>
-                        <th>Check In</th>
-                        <th>Check Out</th>
-                        <th>Total Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>128</td>
-                        <td>Bilal Ali</td>
-                        <td>Member</td>
-                        <td>24/10/2019</td>
-                        <td>11:00 AM</td>
-                        <td>1:00 PM</td>
-                        <td>2 HOUR</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-lg-6 col-xlg-6 col-md-6 btnsection">
+            <button type="button" style="display:none;" class="btn btn-info">Reset Filters</button>
+            @using (Html.BeginForm("VisitorExport", "Report", FormMethod.Post, new { @style = "display:contents;" }))
+            {
+                <button type="submit" class="btn btn-info">Export to CSV</button>
+            }
+            @using (Html.BeginForm("VisitorPrint", "Report", FormMethod.Post, new { @style = "display:contents;" }))
+            {
+                <button type="submit" class="btn btn-info">Print</button>
+            }
         </div>
     </div>
+    <div class="addrolestab scrolltab">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Visitor Name</th>
+                    <th>Visitor Type</th>
+                    <th>Date</th>
+                    <th>Check In</th>
+                    <th>Check Out</th>
+                    <th>Total Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.visitReport.Count > 0)
+                {
+                    foreach (var visit in Model.visitReport)
+                    {
+                        <tr>
+                            <td>@visit.VisitorName</td>
+                            <td>@visit.UserType</td>
+                            <td>@visit.Date</td>
+                            <td>@visit.ClockIn</td>
+                            <td>@visit.ClockOut</td>
+                            <td>@visit.Total_Hour</td>
+                        </tr>
+
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" align="center">
+                            <div class="alert alert-info">
+                                <i class="ti-info" style="margin-right: 5px;border-radius: 50%;border: 1px solid #249ddc; padding: 3px; font-size: 10px;"></i> No Subscriptions Data Found !!!
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">  </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 

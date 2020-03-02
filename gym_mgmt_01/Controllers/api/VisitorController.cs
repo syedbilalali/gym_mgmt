@@ -24,8 +24,11 @@ namespace gym_mgmt_01.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, new Message(HttpStatusCode.OK, "Login Successfully" , "success"));
         }
         [HttpPost, AllowAnonymous, Route("login")]
-        public HttpResponseMessage GetCheckIn(string userid) {
-            
+        public HttpResponseMessage GetCheckIn(HttpRequestMessage req) {
+            // string userid = req.Content.ReadAsStringAsync().Result ;
+            string data = req.Content.ReadAsStringAsync().Result;
+            string userid = new String(data.Where(Char.IsDigit).ToArray());
+
             try {
                 if (userid != null)
                 {
@@ -52,7 +55,7 @@ namespace gym_mgmt_01.Controllers
                                 visit.UserID = int.Parse(mem.Id.ToString());
                                 visit.UserType = "Member";
                                 visit.Date = DateTime.Today.ToShortDateString();
-                                visit.ClockIn = DateTime.Now.ToShortTimeString();
+                                visit.Clock = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
                                 visit.Status = "";
                                 vo.AddVisit(visit);
                                 return Request.CreateResponse(HttpStatusCode.OK, mr);

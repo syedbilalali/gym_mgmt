@@ -170,7 +170,9 @@ namespace gym_mgmt_01.Controllers
         }
         public ActionResult AllVisitor()
         {
-            return View();
+            List<Visitor> so = ro.getAllVisitor();
+            model.visitReport = so;
+            return View(model);
         }
         public ActionResult AllBillsPdf()
         {

@@ -21,7 +21,7 @@ namespace gym_mgmt_01.BAL.Master
             param[0] = new SqlParameter("@UserID", visit.UserID);
             param[1] = new SqlParameter("@UserType", visit.UserType);
             param[2] = new SqlParameter("@Date", visit.Date);
-            param[3] = new SqlParameter("@Clock", visit.ClockIn);
+            param[3] = new SqlParameter("@Clock", visit.Clock);
             param[4] = new SqlParameter("@Status", visit.Status);           
             da.Insert(param, command);
         }
