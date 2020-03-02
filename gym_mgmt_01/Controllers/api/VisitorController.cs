@@ -40,33 +40,38 @@ namespace gym_mgmt_01.Controllers
                         {
                             Membership mbr = mo.getMembershipByID(sbs.MembershipID);
                             TimeSpan timeSpan = mbr.EndDate - DateTime.Now;
-                            if (timeSpan.Days >= 0)
+                            TimeSpan timeSpan1 = mbr.StartDate - DateTime.Now;
+                            if (timeSpan1.Days > 0)
                             {
-                                MemberResponse mr = new MemberResponse(mem.Id, mem.FirstName + " " + mem.LastName, con.Cell,mbr.Name ,  mbr.StartDate.ToShortDateString(), mbr.EndDate.ToShortDateString(), mem.ImagePath);
+                                return Request.CreateResponse(HttpStatusCode.NotFound, new Message("Membership Not Started"));
+                            }
+                            else if (timeSpan.Days >= 0) {
+
+                                MemberResponse mr = new MemberResponse(mem.Id, mem.FirstName + " " + mem.LastName, con.Cell, mbr.Name, mbr.StartDate.ToShortDateString(), mbr.EndDate.ToShortDateString(), mem.ImagePath);
                                 Visitor visit = new Visitor();
                                 visit.UserID = int.Parse(mem.Id.ToString());
-                                    visit.UserType = "Member";
-                                    visit.Date = DateTime.Today.ToShortDateString();
-                                    visit.ClockIn = DateTime.Now.ToShortTimeString();
-                                    visit.Status = "";
+                                visit.UserType = "Member";
+                                visit.Date = DateTime.Today.ToShortDateString();
+                                visit.ClockIn = DateTime.Now.ToShortTimeString();
+                                visit.Status = "";
                                 vo.AddVisit(visit);
                                 return Request.CreateResponse(HttpStatusCode.OK, mr);
                             }
                             else {
-                                return Request.CreateResponse(HttpStatusCode.NotFound, new Message(" Sorry You Membership has expired !!! "));
+                                return Request.CreateResponse(HttpStatusCode.NotFound, new Message("Membership Expired"));
                             }
                            
                         }
                         else {
-                            return Request.CreateResponse(HttpStatusCode.NotFound , new Message(" Sorry Membership Not Found !!! "));
+                            return Request.CreateResponse(HttpStatusCode.NotFound , new Message("Membership Not Found"));
                         }
                     }
                     else {
-                        return Request.CreateResponse(HttpStatusCode.NotFound , new Message(" Sorry Userid Not Found !!! ")); 
+                        return Request.CreateResponse(HttpStatusCode.NotFound , new Message("Userid Not Found")); 
                     }
                 }
                 else {
-                    return Request.CreateResponse(HttpStatusCode.BadRequest , new Message(" Sorry Userid is mandatory !!! "));
+                    return Request.CreateResponse(HttpStatusCode.BadRequest , new Message("Userid Required"));
                 }
 
             }

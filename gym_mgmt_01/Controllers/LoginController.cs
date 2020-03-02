@@ -51,18 +51,12 @@ namespace gym_mgmt_01.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Abandon();
-            return RedirectToAction("Login");
+            return RedirectToAction("Index");
         }
 
         [AllowAnonymous]
         public ActionResult NoAccess() {
             return View();
-        }
-        [AllowAnonymous]
-        [Route("api/h")]
-        public JsonResult H() {
-     
-            return Json("Hello World");
         }
     }
 }

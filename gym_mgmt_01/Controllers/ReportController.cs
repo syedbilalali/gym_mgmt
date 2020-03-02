@@ -170,7 +170,7 @@ namespace gym_mgmt_01.Controllers
         }
         public ActionResult AllVisitor()
         {
-            return View("AllBills");
+            return View();
         }
         public ActionResult AllBillsPdf()
         {

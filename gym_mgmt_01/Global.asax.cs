@@ -23,10 +23,10 @@ namespace gym_mgmt_01
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             //For API Authentication
-            var basicAuthMessageHandler = new gym_mgmt_01.Helper_Code.Common.BasicAuthMessageHandler();
-            basicAuthMessageHandler.PrincipalProvider = new gym_mgmt_01.Helper_Code.Common.adminPrincipalProvider();
+        //    var basicAuthMessageHandler = new gym_mgmt_01.Helper_Code.Common.BasicAuthMessageHandler();
+        //    basicAuthMessageHandler.PrincipalProvider = new gym_mgmt_01.Helper_Code.Common.adminPrincipalProvider();
             //start message handler
-            GlobalConfiguration.Configuration.MessageHandlers.Add(basicAuthMessageHandler);
+         //   GlobalConfiguration.Configuration.MessageHandlers.Add(basicAuthMessageHandler);
         }
         protected void Session_Start(object sender, EventArgs e)
         {
