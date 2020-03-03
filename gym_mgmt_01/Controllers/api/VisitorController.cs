@@ -50,7 +50,7 @@ namespace gym_mgmt_01.Controllers
                             }
                             else if (timeSpan.Days >= 0) {
 
-                                MemberResponse mr = new MemberResponse(mem.Id, mem.FirstName + " " + mem.LastName, con.Cell, mbr.Name, mbr.StartDate.ToShortDateString(), mbr.EndDate.ToShortDateString(), mem.ImagePath);
+                                MemberResponse mr = new MemberResponse(mem.Id, mem.FirstName + " " + mem.LastName, con.Cell, mbr.Name, mbr.StartDate.ToShortDateString(), mbr.EndDate.ToShortDateString(), mem.ImagePath , "Verified");
                                 Visitor visit = new Visitor();
                                 visit.UserID = int.Parse(mem.Id.ToString());
                                 visit.UserType = "Member";
@@ -61,26 +61,26 @@ namespace gym_mgmt_01.Controllers
                                 return Request.CreateResponse(HttpStatusCode.OK, mr);
                             }
                             else {
-                                return Request.CreateResponse(HttpStatusCode.NotFound, new Message("Membership Expired"));
+                                return Request.CreateResponse(HttpStatusCode.OK, new Message("Membership Expired"));
                             }
                            
                         }
                         else {
-                            return Request.CreateResponse(HttpStatusCode.NotFound , new Message("Membership Not Found"));
+                            return Request.CreateResponse(HttpStatusCode.OK, new Message("Membership Not Found"));
                         }
                     }
                     else {
-                        return Request.CreateResponse(HttpStatusCode.NotFound , new Message("Userid Not Found")); 
+                        return Request.CreateResponse(HttpStatusCode.OK, new Message("Userid Not Found")); 
                     }
                 }
                 else {
-                    return Request.CreateResponse(HttpStatusCode.BadRequest , new Message("Userid Required"));
+                    return Request.CreateResponse(HttpStatusCode.OK , new Message("Userid Required"));
                 }
 
             }
             catch (Exception e) {
 
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Please Contact to Server Adminstrator !!! ");
+                return Request.CreateErrorResponse(HttpStatusCode.OK, "Please Contact to Server Adminstrator !!! ");
             }
         }
     }
@@ -116,7 +116,8 @@ namespace gym_mgmt_01.Controllers
         public string JoinDate;
         public string ExpiredDate;
         public string ProfileURI;
-        public MemberResponse(int? Id ,string Name , string Phone ,string Membership ,  string JoinDate , string ExpiredDate, string ProfileURI ) {
+        public string data;
+        public MemberResponse(int? Id ,string Name , string Phone ,string Membership ,  string JoinDate , string ExpiredDate, string ProfileURI , string data ) {
             
           //  this.Id = Id;
             this.Name = Name;
@@ -125,6 +126,7 @@ namespace gym_mgmt_01.Controllers
             this.JoinDate = JoinDate;
             this.ExpiredDate = ExpiredDate;
             this.ProfileURI  = ProfileURI;
+            this.data = data;
         }
     }
 }
