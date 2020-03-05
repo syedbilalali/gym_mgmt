@@ -198,7 +198,6 @@
     <Compile Include="BAL\Master\SubscriptionOpt.cs" />
     <Compile Include="BAL\Master\VisitorOpration.cs" />
     <Compile Include="Controllers\APIController.cs" />
-    <Compile Include="Controllers\api\LoginController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -3665,7 +3664,6 @@
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Member\FindMember.cshtml" />
-    <Content Include="Views\Member\Member.cshtml" />
     <Content Include="Views\Staff\Index.cshtml" />
     <Content Include="Views\Staff\FindStaff.cshtml" />
     <Content Include="Views\Staff\Authorize.cshtml" />
@@ -3718,7 +3716,7 @@
     <Content Include="Views\QRGenerate\Generate.cshtml" />
     <Content Include="Views\QRGenerate\Index.cshtml" />
     <Content Include="Views\Member\_QrDetails.cshtml" />
-    <Content Include="Views\Member\_QrGenrate.cshtml" />
+    <Content Include="Views\Staff\GenerateQR.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -47,6 +47,7 @@ namespace gym_mgmt_01.Models
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Password and Confirmation Password must match.")]
         public string ConfirmPassword { get; set;  }
         public string ImgURL { get; set; }
+        public string QrURL { get; set; }
 
         public HttpPostedFileBase PostedFile { get; set; }
         public string permission { get; set;  }

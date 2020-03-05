@@ -37,14 +37,15 @@ namespace gym_mgmt_01.Controllers
         {
             string folderPath = "~/Images/";
             string imagePath = "~/Images/QrCode.jpg";
+            
             // If the directory doesn't exist then create it.
             if (!Directory.Exists(Server.MapPath(folderPath)))
             {
                 Directory.CreateDirectory(Server.MapPath(folderPath));
             }
-
             var barcodeWriter = new BarcodeWriter();
             barcodeWriter.Format = BarcodeFormat.QR_CODE;
+         //   barcodeWriter.Options = options;
             var result = barcodeWriter.Write(qrcodeText);
 
             string barcodePath = Server.MapPath(imagePath);

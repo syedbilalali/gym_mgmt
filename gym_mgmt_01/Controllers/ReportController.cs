@@ -129,8 +129,8 @@ namespace gym_mgmt_01.Controllers
         {
             List<SellsOrder> so = ro.getAlSellsOrder(fromdate, todate);
             model.sellsReport = so;
-            return View(model);
-        }
+                return View(model);
+            }
         [HttpPost]
         public ActionResult AllBillsExport()
         {
@@ -171,6 +171,13 @@ namespace gym_mgmt_01.Controllers
         public ActionResult AllVisitor()
         {
             List<Visitor> so = ro.getAllVisitor();
+            model.visitReport = so;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult AllVisitor(DateTime? fromdate , DateTime? todate)
+        {
+            List<Visitor> so = ro.getAllVisitor(fromdate , todate);
             model.visitReport = so;
             return View(model);
         }

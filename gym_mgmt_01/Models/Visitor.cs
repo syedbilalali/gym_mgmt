@@ -17,6 +17,9 @@ namespace gym_mgmt_01.Models
         public string ClockOut { get; set; }
         public string Total_Hour { get; set; }
         public string Status { get; set; }
+        public int elapse_sec { get; set; }
+        public int elapse_min { get; set; }
+        public int elapse_hour { get; set; }
         public DateTime CreatedAt  { get; set; }
     }
 }

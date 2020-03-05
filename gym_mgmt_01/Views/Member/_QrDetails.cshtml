@@ -1,18 +1,40 @@
 ﻿
 <div class="form p-t-20">
-    <div class="align-content-center">
         @if (Model.member != null)
         {
             if (Model.member.QRUri != "" && !String.IsNullOrEmpty(Model.member.QRUri))
             {
-                <img src="@Url.Content(Model.member.QRUri)" alt="Image" width="200" height="200" />
+                <div class="container" id="toNewWindow">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img src="@Url.Content(Model.member.QRUri)" alt="Image" width="300" height="300" />
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title">Member Details</h4>
+                                    <p class="card-text">Membername : @Model.member.FirstName</p>
+                                    <p class="card-text">Membership : 3 Month</p>
+                                    <p class="card-text">Expired On : 03/3/2020</p>
+                                    @*<p class="card-text">QR URI : @Model.member.QRUri</p>
+                                    <a href="#" id="print" class="btn btn-primary">Print</a>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
             else
-            {
-                 <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Generate", "Member", new { id = Model.member.Id })'">Generate QR Code</button>
+            {   
+                <div class="container">
+                   <div class="row">
+                       <div class="col-md-12" style=" width:50%">
+                           <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Generate", "Member", new { id = Model.member.Id })'">Generate QR</button>
+                       </div>
+                   </div>
+                </div>
             }
         }
-    </div>
 </div>
 @section scripts{
     <script src="~/Scripts/jquery.validate.min.js"></script>

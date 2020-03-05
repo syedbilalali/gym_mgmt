@@ -16,13 +16,14 @@ namespace gym_mgmt_01.BAL.Master
         }
         public void AddVisit(Visitor visit) {
 
-            string command = "INSERT INTO dbo.Visitors(UserID, UserType ,Date,Clock ,Status ,CreatedAt) VALUES(@UserID, @UserType ,@Date,@Clock ,@Status ,CURRENT_TIMESTAMP)";
-            SqlParameter[] param = new SqlParameter[5];
+            string command = "INSERT INTO dbo.Visitors(UserID , Username, UserType ,Date,Clock ,Status ,CreatedAt) VALUES(@UserID, @Username,  @UserType ,@Date,@Clock ,@Status ,CURRENT_TIMESTAMP)";
+            SqlParameter[] param = new SqlParameter[6];
             param[0] = new SqlParameter("@UserID", visit.UserID);
-            param[1] = new SqlParameter("@UserType", visit.UserType);
-            param[2] = new SqlParameter("@Date", visit.Date);
-            param[3] = new SqlParameter("@Clock", visit.Clock);
-            param[4] = new SqlParameter("@Status", visit.Status);           
+            param[1] = new SqlParameter("@Username", visit.VisitorName);
+            param[2] = new SqlParameter("@UserType", visit.UserType);
+            param[3] = new SqlParameter("@Date", visit.Date);
+            param[4] = new SqlParameter("@Clock", visit.Clock);
+            param[5] = new SqlParameter("@Status", visit.Status);           
             da.Insert(param, command);
         }
     }

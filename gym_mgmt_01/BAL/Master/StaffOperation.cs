@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using gym_mgmt_01.DAL;
 using gym_mgmt_01.Models;
 
+
 namespace gym_mgmt_01.BAL.Master
 {   
     
@@ -107,10 +108,28 @@ namespace gym_mgmt_01.BAL.Master
                     Password = dr["Password"].ToString(),
                     Designation = dr["Designation"].ToString(),
                     ImgURL = dr["ImgURL"].ToString(),
+                    QrURL = dr["QrURL"].ToString(),
                     permission = dr["permisions"].ToString(),
                 }).ToList();
             }
             return st;
+        }
+        public Staff getStaffByID(string StaffID) {
+            List<Staff> staff = this.getAllStaff();
+            Staff da = staff.SingleOrDefault(x=>x.StaffID == StaffID);
+            if (da != null) {
+                return da;
+            }
+            return null;
+         }
+        public bool saveQRCode(int Id, string ImageURI)
+        {
+
+            string command = "UPDATE dbo.Staff SET QrURL=@QrURL WHERE StaffID=@Id";
+            SqlParameter[] param = new SqlParameter[2];
+            param[0] = new SqlParameter("@Id", Id);
+            param[1] = new SqlParameter("@QrURL", ImageURI);
+            return da.Insert(param, command);
         }
     }
    

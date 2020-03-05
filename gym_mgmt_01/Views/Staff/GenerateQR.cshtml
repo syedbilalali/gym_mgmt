@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "GenerateQR";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}   @if (Model.staff != null) {
+    <div class="row p-t-20">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form p-t-20">
+                        @if (Model.staff.QrURL != null && Model.staff.QrURL != "")
+                        {
+                            <div class="container" id="toNewWindow">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="@Url.Content(Model.staff.QrURL)" alt="Image" width="300" height="300">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <h4 class="card-title">Member Details</h4>
+                                                <p class="card-text">Membername : @Model.staff.FirstName</p>
+                                                <p class="card-text">Gender  : @Model.staff.Gender</p>
+                                                <p class="card-text">Designation  : @Model.staff.Designation</p>
+                                                <a href="#" id="print" class="btn btn-primary">Print</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12" style=" width:50%">
+                                        <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Generate", "Staff", new { id = Model.staff.StaffID })'">Generate QR</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+

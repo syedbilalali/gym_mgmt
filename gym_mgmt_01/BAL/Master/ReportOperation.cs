@@ -114,37 +114,57 @@ namespace gym_mgmt_01.BAL.Master
             }
             return sellsOrder;
         }
-        public List<Visitor> getAllVisitor()
+        public List<Visitor> getAllVisitor(DateTime? fromdate1 , DateTime? todate1)
         {
             DataTable dt = new DataTable();
-        //  string fromdatest = String.Format("{0:yyyy-MM-dd}", fromdate) + " 00:00:00";
-           // string todatest = String.Format("{0:yyyy-MM-dd}", todate) + " 23:59:59";
-           
-            string command = "SELECT DISTINCT UserID,(mem.FirstName + ' ' + mem.LastName) as VisitorName,  UserType ,[Date] ,";
-            command += "MIN(Clock) OVER(PARTITION BY UserID ) AS ClockIn,";
-            command += "MAX(Clock) OVER(PARTITION BY UserID) AS ClockOut ";
-            command += "FROM Visitors visit INNER JOIN Member mem on visit.UserID = mem.Id ";
-            command += "GROUP BY UserID ,mem.FirstName , mem.LastName, UserType ,[Date] , Clock ";
-            command += "ORDER BY UserID ";
-            //"WHERE so.CreatedAt BETWEEN '" + fromdatest + "' AND '" + todatest + "'";
+            string command = "spVisitorDetails";
+            string fromdate = String.Format("{0:MM/dd/yyyy}", fromdate1);
+            string todate = String.Format("{0:MM/dd/yyyy}", todate1);
+            SqlParameter[] param = new SqlParameter[3];
+            param[0] = new SqlParameter("@FILTER" ,"ON");
+            param[1] = new SqlParameter("@FROM_DATE" ,fromdate);
+            param[2] = new SqlParameter("@TO_DATE" ,todate);
             List<Visitor> visitors = new List<Visitor>();
-            dt = da.FetchAll(command);
+            dt = da.FetchByParamSP(param , command);
             if (dt.Rows.Count > 0)
             {
                 visitors = (from DataRow dr in dt.Rows
                               select new Visitor()
                               {
-                                 // VisitorID = int.Parse(dr["VisitorID"].ToString()),
                                   UserID = int.Parse(dr["UserID"].ToString()),
-                                  VisitorName = dr["VisitorName"].ToString(),
+                                  VisitorName = dr["Username"].ToString(),
                                   UserType = dr["UserType"].ToString(),
                                   Date = dr["Date"].ToString(),
                                   ClockIn = DateTime.Parse(dr["ClockIn"].ToString()).ToString("HH:mm:ss"),
                                   ClockOut = DateTime.Parse(dr["ClockOut"].ToString()).ToString("HH:mm:ss"),
-                               //   CreatedAt = DateTime.Parse(dr["CreatedAt"].ToString())
+                                  Total_Hour = TimeSpan.FromSeconds(double.Parse(dr["elapsed_sec"].ToString())).ToString()
                               }).ToList();
             }
             return visitors;
+        }
+        public List<Visitor> getAllVisitor() {
+            List<Visitor> visitors = new List<Visitor>();
+            DataTable dt = new DataTable();
+            string command = "spVisitorDetails";
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter("@FILTER", "OFF");
+            dt = da.FetchByParamSP(param , command);
+            if (dt.Rows.Count > 0)
+            {
+                visitors = (from DataRow dr in dt.Rows
+                            select new Visitor()
+                            {
+                                UserID = int.Parse(dr["UserID"].ToString()),
+                                VisitorName = dr["Username"].ToString(),
+                                UserType = dr["UserType"].ToString(),
+                                Date = dr["Date"].ToString(),
+                                ClockIn = DateTime.Parse(dr["ClockIn"].ToString()).ToString("HH:mm:ss"),
+                                ClockOut = DateTime.Parse(dr["ClockOut"].ToString()).ToString("HH:mm:ss"),
+                                Total_Hour =TimeSpan.FromSeconds(double.Parse(dr["elapsed_sec"].ToString())).ToString()
+                            }).ToList();
+            }
+            return visitors;
+
         }
     }
 }

@@ -11,6 +11,10 @@ using gym_mgmt_01.Models;
 using System.Configuration;
 using Newtonsoft.Json;
 using gym_mgmt_01.Helper_Code.Common;
+using ZXing;
+using System.Drawing;
+using System.Drawing.Imaging;
+using ZXing.QrCode;
 
 namespace gym_mgmt_01.Controllers
  {
@@ -161,6 +165,35 @@ namespace gym_mgmt_01.Controllers
             var st = staff.Find(x => x.StaffID.Equals(id.ToString()));
             return Json(st, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult GenerateQR(int id ) {
+            Staff staff = so.getStaffByID(id.ToString());
+            if (staff != null)
+            {
+                model.staff = staff;
+            }
+            return View(model);
+        }
+        [HttpGet]
+        public ActionResult Generate(int id)
+        {
+            try
+            {
+
+                string qr_data = "{ 'id' : '" + id.ToString() + "','role':'staff'}";
+                string data = GenerateQRCode(qr_data);
+                bool flag = so.saveQRCode(id, data);
+                if (flag)
+                {
+                    ViewBag.Message = "QR Code Created successfully";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //catch exception if there is any
+            }
+            return RedirectToAction("GenerateQR", new { id = id });
+        }
         [AuthorizationPrivilegeFilter("Staff", "Edit")]
         public ActionResult _EditStaff(Staff  st) {
 
@@ -269,6 +302,41 @@ namespace gym_mgmt_01.Controllers
                 status = true;
             }
             return status;
+        }
+        private string GenerateQRCode(string qrcodeText)
+        {
+            Random random = new Random();
+            string folderPath = "~/Images/";
+            string imagePath = "~/Images/Staff_Qr_" + random.Next() + ".jpg";
+            // If the directory doesn't exist then create it.
+            QrCodeEncodingOptions options = new QrCodeEncodingOptions();
+            options = new QrCodeEncodingOptions
+            {
+                DisableECI = true,
+                CharacterSet = "UTF-8",
+                Width = 300,
+                Height = 300,
+            };
+            if (!Directory.Exists(Server.MapPath(folderPath)))
+            {
+                Directory.CreateDirectory(Server.MapPath(folderPath));
+            }
+            var barcodeWriter = new BarcodeWriter();
+            barcodeWriter.Format = BarcodeFormat.QR_CODE;
+            barcodeWriter.Options = options;
+            var result = barcodeWriter.Write(qrcodeText);
+            string barcodePath = Server.MapPath(imagePath);
+            var barcodeBitmap = new Bitmap(result);
+            using (MemoryStream memory = new MemoryStream())
+            {
+                using (FileStream fs = new FileStream(barcodePath, FileMode.Create, FileAccess.ReadWrite))
+                {
+                    barcodeBitmap.Save(memory, ImageFormat.Jpeg);
+                    byte[] bytes = memory.ToArray();
+                    fs.Write(bytes, 0, bytes.Length);
+                }
+            }
+            return imagePath;
         }
     }
    
