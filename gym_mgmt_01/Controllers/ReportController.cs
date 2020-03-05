@@ -16,6 +16,7 @@ namespace gym_mgmt_01.Controllers
     {
         // GET: Report
         ReportOperation ro = new ReportOperation();
+        VisitorOpration vo = new VisitorOpration();
         dynamic model = new System.Dynamic.ExpandoObject();
         public ActionResult Index()
         {
@@ -180,6 +181,37 @@ namespace gym_mgmt_01.Controllers
             List<Visitor> so = ro.getAllVisitor(fromdate , todate);
             model.visitReport = so;
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult AllVisitorExport() {
+
+            List<Visitor> visit = ro.getAllVisitor();
+            List<object> so = (from vis in visit.ToList()
+                               select new[] { vis.UserID.ToString(),
+                                              vis.VisitorName.ToString(),
+                                              vis.UserType.ToString(),
+                                              vis.Date.ToString(),
+                                              vis.ClockIn.ToString(),
+                                              vis.ClockOut.ToString(),
+                                              vis.Total_Hour.ToString(),
+                                }).ToList<object>();
+            so.Insert(0, new string[7] { " UserID ", " Visitor Name ", " Visitor Type ", " Date ", " CheckIn ", " CheckOut ", " Total_Time " });
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < so.Count; i++)
+            {
+
+                string[] customer = (string[])so[i];
+                for (int j = 0; j < customer.Length; j++)
+                {
+                    //Append data with separator.
+                    sb.Append(customer[j] + ',');
+                }
+                //Append new line character.
+                sb.Append("\r\n");
+            }
+            string current_date = DateTime.Now.ToShortDateString();
+            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Visit_Details" + current_date + ".csv");
+
         }
         public ActionResult AllBillsPdf()
         {

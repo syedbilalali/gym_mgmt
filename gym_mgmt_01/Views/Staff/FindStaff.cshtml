@@ -71,7 +71,14 @@
                                     <button type="button" class="btn btn-info editbtn1" onclick="location.href='@Url.Action("Authorize", "Staff", new { id = staff.StaffID })'">Authorize</button>
                                     <button type="button" class="btn btn-info editbtn1" onclick="GetDetails(@staff.StaffID)">Edit</button>
                                     <button type="button" class="btn btn-primary deletebtn1" onclick="location.href='@Url.Action("DeleteStaff", "Staff", new { id = staff.StaffID })'">Delete</button>
-                                    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("GenerateQR", "Staff", new { id = staff.StaffID })'">Generate QR</button>
+                                    if (@staff.QrURL != null && @staff.QrURL != "")
+                                    {
+                                        <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("GenerateQR", "Staff", new { id = staff.StaffID })'">View QR</button>
+                                    }
+                                    else{ 
+                                         <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("GenerateQR", "Staff", new { id = staff.StaffID })'">Create QR</button>
+                                    }
+
                                 }
                                 else
                                 {

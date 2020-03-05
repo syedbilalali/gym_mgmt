@@ -22043,3 +22043,17 @@ File: scss
     overflow: hidden; }
   .hidden-md-down {
     display: none; } }
+
+
+
+
+/**********/
+.clsabs {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.wid50 {
+    width:50%;
+    float:left;
+}

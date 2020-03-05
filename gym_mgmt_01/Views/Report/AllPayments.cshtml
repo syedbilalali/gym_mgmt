@@ -44,19 +44,21 @@
                 }
 
             }
-            @using (Html.BeginForm("AllPaymentPrint", "Report", FormMethod.Post, new { @style = "display:contents;" }))
-            {
+            @*- Not In feature 
+                    @using (Html.BeginForm("AllPaymentPrint", "Report", FormMethod.Post, new { @style = "display:contents;" }))
+                    {
 
-                if (Model.sellsReport.Count > 0)
-                {
-                    <button type="submit" class="btn btn-info">Print</button>
-                }
-                else
-                {
-                    <button type="submit" disabled class="btn btn-info">Print</button>
-                }
+                        if (Model.sellsReport.Count > 0)
+                        {
+                            <button type="submit" class="btn btn-info">Print</button>
+                        }
+                        else
+                        {
+                            <button type="submit" disabled class="btn btn-info">Print</button>
+                        }
 
-            }
+                    }*@
+            
         </div>
     </div>
     <div class="addrolestab scrolltab">

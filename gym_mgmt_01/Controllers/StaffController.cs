@@ -124,7 +124,8 @@ namespace gym_mgmt_01.Controllers
                         Gender = dr["Gender"].ToString(),
                         Email = dr["Email"].ToString(),
                         Designation = dr["Designation"].ToString(),
-                        ImgURL = dr["ImgURL"].ToString()
+                        ImgURL = dr["ImgURL"].ToString(),
+                        QrURL = dr["QrURL"].ToString()
                     }).ToList();
             model.staff = data;
             return View(model);
