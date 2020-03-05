@@ -236,11 +236,14 @@
     <Compile Include="Models\EmergencyContact.cs" />
     <Compile Include="Models\FileUpload1.cs" />
     <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\LoginPara.cs" />
     <Compile Include="Models\MasterLogin.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MemberDetails.cs" />
     <Compile Include="Models\MemberRegistration.cs" />
+    <Compile Include="Models\MemberResponse.cs" />
     <Compile Include="Models\Membership.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\ModuleDetails.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductType.cs" />
@@ -252,6 +255,7 @@
     <Compile Include="Models\SellsOrder.cs" />
     <Compile Include="Models\SellsOrderItems.cs" />
     <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\StaffResponse.cs" />
     <Compile Include="Models\Stocks.cs" />
     <Compile Include="Models\SubscriptionReport.cs" />
     <Compile Include="Models\Subscriptions.cs" />

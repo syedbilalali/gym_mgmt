@@ -119,8 +119,6 @@ namespace gym_mgmt_01.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, new Message("Userid Required"));
                 }
-            
-
             }
             catch (Exception e)
             {
@@ -128,71 +126,5 @@ namespace gym_mgmt_01.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.OK, "Please Contact to Server Adminstrator !!! ");
             }
         }
-    }
-    public class Message {
-
-       // public string msg;
-       // public HttpStatusCode code;
-      //  public string status;
-        public object data;
-
-        public Message(Object data) {
-            this.data = data;
-        }
-        public Message(HttpStatusCode code, string msg , string status) {
-         //   this.code = code;
-         //   this.msg = msg;
-         //   this.status = status;
-        }
-        public Message(HttpStatusCode code, string msg, string status, object data)
-        {
-         //   this.code = code;
-          //  this.msg = msg;
-         //   this.status = status;
-            this.data = data;
-        }
-    }
-    public class MemberResponse {
-
-       // public int? Id;
-        public string Name;
-        public string Membership;
-        public string Phone;
-        public string JoinDate;
-        public string ExpiredDate;
-        public string ProfileURI;
-        public string data;
-        public MemberResponse(int? Id ,string Name , string Phone ,string Membership ,  string JoinDate , string ExpiredDate, string ProfileURI , string data ) {
-            
-          //  this.Id = Id;
-            this.Name = Name;
-            this.Phone = Phone;
-            this.Membership = Membership;
-            this.JoinDate = JoinDate;
-            this.ExpiredDate = ExpiredDate;
-            this.ProfileURI  = ProfileURI;
-            this.data = data;
-        }
-    }
-    public class StaffResponse { 
-
-        public string Name { get; set; }
-        public string Designation { get; set; }
-     //   public string Contact { get; set;  }
-        public string Email { get; set; }
-        public string ProfileURI { get; set; }
-        public string data { get; set; }
-        public StaffResponse(string Name , string Designation , string Email ,string ProfileURI , string data)
-        {
-            this.Name = Name;
-            this.Designation = Designation;
-            this.Email = Email;
-            this.ProfileURI = ProfileURI;
-            this.data = data;
-        }
-    }
-    public class LoginPara {
-        public string userid { get; set; }
-        public string role { get; set;  }
     }
 }
