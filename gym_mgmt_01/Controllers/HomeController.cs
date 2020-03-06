@@ -22,10 +22,14 @@ namespace gym_mgmt_01.Controllers
         SalesTaxOperations taxOperations = new SalesTaxOperations();
         DataTable dt = new DataTable();
         dynamic model = new System.Dynamic.ExpandoObject();
+        DashboardOperation dash = new DashboardOperation();
         [Authorize]
         public ActionResult Index()
         {   
-              
+            //test
+            if (HttpContext.Session["user"] == null) {
+                return RedirectToAction("Index", "Login");
+            }
             if (Session["Email"] != null && Session["Password"] != null && Session["user"].ToString() == "Admin")
             {
                 dt = ml.getData(Session["Email"].ToString(), Session["Password"].ToString());
@@ -37,6 +41,12 @@ namespace gym_mgmt_01.Controllers
                     Session["ImageURL"] = dt.Rows[0]["ImageURL"].ToString();
                     Session["FirstName"] = dt.Rows[0]["FirstName"].ToString();
                     Session["LastName"] = dt.Rows[0]["LastName"].ToString();
+
+                    //ASSIGN COUNT VALUE
+                    ViewBag.ALL_MEMBERASHIP = dash.GetAllMemberships();
+                    ViewBag.ALL_MEMBER = dash.GetAllMembers();
+                    ViewBag.ALL_SUBSCRIPTION = dash.GetAllSubscriptions();
+                    ViewBag.ALL_INVOICES = dash.GetAllInvoices();
                 }
             }
             else if (Session["Email"] != null && Session["Password"] != null && Session["user"].ToString() == "Staff") {
@@ -51,7 +61,13 @@ namespace gym_mgmt_01.Controllers
                     var json = dt.Rows[0]["permisions"].ToString();
                     List<ModuleDetails> md = JsonConvert.DeserializeObject<List<ModuleDetails>>(json);
                     Session["modules"] = md;
-                    }
+
+                    //ASSIGN COUNT VALUE
+                    ViewBag.ALL_MEMBERASHIP = dash.GetAllMemberships();
+                    ViewBag.ALL_MEMBER = dash.GetAllMembers();
+                    ViewBag.ALL_SUBSCRIPTION = dash.GetAllSubscriptions();
+                    ViewBag.ALL_INVOICES = dash.GetAllInvoices();
+                }
             }
             else
             {

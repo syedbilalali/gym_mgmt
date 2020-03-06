@@ -42,7 +42,7 @@ namespace gym_mgmt_01.BAL.Master
         }
         public List<SellsOrderItems> getAlSellsOrderItems() {
 
-            string command = "SELECT * FROM dbo.P";
+            string command = "SELECT * FROM dbo.SalesOrderItems";
             List<SellsOrderItems> sellsOrderItems = new List<SellsOrderItems>();
             dt = da.FetchAll(command);
             if (dt.Rows.Count > 0)

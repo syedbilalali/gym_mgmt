@@ -181,6 +181,7 @@
     <Compile Include="BAL\Master\AddtionalDetailsOpt.cs" />
     <Compile Include="BAL\Master\ClassesOpt.cs" />
     <Compile Include="BAL\Master\ContactOpration.cs" />
+    <Compile Include="BAL\Master\DashboardOperation.cs" />
     <Compile Include="BAL\Master\EmergencyContactOpt.cs" />
     <Compile Include="BAL\Master\LoginResponse.cs" />
     <Compile Include="BAL\Master\LoginServices.cs" />
@@ -3721,6 +3722,7 @@
     <Content Include="Views\QRGenerate\Index.cshtml" />
     <Content Include="Views\Member\_QrDetails.cshtml" />
     <Content Include="Views\Staff\GenerateQR.cshtml" />
+    <Content Include="Views\Invoice\Invoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

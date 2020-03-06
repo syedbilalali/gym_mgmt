@@ -745,8 +745,11 @@
             }
             addSellsOrder(invoiceID.value, selectedMember, subtotal.innerHTML, salestax.innerHTML, totalammount.innerHTML, "PAID", totalPay.innerHTML, 0, remianPrice.innerHTML);
             resetPanel();
-            window.open('/invoice/get_last_Invoice', '_blank');
-            window.location.reload();
+            //Redirect to Next Page 
+            //window.open('/invoice/get_last_Invoice', '_blank');
+            window.location.replace('/invoice/Invoice');
+          //  window.open('/invoice/Invoice', '_blank');
+          //  window.location.reload();
         }
         function removeSelectedMembers() {
 

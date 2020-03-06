@@ -111,9 +111,7 @@ namespace gym_mgmt_01.Controllers
                         {
                             return Request.CreateResponse(HttpStatusCode.OK, new Message("Staff Not Found"));
                         }
-
                     }
-
                 }
                 else
                 {

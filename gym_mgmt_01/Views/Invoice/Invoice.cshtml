@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "Invoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">Invoice</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-right">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Invoice</li>
+            </ol>
+            <button id="print" type="button" class="btn btn-info d-none d-lg-block m-l-15"></i>Print</button>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Start Page Content -->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-body printableArea">
+            <div class="invoice">
+                <h2>PHYSIOFIT CLUB</h2>
+                <h3>Invoice</h3>
+                <div class="invoicetable">
+                    <table class="table">
+                        <tbody>
+                            <tr style="border: 0px solid #fff;">
+                                <td>123 somewhere lane</td>
+                                <td class="bold">Invoice Date :</td>
+                                <td>@Model.SellOrder.CreatedAt.Date.ToString("dd MMM yyyy")</td>
+
+                            </tr>
+                            <tr>
+                                <td>Somewhereville</td>
+                                <td class="bold">Invoice Number :</td>
+                                <td>@Model.SellOrder.Invoice_number</td>
+                            </tr>
+                            <tr>
+                                <td>Somewhere</td>
+                                <td class="bold">Member :</td>
+                                <td>@Model.SellOrder.Member_Name</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="invoicetable">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Occured</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Paid</th>
+                                <th scope="col">Unit Price</th>
+                                <th scope="col">Totals</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.SellOrderItems.Count > 0)
+                            {
+                                foreach (var sellOrderItems in Model.SellOrderItems)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            @{
+
+                                                @sellOrderItems.CreatedAt.Date.ToString("dd MMM yyyy")
+                                            }
+                                        </td>
+                                        <td>@sellOrderItems.ProductName</td>
+                                        <td>@sellOrderItems.quantity</td>
+                                        <td>@sellOrderItems.discount_price</td>
+                                        <td>@sellOrderItems.unit_price OMR</td>
+                                        <td>@sellOrderItems.total_price OMR</td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td colspan="5" class="subclass1">Subtotal</td>
+                                <td class="bold">@Model.SellOrder.Subtotal OMR</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="subclass1">Due</td>
+                                <td class="bold">@Model.SellOrder.Sales_Tax OMR</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="subclass1">Total</td>
+                                <td class="bold">@Model.SellOrder.Total_Amount OMR</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="bold">To Pay</td>
+                                <td colspan="2" class="bold">@Model.SellOrder.Total_Pay OMR</td>
+                                <td colspan="2" class="bold">Status : @Model.SellOrder.Paid_Status</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End PAge Content -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="../assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="../assets/node_modules/popper/popper.min.js"></script>
+<script src="../assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="dist/js/perfect-scrollbar.jquery.min.js"></script>
+<!--Wave Effects -->
+<script src="dist/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="dist/js/sidebarmenu.js"></script>
+<!--stickey kit -->
+<script src="../assets/node_modules/sticky-kit-master/dist/sticky-kit.min.js"></script>
+<script src="../assets/node_modules/sparkline/jquery.sparkline.min.js"></script>
+<!--Custom JavaScript -->
+<script src="dist/js/custom.min.js"></script>
+<script src="dist/js/pages/jquery.PrintArea.js" type="text/JavaScript"></script>
+<script>
+    $(document).ready(function() {
+        $("#print").click(function() {
+            var mode = 'iframe'; //popup
+            var close = mode == "popup";
+            var options = {
+                mode: mode,
+                popClose: close
+            };
+            $("div.printableArea").printArea(options);
+        });
+    });
+</script>

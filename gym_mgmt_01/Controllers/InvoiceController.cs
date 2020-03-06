@@ -60,5 +60,13 @@ namespace gym_mgmt_01.Controllers
             int lastInvoiceID = soOp.getLastInvoiceIDINT();
             return lastInvoiceID;
         }
+        public ActionResult Invoice() {
+
+            int lastInvoiceID = getLastInvoiceID();
+            ViewBag.Title = "Invoice ID : " + lastInvoiceID;
+            model.SellOrderItems = soiOp.getAlSellsOrderItemsByID(lastInvoiceID);
+            model.SellOrder = soOp.getAlSellsOrderByID(lastInvoiceID);
+            return View(model);
+        }
     }
 }
