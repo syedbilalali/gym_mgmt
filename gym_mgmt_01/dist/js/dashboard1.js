@@ -1,6 +1,6 @@
 $(function () {
     "use strict";
-    //This is for the Notification top right
+   // This is for the Notification top right
     //$.toast({
     //        heading: 'Welcome to Elite admin'
     //        , text: 'Use the predefined ones, or specify a custom position object.'
@@ -109,6 +109,35 @@ $(function () {
         , lineColors: ['#b4becb', '#01c0c8']
         , resize: true
     });
+    var data = [
+        { y: '2014', a: 50, b: 90 },
+        { y: '2015', a: 65, b: 75 },
+        { y: '2016', a: 50, b: 50 },
+        { y: '2017', a: 75, b: 60 },
+        { y: '2018', a: 80, b: 65 },
+        { y: '2019', a: 90, b: 70 },
+        { y: '2020', a: 100, b: 75 },
+        { y: '2021', a: 115, b: 75 },
+        { y: '2022', a: 120, b: 85 },
+        { y: '2023', a: 145, b: 85 },
+        { y: '2024', a: 160, b: 95 }
+    ],
+        config = {
+            data: data,
+            xkey: 'y',
+            ykeys: ['a', 'b'],
+            labels: ['Total Income', 'Total Outcome'],
+            fillOpacity: 0.6,
+            hideHover: 'auto',
+            behaveLikeLine: true,
+            resize: true,
+            pointFillColors: ['#ffffff'],
+            pointStrokeColors: ['black'],
+            lineColors: ['gray', 'red']
+        };
+    config.element = 'graph';
+    alert(config);
+    Morris.Bar(config);
 });    
     // sparkline
     var sparklineLogin = function() { 

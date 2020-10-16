@@ -126,7 +126,7 @@
 <!-- ============================================================== -->
 <!-- Over Visitor, Our income , slaes different and  sales prediction -->
 <!-- ============================================================== -->
-    <div class="row" style="display:none;">
+<div class="row">
     <!-- Column -->
     <div class="col-lg-8 col-md-12">
         <div class="card">
@@ -215,7 +215,6 @@
 <!-- ============================================================== -->
 <!-- Comment - table -->
 <!-- ============================================================== -->
-
 <!-- ============================================================== -->
 <!-- End Comment - chats -->
 <!-- ============================================================== -->
@@ -236,7 +235,8 @@
                         </ul>
                     </div>
                 </div>
-                <div id="morris-area-chart2" style="height: 340px;"></div>
+                @*<div id="morris-area-chart2" style="height: 340px;"></div>*@
+                <div id="graph" style="height: 340px;"></div>
             </div>
         </div>
     </div>
@@ -270,7 +270,7 @@
                             <div class="col-6  m-t-30">
                                 <h1 class="text-white">$347</h1>
                                 <p class="light_op_text">APRIL 2017</p>
-                                <b class="text-white">(150 Sales)</b>
+                                @*<b class="text-white">(150 Sales)</b>*@
                             </div>
                             <div class="col-6">
                                 <div id="sales1" class="text-right"></div>
@@ -282,14 +282,43 @@
             <!-- Column -->
         </div>
     </div>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="row">
+                <div class="col-lg-4 col-xlg-3 col-md-4 col-sm-12 b-r">
+                    <div class="card-body">
+                        <h3>User Analatics</h3>
+                        <h6 class="card-subtitle">for the all products</h6>
+                        <div class="row">
+                            <div class="col-lg-12 m-t-40">
+                                <h1 class="m-b-0 font-light">31568</h1>
+                                <h6 class="text-muted">Page views</h6>
+                            </div>
+                            <div class="col-lg-12 m-t-40">
+                                <h1 class="m-b-0 font-light">8457</h1>
+                                <h6 class="text-muted">New Visits</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-xlg-9 col-md-8 col-sm-12 align-self-center">
+                    <div class="card-body">
+                        <div class="user-analytics chartist-chart" style="height: 250px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+@section scripts {
+    <script src="@Url.Content("~/dist/js/dashboard1.js")"></script>
+}
 <!-- ============================================================== -->
 <!-- End Page Content -->
 <!-- ============================================================== -->
 <!-- ============================================================== -->
 <!-- Todo, chat, notification -->
 <!-- ============================================================== -->
-
 <!-- ============================================================== -->
 <!-- End Page Content -->
 <!-- ============================================================== -->

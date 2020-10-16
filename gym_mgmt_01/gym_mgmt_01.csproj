@@ -266,6 +266,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\gym_management.sql" />
     <Content Include="assets\icons\crypto-icons\cryptocoins-colors.css" />
     <Content Include="assets\icons\crypto-icons\cryptocoins.css" />
     <Content Include="assets\icons\flag-icon-css\flag-icon.min.css" />
@@ -3724,9 +3725,7 @@
     <Content Include="Views\Staff\GenerateQR.cshtml" />
     <Content Include="Views\Invoice\Invoice.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
